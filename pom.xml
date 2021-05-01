@@ -11,7 +11,7 @@
     <groupId>com.sda</groupId>
     <artifactId>carrentalservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>carrentalservice</name>
+    <name>CarRentalService</name>
     <description>Final Project for SDA</description>
 
     <properties>
