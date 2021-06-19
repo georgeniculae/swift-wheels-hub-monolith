@@ -19,5 +19,4 @@ public class BookingTransformer {
         BeanUtils.copyProperties(booking, bookingDTO);
         return bookingDTO;
     }
-
 }
