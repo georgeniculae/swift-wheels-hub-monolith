@@ -42,7 +42,7 @@ public class UserMVCController {
     }
 
     @PostMapping(path = "/user/register")
-    public String registerUser(@ModelAttribute("userRegister") @Valid CustomerDTO customerDTO, BindingResult bindingResult) {
+    public String registerUser(@ModelAttribute("customer") @Valid CustomerDTO customerDTO, BindingResult bindingResult) {
         Optional<User> userOptional = userService.findUserByUsername(customerDTO.getUsername());
         if (userOptional.isPresent()) {
             bindingResult.rejectValue("username", null, "Username already exists!");
