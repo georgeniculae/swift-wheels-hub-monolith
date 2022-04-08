@@ -14,13 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/booking")
 @CrossOrigin(origins = "*")
-public class BookingController {
+public class BookingRestController {
 
     private final BookingService bookingService;
     private final BookingTransformer bookingTransformer;
 
     @Autowired
-    public BookingController(BookingService bookingService, BookingTransformer bookingTransformer) {
+    public BookingRestController(BookingService bookingService, BookingTransformer bookingTransformer) {
         this.bookingService = bookingService;
         this.bookingTransformer = bookingTransformer;
     }

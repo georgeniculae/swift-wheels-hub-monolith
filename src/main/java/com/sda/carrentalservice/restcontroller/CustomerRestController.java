@@ -14,13 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/customer")
 @CrossOrigin(origins = "*")
-public class CustomerController {
+public class CustomerRestController {
 
     private final CustomerService customerService;
     private final CustomerTransformer customerTransformer;
 
     @Autowired
-    public CustomerController(CustomerService customerService, CustomerTransformer customerTransformer) {
+    public CustomerRestController(CustomerService customerService, CustomerTransformer customerTransformer) {
         this.customerService = customerService;
         this.customerTransformer = customerTransformer;
     }

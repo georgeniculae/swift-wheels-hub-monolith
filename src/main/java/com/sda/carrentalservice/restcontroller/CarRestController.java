@@ -14,13 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/car")
 @CrossOrigin(origins = "*")
-public class CarController {
+public class CarRestController {
 
     private final CarService carService;
     private final CarTransformer carTransformer;
 
     @Autowired
-    public CarController(CarService carService, CarTransformer carTransformer) {
+    public CarRestController(CarService carService, CarTransformer carTransformer) {
         this.carService = carService;
         this.carTransformer = carTransformer;
     }
