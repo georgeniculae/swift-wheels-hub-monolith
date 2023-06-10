@@ -23,7 +23,7 @@ public class ReturnCarMvcController {
         this.returnCarService = returnCarService;
     }
 
-    @GetMapping(path = "/returnCars")
+    @GetMapping(path = "/return-cars")
     public String showReturnCars(Model model) {
         model.addAttribute("returnCars", this.returnCarService.findAllReturnCar());
         model.addAttribute("returnCarsNumber", this.returnCarService.countReturnCar());
@@ -31,7 +31,7 @@ public class ReturnCarMvcController {
         return "returnCar-list";
     }
 
-    @GetMapping(path = "/returnCar/registration")
+    @GetMapping(path = "/return-car/registration")
     public String showRegistration(Model model, Long id) {
         model.addAttribute("returnCar", new ReturnCar());
 //        model.addAttribute("employee", this.employeeService.findEmployeeById(id));
@@ -39,7 +39,7 @@ public class ReturnCarMvcController {
         return "add-returnCar";
     }
 
-    @PostMapping(path = "/returnCar/add")
+    @PostMapping(path = "/return-car/add")
     public String addReturnCar(@ModelAttribute("returnCar") @Valid ReturnCar returnCar, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-returnCar";
@@ -57,7 +57,7 @@ public class ReturnCarMvcController {
         return "redirect:/returnCars";
     }
 
-    @PostMapping(path = "/returnCar/update")
+    @PostMapping(path = "/return-car/update")
     public String editReturnCar(@ModelAttribute("returnCar") @Valid ReturnCar returnCar, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-returnCar";
@@ -65,10 +65,10 @@ public class ReturnCarMvcController {
 
         this.returnCarService.saveReturnCar(returnCar);
 
-        return "redirect:/returnCars";
+        return "redirect:/return-cars";
     }
 
-    @GetMapping(path = "/returnCar/edit/{id}")
+    @GetMapping(path = "/return-car/edit/{id}")
     public String showEditPageReturnCar(@PathVariable("id") Long id, Model model) {
         model.addAttribute("returnCar", this.returnCarService.findReturnCarById(id));
 

@@ -23,55 +23,55 @@ public class RentalOfficeMvcController {
         this.rentalOfficeService = rentalOfficeService;
     }
 
-    @GetMapping(path = "/rentaloffices")
+    @GetMapping(path = "/rental-offices")
     public String showBranches(Model model) {
         model.addAttribute("rentalOffices", this.rentalOfficeService.findAllRentalOffices());
         model.addAttribute("rentalOfficesNumber", this.rentalOfficeService.countRentalOffices());
 
-        return "rentaloffice-list";
+        return "rental-office-list";
     }
 
-    @GetMapping(path = "/rentaloffice/delete/{id}")
+    @GetMapping(path = "/rental-office/delete/{id}")
     public String deleteRentalOfficeById(@PathVariable("id") Long id) {
         rentalOfficeService.deleteRentalOfficeById(id);
 
-        return "redirect:/rentaloffices";
+        return "redirect:/rental-offices";
     }
 
-    @PostMapping(path = "/rentaloffice/add")
-    public String addRentalOffice(@ModelAttribute("rentaloffice") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
+    @PostMapping(path = "/rental-office/add")
+    public String addRentalOffice(@ModelAttribute("rental-office") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "add-rentaloffice";
+            return "add-rental-office";
         }
 
         this.rentalOfficeService.saveRentalOffice(rentalOffice);
 
-        return "redirect:/rentaloffices";
+        return "redirect:/rental-offices";
     }
 
-    @GetMapping(path = "/rentaloffice/registration")
+    @GetMapping(path = "/rental-office/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("rentaloffice", new RentalOffice());
+        model.addAttribute("rental-office", new RentalOffice());
 
-        return "add-rentaloffice";
+        return "add-rental-office";
     }
 
-    @PostMapping(path = "/rentaloffice/update")
-    public String editRentalOffice(@ModelAttribute("rentaloffice") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
+    @PostMapping(path = "/rental-office/update")
+    public String editRentalOffice(@ModelAttribute("rental-office") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "edit-rentaloffice";
+            return "edit-rental-office";
         }
 
         this.rentalOfficeService.saveRentalOffice(rentalOffice);
 
-        return "redirect:/rentaloffices";
+        return "redirect:/rental-offices";
     }
 
-    @GetMapping(path = "/rentaloffice/edit/{id}")
+    @GetMapping(path = "/rental-office/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("rentaloffice", this.rentalOfficeService.findRentalOfficeById(id));
+        model.addAttribute("rental-office", this.rentalOfficeService.findRentalOfficeById(id));
 
-        return "edit-rentaloffice";
+        return "edit-rental-office";
     }
 
 }

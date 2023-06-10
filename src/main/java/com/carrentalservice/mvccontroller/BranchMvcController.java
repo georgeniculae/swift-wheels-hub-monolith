@@ -33,7 +33,7 @@ public class BranchMvcController {
         this.rentalOfficeService = rentalOfficeService;
     }
 
-    @GetMapping(path = "/branches/availableCars")
+    @GetMapping(path = "/branches/available-cars")
     public String showAvailableCarsPage(Model model, Long id) {
         model.addAttribute("cars", this.carService.findAllCars());
 
@@ -48,7 +48,7 @@ public class BranchMvcController {
         return "branch-list";
     }
 
-    @GetMapping(path = "/allbranches")
+    @GetMapping(path = "/all-branches")
     public String showBranchesForIndex(Model model) {
         model.addAttribute("allBranches", this.branchService.findAllBranches());
         model.addAttribute("branchesNumber", this.branchService.countBranches());

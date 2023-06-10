@@ -202,7 +202,7 @@
                     Rental offices
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" th:href="@{/rentaloffice/registration}" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="dropdown-item" th:href="@{/rental-office/registration}" sec:authorize="hasRole('ROLE_ADMIN')">
                         <button type="button" class="btn btn-outline-primary">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square"
                                  fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -211,11 +211,11 @@
                                 <path fill-rule="evenodd"
                                       d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
                             </svg>
-                            Add new rantal office
+                            Add new rental office
                         </button>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" th:href="@{/rentaloffices}">
+                    <a class="dropdown-item" th:href="@{/rental-offices}">
                         <button type="button" class="btn btn-outline-primary">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -267,7 +267,7 @@
                     <span class="input-group-text" id="bodyType-span">Body Type</span>
                 </div>
                 <select id="inputGroupSelect1" class="custom-select" th:field="${car.bodyType}"}>
-                    <option th:each="bodyType : ${T(com.sda.carrentalservice.entity.BodyType).values()}"
+                    <option th:each="bodyType : ${T(com.carrentalservice.entity.BodyType).values()}"
                             th:value="${bodyType}"
                             th:text="${bodyType.displayName}">
                     </option>
@@ -310,7 +310,7 @@
                     <span class="input-group-text" id="status-span">Status</span>
                 </div>
                 <select id="inputGroupSelect" class="custom-select" th:field="${car.status}"}>
-                    <option th:each="status : ${T(com.sda.carrentalservice.entity.Status).values()}"
+                    <option th:each="status : ${T(com.carrentalservice.entity.Status).values()}"
                             th:value="${status}"
                             th:text="${status.displayName}">
                     </option>

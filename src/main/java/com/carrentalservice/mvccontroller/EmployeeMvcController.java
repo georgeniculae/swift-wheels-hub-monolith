@@ -36,7 +36,7 @@ public class EmployeeMvcController {
         return "employee-list";
     }
 
-    @GetMapping(path = "/allemployees")
+    @GetMapping(path = "/all-employees")
     public String showEmployeesForIndex(Model model) {
         List<Employee> allEmployees = this.employeeService.findAllEmployees();
         model.addAttribute("employees", allEmployees);

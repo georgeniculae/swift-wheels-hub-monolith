@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/register", "/user/register", "/", "/css/**", "/images/**").permitAll()
-                .antMatchers("/branch/**", "/car/**", "/customer/**", "/employee/**", "/rentaloffice/**").hasRole("ADMIN")
+                .antMatchers("/branch/**", "/car/**", "/customer/**", "/employee/**", "/rental-office/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
