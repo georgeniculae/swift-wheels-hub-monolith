@@ -9,18 +9,18 @@ public class CustomerDto extends UserDto {
     private String lastName;
     private String email;
     private String address;
-    private List<BookingDto> bookingDTOList = new ArrayList<>();
+    private List<BookingDto> bookingDtoList = new ArrayList<>();
 
     public CustomerDto() {
     }
 
-    public CustomerDto(Long id, String username, String password, String confirmPassword, String firstName, String lastName, String email, String address, List<BookingDto> bookingDTOList) {
+    public CustomerDto(Long id, String username, String password, String confirmPassword, String firstName, String lastName, String email, String address, List<BookingDto> bookingDtoList) {
         super(id, username, password, confirmPassword);
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.address = address;
-        this.bookingDTOList = bookingDTOList;
+        this.bookingDtoList = bookingDtoList;
     }
 
     public String getFirstName() {
@@ -56,10 +56,10 @@ public class CustomerDto extends UserDto {
     }
 
     public List<BookingDto> getBookingDTOList() {
-        return bookingDTOList;
+        return bookingDtoList;
     }
 
     public void setBookingDTOList(List<BookingDto> bookingDTOList) {
-        this.bookingDTOList = bookingDTOList;
+        this.bookingDtoList = bookingDTOList;
     }
 }

@@ -6,17 +6,17 @@ public class BranchDto extends BaseEntityDto {
 
     private String name;
     private String address;
-    private List<EmployeeDto> employeesDTO;
-    private List<CarDto> carsDTO;
-    private RentalOfficeDto rentalOfficeDTO;
+    private List<EmployeeDto> employeeDtoList;
+    private List<CarDto> carDtoList;
+    private RentalOfficeDto rentalOfficeDto;
 
-    public BranchDto(Long id, String name, String address, List<EmployeeDto> employeesDTO, List<CarDto> carsDTO, RentalOfficeDto rentalOfficeDTO) {
+    public BranchDto(Long id, String name, String address, List<EmployeeDto> employeeDtoList, List<CarDto> carDtoList, RentalOfficeDto rentalOfficeDto) {
         super(id);
         this.name = name;
         this.address = address;
-        this.employeesDTO = employeesDTO;
-        this.carsDTO = carsDTO;
-        this.rentalOfficeDTO = rentalOfficeDTO;
+        this.employeeDtoList = employeeDtoList;
+        this.carDtoList = carDtoList;
+        this.rentalOfficeDto = rentalOfficeDto;
     }
 
     public BranchDto() {
@@ -39,26 +39,26 @@ public class BranchDto extends BaseEntityDto {
     }
 
     public List<EmployeeDto> getEmployeesDTO() {
-        return employeesDTO;
+        return employeeDtoList;
     }
 
     public void setEmployees(List<EmployeeDto> employeesDTO) {
-        this.employeesDTO = employeesDTO;
+        this.employeeDtoList = employeesDTO;
     }
 
     public List<CarDto> getCarsDTO() {
-        return carsDTO;
+        return carDtoList;
     }
 
     public void setCarsDTO(List<CarDto> cars) {
-        this.carsDTO = carsDTO;
+        this.carDtoList = carDtoList;
     }
 
     public RentalOfficeDto getRentalOfficeDTO() {
-        return rentalOfficeDTO;
+        return rentalOfficeDto;
     }
 
     public void setRentalOfficeDTO(RentalOfficeDto rentalOfficeDTO) {
-        this.rentalOfficeDTO = rentalOfficeDTO;
+        this.rentalOfficeDto = rentalOfficeDTO;
     }
 }

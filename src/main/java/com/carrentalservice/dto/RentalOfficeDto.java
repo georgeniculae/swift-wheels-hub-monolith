@@ -18,16 +18,16 @@ public class RentalOfficeDto extends BaseEntityDto {
     private String owner;
 
     private String logoType;
-    private List<BranchDto> branchesDTO;
+    private List<BranchDto> brancheDtoList;
 
-    public RentalOfficeDto(Long id, String name, String internetDomain, String contactAddress, String owner, String logoType, List<BranchDto> branchesDTO) {
+    public RentalOfficeDto(Long id, String name, String internetDomain, String contactAddress, String owner, String logoType, List<BranchDto> brancheDtoList) {
         super(id);
         this.name = name;
         this.internetDomain = internetDomain;
         this.contactAddress = contactAddress;
         this.owner = owner;
         this.logoType = logoType;
-        this.branchesDTO = branchesDTO;
+        this.brancheDtoList = brancheDtoList;
     }
 
     public RentalOfficeDto() {
@@ -74,10 +74,10 @@ public class RentalOfficeDto extends BaseEntityDto {
     }
 
     public List<BranchDto> getBranchesDTO() {
-        return branchesDTO;
+        return brancheDtoList;
     }
 
     public void setBranchesDTO(List<BranchDto> branchesDTO) {
-        this.branchesDTO = branchesDTO;
+        this.brancheDtoList = branchesDTO;
     }
 }

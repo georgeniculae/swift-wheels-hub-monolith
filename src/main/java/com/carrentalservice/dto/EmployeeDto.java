@@ -13,18 +13,20 @@ public class EmployeeDto extends BaseEntityDto {
     @NotEmpty(message = "Job position cannot be empty!")
     private String jobPosition;
 
-    private BranchDto workingBranchDTO;
-    private ReturnCarDto returnCarDTO;
-    private RentalDto rentalDTO;
+    private BranchDto workingBranchDto;
 
-    public EmployeeDto(Long id, String firstName, String lastName, String jobPosition, BranchDto workingBranchDTO, ReturnCarDto returnCarDTO, RentalDto rentalDTO) {
+    private ReturnCarDto returnCarDto;
+
+    private RentalDto rentalDto;
+
+    public EmployeeDto(Long id, String firstName, String lastName, String jobPosition, BranchDto workingBranchDto, ReturnCarDto returnCarDto, RentalDto rentalDto) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobPosition = jobPosition;
-        this.workingBranchDTO = workingBranchDTO;
-        this.returnCarDTO = returnCarDTO;
-        this.rentalDTO = rentalDTO;
+        this.workingBranchDto = workingBranchDto;
+        this.returnCarDto = returnCarDto;
+        this.rentalDto = rentalDto;
     }
 
     public EmployeeDto() {
@@ -55,26 +57,26 @@ public class EmployeeDto extends BaseEntityDto {
     }
 
     public BranchDto getWorkingBranchDTO() {
-        return workingBranchDTO;
+        return workingBranchDto;
     }
 
     public void setWorkingBranchDTO(BranchDto workingBranchDTO) {
-        this.workingBranchDTO = workingBranchDTO;
+        this.workingBranchDto = workingBranchDTO;
     }
 
     public ReturnCarDto getReturnCarDTO() {
-        return returnCarDTO;
+        return returnCarDto;
     }
 
     public void setReturnCarDTO(ReturnCarDto returnCarDTO) {
-        this.returnCarDTO = returnCarDTO;
+        this.returnCarDto = returnCarDTO;
     }
 
     public RentalDto getRentalDTO() {
-        return rentalDTO;
+        return rentalDto;
     }
 
     public void setRentalDTO(RentalDto rentalDTO) {
-        this.rentalDTO = rentalDTO;
+        this.rentalDto = rentalDTO;
     }
 }

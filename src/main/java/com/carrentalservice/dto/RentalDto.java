@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class RentalDto extends BaseEntityDto {
 
-    private EmployeeDto employeeOfRentalDTO;
+    private EmployeeDto employeeOfRentalDto;
     private Date rentalDate;
-    private BookingDto bookingDTO;
+    private BookingDto bookingDto;
     private String comments;
 
-    public RentalDto(Long id, EmployeeDto employeeOfRentalDTO, Date rentalDate, BookingDto bookingDTO, String comments) {
+    public RentalDto(Long id, EmployeeDto employeeOfRentalDto, Date rentalDate, BookingDto bookingDto, String comments) {
         super(id);
-        this.employeeOfRentalDTO = employeeOfRentalDTO;
+        this.employeeOfRentalDto = employeeOfRentalDto;
         this.rentalDate = rentalDate;
-        this.bookingDTO = bookingDTO;
+        this.bookingDto = bookingDto;
         this.comments = comments;
     }
 
@@ -21,11 +21,11 @@ public class RentalDto extends BaseEntityDto {
     }
 
     public EmployeeDto getEmployeeOfRentalDTO() {
-        return employeeOfRentalDTO;
+        return employeeOfRentalDto;
     }
 
     public void setEmployeeOfRentalDTO(EmployeeDto employeeForRentalDTO) {
-        this.employeeOfRentalDTO = employeeOfRentalDTO;
+        this.employeeOfRentalDto = employeeOfRentalDto;
     }
 
     public Date getRentalDate() {
@@ -37,11 +37,11 @@ public class RentalDto extends BaseEntityDto {
     }
 
     public BookingDto getBookingDTO() {
-        return bookingDTO;
+        return bookingDto;
     }
 
     public void setBookingList(BookingDto bookingDTO) {
-        this.bookingDTO = bookingDTO;
+        this.bookingDto = bookingDTO;
     }
 
     public String getComments() {

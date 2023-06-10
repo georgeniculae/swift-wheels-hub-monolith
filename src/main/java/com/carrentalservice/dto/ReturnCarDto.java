@@ -6,17 +6,17 @@ import java.util.List;
 
 public class ReturnCarDto extends BaseEntityDto {
 
-    private EmployeeDto employeeDTO;
+    private EmployeeDto employeeDto;
     private Date dateOfReturn;
-    private List<BookingDto> bookingListDTO = new ArrayList<>();
+    private List<BookingDto> bookingDtoList = new ArrayList<>();
     private Double additionalPayment;
     private String comments;
 
-    public ReturnCarDto(Long id, EmployeeDto employeeDTO, Date dateOfReturn, List<BookingDto> bookingListDTO, Double additionalPayment, String comments) {
+    public ReturnCarDto(Long id, EmployeeDto employeeDto, Date dateOfReturn, List<BookingDto> bookingDtoList, Double additionalPayment, String comments) {
         super(id);
-        this.employeeDTO = employeeDTO;
+        this.employeeDto = employeeDto;
         this.dateOfReturn = dateOfReturn;
-        this.bookingListDTO = bookingListDTO;
+        this.bookingDtoList = bookingDtoList;
         this.additionalPayment = additionalPayment;
         this.comments = comments;
     }
@@ -25,11 +25,11 @@ public class ReturnCarDto extends BaseEntityDto {
     }
 
     public EmployeeDto getEmployeeDTO() {
-        return employeeDTO;
+        return employeeDto;
     }
 
     public void setEmployeeDTO(EmployeeDto employeeDTO) {
-        this.employeeDTO = employeeDTO;
+        this.employeeDto = employeeDTO;
     }
 
     public Date getDateOfReturn() {
@@ -41,11 +41,11 @@ public class ReturnCarDto extends BaseEntityDto {
     }
 
     public List<BookingDto> getBookingListDTO() {
-        return bookingListDTO;
+        return bookingDtoList;
     }
 
     public void setBookingListDTO(List<BookingDto> bookingListDTO) {
-        this.bookingListDTO = bookingListDTO;
+        this.bookingDtoList = bookingListDTO;
     }
 
     public Double getAdditionalPayment() {
