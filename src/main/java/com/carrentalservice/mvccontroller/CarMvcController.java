@@ -37,6 +37,7 @@ public class CarMvcController {
     public String searchCarByMake(Model model, @RequestParam(value = "make") Optional<String> make) {
         if (make.isPresent()) {
             List<Car> carList = carService.findCarsByMake(make);
+
             for (Car car1 : carList) {
                 model.addAttribute("carByMake", car1);
             }
@@ -57,12 +58,12 @@ public class CarMvcController {
     public String addCar(@ModelAttribute("car") @Valid Car car, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-car";
-        } else {
-            car.setBranch(branchService.findBranchById(car.getBranch().getId()));
-            this.carService.saveCar(car);
-
-            return "redirect:/cars";
         }
+
+        car.setBranch(branchService.findBranchById(car.getBranch().getId()));
+        this.carService.saveCar(car);
+
+        return "redirect:/cars";
     }
 
     @GetMapping(path = "/car/delete/{id}")

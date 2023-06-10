@@ -27,18 +27,21 @@ public class RevenueMvcController {
     public String showRevenues(Model model) {
         model.addAttribute("revenues", this.revenueService.findAllRevenues());
         model.addAttribute("revenuesNumber", this.revenueService.countRevenues());
+
         return "revenue-list";
     }
 
     @GetMapping(path = "/revenue/delete/{id}")
     public String deleteRevenueById(@PathVariable("id") Long id) {
         revenueService.deleteRevenueById(id);
+
         return "redirect:/revenues";
     }
 
     @GetMapping(path = "/revenue/registration")
     public String showRegistrationPage(Model model) {
         model.addAttribute("revenue", new Revenue());
+
         return "add-revenue";
     }
 
@@ -46,15 +49,16 @@ public class RevenueMvcController {
     public String addRevenue(@ModelAttribute("revenue") @Valid Revenue revenue, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-revenue";
-        } else {
-            this.revenueService.saveRevenue(revenue);
-            return "redirect:/revenues";
         }
+
+        this.revenueService.saveRevenue(revenue);
+        return "redirect:/revenues";
     }
 
     @GetMapping(path = "/revenue/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
         model.addAttribute("revenue", this.revenueService.findRevenueById(id));
+
         return "edit-revenue";
     }
 
@@ -62,9 +66,10 @@ public class RevenueMvcController {
     public String editRevenue(@ModelAttribute("revenue") @Valid Revenue revenue, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-revenue";
-        } else {
-            this.revenueService.saveRevenue(revenue);
-            return "redirect:/revenues";
         }
+
+        this.revenueService.saveRevenue(revenue);
+
+        return "redirect:/revenues";
     }
 }

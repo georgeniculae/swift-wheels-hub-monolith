@@ -67,11 +67,12 @@ public class EmployeeMvcController {
     public String addEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-employee";
-        } else {
-            this.employeeService.saveEmployee(employee);
-
-            return "redirect:/employees";
         }
+
+        this.employeeService.saveEmployee(employee);
+
+        return "redirect:/employees";
+
     }
 
     @GetMapping(path = "/employee/edit/{id}")
@@ -86,10 +87,10 @@ public class EmployeeMvcController {
     public String editEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-employee";
-        } else {
-            this.employeeService.saveEmployee(employee);
-
-            return "redirect:/employees";
         }
+
+        this.employeeService.saveEmployee(employee);
+
+        return "redirect:/employees";
     }
 }

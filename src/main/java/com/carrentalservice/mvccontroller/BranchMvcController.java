@@ -36,6 +36,7 @@ public class BranchMvcController {
     @GetMapping(path = "/branches/availableCars")
     public String showAvailableCarsPage(Model model, Long id) {
         model.addAttribute("cars", this.carService.findAllCars());
+
         return "/availableCars";
     }
 
@@ -43,6 +44,7 @@ public class BranchMvcController {
     public String showBranches(Model model) {
         model.addAttribute("branches", this.branchService.findAllBranches());
         model.addAttribute("branchesNumber", this.branchService.countBranches());
+
         return "branch-list";
     }
 
@@ -50,6 +52,7 @@ public class BranchMvcController {
     public String showBranchesForIndex(Model model) {
         model.addAttribute("allBranches", this.branchService.findAllBranches());
         model.addAttribute("branchesNumber", this.branchService.countBranches());
+
         return "index";
     }
 
@@ -60,6 +63,7 @@ public class BranchMvcController {
         model.addAttribute("selectedBranch", "");
         model.addAttribute("search", new SearchValueDto());
         model.addAttribute("cars", this.carService.findAllCars());
+
         return "/branch-id-list";
     }
 
@@ -69,6 +73,7 @@ public class BranchMvcController {
         model.addAttribute("employees", this.employeeService.findAllEmployees());
         model.addAttribute("selectedBranch", "");
         model.addAttribute("cars", this.carService.findAllCars());
+
         return "/branch-id-list";
     }
 
@@ -78,12 +83,14 @@ public class BranchMvcController {
         model.addAttribute("employees", this.employeeService.findAllEmployees());
         model.addAttribute("selectedBranch", new Branch());
         model.addAttribute("cars", this.carService.findAllCars());
+
         return "/branch-id-list";
     }
 
     @GetMapping(path = "/branch/delete/{id}")
     public String deleteBranchById(@PathVariable("id") Long id) {
         branchService.deleteBranchById(id);
+
         return "redirect:/branches";
     }
 
@@ -91,17 +98,19 @@ public class BranchMvcController {
     public String addBranch(@ModelAttribute("branch") @Valid Branch branch, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-branch";
-        } else {
-            branch.setRentalOffice(rentalOfficeService.findRentalOfficeById(branch.getRentalOffice().getId()));
-            this.branchService.saveBranch(branch);
-            return "redirect:/branches";
         }
+
+        branch.setRentalOffice(rentalOfficeService.findRentalOfficeById(branch.getRentalOffice().getId()));
+        this.branchService.saveBranch(branch);
+
+        return "redirect:/branches";
     }
 
     @GetMapping(path = "/branch/registration")
     public String showRegistrationPage(Model model) {
         model.addAttribute("branch", new Branch());
         model.addAttribute("allRentalOffices", this.rentalOfficeService.findAllRentalOffices());
+
         return "add-branch";
     }
 
@@ -109,17 +118,19 @@ public class BranchMvcController {
     public String editBranch(@ModelAttribute("branch") @Valid Branch branch, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-branch";
-        } else {
-            branch.setRentalOffice(rentalOfficeService.findRentalOfficeById(branch.getRentalOffice().getId()));
-            this.branchService.saveBranch(branch);
-            return "redirect:/branches";
         }
+
+        branch.setRentalOffice(rentalOfficeService.findRentalOfficeById(branch.getRentalOffice().getId()));
+        this.branchService.saveBranch(branch);
+
+        return "redirect:/branches";
     }
 
     @GetMapping(path = "/branch/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
         model.addAttribute("branch", this.branchService.findBranchById(id));
         model.addAttribute("allRentalOffices", this.rentalOfficeService.findAllRentalOffices());
+
         return "edit-branch";
     }
 }

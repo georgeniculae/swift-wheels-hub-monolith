@@ -42,11 +42,11 @@ public class RentalOfficeMvcController {
     public String addRentalOffice(@ModelAttribute("rentaloffice") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-rentaloffice";
-        } else {
-            this.rentalOfficeService.saveRentalOffice(rentalOffice);
-
-            return "redirect:/rentaloffices";
         }
+
+        this.rentalOfficeService.saveRentalOffice(rentalOffice);
+
+        return "redirect:/rentaloffices";
     }
 
     @GetMapping(path = "/rentaloffice/registration")
@@ -60,11 +60,11 @@ public class RentalOfficeMvcController {
     public String editRentalOffice(@ModelAttribute("rentaloffice") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-rentaloffice";
-        } else {
-            this.rentalOfficeService.saveRentalOffice(rentalOffice);
-
-            return "redirect:/rentaloffices";
         }
+
+        this.rentalOfficeService.saveRentalOffice(rentalOffice);
+
+        return "redirect:/rentaloffices";
     }
 
     @GetMapping(path = "/rentaloffice/edit/{id}")

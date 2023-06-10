@@ -1,8 +1,8 @@
 package com.carrentalservice.mvccontroller;
 
-import com.carrentalservice.service.CustomerService;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.service.BookingService;
+import com.carrentalservice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,11 +74,11 @@ public class CustomerMvcController {
     public String addCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-customer";
-        } else {
-            this.customerService.saveCustomer(customer);
-
-            return "redirect:/customers";
         }
+
+        this.customerService.saveCustomer(customer);
+
+        return "redirect:/customers";
     }
 
     @GetMapping(path = "/customer/delete/{id}")

@@ -1,9 +1,9 @@
 package com.carrentalservice.mvccontroller;
 
-import com.carrentalservice.service.EmployeeService;
-import com.carrentalservice.service.RentalService;
 import com.carrentalservice.entity.Rental;
 import com.carrentalservice.service.BookingService;
+import com.carrentalservice.service.EmployeeService;
+import com.carrentalservice.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,11 +48,11 @@ public class RentalMvcController {
     public String addRental(@ModelAttribute("rental") @Valid Rental rental, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-rental";
-        } else {
-            this.rentalService.saveRental(rental);
-
-            return "redirect:/rentals";
         }
+
+        this.rentalService.saveRental(rental);
+
+        return "redirect:/rentals";
     }
 
     @GetMapping(path = "/rental/registration")
@@ -68,11 +68,11 @@ public class RentalMvcController {
     public String editRental(@ModelAttribute("rental") @Valid Rental rental, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-rental";
-        } else {
-            this.rentalService.saveRental(rental);
-
-            return "redirect:/rentals";
         }
+
+        this.rentalService.saveRental(rental);
+
+        return "redirect:/rentals";
     }
 
     @GetMapping(path = "/rental/edit/{id}")

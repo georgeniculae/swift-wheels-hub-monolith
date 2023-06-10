@@ -46,11 +46,11 @@ public class ReturnCarMvcController {
     public String addReturnCar(@ModelAttribute("returnCar") @Valid ReturnCar returnCar, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-returnCar";
-        } else {
+        }
+
             this.returnCarService.saveReturnCar(returnCar);
 
             return "redirect:/returnCars";
-        }
     }
 
     @GetMapping(path = "/returnCar/delete/{id}")

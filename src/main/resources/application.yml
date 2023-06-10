@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/car_rental_service?serverTimezone=Europe/Bucharest
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update

@@ -24,7 +24,6 @@ public class BookingMvcController {
     private final CarService carService;
     private final CustomerService customerService;
     private final EmployeeService employeeService;
-    private final UserService userService;
     private final Calculator calculator;
 
     @Autowired
@@ -34,7 +33,6 @@ public class BookingMvcController {
         this.carService = carService;
         this.customerService = customerService;
         this.employeeService = employeeService;
-        this.userService = userService;
         this.calculator = calculator;
     }
 
@@ -43,6 +41,7 @@ public class BookingMvcController {
         model.addAttribute("bookings", this.bookingService.findAllBookings());
         model.addAttribute("bookingsNumber", this.bookingService.countBookings());
         model.addAttribute("sumOfAllBookings", this.bookingService.getSumOfAllBookingAmount());
+
         return "booking-list";
     }
 
@@ -52,6 +51,7 @@ public class BookingMvcController {
         model.addAttribute("allBranches", this.branchService.findAllBranches());
         model.addAttribute("allCars", this.carService.findAllCars());
         model.addAttribute("employees", this.employeeService.findAllEmployees());
+
         return "add-booking";
     }
 
@@ -59,13 +59,14 @@ public class BookingMvcController {
     public String addBookingFromIndex(@ModelAttribute("booking") @Valid Booking booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "index";
-        } else {
-            Customer customer = customerService.getCustomerLoggedIn();
-            booking.setCustomer(customer);
-            Car carById = carService.getCarById(booking);
-            calculator.calculateAmountForBooking(booking, carById);
-            this.bookingService.saveBooking(booking);
         }
+
+        Customer customer = customerService.getCustomerLoggedIn();
+        booking.setCustomer(customer);
+        Car carById = carService.getCarById(booking);
+        calculator.calculateAmountForBooking(booking, carById);
+        this.bookingService.saveBooking(booking);
+
         return "redirect:/";
     }
 
@@ -73,30 +74,36 @@ public class BookingMvcController {
     public String addBooking(@ModelAttribute("booking") @Valid Booking booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-booking";
-        } else {
-            Customer customer = customerService.getCustomerLoggedIn();
-            booking.setCustomer(customer);
-            Car carById = carService.getCarById(booking);
-            calculator.calculateAmountForBooking(booking, carById);
-            this.bookingService.saveBooking(booking);
-            return "redirect:/";
         }
+
+        Customer customer = customerService.getCustomerLoggedIn();
+        booking.setCustomer(customer);
+        Car carById = carService.getCarById(booking);
+        calculator.calculateAmountForBooking(booking, carById);
+        this.bookingService.saveBooking(booking);
+
+        return "redirect:/";
+
     }
 
     @GetMapping(path = "/booking/delete/{id}")
     public String deleteBookingById(@PathVariable("id") Long id) {
         this.bookingService.deleteBookingById(id);
+
         return "redirect:/account/orders";
     }
 
     @PostMapping(path = "/booking/update")
     public String editBooking(@ModelAttribute("booking") @Valid Booking booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+
             return "edit-booking";
         }
+
         Car carById = carService.getCarById(booking);
         calculator.calculateAmountForBooking(booking, carById);
         this.bookingService.saveBooking(booking);
+
         return "redirect:/bookings";
     }
 
@@ -106,6 +113,7 @@ public class BookingMvcController {
         model.addAttribute("branches", this.branchService.findAllBranches());
         model.addAttribute("cars", this.carService.findAllCars());
         model.addAttribute("employees", this.employeeService.findAllEmployees());
+
         return "edit-booking";
     }
 
@@ -115,6 +123,7 @@ public class BookingMvcController {
         model.addAttribute("branches", this.branchService.findAllBranches());
         model.addAttribute("cars", this.carService.findAllCars());
         model.addAttribute("employees", this.employeeService.findAllEmployees());
+
         return "order-edit";
     }
 
@@ -123,9 +132,11 @@ public class BookingMvcController {
         if (bindingResult.hasErrors()) {
             return "order-edit";
         }
+
         Car carById = carService.getCarById(booking);
         calculator.calculateAmountForBooking(booking, carById);
         this.bookingService.saveBooking(booking);
+
         return "redirect:/account/orders";
     }
 }
