@@ -1,16 +1,17 @@
-package com.carrentalservice.service;
+package com.carrentalservice.config;
 
+import com.carrentalservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UserManager {
+public class UserManagerConfiguration {
 
     private final UserService userService;
 
     @Autowired
-    public UserManager(UserService userService) {
+    public UserManagerConfiguration(UserService userService) {
         this.userService = userService;
     }
 
