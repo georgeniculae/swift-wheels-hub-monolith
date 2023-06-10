@@ -1,1 +1,1 @@
-# CarRentalService
+# car-rental-service
