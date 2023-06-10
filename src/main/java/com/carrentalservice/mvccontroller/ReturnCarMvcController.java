@@ -1,7 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.entity.ReturnCar;
-import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.service.ReturnCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +17,10 @@ import javax.validation.Valid;
 public class ReturnCarMvcController {
 
     private final ReturnCarService returnCarService;
-    private final EmployeeService employeeService;
 
     @Autowired
-    public ReturnCarMvcController(ReturnCarService returnCarService, EmployeeService employeeService) {
+    public ReturnCarMvcController(ReturnCarService returnCarService) {
         this.returnCarService = returnCarService;
-        this.employeeService = employeeService;
     }
 
     @GetMapping(path = "/returnCars")
@@ -48,9 +45,9 @@ public class ReturnCarMvcController {
             return "add-returnCar";
         }
 
-            this.returnCarService.saveReturnCar(returnCar);
+        this.returnCarService.saveReturnCar(returnCar);
 
-            return "redirect:/returnCars";
+        return "redirect:/returnCars";
     }
 
     @GetMapping(path = "/returnCar/delete/{id}")

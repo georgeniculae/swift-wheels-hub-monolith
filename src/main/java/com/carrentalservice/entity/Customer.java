@@ -10,8 +10,11 @@ import java.util.List;
 public class Customer extends User {
 
     private String firstName;
+
     private String lastName;
+
     private String email;
+
     private String address;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)

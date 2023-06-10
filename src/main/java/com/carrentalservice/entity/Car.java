@@ -8,13 +8,16 @@ import java.util.List;
 public class Car extends BaseEntity {
 
     private String make;
+
     private String model;
 
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
 
     private int yearOfProduction;
+
     private String color;
+
     private int mileage;
 
     @Enumerated(EnumType.STRING)
@@ -133,4 +136,5 @@ public class Car extends BaseEntity {
     public void setUrlOfImage(String urlOfImage) {
         this.urlOfImage = urlOfImage;
     }
+
 }

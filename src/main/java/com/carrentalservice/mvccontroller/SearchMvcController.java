@@ -24,10 +24,9 @@ public class SearchMvcController {
     private final RentalOfficeService rentalOfficeService;
     private final RentalService rentalService;
     private final ReturnCarService returnCarService;
-    private final RevenueService revenueService;
 
     @Autowired
-    public SearchMvcController(BookingService bookingService, BranchService branchService, CarService carService, CustomerService customerService, EmployeeService employeeService, RentalService rentalService, RentalOfficeService rentalOfficeService, ReturnCarService returnCarService, RevenueService revenueService) {
+    public SearchMvcController(BookingService bookingService, BranchService branchService, CarService carService, CustomerService customerService, EmployeeService employeeService, RentalService rentalService, RentalOfficeService rentalOfficeService, ReturnCarService returnCarService) {
         this.bookingService = bookingService;
         this.branchService = branchService;
         this.carService = carService;
@@ -36,7 +35,6 @@ public class SearchMvcController {
         this.rentalService = rentalService;
         this.rentalOfficeService = rentalOfficeService;
         this.returnCarService = returnCarService;
-        this.revenueService = revenueService;
     }
 
     @PostMapping(path = "/search")

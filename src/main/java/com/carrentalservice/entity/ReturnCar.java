@@ -73,4 +73,5 @@ public class ReturnCar extends BaseEntity{
     public void setAdditionalPayment(Double additionalPayment) {
         this.additionalPayment = additionalPayment;
     }
+
 }

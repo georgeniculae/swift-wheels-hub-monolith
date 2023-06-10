@@ -94,4 +94,5 @@ public class Branch extends BaseEntity {
     public void setBookingListReturn(List<Booking> bookingListReturn) {
         this.bookingListReturn = bookingListReturn;
     }
+
 }

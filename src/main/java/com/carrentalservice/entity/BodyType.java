@@ -21,4 +21,5 @@ public enum BodyType {
     public String getDisplayName() {
         return displayName;
     }
+
 }

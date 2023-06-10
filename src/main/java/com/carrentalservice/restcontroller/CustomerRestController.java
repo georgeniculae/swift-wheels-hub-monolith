@@ -69,4 +69,5 @@ public class CustomerRestController {
 
         return ResponseEntity.ok(allCustomerDto);
     }
+
 }

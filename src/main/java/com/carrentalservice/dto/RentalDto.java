@@ -20,11 +20,11 @@ public class RentalDto extends BaseEntityDto {
     public RentalDto() {
     }
 
-    public EmployeeDto getEmployeeOfRentalDTO() {
+    public EmployeeDto getEmployeeOfRentalDto() {
         return employeeOfRentalDto;
     }
 
-    public void setEmployeeOfRentalDTO(EmployeeDto employeeForRentalDTO) {
+    public void setEmployeeOfRentalDto(EmployeeDto employeeOfRentalDto) {
         this.employeeOfRentalDto = employeeOfRentalDto;
     }
 
@@ -36,12 +36,12 @@ public class RentalDto extends BaseEntityDto {
         this.rentalDate = rentalDate;
     }
 
-    public BookingDto getBookingDTO() {
+    public BookingDto getBookingDto() {
         return bookingDto;
     }
 
-    public void setBookingList(BookingDto bookingDTO) {
-        this.bookingDto = bookingDTO;
+    public void setBookingDto(BookingDto bookingDto) {
+        this.bookingDto = bookingDto;
     }
 
     public String getComments() {
@@ -51,4 +51,5 @@ public class RentalDto extends BaseEntityDto {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
 }

@@ -100,20 +100,20 @@ public class CarDto extends BaseEntityDto {
         this.amount = amount;
     }
 
-    public List<BookingDto> getBookingListDTO() {
+    public List<BookingDto> getBookingDtoList() {
         return bookingDtoList;
     }
 
-    public void setBookingListDTO(List<BookingDto> bookingListDTO) {
-        this.bookingDtoList = bookingListDTO;
+    public void setBookingDtoList(List<BookingDto> bookingDtoList) {
+        this.bookingDtoList = bookingDtoList;
     }
 
-    public BranchDto getBranchDTO() {
+    public BranchDto getBranchDto() {
         return branchDto;
     }
 
-    public void setBranchDTO(BranchDto branchDTO) {
-        this.branchDto = branchDTO;
+    public void setBranchDto(BranchDto branchDto) {
+        this.branchDto = branchDto;
     }
 
     public String getUrlOfImage() {
@@ -123,4 +123,5 @@ public class CarDto extends BaseEntityDto {
     public void setUrlOfImage(String urlOfImage) {
         this.urlOfImage = urlOfImage;
     }
+
 }

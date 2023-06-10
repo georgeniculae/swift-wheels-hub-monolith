@@ -3,7 +3,6 @@ package com.carrentalservice.mvccontroller;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.EmployeeService;
-import com.carrentalservice.service.RentalOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +20,11 @@ public class EmployeeMvcController {
 
     private final EmployeeService employeeService;
     private final BranchService branchService;
-    private final RentalOfficeService rentalOfficeService;
 
     @Autowired
-    public EmployeeMvcController(EmployeeService employeeService, BranchService branchService, RentalOfficeService rentalOfficeService) {
+    public EmployeeMvcController(EmployeeService employeeService, BranchService branchService) {
         this.employeeService = employeeService;
         this.branchService = branchService;
-        this.rentalOfficeService = rentalOfficeService;
     }
 
     @GetMapping(path = "/employees")
@@ -93,4 +90,5 @@ public class EmployeeMvcController {
 
         return "redirect:/employees";
     }
+
 }

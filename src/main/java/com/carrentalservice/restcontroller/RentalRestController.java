@@ -69,4 +69,5 @@ public class RentalRestController {
 
         return ResponseEntity.ok(allRentalDto);
     }
+
 }

@@ -38,27 +38,28 @@ public class BranchDto extends BaseEntityDto {
         this.address = address;
     }
 
-    public List<EmployeeDto> getEmployeesDTO() {
+    public List<EmployeeDto> getEmployeeDtoList() {
         return employeeDtoList;
     }
 
-    public void setEmployees(List<EmployeeDto> employeesDTO) {
-        this.employeeDtoList = employeesDTO;
+    public void setEmployeeDtoList(List<EmployeeDto> employeeDtoList) {
+        this.employeeDtoList = employeeDtoList;
     }
 
-    public List<CarDto> getCarsDTO() {
+    public List<CarDto> getCarDtoList() {
         return carDtoList;
     }
 
-    public void setCarsDTO(List<CarDto> cars) {
+    public void setCarDtoList(List<CarDto> carDtoList) {
         this.carDtoList = carDtoList;
     }
 
-    public RentalOfficeDto getRentalOfficeDTO() {
+    public RentalOfficeDto getRentalOfficeDto() {
         return rentalOfficeDto;
     }
 
-    public void setRentalOfficeDTO(RentalOfficeDto rentalOfficeDTO) {
-        this.rentalOfficeDto = rentalOfficeDTO;
+    public void setRentalOfficeDto(RentalOfficeDto rentalOfficeDto) {
+        this.rentalOfficeDto = rentalOfficeDto;
     }
+
 }

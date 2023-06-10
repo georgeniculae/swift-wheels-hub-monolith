@@ -144,4 +144,5 @@ public class Booking extends BaseEntity {
     public void setReturnBranch(Branch returnBranch) {
         this.returnBranch = returnBranch;
     }
+
 }

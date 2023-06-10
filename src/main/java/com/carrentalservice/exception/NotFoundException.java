@@ -12,4 +12,5 @@ public class NotFoundException extends RuntimeException {
         super(message, null, true, false);
         this.message = message;
     }
+
 }

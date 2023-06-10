@@ -83,4 +83,5 @@ public class RentalOffice extends BaseEntity {
     public void setBranches(List<Branch> branches) {
         this.branches = branches;
     }
+
 }

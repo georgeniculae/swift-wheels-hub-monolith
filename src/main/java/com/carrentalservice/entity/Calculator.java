@@ -27,6 +27,7 @@ public class Calculator {
             Double amount = booking.getAmount();
             sum += amount;
         }
+
         return sum;
     }
 
@@ -36,6 +37,8 @@ public class Calculator {
             Double amount = booking.getAmount();
             sum += amount;
         }
+
         return sum;
     }
+
 }

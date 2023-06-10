@@ -37,6 +37,7 @@ public class RentalService {
 
     public Rental findRentalById(Long id) {
         Optional<Rental> optionalRental = rentalRepository.findById(id);
+
         if (optionalRental.isPresent()) {
             return optionalRental.get();
         }

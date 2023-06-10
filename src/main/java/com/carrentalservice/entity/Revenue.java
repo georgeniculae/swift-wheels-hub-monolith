@@ -61,4 +61,5 @@ public class Revenue extends BaseEntity {
     public void setYearlyRevenue(Double yearlyRevenue) {
         this.yearlyRevenue = yearlyRevenue;
     }
+
 }

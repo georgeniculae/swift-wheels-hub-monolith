@@ -52,6 +52,7 @@ public class RevenueMvcController {
         }
 
         this.revenueService.saveRevenue(revenue);
+
         return "redirect:/revenues";
     }
 
@@ -72,4 +73,5 @@ public class RevenueMvcController {
 
         return "redirect:/revenues";
     }
+
 }

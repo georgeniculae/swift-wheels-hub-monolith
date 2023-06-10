@@ -83,4 +83,5 @@ public class RentalMvcController {
 
         return "edit-rental";
     }
+
 }

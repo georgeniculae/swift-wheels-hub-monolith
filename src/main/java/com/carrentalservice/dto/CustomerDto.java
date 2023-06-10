@@ -55,11 +55,12 @@ public class CustomerDto extends UserDto {
         this.address = address;
     }
 
-    public List<BookingDto> getBookingDTOList() {
+    public List<BookingDto> getBookingDtoList() {
         return bookingDtoList;
     }
 
-    public void setBookingDTOList(List<BookingDto> bookingDTOList) {
-        this.bookingDtoList = bookingDTOList;
+    public void setBookingDtoList(List<BookingDto> bookingDtoList) {
+        this.bookingDtoList = bookingDtoList;
     }
+
 }

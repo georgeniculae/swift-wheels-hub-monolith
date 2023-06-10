@@ -19,4 +19,5 @@ public class RevenueDto extends BaseEntityDto {
     public void setSumOfAmountsForCarRental(Double sumOfAmountsForCarRental) {
         this.sumOfAmountsForCarRental = sumOfAmountsForCarRental;
     }
+
 }

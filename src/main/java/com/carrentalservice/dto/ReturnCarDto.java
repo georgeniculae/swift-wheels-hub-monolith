@@ -24,12 +24,12 @@ public class ReturnCarDto extends BaseEntityDto {
     public ReturnCarDto() {
     }
 
-    public EmployeeDto getEmployeeDTO() {
+    public EmployeeDto getEmployeeDto() {
         return employeeDto;
     }
 
-    public void setEmployeeDTO(EmployeeDto employeeDTO) {
-        this.employeeDto = employeeDTO;
+    public void setEmployeeDto(EmployeeDto employeeDto) {
+        this.employeeDto = employeeDto;
     }
 
     public Date getDateOfReturn() {
@@ -40,12 +40,12 @@ public class ReturnCarDto extends BaseEntityDto {
         this.dateOfReturn = dateOfReturn;
     }
 
-    public List<BookingDto> getBookingListDTO() {
+    public List<BookingDto> getBookingDtoList() {
         return bookingDtoList;
     }
 
-    public void setBookingListDTO(List<BookingDto> bookingListDTO) {
-        this.bookingDtoList = bookingListDTO;
+    public void setBookingDtoList(List<BookingDto> bookingDtoList) {
+        this.bookingDtoList = bookingDtoList;
     }
 
     public Double getAdditionalPayment() {
@@ -63,4 +63,5 @@ public class ReturnCarDto extends BaseEntityDto {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
 }

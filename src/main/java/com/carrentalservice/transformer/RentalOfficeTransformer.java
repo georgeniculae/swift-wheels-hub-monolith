@@ -21,4 +21,5 @@ public class RentalOfficeTransformer {
 
         return rentalOffice;
     }
+
 }

@@ -40,12 +40,12 @@ public class BookingDto extends BaseEntityDto {
         this.dateOfBooking = dateOfBooking;
     }
 
-    public CustomerDto getCustomerDTO() {
+    public CustomerDto getCustomerDto() {
         return customerDto;
     }
 
-    public void setCustomerDTO(CustomerDto customerDTO) {
-        this.customerDto = customerDTO;
+    public void setCustomerDto(CustomerDto customerDto) {
+        this.customerDto = customerDto;
     }
 
     public CarDto getCarDTO() {
@@ -72,20 +72,20 @@ public class BookingDto extends BaseEntityDto {
         this.dateTo = dateTo;
     }
 
-    public RentalDto getRentalDTO() {
+    public RentalDto getRentalDto() {
         return rentalDto;
     }
 
-    public void setRentalDTO(RentalDto rentalDTO) {
-        this.rentalDto = rentalDTO;
+    public void setRentalDto(RentalDto rentalDto) {
+        this.rentalDto = rentalDto;
     }
 
-    public ReturnCarDto getReturnCarDTO() {
+    public ReturnCarDto getReturnCarDto() {
         return returnCarDto;
     }
 
-    public void setReturnCarDTO(ReturnCarDto returnCarDTO) {
-        this.returnCarDto = returnCarDTO;
+    public void setReturnCarDto(ReturnCarDto returnCarDto) {
+        this.returnCarDto = returnCarDto;
     }
 
     public Double getAmount() {
@@ -96,19 +96,20 @@ public class BookingDto extends BaseEntityDto {
         this.amount = amount;
     }
 
-    public BranchDto getRentalBranchDTO() {
+    public BranchDto getRentalBranchDto() {
         return rentalBranchDto;
     }
 
-    public void setRentalBranchDTO(BranchDto rentalBranchDTO) {
-        this.rentalBranchDto = rentalBranchDTO;
+    public void setRentalBranchDto(BranchDto rentalBranchDto) {
+        this.rentalBranchDto = rentalBranchDto;
     }
 
-    public BranchDto getReturnBranchDTO() {
+    public BranchDto getReturnBranchDto() {
         return returnBranchDto;
     }
 
-    public void setReturnBranchDTO(BranchDto returnBranchDTO) {
-        this.returnBranchDto = returnBranchDTO;
+    public void setReturnBranchDto(BranchDto returnBranchDto) {
+        this.returnBranchDto = returnBranchDto;
     }
+
 }

@@ -69,4 +69,5 @@ public class BranchRestController {
 
         return ResponseEntity.ok(allBranchesDto);
     }
+
 }

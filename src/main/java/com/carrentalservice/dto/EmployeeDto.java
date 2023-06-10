@@ -56,27 +56,28 @@ public class EmployeeDto extends BaseEntityDto {
         this.jobPosition = jobPosition;
     }
 
-    public BranchDto getWorkingBranchDTO() {
+    public BranchDto getWorkingBranchDto() {
         return workingBranchDto;
     }
 
-    public void setWorkingBranchDTO(BranchDto workingBranchDTO) {
-        this.workingBranchDto = workingBranchDTO;
+    public void setWorkingBranchDto(BranchDto workingBranchDto) {
+        this.workingBranchDto = workingBranchDto;
     }
 
-    public ReturnCarDto getReturnCarDTO() {
+    public ReturnCarDto getReturnCarDto() {
         return returnCarDto;
     }
 
-    public void setReturnCarDTO(ReturnCarDto returnCarDTO) {
-        this.returnCarDto = returnCarDTO;
+    public void setReturnCarDto(ReturnCarDto returnCarDto) {
+        this.returnCarDto = returnCarDto;
     }
 
-    public RentalDto getRentalDTO() {
+    public RentalDto getRentalDto() {
         return rentalDto;
     }
 
-    public void setRentalDTO(RentalDto rentalDTO) {
-        this.rentalDto = rentalDTO;
+    public void setRentalDto(RentalDto rentalDto) {
+        this.rentalDto = rentalDto;
     }
+
 }

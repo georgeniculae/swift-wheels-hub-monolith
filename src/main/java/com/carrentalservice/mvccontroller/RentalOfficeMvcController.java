@@ -73,4 +73,5 @@ public class RentalOfficeMvcController {
 
         return "edit-rentaloffice";
     }
+
 }
