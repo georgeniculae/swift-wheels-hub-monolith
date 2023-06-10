@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class CarMVCController {
+public class CarMvcController {
 
     private final CarService carService;
     private final BranchService branchService;
 
     @Autowired
-    public CarMVCController(CarService carService, BranchService branchService) {
+    public CarMvcController(CarService carService, BranchService branchService) {
         this.carService = carService;
         this.branchService = branchService;
     }
@@ -29,6 +29,7 @@ public class CarMVCController {
     public String showCars(Model model, String make) {
         model.addAttribute("cars", this.carService.findAllCars());
         model.addAttribute("carsNumber", this.carService.countCars());
+
         return "car-list";
     }
 
@@ -40,6 +41,7 @@ public class CarMVCController {
                 model.addAttribute("carByMake", car1);
             }
         }
+
         return "/search";
     }
 
@@ -47,6 +49,7 @@ public class CarMVCController {
     public String showRegistration(Model model) {
         model.addAttribute("car", new Car());
         model.addAttribute("allBranches", this.branchService.findAllBranches());
+
         return "add-car";
     }
 
@@ -57,6 +60,7 @@ public class CarMVCController {
         } else {
             car.setBranch(branchService.findBranchById(car.getBranch().getId()));
             this.carService.saveCar(car);
+
             return "redirect:/cars";
         }
     }
@@ -64,6 +68,7 @@ public class CarMVCController {
     @GetMapping(path = "/car/delete/{id}")
     public String deleteCarById(@PathVariable("id") Long id) {
         this.carService.deleteCarById(id);
+
         return "redirect:/cars";
     }
 
@@ -72,8 +77,10 @@ public class CarMVCController {
         if (bindingResult.hasErrors()) {
             return "edit-car";
         }
+
         car.setBranch(branchService.findBranchById(car.getBranch().getId()));
         this.carService.saveCar(car);
+
         return "redirect:/cars";
     }
 
@@ -81,6 +88,7 @@ public class CarMVCController {
     public String showEditPageCar(@PathVariable("id") Long id, Model model) {
         model.addAttribute("car", this.carService.findCarById(id));
         model.addAttribute("allBranches", this.branchService.findAllBranches());
+
         return "edit-car";
     }
 }

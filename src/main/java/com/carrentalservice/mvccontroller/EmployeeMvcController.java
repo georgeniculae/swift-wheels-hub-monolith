@@ -17,14 +17,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class EmployeeMVCController {
+public class EmployeeMvcController {
 
     private final EmployeeService employeeService;
     private final BranchService branchService;
     private final RentalOfficeService rentalOfficeService;
 
     @Autowired
-    public EmployeeMVCController(EmployeeService employeeService, BranchService branchService, RentalOfficeService rentalOfficeService) {
+    public EmployeeMvcController(EmployeeService employeeService, BranchService branchService, RentalOfficeService rentalOfficeService) {
         this.employeeService = employeeService;
         this.branchService = branchService;
         this.rentalOfficeService = rentalOfficeService;
@@ -35,6 +35,7 @@ public class EmployeeMVCController {
         List<Employee> allEmployees = this.employeeService.findAllEmployees();
         model.addAttribute("employees", allEmployees);
         model.addAttribute("employeesNumber", this.employeeService.countEmployees());
+
         return "employee-list";
     }
 
@@ -43,12 +44,14 @@ public class EmployeeMVCController {
         List<Employee> allEmployees = this.employeeService.findAllEmployees();
         model.addAttribute("employees", allEmployees);
         model.addAttribute("employeesNumber", this.employeeService.countEmployees());
+
         return "index";
     }
 
     @GetMapping(path = "/employee/delete/{id}")
     public String deleteEmployeeById(@PathVariable("id") Long id) {
         employeeService.deleteEmployeeById(id);
+
         return "redirect:/employees";
     }
 
@@ -56,6 +59,7 @@ public class EmployeeMVCController {
     public String showRegistrationPage(Model model) {
         model.addAttribute("employee", new Employee());
         model.addAttribute("allBranches", this.branchService.findAllBranches());
+
         return "add-employee";
     }
 
@@ -65,6 +69,7 @@ public class EmployeeMVCController {
             return "add-employee";
         } else {
             this.employeeService.saveEmployee(employee);
+
             return "redirect:/employees";
         }
     }
@@ -73,6 +78,7 @@ public class EmployeeMVCController {
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
         model.addAttribute("employee", this.employeeService.findEmployeeById(id));
         model.addAttribute("allBranches", this.branchService.findAllBranches());
+
         return "edit-employee";
     }
 
@@ -82,6 +88,7 @@ public class EmployeeMVCController {
             return "edit-employee";
         } else {
             this.employeeService.saveEmployee(employee);
+
             return "redirect:/employees";
         }
     }

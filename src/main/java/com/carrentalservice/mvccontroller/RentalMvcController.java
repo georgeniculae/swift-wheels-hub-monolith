@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class RentalMVCController {
+public class RentalMvcController {
 
     private final RentalService rentalService;
     private final EmployeeService employeeService;
     private final BookingService bookingService;
 
     @Autowired
-    public RentalMVCController(RentalService rentalService, EmployeeService employeeService, BookingService bookingService) {
+    public RentalMvcController(RentalService rentalService, EmployeeService employeeService, BookingService bookingService) {
         this.rentalService = rentalService;
         this.employeeService = employeeService;
         this.bookingService = bookingService;
@@ -33,12 +33,14 @@ public class RentalMVCController {
     public String showRentals(Model model) {
         model.addAttribute("rentals", this.rentalService.findAllRentals());
         model.addAttribute("rentalsNumber", this.rentalService.countRental());
+
         return "rental-list";
     }
 
     @GetMapping(path = "/rental/delete/{id}")
     public String deleteRentalById(@PathVariable("id") Long id) {
         rentalService.deleteRentalById(id);
+
         return "redirect:/rentals";
     }
 
@@ -48,6 +50,7 @@ public class RentalMVCController {
             return "add-rental";
         } else {
             this.rentalService.saveRental(rental);
+
             return "redirect:/rentals";
         }
     }
@@ -57,6 +60,7 @@ public class RentalMVCController {
         model.addAttribute("rental", new Rental());
         model.addAttribute("employees", this.employeeService.findAllEmployees());
         model.addAttribute("bookings", this.bookingService.findAllBookings());
+
         return "add-rental";
     }
 
@@ -66,6 +70,7 @@ public class RentalMVCController {
             return "edit-rental";
         } else {
             this.rentalService.saveRental(rental);
+
             return "redirect:/rentals";
         }
     }
@@ -75,6 +80,7 @@ public class RentalMVCController {
         model.addAttribute("rental", this.rentalService.findRentalById(id));
         model.addAttribute("employees", this.employeeService.findAllEmployees());
         model.addAttribute("bookings", this.bookingService.findAllBookings());
+
         return "edit-rental";
     }
 }

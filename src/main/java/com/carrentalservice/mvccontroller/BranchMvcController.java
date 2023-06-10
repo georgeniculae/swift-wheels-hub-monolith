@@ -1,6 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
-import com.carrentalservice.dto.SearchValueDTO;
+import com.carrentalservice.dto.SearchValueDto;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.service.RentalOfficeService;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class BranchMVCController {
+public class BranchMvcController {
 
     private final BranchService branchService;
     private final CarService carService;
@@ -26,7 +26,7 @@ public class BranchMVCController {
     private final RentalOfficeService rentalOfficeService;
 
     @Autowired
-    public BranchMVCController(BranchService branchService, CarService carService, EmployeeService employeeService, RentalOfficeService rentalOfficeService) {
+    public BranchMvcController(BranchService branchService, CarService carService, EmployeeService employeeService, RentalOfficeService rentalOfficeService) {
         this.branchService = branchService;
         this.carService = carService;
         this.employeeService = employeeService;
@@ -58,7 +58,7 @@ public class BranchMVCController {
         model.addAttribute("allBranches", this.branchService.findAllBranches());
         model.addAttribute("employees", this.employeeService.findAllEmployees());
         model.addAttribute("selectedBranch", "");
-        model.addAttribute("search", new SearchValueDTO());
+        model.addAttribute("search", new SearchValueDto());
         model.addAttribute("cars", this.carService.findAllCars());
         return "/branch-id-list";
     }

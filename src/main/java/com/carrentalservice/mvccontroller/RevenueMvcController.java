@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class RevenueMVCController {
+public class RevenueMvcController {
 
     private final RevenueService revenueService;
 
     @Autowired
-    public RevenueMVCController(RevenueService revenueService) {
+    public RevenueMvcController(RevenueService revenueService) {
         this.revenueService = revenueService;
     }
 

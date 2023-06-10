@@ -1,20 +1,20 @@
 package com.carrentalservice.transformer;
 
-import com.carrentalservice.dto.RentalDTO;
+import com.carrentalservice.dto.RentalDto;
 import com.carrentalservice.entity.Rental;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RentalTransformer {
-    public Rental transformFromDTOToEntity(RentalDTO rentalDTO){
+    public Rental transformFromDTOToEntity(RentalDto rentalDTO){
         Rental rental = new Rental();
         BeanUtils.copyProperties(rentalDTO, rental);
         return rental;
     }
 
-    public RentalDTO transformFromEntityToDTO(Rental rental){
-        RentalDTO rentalDTO = new RentalDTO();
+    public RentalDto transformFromEntityToDTO(Rental rental){
+        RentalDto rentalDTO = new RentalDto();
         BeanUtils.copyProperties(rental, rentalDTO);
         return rentalDTO;
 

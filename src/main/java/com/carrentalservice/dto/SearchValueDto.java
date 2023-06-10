@@ -1,6 +1,6 @@
 package com.carrentalservice.dto;
 
-public class SearchValueDTO {
+public class SearchValueDto {
 
     private String search;
 

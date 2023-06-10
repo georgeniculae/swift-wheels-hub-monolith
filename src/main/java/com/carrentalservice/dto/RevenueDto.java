@@ -1,15 +1,15 @@
 package com.carrentalservice.dto;
 
-public class RevenueDTO extends BaseEntityDTO {
+public class RevenueDto extends BaseEntityDto {
 
     private Double sumOfAmountsForCarRental;
 
-    public RevenueDTO(Long id, Double sumOfAmountsForCarRental) {
+    public RevenueDto(Long id, Double sumOfAmountsForCarRental) {
         super(id);
         this.sumOfAmountsForCarRental = sumOfAmountsForCarRental;
     }
 
-    public RevenueDTO() {
+    public RevenueDto() {
     }
 
     public Double getSumOfAmountsForCarRental() {

@@ -1,6 +1,6 @@
 package com.carrentalservice.restcontroller;
 
-import com.carrentalservice.dto.BranchDTO;
+import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.transformer.BranchTransformer;
 import com.carrentalservice.entity.Branch;
@@ -26,38 +26,38 @@ public class BranchRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<BranchDTO> findBranchById(@PathVariable("id") Long id) {
+    public ResponseEntity<BranchDto> findBranchById(@PathVariable("id") Long id) {
         Branch branch = branchService.findBranchById(id);
-        BranchDTO branchDTO = branchTransformer.transformFromEntityToDTO(branch);
+        BranchDto branchDTO = branchTransformer.transformFromEntityToDTO(branch);
         return ResponseEntity.ok(branchDTO);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<BranchDTO> deleteBranchById(@PathVariable("id") Long id) {
+    public ResponseEntity<BranchDto> deleteBranchById(@PathVariable("id") Long id) {
         branchService.deleteBranchById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<BranchDTO> createBranch(@RequestBody BranchDTO branchDTO) {
+    public ResponseEntity<BranchDto> createBranch(@RequestBody BranchDto branchDTO) {
         Branch branch = branchTransformer.transformFromDTOToEntity(branchDTO);
         Branch savedBranch = branchService.saveBranch(branch);
-        BranchDTO savedBranchDTO = branchTransformer.transformFromEntityToDTO(savedBranch);
+        BranchDto savedBranchDTO = branchTransformer.transformFromEntityToDTO(savedBranch);
         return ResponseEntity.ok(savedBranchDTO);
     }
 
     @PutMapping
-    public ResponseEntity<BranchDTO> updateEmployee(@RequestBody BranchDTO branchDTO) {
+    public ResponseEntity<BranchDto> updateEmployee(@RequestBody BranchDto branchDTO) {
         Branch branch = branchTransformer.transformFromDTOToEntity(branchDTO);
         Branch savedBranch = branchService.saveBranch(branch);
-        BranchDTO savedBranchDTO = branchTransformer.transformFromEntityToDTO(savedBranch);
+        BranchDto savedBranchDTO = branchTransformer.transformFromEntityToDTO(savedBranch);
         return ResponseEntity.ok(savedBranchDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<BranchDTO>> listAllBranches() {
+    public ResponseEntity<List<BranchDto>> listAllBranches() {
         List<Branch> allBranches = branchService.findAllBranches();
-        List<BranchDTO> allBranchesDTO = new ArrayList<>();
+        List<BranchDto> allBranchesDTO = new ArrayList<>();
 
         for (Branch branch : allBranches) {
             allBranchesDTO.add(branchTransformer.transformFromEntityToDTO(branch));

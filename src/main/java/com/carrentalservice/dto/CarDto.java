@@ -4,7 +4,7 @@ import com.carrentalservice.entity.Status;
 
 import java.util.List;
 
-public class CarDTO extends BaseEntityDTO {
+public class CarDto extends BaseEntityDto {
 
     private String make;
     private String model;
@@ -14,11 +14,11 @@ public class CarDTO extends BaseEntityDTO {
     private int mileage;
     private Status status;
     private Double amount;
-    private List<BookingDTO> bookingListDTO;
-    private BranchDTO branchDTO;
+    private List<BookingDto> bookingListDTO;
+    private BranchDto branchDTO;
     private String urlOfImage;
 
-    public CarDTO(Long id, String make, String model, String bodyType, int yearOfProduction, String color, int mileage, Status status, Double amount, List<BookingDTO> bookingListDTO, BranchDTO branchDTO, String urlOfImage) {
+    public CarDto(Long id, String make, String model, String bodyType, int yearOfProduction, String color, int mileage, Status status, Double amount, List<BookingDto> bookingListDTO, BranchDto branchDTO, String urlOfImage) {
         super(id);
         this.make = make;
         this.model = model;
@@ -33,7 +33,7 @@ public class CarDTO extends BaseEntityDTO {
         this.urlOfImage = urlOfImage;
     }
 
-    public CarDTO() {
+    public CarDto() {
     }
 
     public String getMake() {
@@ -100,19 +100,19 @@ public class CarDTO extends BaseEntityDTO {
         this.amount = amount;
     }
 
-    public List<BookingDTO> getBookingListDTO() {
+    public List<BookingDto> getBookingListDTO() {
         return bookingListDTO;
     }
 
-    public void setBookingListDTO(List<BookingDTO> bookingListDTO) {
+    public void setBookingListDTO(List<BookingDto> bookingListDTO) {
         this.bookingListDTO = bookingListDTO;
     }
 
-    public BranchDTO getBranchDTO() {
+    public BranchDto getBranchDTO() {
         return branchDTO;
     }
 
-    public void setBranchDTO(BranchDTO branchDTO) {
+    public void setBranchDTO(BranchDto branchDTO) {
         this.branchDTO = branchDTO;
     }
 

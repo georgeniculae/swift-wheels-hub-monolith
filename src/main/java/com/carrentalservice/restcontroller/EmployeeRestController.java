@@ -1,6 +1,6 @@
 package com.carrentalservice.restcontroller;
 
-import com.carrentalservice.dto.EmployeeDTO;
+import com.carrentalservice.dto.EmployeeDto;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.transformer.EmployeeTransformer;
@@ -26,38 +26,38 @@ public class EmployeeRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<EmployeeDTO> findEmployeeById(@PathVariable("id") Long id) {
+    public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
-        EmployeeDTO employeeDTO = employeeTransformer.transformFromEntityToDTO(employee);
+        EmployeeDto employeeDTO = employeeTransformer.transformFromEntityToDTO(employee);
         return ResponseEntity.ok(employeeDTO);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<EmployeeDTO> deleteEmployeeById(@PathVariable("id") Long id) {
+    public ResponseEntity<EmployeeDto> deleteEmployeeById(@PathVariable("id") Long id) {
         employeeService.deleteEmployeeById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDTO) {
         Employee employee = employeeTransformer.transformFromDTOToEntity(employeeDTO);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDTO savedEmployeeDTO = employeeTransformer.transformFromEntityToDTO(savedEmployee);
+        EmployeeDto savedEmployeeDTO = employeeTransformer.transformFromEntityToDTO(savedEmployee);
         return ResponseEntity.ok(savedEmployeeDTO);
     }
 
     @PutMapping
-    public ResponseEntity<EmployeeDTO> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDTO) {
         Employee employee = employeeTransformer.transformFromDTOToEntity(employeeDTO);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDTO savedEmployeeDTO = employeeTransformer.transformFromEntityToDTO(savedEmployee);
+        EmployeeDto savedEmployeeDTO = employeeTransformer.transformFromEntityToDTO(savedEmployee);
         return ResponseEntity.ok(savedEmployeeDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDTO>> listAllEmployees() {
+    public ResponseEntity<List<EmployeeDto>> listAllEmployees() {
         List<Employee> allEmployees = employeeService.findAllEmployees();
-        List<EmployeeDTO> allEmployeesDTO = new ArrayList<>();
+        List<EmployeeDto> allEmployeesDTO = new ArrayList<>();
 
         for (Employee employee : allEmployees) {
             allEmployeesDTO.add(employeeTransformer.transformFromEntityToDTO(employee));

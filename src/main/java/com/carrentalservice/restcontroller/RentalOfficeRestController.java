@@ -1,6 +1,6 @@
 package com.carrentalservice.restcontroller;
 
-import com.carrentalservice.dto.RentalOfficeDTO;
+import com.carrentalservice.dto.RentalOfficeDto;
 import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.service.RentalOfficeService;
 import com.carrentalservice.transformer.RentalOfficeTransformer;
@@ -26,38 +26,38 @@ public class RentalOfficeRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<RentalOfficeDTO> findRentalOfficeById(@PathVariable("id") Long id) {
+    public ResponseEntity<RentalOfficeDto> findRentalOfficeById(@PathVariable("id") Long id) {
         RentalOffice rentalOffice = rentalOfficeService.findRentalOfficeById(id);
-        RentalOfficeDTO rentalOfficeDTO = rentalOfficeTransformer.transformFromEntityToDTO(rentalOffice);
+        RentalOfficeDto rentalOfficeDTO = rentalOfficeTransformer.transformFromEntityToDTO(rentalOffice);
         return ResponseEntity.ok(rentalOfficeDTO);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<RentalOfficeDTO> deleteRentalOfficeById(@PathVariable("id") Long id) {
+    public ResponseEntity<RentalOfficeDto> deleteRentalOfficeById(@PathVariable("id") Long id) {
         rentalOfficeService.deleteRentalOfficeById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<RentalOfficeDTO> createRentalOffice(@RequestBody RentalOfficeDTO rentalOfficeDTO) {
+    public ResponseEntity<RentalOfficeDto> createRentalOffice(@RequestBody RentalOfficeDto rentalOfficeDTO) {
         RentalOffice rentalOffice = rentalOfficeTransformer.transformFromDTOToEntity(rentalOfficeDTO);
         RentalOffice savedRentalOffice = rentalOfficeService.saveRentalOffice(rentalOffice);
-        RentalOfficeDTO savedRentalOfficeDTO = rentalOfficeTransformer.transformFromEntityToDTO(savedRentalOffice);
+        RentalOfficeDto savedRentalOfficeDTO = rentalOfficeTransformer.transformFromEntityToDTO(savedRentalOffice);
         return ResponseEntity.ok(savedRentalOfficeDTO);
     }
 
     @PutMapping
-    public ResponseEntity<RentalOfficeDTO> updateRentalOffice(@RequestBody RentalOfficeDTO rentalOfficeDTO) {
+    public ResponseEntity<RentalOfficeDto> updateRentalOffice(@RequestBody RentalOfficeDto rentalOfficeDTO) {
         RentalOffice rentalOffice = rentalOfficeTransformer.transformFromDTOToEntity(rentalOfficeDTO);
         RentalOffice savedRentalOffice = rentalOfficeService.saveRentalOffice(rentalOffice);
-        RentalOfficeDTO savedRentalOfficeDTO = rentalOfficeTransformer.transformFromEntityToDTO(savedRentalOffice);
+        RentalOfficeDto savedRentalOfficeDTO = rentalOfficeTransformer.transformFromEntityToDTO(savedRentalOffice);
         return ResponseEntity.ok(savedRentalOfficeDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<RentalOfficeDTO>> listAllRentalOffices() {
+    public ResponseEntity<List<RentalOfficeDto>> listAllRentalOffices() {
         List<RentalOffice> allRentalOffices = rentalOfficeService.findAllRentalOffices();
-        List<RentalOfficeDTO> allRentalOfficesDTO = new ArrayList<>();
+        List<RentalOfficeDto> allRentalOfficesDTO = new ArrayList<>();
 
         for (RentalOffice rentalOffice : allRentalOffices) {
             allRentalOfficesDTO.add(rentalOfficeTransformer.transformFromEntityToDTO(rentalOffice));

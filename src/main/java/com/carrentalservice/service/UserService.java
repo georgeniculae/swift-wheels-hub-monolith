@@ -1,7 +1,7 @@
 package com.carrentalservice.service;
 
-import com.carrentalservice.dto.CustomerDTO;
-import com.carrentalservice.dto.UserDTO;
+import com.carrentalservice.dto.CustomerDto;
+import com.carrentalservice.dto.UserDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.entity.User;
 import com.carrentalservice.repository.CustomerRepository;
@@ -68,7 +68,7 @@ public class UserService implements UserDetailsService {
         return this.userRepository.findByUsername(username);
     }
 
-    public User saveUserDTO(UserDTO userDTO) {
+    public User saveUserDTO(UserDto userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setPassword(encoder.encode(userDTO.getPassword()));
@@ -76,7 +76,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public Customer registerCustomer(CustomerDTO customerDTO) {
+    public Customer registerCustomer(CustomerDto customerDTO) {
         Customer user = new Customer();
         user.setUsername(customerDTO.getUsername());
         user.setPassword(encoder.encode(customerDTO.getPassword()));

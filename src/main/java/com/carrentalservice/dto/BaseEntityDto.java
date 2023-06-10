@@ -1,14 +1,14 @@
 package com.carrentalservice.dto;
 
-public class BaseEntityDTO {
+public class BaseEntityDto {
 
     protected Long id;
 
-    public BaseEntityDTO(Long id) {
+    public BaseEntityDto(Long id) {
         this.id = id;
     }
 
-    public BaseEntityDTO() {
+    public BaseEntityDto() {
     }
 
     public Long getId() {

@@ -3,18 +3,18 @@ package com.carrentalservice.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDTO extends UserDTO {
+public class CustomerDto extends UserDto {
 
     private String firstName;
     private String lastName;
     private String email;
     private String address;
-    private List<BookingDTO> bookingDTOList = new ArrayList<>();
+    private List<BookingDto> bookingDTOList = new ArrayList<>();
 
-    public CustomerDTO() {
+    public CustomerDto() {
     }
 
-    public CustomerDTO(Long id, String username, String password, String confirmPassword, String firstName, String lastName, String email, String address, List<BookingDTO> bookingDTOList) {
+    public CustomerDto(Long id, String username, String password, String confirmPassword, String firstName, String lastName, String email, String address, List<BookingDto> bookingDTOList) {
         super(id, username, password, confirmPassword);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -55,11 +55,11 @@ public class CustomerDTO extends UserDTO {
         this.address = address;
     }
 
-    public List<BookingDTO> getBookingDTOList() {
+    public List<BookingDto> getBookingDTOList() {
         return bookingDTOList;
     }
 
-    public void setBookingDTOList(List<BookingDTO> bookingDTOList) {
+    public void setBookingDTOList(List<BookingDto> bookingDTOList) {
         this.bookingDTOList = bookingDTOList;
     }
 }

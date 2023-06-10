@@ -2,15 +2,15 @@ package com.carrentalservice.dto;
 
 import java.util.List;
 
-public class BranchDTO extends BaseEntityDTO {
+public class BranchDto extends BaseEntityDto {
 
     private String name;
     private String address;
-    private List<EmployeeDTO> employeesDTO;
-    private List<CarDTO> carsDTO;
-    private RentalOfficeDTO rentalOfficeDTO;
+    private List<EmployeeDto> employeesDTO;
+    private List<CarDto> carsDTO;
+    private RentalOfficeDto rentalOfficeDTO;
 
-    public BranchDTO(Long id, String name, String address, List<EmployeeDTO> employeesDTO, List<CarDTO> carsDTO, RentalOfficeDTO rentalOfficeDTO) {
+    public BranchDto(Long id, String name, String address, List<EmployeeDto> employeesDTO, List<CarDto> carsDTO, RentalOfficeDto rentalOfficeDTO) {
         super(id);
         this.name = name;
         this.address = address;
@@ -19,7 +19,7 @@ public class BranchDTO extends BaseEntityDTO {
         this.rentalOfficeDTO = rentalOfficeDTO;
     }
 
-    public BranchDTO() {
+    public BranchDto() {
     }
 
     public String getName() {
@@ -38,27 +38,27 @@ public class BranchDTO extends BaseEntityDTO {
         this.address = address;
     }
 
-    public List<EmployeeDTO> getEmployeesDTO() {
+    public List<EmployeeDto> getEmployeesDTO() {
         return employeesDTO;
     }
 
-    public void setEmployees(List<EmployeeDTO> employeesDTO) {
+    public void setEmployees(List<EmployeeDto> employeesDTO) {
         this.employeesDTO = employeesDTO;
     }
 
-    public List<CarDTO> getCarsDTO() {
+    public List<CarDto> getCarsDTO() {
         return carsDTO;
     }
 
-    public void setCarsDTO(List<CarDTO> cars) {
+    public void setCarsDTO(List<CarDto> cars) {
         this.carsDTO = carsDTO;
     }
 
-    public RentalOfficeDTO getRentalOfficeDTO() {
+    public RentalOfficeDto getRentalOfficeDTO() {
         return rentalOfficeDTO;
     }
 
-    public void setRentalOfficeDTO(RentalOfficeDTO rentalOfficeDTO) {
+    public void setRentalOfficeDTO(RentalOfficeDto rentalOfficeDTO) {
         this.rentalOfficeDTO = rentalOfficeDTO;
     }
 }

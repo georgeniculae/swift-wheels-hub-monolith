@@ -3,7 +3,7 @@ package com.carrentalservice.dto;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-public class RentalOfficeDTO extends BaseEntityDTO {
+public class RentalOfficeDto extends BaseEntityDto {
 
     @NotEmpty(message = "Name cannot be empty!")
     private String name;
@@ -18,9 +18,9 @@ public class RentalOfficeDTO extends BaseEntityDTO {
     private String owner;
 
     private String logoType;
-    private List<BranchDTO> branchesDTO;
+    private List<BranchDto> branchesDTO;
 
-    public RentalOfficeDTO(Long id, String name, String internetDomain, String contactAddress, String owner, String logoType, List<BranchDTO> branchesDTO) {
+    public RentalOfficeDto(Long id, String name, String internetDomain, String contactAddress, String owner, String logoType, List<BranchDto> branchesDTO) {
         super(id);
         this.name = name;
         this.internetDomain = internetDomain;
@@ -30,7 +30,7 @@ public class RentalOfficeDTO extends BaseEntityDTO {
         this.branchesDTO = branchesDTO;
     }
 
-    public RentalOfficeDTO() {
+    public RentalOfficeDto() {
     }
 
     public String getName() {
@@ -73,11 +73,11 @@ public class RentalOfficeDTO extends BaseEntityDTO {
         this.logoType = logoType;
     }
 
-    public List<BranchDTO> getBranchesDTO() {
+    public List<BranchDto> getBranchesDTO() {
         return branchesDTO;
     }
 
-    public void setBranchesDTO(List<BranchDTO> branchesDTO) {
+    public void setBranchesDTO(List<BranchDto> branchesDTO) {
         this.branchesDTO = branchesDTO;
     }
 }

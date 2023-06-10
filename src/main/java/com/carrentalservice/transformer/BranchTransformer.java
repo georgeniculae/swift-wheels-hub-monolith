@@ -1,6 +1,6 @@
 package com.carrentalservice.transformer;
 
-import com.carrentalservice.dto.BranchDTO;
+import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.entity.Branch;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class BranchTransformer {
 
-    public BranchDTO transformFromEntityToDTO(Branch branch) {
-        BranchDTO branchDTO = new BranchDTO();
+    public BranchDto transformFromEntityToDTO(Branch branch) {
+        BranchDto branchDTO = new BranchDto();
         BeanUtils.copyProperties(branch, branchDTO);
         return branchDTO;
     }
 
-    public Branch transformFromDTOToEntity(BranchDTO branchDTO) {
+    public Branch transformFromDTOToEntity(BranchDto branchDTO) {
         Branch branch = new Branch();
         BeanUtils.copyProperties(branchDTO, branch);
         return branch;

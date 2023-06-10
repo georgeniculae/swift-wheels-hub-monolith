@@ -2,7 +2,7 @@ package com.carrentalservice.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class UserDTO extends BaseEntityDTO {
+public class UserDto extends BaseEntityDto {
 
     @NotBlank(message = "Username cannot be blank.")
     private String username;
@@ -13,14 +13,14 @@ public class UserDTO extends BaseEntityDTO {
     @NotBlank(message = "Confirm password cannot be blank.")
     private String confirmPassword;
 
-    public UserDTO(Long id, String username, String password, String confirmPassword) {
+    public UserDto(Long id, String username, String password, String confirmPassword) {
         super(id);
         this.username = username;
         this.password = password;
         this.confirmPassword = confirmPassword;
     }
 
-    public UserDTO() {
+    public UserDto() {
     }
 
     public String getUsername() {

@@ -1,6 +1,6 @@
 package com.carrentalservice.restcontroller;
 
-import com.carrentalservice.dto.RentalDTO;
+import com.carrentalservice.dto.RentalDto;
 import com.carrentalservice.entity.Rental;
 import com.carrentalservice.service.RentalService;
 import com.carrentalservice.transformer.RentalTransformer;
@@ -25,38 +25,38 @@ public class RentalRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<RentalDTO> findRentalById(@PathVariable("id") Long id) {
+    public ResponseEntity<RentalDto> findRentalById(@PathVariable("id") Long id) {
         Rental rental = rentalService.findRentalById(id);
-        RentalDTO rentalDTO = rentalTransformer.transformFromEntityToDTO(rental);
+        RentalDto rentalDTO = rentalTransformer.transformFromEntityToDTO(rental);
         return ResponseEntity.ok(rentalDTO);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<RentalDTO> deleteRentalById(@PathVariable("id") Long id) {
+    public ResponseEntity<RentalDto> deleteRentalById(@PathVariable("id") Long id) {
         rentalService.deleteRentalById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<RentalDTO> createRental(@RequestBody RentalDTO rentalDTO) {
+    public ResponseEntity<RentalDto> createRental(@RequestBody RentalDto rentalDTO) {
         Rental rental = rentalTransformer.transformFromDTOToEntity(rentalDTO);
         Rental savedRental = rentalService.saveRental(rental);
-        RentalDTO savedRentalDTO = rentalTransformer.transformFromEntityToDTO(savedRental);
+        RentalDto savedRentalDTO = rentalTransformer.transformFromEntityToDTO(savedRental);
         return ResponseEntity.ok(savedRentalDTO);
     }
 
     @PutMapping
-    public ResponseEntity<RentalDTO> updateRental(@RequestBody RentalDTO rentalDTO) {
+    public ResponseEntity<RentalDto> updateRental(@RequestBody RentalDto rentalDTO) {
         Rental rental = rentalTransformer.transformFromDTOToEntity(rentalDTO);
         Rental savedRental = rentalService.saveRental(rental);
-        RentalDTO savedRentalDTO = rentalTransformer.transformFromEntityToDTO(savedRental);
+        RentalDto savedRentalDTO = rentalTransformer.transformFromEntityToDTO(savedRental);
         return ResponseEntity.ok(savedRentalDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<RentalDTO>> listAllRentals() {
+    public ResponseEntity<List<RentalDto>> listAllRentals() {
         List<Rental> allRentals = rentalService.findAllRentals();
-        List<RentalDTO> allRentalDTO = new ArrayList<>();
+        List<RentalDto> allRentalDTO = new ArrayList<>();
 
         for (Rental rental : allRentals) {
             allRentalDTO.add(rentalTransformer.transformFromEntityToDTO(rental));

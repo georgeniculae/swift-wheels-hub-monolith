@@ -1,11 +1,10 @@
 package com.carrentalservice.mvccontroller;
 
+import com.carrentalservice.entity.Booking;
 import com.carrentalservice.entity.Calculator;
 import com.carrentalservice.entity.Car;
-import com.carrentalservice.service.*;
-import com.carrentalservice.entity.Booking;
 import com.carrentalservice.entity.Customer;
-import com.sda.carrentalservice.service.*;
+import com.carrentalservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class BookingMVCController {
+public class BookingMvcController {
 
     private final BookingService bookingService;
     private final BranchService branchService;
@@ -26,11 +25,10 @@ public class BookingMVCController {
     private final CustomerService customerService;
     private final EmployeeService employeeService;
     private final UserService userService;
-
     private final Calculator calculator;
 
     @Autowired
-    public BookingMVCController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService, CustomerService customerService, UserService userService, Calculator calculator) {
+    public BookingMvcController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService, CustomerService customerService, UserService userService, Calculator calculator) {
         this.bookingService = bookingService;
         this.branchService = branchService;
         this.carService = carService;

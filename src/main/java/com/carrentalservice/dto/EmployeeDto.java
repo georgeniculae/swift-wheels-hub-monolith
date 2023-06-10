@@ -2,7 +2,7 @@ package com.carrentalservice.dto;
 
 import javax.validation.constraints.NotEmpty;
 
-public class EmployeeDTO extends BaseEntityDTO {
+public class EmployeeDto extends BaseEntityDto {
 
     @NotEmpty(message = "First name cannot be empty!")
     private String firstName;
@@ -13,11 +13,11 @@ public class EmployeeDTO extends BaseEntityDTO {
     @NotEmpty(message = "Job position cannot be empty!")
     private String jobPosition;
 
-    private BranchDTO workingBranchDTO;
-    private ReturnCarDTO returnCarDTO;
-    private RentalDTO rentalDTO;
+    private BranchDto workingBranchDTO;
+    private ReturnCarDto returnCarDTO;
+    private RentalDto rentalDTO;
 
-    public EmployeeDTO(Long id, String firstName, String lastName, String jobPosition, BranchDTO workingBranchDTO, ReturnCarDTO returnCarDTO, RentalDTO rentalDTO) {
+    public EmployeeDto(Long id, String firstName, String lastName, String jobPosition, BranchDto workingBranchDTO, ReturnCarDto returnCarDTO, RentalDto rentalDTO) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,7 +27,7 @@ public class EmployeeDTO extends BaseEntityDTO {
         this.rentalDTO = rentalDTO;
     }
 
-    public EmployeeDTO() {
+    public EmployeeDto() {
     }
 
     public String getFirstName() {
@@ -54,27 +54,27 @@ public class EmployeeDTO extends BaseEntityDTO {
         this.jobPosition = jobPosition;
     }
 
-    public BranchDTO getWorkingBranchDTO() {
+    public BranchDto getWorkingBranchDTO() {
         return workingBranchDTO;
     }
 
-    public void setWorkingBranchDTO(BranchDTO workingBranchDTO) {
+    public void setWorkingBranchDTO(BranchDto workingBranchDTO) {
         this.workingBranchDTO = workingBranchDTO;
     }
 
-    public ReturnCarDTO getReturnCarDTO() {
+    public ReturnCarDto getReturnCarDTO() {
         return returnCarDTO;
     }
 
-    public void setReturnCarDTO(ReturnCarDTO returnCarDTO) {
+    public void setReturnCarDTO(ReturnCarDto returnCarDTO) {
         this.returnCarDTO = returnCarDTO;
     }
 
-    public RentalDTO getRentalDTO() {
+    public RentalDto getRentalDTO() {
         return rentalDTO;
     }
 
-    public void setRentalDTO(RentalDTO rentalDTO) {
+    public void setRentalDTO(RentalDto rentalDTO) {
         this.rentalDTO = rentalDTO;
     }
 }

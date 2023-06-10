@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class ReturnCarMVCController {
+public class ReturnCarMvcController {
 
     private final ReturnCarService returnCarService;
     private final EmployeeService employeeService;
 
     @Autowired
-    public ReturnCarMVCController(ReturnCarService returnCarService, EmployeeService employeeService) {
+    public ReturnCarMvcController(ReturnCarService returnCarService, EmployeeService employeeService) {
         this.returnCarService = returnCarService;
         this.employeeService = employeeService;
     }
@@ -30,6 +30,7 @@ public class ReturnCarMVCController {
     public String showReturnCars(Model model) {
         model.addAttribute("returnCars", this.returnCarService.findAllReturnCar());
         model.addAttribute("returnCarsNumber", this.returnCarService.countReturnCar());
+
         return "returnCar-list";
     }
 
@@ -37,6 +38,7 @@ public class ReturnCarMVCController {
     public String showRegistration(Model model, Long id) {
         model.addAttribute("returnCar", new ReturnCar());
 //        model.addAttribute("employee", this.employeeService.findEmployeeById(id));
+
         return "add-returnCar";
     }
 
@@ -46,6 +48,7 @@ public class ReturnCarMVCController {
             return "add-returnCar";
         } else {
             this.returnCarService.saveReturnCar(returnCar);
+
             return "redirect:/returnCars";
         }
     }
@@ -53,6 +56,7 @@ public class ReturnCarMVCController {
     @GetMapping(path = "/returnCar/delete/{id}")
     public String deleteReturnCarById(@PathVariable("id") Long id) {
         this.returnCarService.deleteReturnCarById(id);
+
         return "redirect:/returnCars";
     }
 
@@ -61,13 +65,16 @@ public class ReturnCarMVCController {
         if (bindingResult.hasErrors()) {
             return "edit-returnCar";
         }
+
         this.returnCarService.saveReturnCar(returnCar);
+
         return "redirect:/returnCars";
     }
 
     @GetMapping(path = "/returnCar/edit/{id}")
     public String showEditPageReturnCar(@PathVariable("id") Long id, Model model) {
         model.addAttribute("returnCar", this.returnCarService.findReturnCarById(id));
+
         return "edit-returnCar";
     }
 }
