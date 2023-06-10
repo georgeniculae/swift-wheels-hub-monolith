@@ -27,7 +27,7 @@ public class BookingMvcController {
     private final Calculator calculator;
 
     @Autowired
-    public BookingMvcController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService, CustomerService customerService, UserService userService, Calculator calculator) {
+    public BookingMvcController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService, CustomerService customerService, Calculator calculator) {
         this.bookingService = bookingService;
         this.branchService = branchService;
         this.carService = carService;
