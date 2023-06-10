@@ -1,6 +1,8 @@
 package com.carrentalservice.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +24,11 @@ public class Customer extends User {
         this.address = address;
     }
 
-    public Customer() {
-    }
-
-//    public Customer(String customer, String password, String role) {
-//        super(customer, password, role);
-//    }
-
     public Customer(String username, String password, String role) {
         super(username, password, role);
+    }
+
+    public Customer() {
     }
 
     public String getFirstName() {
@@ -72,4 +70,5 @@ public class Customer extends User {
     public void setBookingList(List<Booking> bookingList) {
         this.bookingList = bookingList;
     }
+
 }

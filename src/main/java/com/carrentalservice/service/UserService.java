@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,61 +33,75 @@ public class UserService implements UserDetailsService {
         this.customerRepository = customerRepository;
     }
 
-    public void createUsers() {
+    public void createUsersIfThereAreNotAny() {
+        if (countUsers() == 0) {
+            createUsers();
+        }
+    }
+
+    private void createUsers() {
         List<User> users = new ArrayList<>();
-        if (!userRepository.findByUsername("admin").isPresent()) {
+
+        if (userRepository.findByUsername("admin").isEmpty()) {
             users.add(new Customer("admin", encoder.encode("admin"), "ROLE_ADMIN"));
         }
-        if (!userRepository.findByUsername("user").isPresent()) {
+
+        if (userRepository.findByUsername("user").isEmpty()) {
             users.add(new Customer("user", encoder.encode("user"), "ROLE_USER"));
         }
-        if (!userRepository.findByUsername("support").isPresent()) {
+
+        if (userRepository.findByUsername("support").isEmpty()) {
             users.add(new Customer("support", encoder.encode("support"), "ROLE_SUPPORT"));
         }
-        if (!customerRepository.findCustomerByUsername("customer").isPresent()) {
+
+        if (customerRepository.findCustomerByUsername("customer").isEmpty()) {
             users.add(new Customer("customer", encoder.encode("customer"), "ROLE_CUSTOMER"));
         }
+
         userRepository.saveAll(users);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> optionalUser = userRepository.findByUsername(username);
+
         if (optionalUser.isPresent()) {
             return new org.springframework.security.core.userdetails.User(
                     optionalUser.get().getUsername(),
                     optionalUser.get().getPassword(),
-                    Arrays.asList(new SimpleGrantedAuthority(optionalUser.get().getRole())));
-        } else {
-            throw new UsernameNotFoundException("Invalid username or password");
+                    List.of(new SimpleGrantedAuthority(optionalUser.get().getRole()))
+            );
         }
+
+        throw new UsernameNotFoundException("Invalid username or password");
     }
 
     public Optional<User> findUserByUsername(String username) {
         return this.userRepository.findByUsername(username);
     }
 
-    public User saveUserDTO(UserDto userDTO) {
+    public User saveUserDto(UserDto userDto) {
         User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(encoder.encode(userDTO.getPassword()));
+        user.setUsername(userDto.getUsername());
+        user.setPassword(encoder.encode(userDto.getPassword()));
         user.setRole("ROLE_USER");
         return userRepository.save(user);
     }
 
-    public Customer registerCustomer(CustomerDto customerDTO) {
+    public Customer registerCustomer(CustomerDto customerDto) {
         Customer user = new Customer();
-        user.setUsername(customerDTO.getUsername());
-        user.setPassword(encoder.encode(customerDTO.getPassword()));
-        user.setFirstName(customerDTO.getFirstName());
-        user.setLastName(customerDTO.getLastName());
-        user.setEmail(customerDTO.getEmail());
-        user.setAddress(customerDTO.getAddress());
+        user.setUsername(customerDto.getUsername());
+        user.setPassword(encoder.encode(customerDto.getPassword()));
+        user.setFirstName(customerDto.getFirstName());
+        user.setLastName(customerDto.getLastName());
+        user.setEmail(customerDto.getEmail());
+        user.setAddress(customerDto.getAddress());
         user.setRole("ROLE_CUSTOMER");
+
         return userRepository.save(user);
     }
 
-    public Long userCount() {
+    public Long countUsers() {
         return userRepository.count();
     }
 }

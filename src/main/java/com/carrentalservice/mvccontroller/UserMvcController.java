@@ -1,9 +1,8 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.dto.CustomerDto;
-import com.carrentalservice.service.CustomerService;
-import com.carrentalservice.service.UserService;
 import com.carrentalservice.entity.User;
+import com.carrentalservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +18,10 @@ import java.util.Optional;
 public class UserMvcController {
 
     private final UserService userService;
-    private final CustomerService customerService;
 
     @Autowired
-    public UserMvcController(UserService userService, CustomerService customerService) {
+    public UserMvcController(UserService userService) {
         this.userService = userService;
-        this.customerService = customerService;
     }
 
     @GetMapping(path = "/login")
@@ -40,21 +37,22 @@ public class UserMvcController {
     }
 
     @PostMapping(path = "/user/register")
-    public String registerUser(@ModelAttribute("customer") @Valid CustomerDto customerDTO, BindingResult bindingResult) {
-        Optional<User> userOptional = userService.findUserByUsername(customerDTO.getUsername());
+    public String registerUser(@ModelAttribute("customer") @Valid CustomerDto customerDto, BindingResult bindingResult) {
+        Optional<User> userOptional = userService.findUserByUsername(customerDto.getUsername());
+
         if (userOptional.isPresent()) {
-            bindingResult.rejectValue("username", null, "Username already exists!");
+            bindingResult.rejectValue("username", "404", "Username already exists!");
         }
 
-        if (!customerDTO.getPassword().equals(customerDTO.getConfirmPassword())) {
-            bindingResult.rejectValue("password", null, "Passwords do not match!");
+        if (!customerDto.getPassword().equals(customerDto.getConfirmPassword())) {
+            bindingResult.rejectValue("password", "404", "Passwords do not match!");
         }
 
         if (bindingResult.hasErrors()) {
             return "register";
         }
 
-        userService.registerCustomer(customerDTO);
+        userService.registerCustomer(customerDto);
 
         return "login";
     }

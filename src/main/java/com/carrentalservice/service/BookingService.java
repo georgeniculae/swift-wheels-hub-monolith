@@ -42,9 +42,9 @@ public class BookingService {
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
         if (optionalBooking.isPresent()) {
             return optionalBooking.get();
-        } else {
-            throw new NotFoundException("Booking with id " + id + " does not exist.");
         }
+
+        throw new NotFoundException("Booking with id " + id + " does not exist.");
     }
 
     public void deleteBookingById(Long id) {
@@ -66,21 +66,23 @@ public class BookingService {
         return bookingRepository.findBookingByName(searchString);
     }
 
-    public List<Booking> findBookingByCustomerLoggedIn(Customer customer){
+    public List<Booking> findBookingByCustomerLoggedIn(Customer customer) {
         return this.bookingRepository.findBookingByCustomer(customer);
     }
 
-    public Long countByCustomer(Customer customer){
+    public Long countByCustomer(Customer customer) {
         return this.bookingRepository.countByCustomer(customer);
     }
 
-    public Double calculateAllAmountSpentByUser(Customer customer){
+    public Double calculateAllAmountSpentByUser(Customer customer) {
         List<Booking> bookingByCustomerLoggedIn = findBookingByCustomerLoggedIn(customer);
+
         return calculator.getSumOfAmountOfBookingsOfCustomerLoggedIn(bookingByCustomerLoggedIn);
     }
 
     public Double getSumOfAllBookingAmount() {
         List<Booking> allBookings = findAllBookings();
+
         return calculator.getSumOfAllBookingAmount(allBookings);
     }
 }
