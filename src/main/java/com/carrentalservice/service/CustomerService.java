@@ -30,24 +30,27 @@ public class CustomerService {
 
     public Customer findCustomerById(Long id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
+
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get();
-        } else {
-            throw new NotFoundException("Customer with id " + id + " does not exist.");
         }
+
+        throw new NotFoundException("Customer with id " + id + " does not exist.");
     }
 
     public Customer findCustomerByUsername(String username) {
         Optional<Customer> optionalCustomer = customerRepository.findCustomerByUsername(username);
+
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get();
-        } else {
-            throw new NotFoundException("Customer with username " + username + " does not exist.");
         }
+
+        throw new NotFoundException("Customer with username " + username + " does not exist.");
     }
 
     public void deleteCustomerById(Long id) {
-        this.findCustomerById(id);
+        findCustomerById(id);
+
         customerRepository.deleteById(id);
     }
 
@@ -61,6 +64,7 @@ public class CustomerService {
 
     public Customer getCustomerLoggedIn() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
         return findCustomerByUsername(name);
     }
 

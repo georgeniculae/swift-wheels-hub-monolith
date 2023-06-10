@@ -8,15 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class CarTransformer {
 
-    public Car transformFromDTOToEntity(CarDto carDTO){
+    public Car transformFromDtoToEntity(CarDto carDTO){
         Car car = new Car();
         BeanUtils.copyProperties(carDTO, car);
+
         return car;
     }
 
-    public CarDto transformFromEntityToDTO(Car car){
+    public CarDto transformFromEntityToDto(Car car){
         CarDto carDTO = new CarDto();
         BeanUtils.copyProperties(car, carDTO);
+
         return carDTO;
     }
 }

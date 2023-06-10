@@ -11,4 +11,5 @@ public interface RentalOfficeRepository extends JpaRepository<RentalOffice, Long
 
     @Query("From RentalOffice rentalOffice where lower(rentalOffice.name) like '%:rentalOfficeName%' or lower(rentalOffice.owner) like '%:rentalOfficeName%'")
     RentalOffice findRentalOfficeByName(@Param("rentalOfficeName") String rentalOfficeName);
+
 }

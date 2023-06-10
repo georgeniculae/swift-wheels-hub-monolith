@@ -34,11 +34,10 @@ public class RevenueService {
     public Revenue findRevenueById(Long id) {
         Optional<Revenue> optionalRevenue = revenueRepository.findById(id);
         if (optionalRevenue.isPresent()) {
-            Revenue revenue = optionalRevenue.get();
-            return revenue;
-        } else {
-            throw new NotFoundException("Revenue with id " + id + " does not exist.");
+            return optionalRevenue.get();
         }
+
+        throw new NotFoundException("Revenue with id " + id + " does not exist.");
     }
 
     public Long countRevenues() {
@@ -48,4 +47,5 @@ public class RevenueService {
     public Revenue findRevenueByDetails(Double search) {
         return revenueRepository.findRevenueByDetails(search);
     }
+
 }

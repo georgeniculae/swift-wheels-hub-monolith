@@ -28,40 +28,45 @@ public class CustomerRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") Long id) {
         Customer customer = customerService.findCustomerById(id);
-        CustomerDto customerDTO = customerTransformer.transformFromEntityToDTO(customer);
-        return ResponseEntity.ok(customerDTO);
+        CustomerDto customerDto = customerTransformer.transformFromEntityToDto(customer);
+
+        return ResponseEntity.ok(customerDto);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<CustomerDto> deleteCustomerById(@PathVariable("id") Long id) {
         customerService.deleteCustomerById(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDTO) {
-        Customer customer = customerTransformer.transformFromDTOToEntity(customerDTO);
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
+        Customer customer = customerTransformer.transformFromDtoToEntity(customerDto);
         Customer saveCustomer = customerService.saveCustomer(customer);
-        CustomerDto savedCustomerDTO = customerTransformer.transformFromEntityToDTO(saveCustomer);
-        return ResponseEntity.ok(savedCustomerDTO);
+        CustomerDto savedCustomerDto = customerTransformer.transformFromEntityToDto(saveCustomer);
+
+        return ResponseEntity.ok(savedCustomerDto);
     }
 
     @PutMapping
-    public ResponseEntity<CustomerDto> updateCustomer(@RequestBody CustomerDto customerDTO) {
-        Customer customer = customerTransformer.transformFromDTOToEntity(customerDTO);
+    public ResponseEntity<CustomerDto> updateCustomer(@RequestBody CustomerDto customerDto) {
+        Customer customer = customerTransformer.transformFromDtoToEntity(customerDto);
         Customer saveCustomer = customerService.saveCustomer(customer);
-        CustomerDto savedCustomerDTO = customerTransformer.transformFromEntityToDTO(saveCustomer);
-        return ResponseEntity.ok(savedCustomerDTO);
+        CustomerDto savedCustomerDto = customerTransformer.transformFromEntityToDto(saveCustomer);
+
+        return ResponseEntity.ok(savedCustomerDto);
     }
 
     @GetMapping
     public ResponseEntity<List<CustomerDto>> listAllCustomer(){
         List<Customer> allCustomer = customerService.findAllCustomer();
-        List<CustomerDto> allCustomerDTO = new ArrayList<>();
+        List<CustomerDto> allCustomerDto = new ArrayList<>();
 
         for (Customer customer: allCustomer){
-            allCustomerDTO.add(customerTransformer.transformFromEntityToDTO(customer));
+            allCustomerDto.add(customerTransformer.transformFromEntityToDto(customer));
         }
-        return ResponseEntity.ok(allCustomerDTO);
+
+        return ResponseEntity.ok(allCustomerDto);
     }
 }

@@ -40,6 +40,7 @@ public class BookingService {
 
     public Booking findBookingById(Long id) {
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
+
         if (optionalBooking.isPresent()) {
             return optionalBooking.get();
         }
@@ -49,12 +50,15 @@ public class BookingService {
 
     public void deleteBookingById(Long id) {
         Booking bookingById = this.findBookingById(id);
+
         Car car = bookingById.getCar();
         car.getBookingList().remove(bookingById);
         carRepository.save(car);
+
         Customer customer = bookingById.getCustomer();
         customer.getBookingList().remove(bookingById);
         customerRepository.save(customer);
+
         bookingRepository.deleteById(id);
     }
 
@@ -85,4 +89,5 @@ public class BookingService {
 
         return calculator.getSumOfAllBookingAmount(allBookings);
     }
+
 }

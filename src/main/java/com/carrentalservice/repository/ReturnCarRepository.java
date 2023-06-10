@@ -11,4 +11,5 @@ public interface ReturnCarRepository extends JpaRepository<ReturnCar, Long> {
 
     @Query("From ReturnCar returnCar where lower(returnCar.additionalPayment) like '%:returnCarName%'")
     ReturnCar findReturnCarByName(@Param("returnCarName") String returnCarName);
+
 }

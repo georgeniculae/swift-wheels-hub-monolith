@@ -8,15 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeTransformer {
 
-    public EmployeeDto transformFromEntityToDTO(Employee employee) {
+    public EmployeeDto transformFromEntityToDto(Employee employee) {
         EmployeeDto employeeDTO = new EmployeeDto();
         BeanUtils.copyProperties(employee, employeeDTO);
+
         return employeeDTO;
     }
 
-    public Employee transformFromDTOToEntity(EmployeeDto employeeDTO) {
+    public Employee transformFromDtoToEntity(EmployeeDto employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
+
         return employee;
     }
 }

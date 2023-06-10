@@ -19,13 +19,17 @@ public class RentalService {
         this.rentalRepository = rentalRepository;
     }
 
-    public Rental saveRental(Rental rental){
+    public Rental saveRental(Rental rental) {
         return rentalRepository.save(rental);
     }
 
-    public List<Rental> findAllRentals() { return rentalRepository.findAll(); }
+    public List<Rental> findAllRentals() {
+        return rentalRepository.findAll();
+    }
 
-    public void deleteAllRentals() { rentalRepository.deleteAll(); }
+    public void deleteAllRentals() {
+        rentalRepository.deleteAll();
+    }
 
     public void deleteRentalById(Long id) {
         rentalRepository.deleteById(id);
@@ -34,11 +38,10 @@ public class RentalService {
     public Rental findRentalById(Long id) {
         Optional<Rental> optionalRental = rentalRepository.findById(id);
         if (optionalRental.isPresent()) {
-            Rental rental = optionalRental.get();
-            return rental;
-        } else {
-            throw new NotFoundException("Rental with id " + id + " does not exist.");
+            return optionalRental.get();
         }
+
+        throw new NotFoundException("Rental with id " + id + " does not exist.");
     }
 
     public Long countRental() {
@@ -48,4 +51,5 @@ public class RentalService {
     public Rental findRentalByName(String searchString) {
         return rentalRepository.findRentalByName(searchString);
     }
+
 }

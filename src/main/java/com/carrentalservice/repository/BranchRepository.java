@@ -11,4 +11,5 @@ public interface BranchRepository extends JpaRepository<Branch, Long> {
 
     @Query("From Branch branch where lower(branch.name) like '%:branchName%' or lower(branch.rentalOffice) like '%:branchName%'")
     Branch findBranchByName(@Param("branchName") String branchName);
+
 }

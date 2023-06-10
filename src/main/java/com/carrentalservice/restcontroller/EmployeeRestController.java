@@ -28,40 +28,46 @@ public class EmployeeRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
-        EmployeeDto employeeDTO = employeeTransformer.transformFromEntityToDTO(employee);
-        return ResponseEntity.ok(employeeDTO);
+        EmployeeDto employeeDto = employeeTransformer.transformFromEntityToDto(employee);
+
+        return ResponseEntity.ok(employeeDto);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> deleteEmployeeById(@PathVariable("id") Long id) {
         employeeService.deleteEmployeeById(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDTO) {
-        Employee employee = employeeTransformer.transformFromDTOToEntity(employeeDTO);
+    public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
+        Employee employee = employeeTransformer.transformFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDto savedEmployeeDTO = employeeTransformer.transformFromEntityToDTO(savedEmployee);
+        EmployeeDto savedEmployeeDTO = employeeTransformer.transformFromEntityToDto(savedEmployee);
+
         return ResponseEntity.ok(savedEmployeeDTO);
     }
 
     @PutMapping
-    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDTO) {
-        Employee employee = employeeTransformer.transformFromDTOToEntity(employeeDTO);
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+        Employee employee = employeeTransformer.transformFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDto savedEmployeeDTO = employeeTransformer.transformFromEntityToDTO(savedEmployee);
-        return ResponseEntity.ok(savedEmployeeDTO);
+        EmployeeDto savedEmployeeDto = employeeTransformer.transformFromEntityToDto(savedEmployee);
+
+        return ResponseEntity.ok(savedEmployeeDto);
     }
 
     @GetMapping
     public ResponseEntity<List<EmployeeDto>> listAllEmployees() {
         List<Employee> allEmployees = employeeService.findAllEmployees();
-        List<EmployeeDto> allEmployeesDTO = new ArrayList<>();
+        List<EmployeeDto> allEmployeesDto = new ArrayList<>();
 
         for (Employee employee : allEmployees) {
-            allEmployeesDTO.add(employeeTransformer.transformFromEntityToDTO(employee));
+            allEmployeesDto.add(employeeTransformer.transformFromEntityToDto(employee));
         }
-        return ResponseEntity.ok(allEmployeesDTO);
+
+        return ResponseEntity.ok(allEmployeesDto);
     }
+
 }

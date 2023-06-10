@@ -28,40 +28,46 @@ public class RevenueRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<RevenueDto> findRevenueById(@PathVariable("id") Long id) {
         Revenue revenue = revenueService.findRevenueById(id);
-        RevenueDto revenueDTO = revenueTransformer.transformFromEntityToDTO(revenue);
+        RevenueDto revenueDTO = revenueTransformer.transformFromEntityToDto(revenue);
+
         return ResponseEntity.ok(revenueDTO);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<RevenueDto> deleteRevenueById(@PathVariable("id") Long id) {
         revenueService.deleteRevenueById(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<RevenueDto> createRevenue(@RequestBody RevenueDto revenueDTO) {
-        Revenue revenue = revenueTransformer.transformFromDTOToEntity(revenueDTO);
+    public ResponseEntity<RevenueDto> createRevenue(@RequestBody RevenueDto revenueDto) {
+        Revenue revenue = revenueTransformer.transformFromDtoToEntity(revenueDto);
         Revenue savedRevenue = revenueService.saveRevenue(revenue);
-        RevenueDto savedRevenueDTO = revenueTransformer.transformFromEntityToDTO(savedRevenue);
-        return ResponseEntity.ok(savedRevenueDTO);
+        RevenueDto savedRevenueDto = revenueTransformer.transformFromEntityToDto(savedRevenue);
+
+        return ResponseEntity.ok(savedRevenueDto);
     }
 
     @PutMapping
-    public ResponseEntity<RevenueDto> updateRevenue(@RequestBody RevenueDto revenueDTO) {
-        Revenue revenue = revenueTransformer.transformFromDTOToEntity(revenueDTO);
+    public ResponseEntity<RevenueDto> updateRevenue(@RequestBody RevenueDto revenueDto) {
+        Revenue revenue = revenueTransformer.transformFromDtoToEntity(revenueDto);
         Revenue savedRevenue = revenueService.saveRevenue(revenue);
-        RevenueDto savedRevenueDTO = revenueTransformer.transformFromEntityToDTO(savedRevenue);
-        return ResponseEntity.ok(savedRevenueDTO);
+        RevenueDto savedRevenueDto = revenueTransformer.transformFromEntityToDto(savedRevenue);
+
+        return ResponseEntity.ok(savedRevenueDto);
     }
 
     @GetMapping
     public ResponseEntity<List<RevenueDto>> listAllRevenues() {
         List<Revenue> allRevenues = revenueService.findAllRevenues();
-        List<RevenueDto> allRevenuesDTO = new ArrayList<>();
+        List<RevenueDto> allRevenuesDto = new ArrayList<>();
 
         for (Revenue revenue : allRevenues) {
-            allRevenuesDTO.add(revenueTransformer.transformFromEntityToDTO(revenue));
+            allRevenuesDto.add(revenueTransformer.transformFromEntityToDto(revenue));
         }
-        return ResponseEntity.ok(allRevenuesDTO);
+
+        return ResponseEntity.ok(allRevenuesDto);
     }
+
 }

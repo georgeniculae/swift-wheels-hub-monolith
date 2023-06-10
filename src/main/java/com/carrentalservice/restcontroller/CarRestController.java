@@ -26,42 +26,47 @@ public class CarRestController {
     }
 
     @PostMapping
-    public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDTO){
-        Car car = carTransformer.transformFromDTOToEntity(carDTO);
+    public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDto){
+        Car car = carTransformer.transformFromDtoToEntity(carDto);
         Car savedCar = carService.saveCar(car);
-        CarDto savedCarDTO = carTransformer.transformFromEntityToDTO(savedCar);
-        return ResponseEntity.ok(savedCarDTO);
+        CarDto savedCarDto = carTransformer.transformFromEntityToDto(savedCar);
+
+        return ResponseEntity.ok(savedCarDto);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id){
         Car car = carService.findCarById(id);
-        CarDto carDTO = carTransformer.transformFromEntityToDTO(car);
-        return ResponseEntity.ok(carDTO);
+        CarDto carDto = carTransformer.transformFromEntityToDto(car);
+
+        return ResponseEntity.ok(carDto);
     }
 
     @PutMapping
-    public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDTO){
-        Car car = carTransformer.transformFromDTOToEntity(carDTO);
+    public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto){
+        Car car = carTransformer.transformFromDtoToEntity(carDto);
         Car carSaved = carService.saveCar(car);
-        CarDto savedCarDTO = carTransformer.transformFromEntityToDTO(carSaved);
-        return ResponseEntity.ok(savedCarDTO);
+        CarDto savedCarDto = carTransformer.transformFromEntityToDto(carSaved);
+
+        return ResponseEntity.ok(savedCarDto);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> deleteCarById(@PathVariable("id") Long id) {
         carService.deleteCarById(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<List<CarDto>> listAllCars(){
         List<Car> allCars = carService.findAllCars();
-        List<CarDto> allCarsDTO = new ArrayList<>();
+        List<CarDto> allCarsDto = new ArrayList<>();
 
         for(Car car: allCars){
-            allCarsDTO.add(carTransformer.transformFromEntityToDTO(car));
+            allCarsDto.add(carTransformer.transformFromEntityToDto(car));
         }
-        return ResponseEntity.ok(allCarsDTO);
+
+        return ResponseEntity.ok(allCarsDto);
     }
 }

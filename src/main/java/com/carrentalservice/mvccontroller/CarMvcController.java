@@ -36,7 +36,9 @@ public class CarMvcController {
     @GetMapping({"/search", "/search(make)"})
     public String searchCarByMake(Model model, @RequestParam(value = "make") Optional<String> make) {
         if (make.isPresent()) {
-            List<Car> carList = carService.findCarsByMake(make);
+            String actualMake = make.get();
+
+            List<Car> carList = carService.findCarsByMake(actualMake);
 
             for (Car car1 : carList) {
                 model.addAttribute("carByMake", car1);

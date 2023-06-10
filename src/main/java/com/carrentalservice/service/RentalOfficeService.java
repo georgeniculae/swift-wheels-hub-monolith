@@ -33,12 +33,12 @@ public class RentalOfficeService {
 
     public RentalOffice findRentalOfficeById(Long id) {
         Optional<RentalOffice> optionalRentalOffice = rentalOfficeRepository.findById(id);
+
         if (optionalRentalOffice.isPresent()) {
-            RentalOffice rentalOffice = optionalRentalOffice.get();
-            return rentalOffice;
-        } else {
-            throw new NotFoundException("Rental office with id " + id + " does not exist.");
+            return optionalRentalOffice.get();
         }
+
+        throw new NotFoundException("Rental office with id " + id + " does not exist.");
     }
 
     public Long countRentalOffices() {
@@ -48,4 +48,5 @@ public class RentalOfficeService {
     public RentalOffice findRentalOfficeByName(String searchString) {
         return rentalOfficeRepository.findRentalOfficeByName(searchString);
     }
+
 }

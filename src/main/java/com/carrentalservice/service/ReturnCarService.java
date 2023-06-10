@@ -29,14 +29,17 @@ public class ReturnCarService {
 
     public ReturnCar findReturnCarById(Long id) {
         Optional<ReturnCar> optionalReturnCar = returnCarRepository.findById(id);
+
         if (optionalReturnCar.isPresent()) {
             return optionalReturnCar.get();
-        } else
-            throw new NotFoundException("Return car with id " + id + "does not exist.");
+        }
+
+        throw new NotFoundException("Return car with id " + id + "does not exist.");
     }
 
     public void deleteReturnCarById(Long id) {
         this.findReturnCarById(id);
+
         returnCarRepository.deleteById(id);
     }
 
@@ -47,4 +50,5 @@ public class ReturnCarService {
     public ReturnCar findReturnCarByName(String searchString) {
         return returnCarRepository.findReturnCarByName(searchString);
     }
+
 }

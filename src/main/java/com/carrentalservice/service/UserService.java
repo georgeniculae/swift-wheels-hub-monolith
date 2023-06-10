@@ -21,14 +21,13 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private BCryptPasswordEncoder encoder;
-
+    private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, CustomerRepository customerRepository) {
+    public UserService(BCryptPasswordEncoder encoder, UserRepository userRepository, CustomerRepository customerRepository) {
+        this.encoder = encoder;
         this.userRepository = userRepository;
         this.customerRepository = customerRepository;
     }
@@ -42,23 +41,56 @@ public class UserService implements UserDetailsService {
     private void createUsers() {
         List<User> users = new ArrayList<>();
 
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.existsByUsername("admin")) {
             users.add(new Customer("admin", encoder.encode("admin"), "ROLE_ADMIN"));
         }
 
-        if (userRepository.findByUsername("user").isEmpty()) {
+        if (userRepository.existsByUsername("user")) {
             users.add(new Customer("user", encoder.encode("user"), "ROLE_USER"));
         }
 
-        if (userRepository.findByUsername("support").isEmpty()) {
+        if (userRepository.existsByUsername("support")) {
             users.add(new Customer("support", encoder.encode("support"), "ROLE_SUPPORT"));
         }
 
-        if (customerRepository.findCustomerByUsername("customer").isEmpty()) {
+        if (customerRepository.existsByUsername("customer")) {
             users.add(new Customer("customer", encoder.encode("customer"), "ROLE_CUSTOMER"));
         }
 
         userRepository.saveAll(users);
+    }
+
+
+    public Optional<User> findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User saveUserDto(UserDto userDto) {
+        User user = new User();
+
+        user.setUsername(userDto.getUsername());
+        user.setPassword(encoder.encode(userDto.getPassword()));
+        user.setRole("ROLE_USER");
+
+        return userRepository.save(user);
+    }
+
+    public Customer registerCustomer(CustomerDto customerDto) {
+        Customer user = new Customer();
+
+        user.setUsername(customerDto.getUsername());
+        user.setPassword(encoder.encode(customerDto.getPassword()));
+        user.setFirstName(customerDto.getFirstName());
+        user.setLastName(customerDto.getLastName());
+        user.setEmail(customerDto.getEmail());
+        user.setAddress(customerDto.getAddress());
+        user.setRole("ROLE_CUSTOMER");
+
+        return userRepository.save(user);
+    }
+
+    public Long countUsers() {
+        return userRepository.count();
     }
 
     @Override
@@ -76,32 +108,4 @@ public class UserService implements UserDetailsService {
         throw new UsernameNotFoundException("Invalid username or password");
     }
 
-    public Optional<User> findUserByUsername(String username) {
-        return this.userRepository.findByUsername(username);
-    }
-
-    public User saveUserDto(UserDto userDto) {
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(encoder.encode(userDto.getPassword()));
-        user.setRole("ROLE_USER");
-        return userRepository.save(user);
-    }
-
-    public Customer registerCustomer(CustomerDto customerDto) {
-        Customer user = new Customer();
-        user.setUsername(customerDto.getUsername());
-        user.setPassword(encoder.encode(customerDto.getPassword()));
-        user.setFirstName(customerDto.getFirstName());
-        user.setLastName(customerDto.getLastName());
-        user.setEmail(customerDto.getEmail());
-        user.setAddress(customerDto.getAddress());
-        user.setRole("ROLE_CUSTOMER");
-
-        return userRepository.save(user);
-    }
-
-    public Long countUsers() {
-        return userRepository.count();
-    }
 }

@@ -32,7 +32,8 @@ public class BranchService {
     }
 
     public void deleteBranchById(Long id) {
-        Branch branchById = this.findBranchById(id);
+        Branch branchById = findBranchById(id);
+
         RentalOffice rentalOffice = branchById.getRentalOffice();
         rentalOffice.getBranches().remove(branchById);
         rentalOfficeRepository.save(rentalOffice);
@@ -42,12 +43,12 @@ public class BranchService {
 
     public Branch findBranchById(Long id) {
         Optional<Branch> optionalBranch = branchRepository.findById(id);
+
         if (optionalBranch.isPresent()) {
-            Branch branch = optionalBranch.get();
-            return branch;
-        } else {
-            throw new NotFoundException("Branch with id " + id + " does not exist.");
+            return optionalBranch.get();
         }
+
+        throw new NotFoundException("Branch with id " + id + " does not exist.");
     }
 
     public Long countBranches() {
@@ -57,4 +58,5 @@ public class BranchService {
     public Branch findBranchByName(String searchString) {
         return branchRepository.findBranchByName(searchString);
     }
+
 }

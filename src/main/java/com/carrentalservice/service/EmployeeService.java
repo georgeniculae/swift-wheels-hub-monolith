@@ -1,5 +1,6 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.BranchRepository;
@@ -36,16 +37,22 @@ public class EmployeeService {
 
     public Employee findEmployeeById(Long id) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+
         if (optionalEmployee.isPresent()) {
-            Employee employee = optionalEmployee.get();
-            return employee;
-        } else {
-            throw new NotFoundException("Employee with id " + id + " does not exist.");
+            return optionalEmployee.get();
         }
+
+        throw new NotFoundException("Employee with id " + id + " does not exist.");
     }
 
     public List<Employee> getEmployeesInBranch(Long id) {
-        return branchRepository.findById(id).get().getEmployees();
+        Optional<Branch> optionalBranch = branchRepository.findById(id);
+
+        if (optionalBranch.isPresent()) {
+            return optionalBranch.get().getEmployees();
+        }
+
+        throw new NotFoundException("Employee with id " + id + " does not exist.");
     }
 
     public Long countEmployees() {
@@ -55,4 +62,5 @@ public class EmployeeService {
     public Employee findEmployeeByName(String searchString) {
         return employeeRepository.findEmployeeByName(searchString);
     }
+
 }

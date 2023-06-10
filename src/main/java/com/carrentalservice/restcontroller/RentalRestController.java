@@ -15,6 +15,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/rental")
 public class RentalRestController {
+
     private final RentalService rentalService;
     private final RentalTransformer rentalTransformer;
 
@@ -27,40 +28,45 @@ public class RentalRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<RentalDto> findRentalById(@PathVariable("id") Long id) {
         Rental rental = rentalService.findRentalById(id);
-        RentalDto rentalDTO = rentalTransformer.transformFromEntityToDTO(rental);
+        RentalDto rentalDTO = rentalTransformer.transformFromEntityToDto(rental);
+
         return ResponseEntity.ok(rentalDTO);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<RentalDto> deleteRentalById(@PathVariable("id") Long id) {
         rentalService.deleteRentalById(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<RentalDto> createRental(@RequestBody RentalDto rentalDTO) {
-        Rental rental = rentalTransformer.transformFromDTOToEntity(rentalDTO);
+    public ResponseEntity<RentalDto> createRental(@RequestBody RentalDto rentalDto) {
+        Rental rental = rentalTransformer.transformFromDtoToEntity(rentalDto);
         Rental savedRental = rentalService.saveRental(rental);
-        RentalDto savedRentalDTO = rentalTransformer.transformFromEntityToDTO(savedRental);
-        return ResponseEntity.ok(savedRentalDTO);
+        RentalDto savedRentalDto = rentalTransformer.transformFromEntityToDto(savedRental);
+
+        return ResponseEntity.ok(savedRentalDto);
     }
 
     @PutMapping
-    public ResponseEntity<RentalDto> updateRental(@RequestBody RentalDto rentalDTO) {
-        Rental rental = rentalTransformer.transformFromDTOToEntity(rentalDTO);
+    public ResponseEntity<RentalDto> updateRental(@RequestBody RentalDto rentalDto) {
+        Rental rental = rentalTransformer.transformFromDtoToEntity(rentalDto);
         Rental savedRental = rentalService.saveRental(rental);
-        RentalDto savedRentalDTO = rentalTransformer.transformFromEntityToDTO(savedRental);
-        return ResponseEntity.ok(savedRentalDTO);
+        RentalDto savedRentalDto = rentalTransformer.transformFromEntityToDto(savedRental);
+
+        return ResponseEntity.ok(savedRentalDto);
     }
 
     @GetMapping
     public ResponseEntity<List<RentalDto>> listAllRentals() {
         List<Rental> allRentals = rentalService.findAllRentals();
-        List<RentalDto> allRentalDTO = new ArrayList<>();
+        List<RentalDto> allRentalDto = new ArrayList<>();
 
         for (Rental rental : allRentals) {
-            allRentalDTO.add(rentalTransformer.transformFromEntityToDTO(rental));
+            allRentalDto.add(rentalTransformer.transformFromEntityToDto(rental));
         }
-        return ResponseEntity.ok(allRentalDTO);
+
+        return ResponseEntity.ok(allRentalDto);
     }
 }

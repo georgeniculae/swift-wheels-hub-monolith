@@ -27,6 +27,13 @@ public class CarService {
         this.branchRepository = branchRepository;
     }
 
+    public Car getCarById(@ModelAttribute("booking") @Valid Booking booking) {
+        Car carById = findCarById(booking.getCar().getId());
+        booking.setCar(carById);
+
+        return carById;
+    }
+
     public Car saveCar(Car car) {
         return carRepository.save(car);
     }
@@ -37,18 +44,21 @@ public class CarService {
 
     public Car findCarById(Long id) {
         Optional<Car> optionalCar = carRepository.findById(id);
+
         if (optionalCar.isPresent()) {
             return optionalCar.get();
-        } else {
-            throw new NotFoundException("Car with id " + id + " does not exist.");
         }
+
+        throw new NotFoundException("Car with id " + id + " does not exist.");
     }
 
     public void deleteCarById(Long id) {
         Car carById = this.findCarById(id);
+
         Branch branch = carById.getBranch();
         branch.getCars().remove(carById);
         branchRepository.save(branch);
+
         carRepository.deleteById(id);
     }
 
@@ -60,13 +70,8 @@ public class CarService {
         return carRepository.findCarByName(searchString);
     }
 
-    public List<Car> findCarsByMake(Optional<String> make) {
+    public List<Car> findCarsByMake(String make) {
         return new ArrayList<>(carRepository.findCarsByMake(make));
     }
 
-    public Car getCarById(@ModelAttribute("booking") @Valid Booking booking) {
-        Car carById = findCarById(booking.getCar().getId());
-        booking.setCar(carById);
-        return carById;
-    }
 }

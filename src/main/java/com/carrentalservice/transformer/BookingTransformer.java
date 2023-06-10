@@ -8,15 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookingTransformer {
 
-    public Booking transformFromDTOToEntity(BookingDto bookingDTO){
+    public Booking transformFromDtoToEntity(BookingDto bookingDTO){
         Booking booking = new Booking();
         BeanUtils.copyProperties(bookingDTO, booking);
+
         return booking;
     }
 
-    public BookingDto transformFromEntityToDTO(Booking booking) {
+    public BookingDto transformFromEntityToDto(Booking booking) {
         BookingDto bookingDTO = new BookingDto();
         BeanUtils.copyProperties(booking, bookingDTO);
+
         return bookingDTO;
     }
 }

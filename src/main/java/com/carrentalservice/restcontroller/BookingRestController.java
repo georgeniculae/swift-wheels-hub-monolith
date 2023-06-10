@@ -28,40 +28,46 @@ public class BookingRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<BookingDto> findBookingById(@PathVariable("id") Long id) {
         Booking booking = bookingService.findBookingById(id);
-        BookingDto bookingDTO = bookingTransformer.transformFromEntityToDTO(booking);
-        return ResponseEntity.ok(bookingDTO);
+        BookingDto bookingDto = bookingTransformer.transformFromEntityToDto(booking);
+
+        return ResponseEntity.ok(bookingDto);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<BookingDto> deleteBookingById(@PathVariable("id") Long id) {
         bookingService.deleteBookingById(id);
+
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDTO) {
-        Booking booking = bookingTransformer.transformFromDTOToEntity(bookingDTO);
+    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
+        Booking booking = bookingTransformer.transformFromDtoToEntity(bookingDto);
         Booking saveBooking = bookingService.saveBooking(booking);
-        BookingDto saveBookingDTO = bookingTransformer.transformFromEntityToDTO(saveBooking);
-        return ResponseEntity.ok(saveBookingDTO);
+        BookingDto saveBookingDto = bookingTransformer.transformFromEntityToDto(saveBooking);
+
+        return ResponseEntity.ok(saveBookingDto);
     }
 
     @PutMapping
-    public ResponseEntity<BookingDto> updateBooking(@RequestBody BookingDto bookingDTO) {
-        Booking booking = bookingTransformer.transformFromDTOToEntity(bookingDTO);
+    public ResponseEntity<BookingDto> updateBooking(@RequestBody BookingDto bookingDto) {
+        Booking booking = bookingTransformer.transformFromDtoToEntity(bookingDto);
         Booking saveBooking = bookingService.saveBooking(booking);
-        BookingDto saveBookingDTO = bookingTransformer.transformFromEntityToDTO(saveBooking);
-        return ResponseEntity.ok(saveBookingDTO);
+        BookingDto saveBookingDto = bookingTransformer.transformFromEntityToDto(saveBooking);
+
+        return ResponseEntity.ok(saveBookingDto);
     }
 
     @GetMapping
     public ResponseEntity<List<BookingDto>> listAllBooking() {
         List<Booking> allBooking = bookingService.findAllBookings();
-        List<BookingDto> allBookingDTO = new ArrayList<>();
+        List<BookingDto> allBookingDto = new ArrayList<>();
 
         for (Booking booking : allBooking) {
-            allBookingDTO.add(bookingTransformer.transformFromEntityToDTO(booking));
+            allBookingDto.add(bookingTransformer.transformFromEntityToDto(booking));
         }
-        return ResponseEntity.ok(allBookingDTO);
+
+        return ResponseEntity.ok(allBookingDto);
     }
+
 }

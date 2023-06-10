@@ -8,16 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class RevenueTransformer {
 
-    public Revenue transformFromDTOToEntity(RevenueDto revenueDTO) {
+    public Revenue transformFromDtoToEntity(RevenueDto revenueDTO) {
         Revenue revenue = new Revenue();
         BeanUtils.copyProperties(revenueDTO, revenue);
+
         return revenue;
     }
 
-    public RevenueDto transformFromEntityToDTO(Revenue revenue) {
+    public RevenueDto transformFromEntityToDto(Revenue revenue) {
         RevenueDto revenueDTO = new RevenueDto();
         BeanUtils.copyProperties(revenue, revenueDTO);
-        return revenueDTO;
 
+        return revenueDTO;
     }
 }
