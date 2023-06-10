@@ -38,9 +38,9 @@ public class BookingMvcController {
 
     @GetMapping(path = "/bookings")
     public String showBooking(Model model) {
-        model.addAttribute("bookings", this.bookingService.findAllBookings());
-        model.addAttribute("bookingsNumber", this.bookingService.countBookings());
-        model.addAttribute("sumOfAllBookings", this.bookingService.getSumOfAllBookingAmount());
+        model.addAttribute("bookings", bookingService.findAllBookings());
+        model.addAttribute("bookingsNumber", bookingService.countBookings());
+        model.addAttribute("sumOfAllBookings", bookingService.getSumOfAllBookingAmount());
 
         return "booking-list";
     }
@@ -48,9 +48,9 @@ public class BookingMvcController {
     @GetMapping(path = "/booking/registration")
     public String showRegistration(Model model) {
         model.addAttribute("booking", new Booking());
-        model.addAttribute("allBranches", this.branchService.findAllBranches());
-        model.addAttribute("allCars", this.carService.findAllCars());
-        model.addAttribute("employees", this.employeeService.findAllEmployees());
+        model.addAttribute("allBranches", branchService.findAllBranches());
+        model.addAttribute("allCars", carService.findAllCars());
+        model.addAttribute("employees", employeeService.findAllEmployees());
 
         return "add-booking";
     }
@@ -65,7 +65,7 @@ public class BookingMvcController {
         booking.setCustomer(customer);
         Car carById = carService.getCarById(booking);
         calculator.calculateAmountForBooking(booking, carById);
-        this.bookingService.saveBooking(booking);
+        bookingService.saveBooking(booking);
 
         return "redirect:/";
     }
@@ -80,7 +80,7 @@ public class BookingMvcController {
         booking.setCustomer(customer);
         Car carById = carService.getCarById(booking);
         calculator.calculateAmountForBooking(booking, carById);
-        this.bookingService.saveBooking(booking);
+        bookingService.saveBooking(booking);
 
         return "redirect:/";
 
@@ -102,27 +102,27 @@ public class BookingMvcController {
 
         Car carById = carService.getCarById(booking);
         calculator.calculateAmountForBooking(booking, carById);
-        this.bookingService.saveBooking(booking);
+        bookingService.saveBooking(booking);
 
         return "redirect:/bookings";
     }
 
     @GetMapping(path = "/booking/edit/{id}")
     public String showEditPageBooking(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("booking", this.bookingService.findBookingById(id));
-        model.addAttribute("branches", this.branchService.findAllBranches());
-        model.addAttribute("cars", this.carService.findAllCars());
-        model.addAttribute("employees", this.employeeService.findAllEmployees());
+        model.addAttribute("booking", bookingService.findBookingById(id));
+        model.addAttribute("branches", branchService.findAllBranches());
+        model.addAttribute("cars", carService.findAllCars());
+        model.addAttribute("employees", employeeService.findAllEmployees());
 
         return "edit-booking";
     }
 
     @GetMapping(path = "/order/booking/edit/{id}")
     public String showSettingsEditPage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("booking", this.bookingService.findBookingById(id));
-        model.addAttribute("branches", this.branchService.findAllBranches());
-        model.addAttribute("cars", this.carService.findAllCars());
-        model.addAttribute("employees", this.employeeService.findAllEmployees());
+        model.addAttribute("booking", bookingService.findBookingById(id));
+        model.addAttribute("branches", branchService.findAllBranches());
+        model.addAttribute("cars", carService.findAllCars());
+        model.addAttribute("employees", employeeService.findAllEmployees());
 
         return "order-edit";
     }
@@ -135,7 +135,7 @@ public class BookingMvcController {
 
         Car carById = carService.getCarById(booking);
         calculator.calculateAmountForBooking(booking, carById);
-        this.bookingService.saveBooking(booking);
+        bookingService.saveBooking(booking);
 
         return "redirect:/account/orders";
     }

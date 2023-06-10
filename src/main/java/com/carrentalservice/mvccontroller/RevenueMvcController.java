@@ -25,8 +25,8 @@ public class RevenueMvcController {
 
     @GetMapping(path = "/revenues")
     public String showRevenues(Model model) {
-        model.addAttribute("revenues", this.revenueService.findAllRevenues());
-        model.addAttribute("revenuesNumber", this.revenueService.countRevenues());
+        model.addAttribute("revenues", revenueService.findAllRevenues());
+        model.addAttribute("revenuesNumber", revenueService.countRevenues());
 
         return "revenue-list";
     }
@@ -51,14 +51,14 @@ public class RevenueMvcController {
             return "add-revenue";
         }
 
-        this.revenueService.saveRevenue(revenue);
+        revenueService.saveRevenue(revenue);
 
         return "redirect:/revenues";
     }
 
     @GetMapping(path = "/revenue/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("revenue", this.revenueService.findRevenueById(id));
+        model.addAttribute("revenue", revenueService.findRevenueById(id));
 
         return "edit-revenue";
     }
@@ -69,7 +69,7 @@ public class RevenueMvcController {
             return "edit-revenue";
         }
 
-        this.revenueService.saveRevenue(revenue);
+        revenueService.saveRevenue(revenue);
 
         return "redirect:/revenues";
     }

@@ -30,9 +30,9 @@ public class CustomerMvcController {
     @GetMapping(path = "/account/orders")
     public String showCurrentUserOrders(Model model) {
         Customer customerLoggedIn = customerService.getCustomerLoggedIn();
-        model.addAttribute("orders", this.bookingService.findBookingByCustomerLoggedIn(customerLoggedIn));
-        model.addAttribute("bookingsNumber", this.bookingService.countByCustomer(customerLoggedIn));
-        model.addAttribute("totalAmountSpent", this.bookingService.calculateAllAmountSpentByUser(customerLoggedIn));
+        model.addAttribute("orders", bookingService.findBookingByCustomerLoggedIn(customerLoggedIn));
+        model.addAttribute("bookingsNumber", bookingService.countByCustomer(customerLoggedIn));
+        model.addAttribute("totalAmountSpent", bookingService.calculateAllAmountSpentByUser(customerLoggedIn));
 
         return "order-list";
     }
@@ -57,8 +57,8 @@ public class CustomerMvcController {
 
     @GetMapping(path = "/customers")
     public String showCustomers(Model model) {
-        model.addAttribute("customers", this.customerService.findAllCustomer());
-        model.addAttribute("customersNumber", this.customerService.countCustomers());
+        model.addAttribute("customers", customerService.findAllCustomer());
+        model.addAttribute("customersNumber", customerService.countCustomers());
 
         return "customer-list";
     }
@@ -76,14 +76,14 @@ public class CustomerMvcController {
             return "add-customer";
         }
 
-        this.customerService.saveCustomer(customer);
+        customerService.saveCustomer(customer);
 
         return "redirect:/customers";
     }
 
     @GetMapping(path = "/customer/delete/{id}")
     public String deleteCustomerById(@PathVariable("id") Long id) {
-        this.customerService.deleteCustomerById(id);
+        customerService.deleteCustomerById(id);
 
         return "redirect:/customers";
     }

@@ -31,8 +31,8 @@ public class RentalMvcController {
 
     @GetMapping(path = "/rentals")
     public String showRentals(Model model) {
-        model.addAttribute("rentals", this.rentalService.findAllRentals());
-        model.addAttribute("rentalsNumber", this.rentalService.countRental());
+        model.addAttribute("rentals", rentalService.findAllRentals());
+        model.addAttribute("rentalsNumber", rentalService.countRental());
 
         return "rental-list";
     }
@@ -50,7 +50,7 @@ public class RentalMvcController {
             return "add-rental";
         }
 
-        this.rentalService.saveRental(rental);
+        rentalService.saveRental(rental);
 
         return "redirect:/rentals";
     }
@@ -58,8 +58,8 @@ public class RentalMvcController {
     @GetMapping(path = "/rental/registration")
     public String showRegistrationPage(Model model) {
         model.addAttribute("rental", new Rental());
-        model.addAttribute("employees", this.employeeService.findAllEmployees());
-        model.addAttribute("bookings", this.bookingService.findAllBookings());
+        model.addAttribute("employees", employeeService.findAllEmployees());
+        model.addAttribute("bookings", bookingService.findAllBookings());
 
         return "add-rental";
     }
@@ -70,16 +70,16 @@ public class RentalMvcController {
             return "edit-rental";
         }
 
-        this.rentalService.saveRental(rental);
+        rentalService.saveRental(rental);
 
         return "redirect:/rentals";
     }
 
     @GetMapping(path = "/rental/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("rental", this.rentalService.findRentalById(id));
-        model.addAttribute("employees", this.employeeService.findAllEmployees());
-        model.addAttribute("bookings", this.bookingService.findAllBookings());
+        model.addAttribute("rental", rentalService.findRentalById(id));
+        model.addAttribute("employees", employeeService.findAllEmployees());
+        model.addAttribute("bookings", bookingService.findAllBookings());
 
         return "edit-rental";
     }

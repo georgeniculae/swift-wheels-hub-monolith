@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CarMvcController {
@@ -27,22 +26,18 @@ public class CarMvcController {
 
     @GetMapping(path = "/cars")
     public String showCars(Model model, String make) {
-        model.addAttribute("cars", this.carService.findAllCars());
-        model.addAttribute("carsNumber", this.carService.countCars());
+        model.addAttribute("cars", carService.findAllCars());
+        model.addAttribute("carsNumber", carService.countCars());
 
         return "car-list";
     }
 
     @GetMapping({"/search", "/search(make)"})
-    public String searchCarByMake(Model model, @RequestParam(value = "make") Optional<String> make) {
-        if (make.isPresent()) {
-            String actualMake = make.get();
+    public String searchCarByMake(Model model, @RequestParam(value = "make", required = false) String make) {
+        List<Car> carList = carService.findCarsByMake(make);
 
-            List<Car> carList = carService.findCarsByMake(actualMake);
-
-            for (Car car1 : carList) {
-                model.addAttribute("carByMake", car1);
-            }
+        for (Car car1 : carList) {
+            model.addAttribute("carByMake", car1);
         }
 
         return "/search";
@@ -51,7 +46,7 @@ public class CarMvcController {
     @GetMapping(path = "/car/registration")
     public String showRegistration(Model model) {
         model.addAttribute("car", new Car());
-        model.addAttribute("allBranches", this.branchService.findAllBranches());
+        model.addAttribute("allBranches", branchService.findAllBranches());
 
         return "add-car";
     }
@@ -63,14 +58,14 @@ public class CarMvcController {
         }
 
         car.setBranch(branchService.findBranchById(car.getBranch().getId()));
-        this.carService.saveCar(car);
+        carService.saveCar(car);
 
         return "redirect:/cars";
     }
 
     @GetMapping(path = "/car/delete/{id}")
     public String deleteCarById(@PathVariable("id") Long id) {
-        this.carService.deleteCarById(id);
+        carService.deleteCarById(id);
 
         return "redirect:/cars";
     }
@@ -82,15 +77,15 @@ public class CarMvcController {
         }
 
         car.setBranch(branchService.findBranchById(car.getBranch().getId()));
-        this.carService.saveCar(car);
+        carService.saveCar(car);
 
         return "redirect:/cars";
     }
 
     @GetMapping(path = "/car/edit/{id}")
     public String showEditPageCar(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("car", this.carService.findCarById(id));
-        model.addAttribute("allBranches", this.branchService.findAllBranches());
+        model.addAttribute("car", carService.findCarById(id));
+        model.addAttribute("allBranches", branchService.findAllBranches());
 
         return "edit-car";
     }

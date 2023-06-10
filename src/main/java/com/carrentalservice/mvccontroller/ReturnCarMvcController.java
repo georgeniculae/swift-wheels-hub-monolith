@@ -25,8 +25,8 @@ public class ReturnCarMvcController {
 
     @GetMapping(path = "/return-cars")
     public String showReturnCars(Model model) {
-        model.addAttribute("returnCars", this.returnCarService.findAllReturnCar());
-        model.addAttribute("returnCarsNumber", this.returnCarService.countReturnCar());
+        model.addAttribute("returnCars", returnCarService.findAllReturnCar());
+        model.addAttribute("returnCarsNumber", returnCarService.countReturnCar());
 
         return "returnCar-list";
     }
@@ -34,7 +34,7 @@ public class ReturnCarMvcController {
     @GetMapping(path = "/return-car/registration")
     public String showRegistration(Model model, Long id) {
         model.addAttribute("returnCar", new ReturnCar());
-//        model.addAttribute("employee", this.employeeService.findEmployeeById(id));
+//        model.addAttribute("employee", employeeService.findEmployeeById(id));
 
         return "add-returnCar";
     }
@@ -45,14 +45,14 @@ public class ReturnCarMvcController {
             return "add-returnCar";
         }
 
-        this.returnCarService.saveReturnCar(returnCar);
+        returnCarService.saveReturnCar(returnCar);
 
         return "redirect:/returnCars";
     }
 
     @GetMapping(path = "/returnCar/delete/{id}")
     public String deleteReturnCarById(@PathVariable("id") Long id) {
-        this.returnCarService.deleteReturnCarById(id);
+        returnCarService.deleteReturnCarById(id);
 
         return "redirect:/returnCars";
     }
@@ -63,14 +63,14 @@ public class ReturnCarMvcController {
             return "edit-returnCar";
         }
 
-        this.returnCarService.saveReturnCar(returnCar);
+        returnCarService.saveReturnCar(returnCar);
 
         return "redirect:/return-cars";
     }
 
     @GetMapping(path = "/return-car/edit/{id}")
     public String showEditPageReturnCar(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("returnCar", this.returnCarService.findReturnCarById(id));
+        model.addAttribute("returnCar", returnCarService.findReturnCarById(id));
 
         return "edit-returnCar";
     }

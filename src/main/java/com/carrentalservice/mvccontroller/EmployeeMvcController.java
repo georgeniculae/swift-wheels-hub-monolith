@@ -38,9 +38,9 @@ public class EmployeeMvcController {
 
     @GetMapping(path = "/all-employees")
     public String showEmployeesForIndex(Model model) {
-        List<Employee> allEmployees = this.employeeService.findAllEmployees();
+        List<Employee> allEmployees = employeeService.findAllEmployees();
         model.addAttribute("employees", allEmployees);
-        model.addAttribute("employeesNumber", this.employeeService.countEmployees());
+        model.addAttribute("employeesNumber", employeeService.countEmployees());
 
         return "index";
     }
@@ -66,7 +66,7 @@ public class EmployeeMvcController {
             return "add-employee";
         }
 
-        this.employeeService.saveEmployee(employee);
+        employeeService.saveEmployee(employee);
 
         return "redirect:/employees";
 

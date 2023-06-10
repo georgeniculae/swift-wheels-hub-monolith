@@ -40,14 +40,14 @@ public class SearchMvcController {
     @PostMapping(path = "/search")
     public String search(@ModelAttribute("search") String search, Model model, BindingResult bindingResult) {
         model.addAttribute("search", new SearchValueDto());
-        model.addAttribute("booking", this.bookingService.findBookingByName(search));
-        model.addAttribute("branch", this.branchService.findBranchByName(search));
-        model.addAttribute("car", this.carService.findCarByName(search));
-        model.addAttribute("customer", this.customerService.findCustomerByName(search));
-        model.addAttribute("employee", this.employeeService.findEmployeeByName(search));
-        model.addAttribute("rental", this.rentalService.findRentalByName(search));
-        model.addAttribute("rentalOffice", this.rentalOfficeService.findRentalOfficeByName(search));
-        model.addAttribute("returnCar", this.returnCarService.findReturnCarByName(search));
+        model.addAttribute("booking", bookingService.findBookingByName(search));
+        model.addAttribute("branch", branchService.findBranchByName(search));
+        model.addAttribute("car", carService.findCarByName(search));
+        model.addAttribute("customer", customerService.findCustomerByName(search));
+        model.addAttribute("employee", employeeService.findEmployeeByName(search));
+        model.addAttribute("rental", rentalService.findRentalByName(search));
+        model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeByName(search));
+        model.addAttribute("returnCar", returnCarService.findReturnCarByName(search));
         ObjectError error = new ObjectError("search", "Nothing found!");
         bindingResult.addError(error);
 
@@ -58,15 +58,15 @@ public class SearchMvcController {
     public String showSearch(Model model) {
         model.addAttribute("search", new SearchValueDto());
         model.addAttribute("booking", new Booking());
-        model.addAttribute("allBookings", this.bookingService.findAllBookings());
-        model.addAttribute("allBranches", this.branchService.findAllBranches());
-        model.addAttribute("allCars", this.carService.findAllCars());
+        model.addAttribute("allBookings", bookingService.findAllBookings());
+        model.addAttribute("allBranches", branchService.findAllBranches());
+        model.addAttribute("allCars", carService.findAllCars());
         model.addAttribute("car", new Car());
-        model.addAttribute("allCustomers", this.customerService.findAllCustomer());
-        model.addAttribute("allEmployees", this.employeeService.findAllEmployees());
-        model.addAttribute("allRentals", this.rentalService.findAllRentals());
-        model.addAttribute("allRentalOffices", this.rentalOfficeService.findAllRentalOffices());
-        model.addAttribute("allReturnCars", this.returnCarService.findAllReturnCar());
+        model.addAttribute("allCustomers", customerService.findAllCustomer());
+        model.addAttribute("allEmployees", employeeService.findAllEmployees());
+        model.addAttribute("allRentals", rentalService.findAllRentals());
+        model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
+        model.addAttribute("allReturnCars", returnCarService.findAllReturnCar());
 
         return "index";
     }
