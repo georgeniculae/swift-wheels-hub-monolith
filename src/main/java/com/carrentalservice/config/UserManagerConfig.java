@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UserManagerConfiguration {
+public class UserManagerConfig {
 
     private final UserService userService;
 
     @Autowired
-    public UserManagerConfiguration(UserService userService) {
+    public UserManagerConfig(UserService userService) {
         this.userService = userService;
     }
 
