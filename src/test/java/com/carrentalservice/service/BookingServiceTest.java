@@ -1,6 +1,8 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.entity.Booking;
+import com.carrentalservice.entity.Customer;
+import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.BookingRepository;
 import com.carrentalservice.util.TestData;
 import org.junit.jupiter.api.Test;
@@ -9,9 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.*;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -55,4 +60,70 @@ class BookingServiceTest {
 
         assertNotNull(actualBooking);
     }
+
+    @Test
+    void findBookingByIdTest_success() {
+        Booking booking = TestData.createBooking();
+
+        when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
+
+        assertDoesNotThrow(() -> bookingService.findBookingById(1L));
+        Booking actualBooking = bookingService.findBookingById(1L);
+
+        assertNotNull(actualBooking);
+    }
+
+    @Test
+    void findBookingByIdTest_errorOnFindingById() {
+        when(bookingRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> bookingService.findBookingById(1L));
+
+        assertNotNull(notFoundException);
+    }
+
+    @Test
+    void deleteBookingByIdTest_success() {
+        Booking booking = TestData.createBooking();
+
+        when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
+
+        assertDoesNotThrow(() -> bookingService.deleteBookingById(1L));
+    }
+
+    @Test
+    void updateBookingTest_success() {
+        Booking booking = TestData.createBooking();
+
+        when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
+        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
+
+        assertDoesNotThrow(() -> bookingService.updateBooking(booking));
+        Booking updatedBooking = bookingService.updateBooking(booking);
+
+        assertNotNull(updatedBooking);
+    }
+
+    @Test
+    void calculateAllAmountSpentByUserTest_success() {
+        Booking booking = TestData.createBooking();
+        Customer customer = TestData.createCustomer();
+
+        when(bookingRepository.findBookingByCustomer(any(Customer.class))).thenReturn(List.of(booking));
+        Double amount = bookingService.getAmountSpentByUser(customer);
+        assertEquals(50, amount);
+    }
+
+    @Test
+    void getSumOfAllBookingAmountTest_success() {
+        Booking booking = TestData.createBooking();
+
+        when(bookingRepository.findAll()).thenReturn(List.of(booking));
+
+        assertDoesNotThrow(() -> bookingService.getSumOfAllBookingAmount());
+        Double sumOfAllBookingAmount = bookingService.getSumOfAllBookingAmount();
+
+        assertEquals(50, sumOfAllBookingAmount);
+    }
+
 }

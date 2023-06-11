@@ -68,7 +68,7 @@ public class BookingService {
     }
 
     public void deleteBookingById(Long id) {
-        Booking bookingById = this.findBookingById(id);
+        Booking bookingById = findBookingById(id);
 
         Car car = bookingById.getCar();
         car.getBookingList().remove(bookingById);
@@ -89,10 +89,6 @@ public class BookingService {
         return bookingRepository.findBookingByName(Date.valueOf(searchString));
     }
 
-    public List<Booking> findBookingByCustomerLoggedIn(Customer customer) {
-        return this.bookingRepository.findBookingByCustomer(customer);
-    }
-
     public Booking updateBooking(Booking newBooking) {
         Booking existingBooking = findBookingById(newBooking.getId());
         newBooking.setId(existingBooking.getId());
@@ -101,10 +97,14 @@ public class BookingService {
     }
 
     public Long countByCustomer(Customer customer) {
-        return this.bookingRepository.countByCustomer(customer);
+        return bookingRepository.countByCustomer(customer);
     }
 
-    public Double calculateAllAmountSpentByUser(Customer customer) {
+    public List<Booking> findBookingByCustomerLoggedIn(Customer customerLoggedIn) {
+        return bookingRepository.findBookingByCustomer(customerLoggedIn);
+    }
+
+    public Double getAmountSpentByUser(Customer customer) {
         return findBookingByCustomerLoggedIn(customer)
                 .stream()
                 .map(Booking::getAmount)

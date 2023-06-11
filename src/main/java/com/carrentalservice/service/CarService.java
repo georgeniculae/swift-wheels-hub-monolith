@@ -49,7 +49,7 @@ public class CarService {
     }
 
     public void deleteCarById(Long id) {
-        Car carById = this.findCarById(id);
+        Car carById = findCarById(id);
 
         Branch branch = carById.getBranch();
         branch.getCars().remove(carById);

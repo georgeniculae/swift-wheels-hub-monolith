@@ -32,7 +32,7 @@ public class CustomerMvcController {
         Customer customerLoggedIn = customerService.getCustomerLoggedIn();
         model.addAttribute("orders", bookingService.findBookingByCustomerLoggedIn(customerLoggedIn));
         model.addAttribute("bookingsNumber", bookingService.countByCustomer(customerLoggedIn));
-        model.addAttribute("totalAmountSpent", bookingService.calculateAllAmountSpentByUser(customerLoggedIn));
+        model.addAttribute("totalAmountSpent", bookingService.getAmountSpentByUser(customerLoggedIn));
 
         return "order-list";
     }
@@ -100,7 +100,8 @@ public class CustomerMvcController {
     }
 
     private void getCustomerUpdate(@ModelAttribute("customer") @Valid Customer customer) {
-        Customer customerUpdate = this.customerService.findCustomerById(customer.getId());
+        Customer customerUpdate = customerService.findCustomerById(customer.getId());
+
         if (customerUpdate != null) {
             customerUpdate.setFirstName(customer.getFirstName());
             customerUpdate.setLastName(customer.getLastName());
@@ -108,12 +109,12 @@ public class CustomerMvcController {
             customerUpdate.setAddress(customer.getAddress());
         }
 
-        this.customerService.saveCustomer(customerUpdate);
+        customerService.saveCustomer(customerUpdate);
     }
 
     @GetMapping(path = "/customer/edit/{id}")
     public String showEditPageCustomer(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("customer", this.customerService.findCustomerById(id));
+        model.addAttribute("customer", customerService.findCustomerById(id));
 
         return "edit-customer";
     }

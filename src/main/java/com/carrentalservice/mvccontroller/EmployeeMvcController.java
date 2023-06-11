@@ -29,9 +29,9 @@ public class EmployeeMvcController {
 
     @GetMapping(path = "/employees")
     public String showEmployees(Model model) {
-        List<Employee> allEmployees = this.employeeService.findAllEmployees();
+        List<Employee> allEmployees = employeeService.findAllEmployees();
         model.addAttribute("employees", allEmployees);
-        model.addAttribute("employeesNumber", this.employeeService.countEmployees());
+        model.addAttribute("employeesNumber", employeeService.countEmployees());
 
         return "employee-list";
     }
@@ -55,7 +55,7 @@ public class EmployeeMvcController {
     @GetMapping(path = "/employee/registration")
     public String showRegistrationPage(Model model) {
         model.addAttribute("employee", new Employee());
-        model.addAttribute("allBranches", this.branchService.findAllBranches());
+        model.addAttribute("allBranches", branchService.findAllBranches());
 
         return "add-employee";
     }
@@ -74,8 +74,8 @@ public class EmployeeMvcController {
 
     @GetMapping(path = "/employee/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("employee", this.employeeService.findEmployeeById(id));
-        model.addAttribute("allBranches", this.branchService.findAllBranches());
+        model.addAttribute("employee", employeeService.findEmployeeById(id));
+        model.addAttribute("allBranches", branchService.findAllBranches());
 
         return "edit-employee";
     }
