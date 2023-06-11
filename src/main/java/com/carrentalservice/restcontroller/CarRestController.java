@@ -60,14 +60,12 @@ public class CarRestController {
 
     @GetMapping
     public ResponseEntity<List<CarDto>> listAllCars(){
-        List<Car> allCars = carService.findAllCars();
-        List<CarDto> allCarsDto = new ArrayList<>();
+        List<CarDto> carDtoList = carService.findAllCars()
+                .stream()
+                .map(carMapper::mapFromEntityToDto)
+                .toList();
 
-        for(Car car: allCars){
-            allCarsDto.add(carMapper.mapFromEntityToDto(car));
-        }
-
-        return ResponseEntity.ok(allCarsDto);
+        return ResponseEntity.ok(carDtoList);
     }
 
 }

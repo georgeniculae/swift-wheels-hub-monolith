@@ -60,14 +60,12 @@ public class EmployeeRestController {
 
     @GetMapping
     public ResponseEntity<List<EmployeeDto>> listAllEmployees() {
-        List<Employee> allEmployees = employeeService.findAllEmployees();
-        List<EmployeeDto> allEmployeesDto = new ArrayList<>();
+        List<EmployeeDto> employeeDtoList = employeeService.findAllEmployees()
+                .stream()
+                .map(employeeMapper::mapFromEntityToDto)
+                .toList();
 
-        for (Employee employee : allEmployees) {
-            allEmployeesDto.add(employeeMapper.mapFromEntityToDto(employee));
-        }
-
-        return ResponseEntity.ok(allEmployeesDto);
+        return ResponseEntity.ok(employeeDtoList);
     }
 
 }

@@ -1,14 +1,13 @@
 package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.BranchDto;
-import com.carrentalservice.service.BranchService;
-import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.entity.Branch;
+import com.carrentalservice.mapper.BranchMapper;
+import com.carrentalservice.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -60,14 +59,12 @@ public class BranchRestController {
 
     @GetMapping
     public ResponseEntity<List<BranchDto>> listAllBranches() {
-        List<Branch> allBranches = branchService.findAllBranches();
-        List<BranchDto> allBranchesDto = new ArrayList<>();
+        List<BranchDto> branchDtoList = branchService.findAllBranches()
+                .stream()
+                .map(branchMapper::mapFromEntityToDto)
+                .toList();
 
-        for (Branch branch : allBranches) {
-            allBranchesDto.add(branchMapper.mapFromEntityToDto(branch));
-        }
-
-        return ResponseEntity.ok(allBranchesDto);
+        return ResponseEntity.ok(branchDtoList);
     }
 
 }

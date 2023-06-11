@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    @Query("From Booking booking where lower(booking.dateOfBooking) like '%:bookingName%'")
+    @Query("From Booking booking where lower(booking.bookingName) like '%:bookingName%'")
     Booking findBookingByName(@Param("bookingName") String bookingName);
 
     List<Booking> findBookingByCustomer(Customer customer);

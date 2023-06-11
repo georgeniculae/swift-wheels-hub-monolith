@@ -60,14 +60,12 @@ public class RentalOfficeRestController {
 
     @GetMapping
     public ResponseEntity<List<RentalOfficeDto>> listAllRentalOffices() {
-        List<RentalOffice> allRentalOffices = rentalOfficeService.findAllRentalOffices();
-        List<RentalOfficeDto> allRentalOfficesDto = new ArrayList<>();
+        List<RentalOfficeDto> rentalOfficeDtoList = rentalOfficeService.findAllRentalOffices()
+                .stream()
+                .map(rentalOfficeMapper::mapFromEntityToDto)
+                .toList();
 
-        for (RentalOffice rentalOffice : allRentalOffices) {
-            allRentalOfficesDto.add(rentalOfficeMapper.mapFromEntityToDto(rentalOffice));
-        }
-
-        return ResponseEntity.ok(allRentalOfficesDto);
+        return ResponseEntity.ok(rentalOfficeDtoList);
     }
 
 }

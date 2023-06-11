@@ -60,14 +60,12 @@ public class RevenueRestController {
 
     @GetMapping
     public ResponseEntity<List<RevenueDto>> listAllRevenues() {
-        List<Revenue> allRevenues = revenueService.findAllRevenues();
-        List<RevenueDto> allRevenuesDto = new ArrayList<>();
+        List<RevenueDto> revenueDtoList = revenueService.findAllRevenues()
+                .stream()
+                .map(revenueMapper::mapFromEntityToDto)
+                .toList();
 
-        for (Revenue revenue : allRevenues) {
-            allRevenuesDto.add(revenueMapper.mapFromEntityToDto(revenue));
-        }
-
-        return ResponseEntity.ok(allRevenuesDto);
+        return ResponseEntity.ok(revenueDtoList);
     }
 
 }

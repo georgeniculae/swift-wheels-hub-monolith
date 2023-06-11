@@ -60,14 +60,12 @@ public class BookingRestController {
 
     @GetMapping
     public ResponseEntity<List<BookingDto>> listAllBooking() {
-        List<Booking> allBooking = bookingService.findAllBookings();
-        List<BookingDto> allBookingDto = new ArrayList<>();
+        List<BookingDto> bookingDtoList = bookingService.findAllBookings()
+                .stream()
+                .map(bookingMapper::mapFromEntityToDto)
+                .toList();
 
-        for (Booking booking : allBooking) {
-            allBookingDto.add(bookingMapper.mapFromEntityToDto(booking));
-        }
-
-        return ResponseEntity.ok(allBookingDto);
+        return ResponseEntity.ok(bookingDtoList);
     }
 
 }

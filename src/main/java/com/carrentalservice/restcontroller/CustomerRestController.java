@@ -59,15 +59,13 @@ public class CustomerRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerDto>> listAllCustomer(){
-        List<Customer> allCustomer = customerService.findAllCustomer();
-        List<CustomerDto> allCustomerDto = new ArrayList<>();
+    public ResponseEntity<List<CustomerDto>> listAllCustomer() {
+        List<CustomerDto> customerDtoList = customerService.findAllCustomer()
+                .stream()
+                .map(customerMapper::mapFromEntityToDto)
+                .toList();
 
-        for (Customer customer: allCustomer){
-            allCustomerDto.add(customerMapper.mapFromEntityToDto(customer));
-        }
-
-        return ResponseEntity.ok(allCustomerDto);
+        return ResponseEntity.ok(customerDtoList);
     }
 
 }
