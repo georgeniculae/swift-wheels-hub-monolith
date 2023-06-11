@@ -3,7 +3,9 @@ package com.carrentalservice.util;
 import com.carrentalservice.entity.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TestData {
 
@@ -58,7 +60,16 @@ public class TestData {
         return returnCar;
     }
 
-    private static Branch createRentalBranch() {
+    public static Branch createRentalBranch() {
+        Branch branch = new Branch();
+
+        branch.setId(1L);
+        branch.setRentalOffice(createRentalOffice());
+
+        return branch;
+    }
+
+    public static Branch createReturnBranch() {
         Branch branch = new Branch();
 
         branch.setId(1L);
@@ -66,12 +77,13 @@ public class TestData {
         return branch;
     }
 
-    private static Branch createReturnBranch() {
-        Branch branch = new Branch();
+    public static RentalOffice createRentalOffice() {
+        RentalOffice rentalOffice = new RentalOffice();
 
-        branch.setId(1L);
+        rentalOffice.setId(1L);
+        rentalOffice.setBranches(new ArrayList<>());
 
-        return branch;
+        return rentalOffice;
     }
 
 }

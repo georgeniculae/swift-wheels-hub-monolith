@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -80,6 +81,7 @@ class BookingServiceTest {
         NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> bookingService.findBookingById(1L));
 
         assertNotNull(notFoundException);
+        assertThat(notFoundException.getMessage()).contains("Booking with id 1 does not exist");
     }
 
     @Test

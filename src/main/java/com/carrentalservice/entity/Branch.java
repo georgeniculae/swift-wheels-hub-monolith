@@ -21,19 +21,19 @@ public class Branch extends BaseEntity {
     private RentalOffice rentalOffice;
 
     @OneToMany(mappedBy = "rentalBranch", cascade = CascadeType.ALL)
-    private List<Booking> bookingListRental = new ArrayList<>();
+    private List<Booking> rentalBookingList = new ArrayList<>();
 
     @OneToMany(mappedBy = "returnBranch", cascade = CascadeType.ALL)
-    private List<Booking> bookingListReturn = new ArrayList<>();
+    private List<Booking> returnBookingList = new ArrayList<>();
 
-    public Branch(String name, String address, List<Employee> employees, List<Car> cars, RentalOffice rentalOffice, List<Booking> bookingListRental, List<Booking> bookingListReturn) {
+    public Branch(String name, String address, List<Employee> employees, List<Car> cars, RentalOffice rentalOffice, List<Booking> rentalBookingList, List<Booking> returnBookingList) {
         this.name = name;
         this.address = address;
         this.employees = employees;
         this.cars = cars;
         this.rentalOffice = rentalOffice;
-        this.bookingListRental = bookingListRental;
-        this.bookingListReturn = bookingListReturn;
+        this.rentalBookingList = rentalBookingList;
+        this.returnBookingList = returnBookingList;
     }
 
     public Branch() {
@@ -80,19 +80,19 @@ public class Branch extends BaseEntity {
     }
 
     public List<Booking> getBookingListRental() {
-        return bookingListRental;
+        return rentalBookingList;
     }
 
     public void setBookingListRental(List<Booking> bookingListRental) {
-        this.bookingListRental = bookingListRental;
+        this.rentalBookingList = bookingListRental;
     }
 
     public List<Booking> getBookingListReturn() {
-        return bookingListReturn;
+        return returnBookingList;
     }
 
     public void setBookingListReturn(List<Booking> bookingListReturn) {
-        this.bookingListReturn = bookingListReturn;
+        this.returnBookingList = bookingListReturn;
     }
 
 }

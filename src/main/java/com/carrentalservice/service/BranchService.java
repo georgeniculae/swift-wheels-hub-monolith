@@ -30,16 +30,6 @@ public class BranchService {
         return branchRepository.findAll();
     }
 
-    public void deleteBranchById(Long id) {
-        Branch branchById = findBranchById(id);
-
-        RentalOffice rentalOffice = branchById.getRentalOffice();
-        rentalOffice.getBranches().remove(branchById);
-        rentalOfficeService.saveRentalOffice(rentalOffice);
-
-        branchRepository.deleteById(id);
-    }
-
     public Branch findBranchById(Long id) {
         Optional<Branch> optionalBranch = branchRepository.findById(id);
 
@@ -55,6 +45,16 @@ public class BranchService {
         newBranch.setId(exitingBranch.getId());
 
         return saveBranch(newBranch);
+    }
+
+    public void deleteBranchById(Long id) {
+        Branch existingBranch = findBranchById(id);
+
+        RentalOffice rentalOffice = existingBranch.getRentalOffice();
+        rentalOffice.getBranches().remove(existingBranch);
+        rentalOfficeService.saveRentalOffice(rentalOffice);
+
+        branchRepository.deleteById(id);
     }
 
     public Long countBranches() {
