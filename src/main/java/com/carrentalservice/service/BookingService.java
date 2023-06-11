@@ -26,27 +26,27 @@ public class BookingService {
         this.customerService = customerService;
     }
 
-    public void saveBookingUpdatedWithCustomerAndCar(Booking booking) {
+    public Booking saveBookingUpdatedWithCustomerAndCar(Booking booking) {
         Customer customer = customerService.getCustomerLoggedIn();
         Car carById = carService.findCarById(booking.getCar().getId());
         booking.setCustomer(customer);
         booking.setCar(carById);
 
-        saveBookingWithCalculatedAmount(booking, carById.getAmount());
+        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
     }
 
-    public void savedBookingWithUpdatedCar(Booking booking) {
+    public Booking saveBookingWithUpdatedCar(Booking booking) {
         Car carById = carService.findCarById(booking.getCar().getId());
         booking.setCar(carById);
 
-        saveBookingWithCalculatedAmount(booking, carById.getAmount());
+        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
     }
 
-    public void saveBookingWithCalculatedAmount(Booking booking, Double amountFromCar) {
+    public Booking saveBookingWithCalculatedAmount(Booking booking, Double amountFromCar) {
         double numberOfDaysForBooking = (double) (booking.getDateTo().getTime() - booking.getDateFrom().getTime()) / (1000 * 60 * 60 * 24);
         booking.setAmount(amountFromCar * numberOfDaysForBooking);
 
-        saveBooking(booking);
+        return saveBooking(booking);
     }
 
     public Booking saveBooking(Booking booking) {

@@ -89,7 +89,7 @@ public class BookingMvcController {
             return "edit-booking";
         }
 
-        bookingService.savedBookingWithUpdatedCar(booking);
+        bookingService.saveBookingWithUpdatedCar(booking);
 
         return "redirect:/bookings";
     }
@@ -120,7 +120,7 @@ public class BookingMvcController {
             return "order-edit";
         }
 
-        bookingService.savedBookingWithUpdatedCar(booking);
+        bookingService.saveBookingWithUpdatedCar(booking);
 
         return "redirect:/account/orders";
     }
