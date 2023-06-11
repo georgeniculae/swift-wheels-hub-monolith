@@ -13,12 +13,12 @@ import java.util.Map;
 
 @Component
 @ControllerAdvice
-public class CustomExceptionHandler {
+public class ExceptionHandling {
 
     private final GlobalErrorAttributes globalErrorAttributes;
 
     @Autowired
-    public CustomExceptionHandler(GlobalErrorAttributes globalErrorAttributes) {
+    public ExceptionHandling(GlobalErrorAttributes globalErrorAttributes) {
         this.globalErrorAttributes = globalErrorAttributes;
     }
 
