@@ -3,7 +3,6 @@ package com.carrentalservice.service;
 import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.exception.NotFoundException;
-import com.carrentalservice.repository.BranchRepository;
 import com.carrentalservice.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -19,8 +19,8 @@ public class ReturnCarService {
         this.returnCarRepository = returnCarRepository;
     }
 
-    public ReturnCar saveReturnCar(ReturnCar returnCar) {
-        return returnCarRepository.save(returnCar);
+    public void saveReturnCar(ReturnCar returnCar) {
+        returnCarRepository.save(returnCar);
     }
 
     public List<ReturnCar> findAllReturnCar() {

@@ -4,7 +4,6 @@ import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.dto.UserDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.entity.User;
-import com.carrentalservice.repository.CustomerRepository;
 import com.carrentalservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -75,7 +74,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public Customer registerCustomer(CustomerDto customerDto) {
+    public void registerCustomer(CustomerDto customerDto) {
         Customer user = new Customer();
 
         user.setUsername(customerDto.getUsername());
@@ -86,7 +85,7 @@ public class UserService implements UserDetailsService {
         user.setAddress(customerDto.getAddress());
         user.setRole("ROLE_CUSTOMER");
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public Long countUsers() {

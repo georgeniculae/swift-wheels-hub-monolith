@@ -5,7 +5,6 @@ import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.BookingRepository;
-import com.carrentalservice.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,27 +25,27 @@ public class BookingService {
         this.customerService = customerService;
     }
 
-    public Booking saveBookingUpdatedWithCustomerAndCar(Booking booking) {
+    public void saveBookingUpdatedWithCustomerAndCar(Booking booking) {
         Customer customer = customerService.getCustomerLoggedIn();
-        Car carById = carService.findCarById(booking.getId());
+        Car carById = carService.findCarById(booking.getCar().getId());
         booking.setCustomer(customer);
         booking.setCar(carById);
 
-        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
+        saveBookingWithCalculatedAmount(booking, carById.getAmount());
     }
 
-    public Booking savedBookingWithUpdatedCar(Booking booking) {
-        Car carById = carService.findCarById(booking.getId());
+    public void savedBookingWithUpdatedCar(Booking booking) {
+        Car carById = carService.findCarById(booking.getCar().getId());
         booking.setCar(carById);
 
-        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
+        saveBookingWithCalculatedAmount(booking, carById.getAmount());
     }
 
-    public Booking saveBookingWithCalculatedAmount(Booking booking, Double amountFromCar) {
+    public void saveBookingWithCalculatedAmount(Booking booking, Double amountFromCar) {
         double numberOfDaysForBooking = (double) (booking.getDateTo().getTime() - booking.getDateFrom().getTime()) / (1000 * 60 * 60 * 24);
         booking.setAmount(amountFromCar * numberOfDaysForBooking);
 
-        return saveBooking(booking);
+        saveBooking(booking);
     }
 
     public Booking saveBooking(Booking booking) {
