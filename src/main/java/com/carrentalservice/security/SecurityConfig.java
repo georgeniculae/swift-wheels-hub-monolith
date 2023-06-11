@@ -35,8 +35,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requestMatcherRegistry) -> requestMatcherRegistry
                         .requestMatchers("/register", "/user/register", "/", "/css/**", "/images/**").permitAll()
                         .requestMatchers("/branch/**", "/car/**", "/customer/**", "/employee/**", "/rental-office/**").hasRole("ADMIN")
-                        .anyRequest()
-                        .authenticated()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(loginConfig -> loginConfig.loginPage("/login").permitAll())
                 .logout(logoutConfig -> logoutConfig.invalidateHttpSession(true)
