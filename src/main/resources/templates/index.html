@@ -351,6 +351,7 @@
 
         <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/search}" th:object="${search}">
             <input class="form-control mr-sm-2" th:value="${search.search}" type="search" placeholder="Search"
+                   style="height:36px; width:120px"
                    aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             <a role="button" class="btn btn-info" style="margin: 8px" sec:authorize="isFullyAuthenticated()"

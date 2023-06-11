@@ -51,7 +51,7 @@ public class RentalOfficeMvcController {
 
     @GetMapping(path = "/rental-office/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("rental-office", new RentalOffice());
+        model.addAttribute("rentalOffice", new RentalOffice());
 
         return "add-rental-office";
     }
