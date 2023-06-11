@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/revenue")
+@CrossOrigin(origins = "*")
 public class RevenueRestController {
 
     private final RevenueService revenueService;

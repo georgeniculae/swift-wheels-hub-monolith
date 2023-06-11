@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/rental")
+@CrossOrigin(origins = "*")
 public class RentalRestController {
 
     private final RentalService rentalService;
