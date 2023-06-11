@@ -59,8 +59,9 @@ public class BookingMvcController {
         }
 
         Customer customer = customerService.getCustomerLoggedIn();
+        Car carById = carService.findCarById(booking.getId());
         booking.setCustomer(customer);
-        Car carById = carService.getCarById(booking);
+        booking.setCar(carById);
         bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/";
@@ -73,8 +74,9 @@ public class BookingMvcController {
         }
 
         Customer customer = customerService.getCustomerLoggedIn();
+        Car carById = carService.findCarById(booking.getId());
         booking.setCustomer(customer);
-        Car carById = carService.getCarById(booking);
+        booking.setCar(carById);
         bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/";
@@ -95,7 +97,8 @@ public class BookingMvcController {
             return "edit-booking";
         }
 
-        Car carById = carService.getCarById(booking);
+        Car carById = carService.findCarById(booking.getId());
+        booking.setCar(carById);
         bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/bookings";
@@ -127,7 +130,8 @@ public class BookingMvcController {
             return "order-edit";
         }
 
-        Car carById = carService.getCarById(booking);
+        Car carById = carService.findCarById(booking.getId());
+        booking.setCar(carById);
         bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/account/orders";
