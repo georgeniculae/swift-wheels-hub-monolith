@@ -1,9 +1,10 @@
 package com.carrentalservice.entity;
 
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -12,7 +13,7 @@ public class Rental extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     private Employee employeeOfRental;
 
-    @NotNull(message = "Date cannot be blank.")
+    @NotBlank(message = "Date cannot be blank.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date rentalDate;

@@ -48,7 +48,8 @@ public class SearchMvcController {
         model.addAttribute("rental", rentalService.findRentalByName(search));
         model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeByName(search));
         model.addAttribute("returnCar", returnCarService.findReturnCarByName(search));
-        ObjectError error = new ObjectError("search", "Nothing found!");
+
+        ObjectError error = new ObjectError("search", "Nothing found");
         bindingResult.addError(error);
 
         return "index";

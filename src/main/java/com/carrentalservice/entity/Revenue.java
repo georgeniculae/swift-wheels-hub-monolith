@@ -1,6 +1,6 @@
 package com.carrentalservice.entity;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @Entity
 public class Revenue extends BaseEntity {

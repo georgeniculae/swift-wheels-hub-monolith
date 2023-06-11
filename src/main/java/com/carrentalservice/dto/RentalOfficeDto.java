@@ -1,6 +1,6 @@
 package com.carrentalservice.dto;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 
 public class RentalOfficeDto extends BaseEntityDto {

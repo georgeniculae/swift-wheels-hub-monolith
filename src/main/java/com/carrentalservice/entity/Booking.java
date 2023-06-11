@@ -1,15 +1,17 @@
 package com.carrentalservice.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 public class Booking extends BaseEntity {
 
-    @NotNull(message = "Date cannot be blank.")
+    @NotBlank(message = "Date cannot be blank.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateOfBooking;
@@ -22,12 +24,12 @@ public class Booking extends BaseEntity {
     @JoinColumn
     private Car car;
 
-    @NotNull(message = "Date cannot be blank.")
+    @NotBlank(message = "Date cannot be blank.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateFrom;
 
-    @NotNull(message = "Date cannot be blank.")
+    @NotEmpty(message = "Date cannot be empty.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateTo;
