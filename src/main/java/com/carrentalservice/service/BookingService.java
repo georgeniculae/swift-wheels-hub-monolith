@@ -5,7 +5,6 @@ import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.BookingRepository;
-import com.carrentalservice.repository.CarRepository;
 import com.carrentalservice.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +16,33 @@ import java.util.Optional;
 public class BookingService {
 
     private final BookingRepository bookingRepository;
-    private final CarRepository carRepository;
-    private final CustomerRepository customerRepository;
+    private final CarService carService;
+    private final CustomerService customerService;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository, CarRepository carRepository, CustomerRepository customerRepository) {
+    public BookingService(BookingRepository bookingRepository, CarService carService, CustomerService customerService) {
         this.bookingRepository = bookingRepository;
-        this.carRepository = carRepository;
-        this.customerRepository = customerRepository;
+        this.carService = carService;
+        this.customerService = customerService;
     }
 
-    public Booking saveUpdatedBooking(Booking booking, Double amountFromCar) {
+    public Booking saveBookingUpdatedWithCustomerAndCar(Booking booking) {
+        Customer customer = customerService.getCustomerLoggedIn();
+        Car carById = carService.findCarById(booking.getId());
+        booking.setCustomer(customer);
+        booking.setCar(carById);
+
+        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
+    }
+
+    public Booking savedBookingWithUpdatedCar(Booking booking) {
+        Car carById = carService.findCarById(booking.getId());
+        booking.setCar(carById);
+
+        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
+    }
+
+    public Booking saveBookingWithCalculatedAmount(Booking booking, Double amountFromCar) {
         double numberOfDaysForBooking = (double) (booking.getDateTo().getTime() - booking.getDateFrom().getTime()) / (1000 * 60 * 60 * 24);
         booking.setAmount(amountFromCar * numberOfDaysForBooking);
 
@@ -57,11 +72,11 @@ public class BookingService {
 
         Car car = bookingById.getCar();
         car.getBookingList().remove(bookingById);
-        carRepository.save(car);
+        carService.saveCar(car);
 
         Customer customer = bookingById.getCustomer();
         customer.getBookingList().remove(bookingById);
-        customerRepository.save(customer);
+        customerService.saveCustomer(customer);
 
         bookingRepository.deleteById(id);
     }

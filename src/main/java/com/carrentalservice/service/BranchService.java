@@ -4,7 +4,6 @@ import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.BranchRepository;
-import com.carrentalservice.repository.RentalOfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +14,12 @@ import java.util.Optional;
 public class BranchService {
 
     private final BranchRepository branchRepository;
-    private final RentalOfficeRepository rentalOfficeRepository;
+    private final RentalOfficeService rentalOfficeService;
 
     @Autowired
-    public BranchService(BranchRepository branchRepository, RentalOfficeRepository rentalOfficeRepository) {
+    public BranchService(BranchRepository branchRepository, RentalOfficeService rentalOfficeService) {
         this.branchRepository = branchRepository;
-        this.rentalOfficeRepository = rentalOfficeRepository;
+        this.rentalOfficeService = rentalOfficeService;
     }
 
     public Branch saveBranch(Branch branch) {
@@ -36,7 +35,7 @@ public class BranchService {
 
         RentalOffice rentalOffice = branchById.getRentalOffice();
         rentalOffice.getBranches().remove(branchById);
-        rentalOfficeRepository.save(rentalOffice);
+        rentalOfficeService.saveRentalOffice(rentalOffice);
 
         branchRepository.deleteById(id);
     }

@@ -23,13 +23,13 @@ public class UserService implements UserDetailsService {
 
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
     @Autowired
-    public UserService(BCryptPasswordEncoder encoder, UserRepository userRepository, CustomerRepository customerRepository) {
+    public UserService(BCryptPasswordEncoder encoder, UserRepository userRepository, CustomerService customerService) {
         this.encoder = encoder;
         this.userRepository = userRepository;
-        this.customerRepository = customerRepository;
+        this.customerService = customerService;
     }
 
     public void createUsersIfThereAreNotAny() {
@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
             users.add(new Customer("support", encoder.encode("support"), "ROLE_SUPPORT"));
         }
 
-        if (!customerRepository.existsByUsername("customer")) {
+        if (!customerService.existsByUsername("customer")) {
             users.add(new Customer("customer", encoder.encode("customer"), "ROLE_CUSTOMER"));
         }
 

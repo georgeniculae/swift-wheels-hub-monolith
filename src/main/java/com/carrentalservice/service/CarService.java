@@ -16,12 +16,12 @@ import java.util.Optional;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final BranchRepository branchRepository;
+    private final BranchService branchService;
 
     @Autowired
-    public CarService(CarRepository carRepository, BranchRepository branchRepository) {
+    public CarService(CarRepository carRepository, BranchService branchRepository) {
         this.carRepository = carRepository;
-        this.branchRepository = branchRepository;
+        this.branchService = branchRepository;
     }
 
     public Car saveCar(Car car) {
@@ -54,7 +54,7 @@ public class CarService {
 
         Branch branch = carById.getBranch();
         branch.getCars().remove(carById);
-        branchRepository.save(branch);
+        branchService.saveBranch(branch);
 
         carRepository.deleteById(id);
     }

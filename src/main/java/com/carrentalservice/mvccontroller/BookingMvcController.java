@@ -1,9 +1,10 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.entity.Booking;
-import com.carrentalservice.entity.Car;
-import com.carrentalservice.entity.Customer;
-import com.carrentalservice.service.*;
+import com.carrentalservice.service.BookingService;
+import com.carrentalservice.service.BranchService;
+import com.carrentalservice.service.CarService;
+import com.carrentalservice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +22,13 @@ public class BookingMvcController {
     private final BookingService bookingService;
     private final BranchService branchService;
     private final CarService carService;
-    private final CustomerService customerService;
     private final EmployeeService employeeService;
 
     @Autowired
-    public BookingMvcController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService, CustomerService customerService) {
+    public BookingMvcController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService) {
         this.bookingService = bookingService;
         this.branchService = branchService;
         this.carService = carService;
-        this.customerService = customerService;
         this.employeeService = employeeService;
     }
 
@@ -58,14 +57,11 @@ public class BookingMvcController {
             return "index";
         }
 
-        Customer customer = customerService.getCustomerLoggedIn();
-        Car carById = carService.findCarById(booking.getId());
-        booking.setCustomer(customer);
-        booking.setCar(carById);
-        bookingService.saveUpdatedBooking(booking, carById.getAmount());
+        bookingService.saveBookingUpdatedWithCustomerAndCar(booking);
 
         return "redirect:/";
     }
+
 
     @PostMapping(path = "/booking/add")
     public String addBooking(@ModelAttribute("booking") @Valid Booking booking, BindingResult bindingResult) {
@@ -73,11 +69,7 @@ public class BookingMvcController {
             return "add-booking";
         }
 
-        Customer customer = customerService.getCustomerLoggedIn();
-        Car carById = carService.findCarById(booking.getId());
-        booking.setCustomer(customer);
-        booking.setCar(carById);
-        bookingService.saveUpdatedBooking(booking, carById.getAmount());
+        bookingService.saveBookingUpdatedWithCustomerAndCar(booking);
 
         return "redirect:/";
 
@@ -97,9 +89,7 @@ public class BookingMvcController {
             return "edit-booking";
         }
 
-        Car carById = carService.findCarById(booking.getId());
-        booking.setCar(carById);
-        bookingService.saveUpdatedBooking(booking, carById.getAmount());
+        bookingService.savedBookingWithUpdatedCar(booking);
 
         return "redirect:/bookings";
     }
@@ -130,9 +120,7 @@ public class BookingMvcController {
             return "order-edit";
         }
 
-        Car carById = carService.findCarById(booking.getId());
-        booking.setCar(carById);
-        bookingService.saveUpdatedBooking(booking, carById.getAmount());
+        bookingService.savedBookingWithUpdatedCar(booking);
 
         return "redirect:/account/orders";
     }

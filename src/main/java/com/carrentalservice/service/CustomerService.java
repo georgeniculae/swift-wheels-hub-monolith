@@ -69,6 +69,10 @@ public class CustomerService {
         return customerRepository.findCustomerByName(searchString);
     }
 
+    public boolean existsByUsername(String username) {
+        return customerRepository.existsByUsername(username);
+    }
+
     public Customer getCustomerLoggedIn() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
