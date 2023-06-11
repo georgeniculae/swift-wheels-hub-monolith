@@ -1,4 +1,4 @@
-package com.carrentalservice.transformer;
+package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;

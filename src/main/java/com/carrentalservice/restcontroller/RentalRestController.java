@@ -3,7 +3,7 @@ package com.carrentalservice.restcontroller;
 import com.carrentalservice.dto.RentalDto;
 import com.carrentalservice.entity.Rental;
 import com.carrentalservice.service.RentalService;
-import com.carrentalservice.transformer.RentalMapper;
+import com.carrentalservice.mapper.RentalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

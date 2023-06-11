@@ -1,4 +1,4 @@
-package com.carrentalservice.transformer;
+package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;

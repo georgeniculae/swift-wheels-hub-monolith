@@ -2,7 +2,7 @@ package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.service.BranchService;
-import com.carrentalservice.transformer.BranchMapper;
+import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.entity.Branch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

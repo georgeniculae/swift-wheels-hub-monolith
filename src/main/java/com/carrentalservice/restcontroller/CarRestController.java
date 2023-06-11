@@ -2,7 +2,7 @@ package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;
-import com.carrentalservice.transformer.CarMapper;
+import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

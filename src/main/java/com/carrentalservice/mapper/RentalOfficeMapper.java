@@ -1,4 +1,4 @@
-package com.carrentalservice.transformer;
+package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.RentalOfficeDto;
 import com.carrentalservice.entity.RentalOffice;
