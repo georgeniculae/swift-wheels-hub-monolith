@@ -22,9 +22,6 @@ class GlobalErrorAttributesTest {
         NotFoundException notFoundException = new NotFoundException("Resource not found");
 
         MockHttpServletRequest servletRequest = new MockHttpServletRequest();
-        servletRequest.setServerName("car-rental-service");
-        servletRequest.setRequestURI("/employee");
-        servletRequest.addParameter("name", "value");
         WebRequest webRequest = new ServletWebRequest(servletRequest);
 
         ResponseEntity<Map<String, Object>> responseEntity =
