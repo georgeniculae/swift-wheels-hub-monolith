@@ -27,7 +27,7 @@ public class BranchRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<BranchDto> findBranchById(@PathVariable("id") Long id) {
         Branch branch = branchService.findBranchById(id);
-        BranchDto branchDto = branchMapper.mapFromEntityToDto(branch);
+        BranchDto branchDto = branchMapper.mapEntityToDto(branch);
 
         return ResponseEntity.ok(branchDto);
     }
@@ -41,27 +41,27 @@ public class BranchRestController {
 
     @PostMapping
     public ResponseEntity<BranchDto> createBranch(@RequestBody BranchDto branchDto) {
-        Branch branch = branchMapper.mapFromDtoToEntity(branchDto);
+        Branch branch = branchMapper.mapDtoToEntity(branchDto);
         Branch savedBranch = branchService.saveBranch(branch);
-        BranchDto savedBranchDto = branchMapper.mapFromEntityToDto(savedBranch);
+        BranchDto savedBranchDto = branchMapper.mapEntityToDto(savedBranch);
 
         return ResponseEntity.ok(savedBranchDto);
     }
 
     @PutMapping
     public ResponseEntity<BranchDto> updateBranch(@RequestBody BranchDto branchDto) {
-        Branch branch = branchMapper.mapFromDtoToEntity(branchDto);
-        Branch savedBranch = branchService.updateBranch(branch);
-        BranchDto savedBranchDto = branchMapper.mapFromEntityToDto(savedBranch);
+        Branch branch = branchMapper.mapDtoToEntity(branchDto);
+        Branch updatedBranch = branchService.updateBranch(branch);
+        BranchDto updatedBranchDto = branchMapper.mapEntityToDto(updatedBranch);
 
-        return ResponseEntity.ok(savedBranchDto);
+        return ResponseEntity.ok(updatedBranchDto);
     }
 
     @GetMapping
     public ResponseEntity<List<BranchDto>> listAllBranches() {
         List<BranchDto> branchDtoList = branchService.findAllBranches()
                 .stream()
-                .map(branchMapper::mapFromEntityToDto)
+                .map(branchMapper::mapEntityToDto)
                 .toList();
 
         return ResponseEntity.ok(branchDtoList);

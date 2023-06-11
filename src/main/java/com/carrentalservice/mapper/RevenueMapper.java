@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class RevenueMapper {
 
-    public Revenue mapFromDtoToEntity(RevenueDto revenueDTO) {
+    public Revenue mapDtoToEntity(RevenueDto revenueDTO) {
         Revenue revenue = new Revenue();
         BeanUtils.copyProperties(revenueDTO, revenue);
 
         return revenue;
     }
 
-    public RevenueDto mapFromEntityToDto(Revenue revenue) {
+    public RevenueDto mapEntityToDto(Revenue revenue) {
         RevenueDto revenueDTO = new RevenueDto();
         BeanUtils.copyProperties(revenue, revenueDTO);
 

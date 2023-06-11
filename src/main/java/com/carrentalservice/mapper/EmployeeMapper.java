@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeMapper {
 
-    public EmployeeDto mapFromEntityToDto(Employee employee) {
+    public EmployeeDto mapEntityToDto(Employee employee) {
         EmployeeDto employeeDTO = new EmployeeDto();
         BeanUtils.copyProperties(employee, employeeDTO);
 
         return employeeDTO;
     }
 
-    public Employee mapFromDtoToEntity(EmployeeDto employeeDTO) {
+    public Employee mapDtoToEntity(EmployeeDto employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
 

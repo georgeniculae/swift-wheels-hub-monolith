@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CarMapper {
 
-    public Car mapFromDtoToEntity(CarDto carDTO){
+    public Car mapDtoToEntity(CarDto carDTO){
         Car car = new Car();
         BeanUtils.copyProperties(carDTO, car);
 
         return car;
     }
 
-    public CarDto mapFromEntityToDto(Car car){
+    public CarDto mapEntityToDto(Car car){
         CarDto carDTO = new CarDto();
         BeanUtils.copyProperties(car, carDTO);
 

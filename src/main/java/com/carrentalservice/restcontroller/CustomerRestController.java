@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +27,7 @@ public class CustomerRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") Long id) {
         Customer customer = customerService.findCustomerById(id);
-        CustomerDto customerDto = customerMapper.mapFromEntityToDto(customer);
+        CustomerDto customerDto = customerMapper.mapEntityToDto(customer);
 
         return ResponseEntity.ok(customerDto);
     }
@@ -42,27 +41,27 @@ public class CustomerRestController {
 
     @PostMapping
     public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
-        Customer customer = customerMapper.mapFromDtoToEntity(customerDto);
+        Customer customer = customerMapper.mapDtoToEntity(customerDto);
         Customer saveCustomer = customerService.saveCustomer(customer);
-        CustomerDto savedCustomerDto = customerMapper.mapFromEntityToDto(saveCustomer);
+        CustomerDto savedCustomerDto = customerMapper.mapEntityToDto(saveCustomer);
 
         return ResponseEntity.ok(savedCustomerDto);
     }
 
     @PutMapping
     public ResponseEntity<CustomerDto> updateCustomer(@RequestBody CustomerDto customerDto) {
-        Customer customer = customerMapper.mapFromDtoToEntity(customerDto);
-        Customer saveCustomer = customerService.updateCustomer(customer);
-        CustomerDto savedCustomerDto = customerMapper.mapFromEntityToDto(saveCustomer);
+        Customer customer = customerMapper.mapDtoToEntity(customerDto);
+        Customer updatedCustomer = customerService.updateCustomer(customer);
+        CustomerDto updatedCustomerDto = customerMapper.mapEntityToDto(updatedCustomer);
 
-        return ResponseEntity.ok(savedCustomerDto);
+        return ResponseEntity.ok(updatedCustomerDto);
     }
 
     @GetMapping
     public ResponseEntity<List<CustomerDto>> listAllCustomer() {
         List<CustomerDto> customerDtoList = customerService.findAllCustomer()
                 .stream()
-                .map(customerMapper::mapFromEntityToDto)
+                .map(customerMapper::mapEntityToDto)
                 .toList();
 
         return ResponseEntity.ok(customerDtoList);

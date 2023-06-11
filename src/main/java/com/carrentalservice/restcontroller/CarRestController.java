@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,9 +26,9 @@ public class CarRestController {
 
     @PostMapping
     public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDto){
-        Car car = carMapper.mapFromDtoToEntity(carDto);
+        Car car = carMapper.mapDtoToEntity(carDto);
         Car savedCar = carService.saveCar(car);
-        CarDto savedCarDto = carMapper.mapFromEntityToDto(savedCar);
+        CarDto savedCarDto = carMapper.mapEntityToDto(savedCar);
 
         return ResponseEntity.ok(savedCarDto);
     }
@@ -37,18 +36,18 @@ public class CarRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id){
         Car car = carService.findCarById(id);
-        CarDto carDto = carMapper.mapFromEntityToDto(car);
+        CarDto carDto = carMapper.mapEntityToDto(car);
 
         return ResponseEntity.ok(carDto);
     }
 
     @PutMapping
     public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto){
-        Car car = carMapper.mapFromDtoToEntity(carDto);
-        Car carSaved = carService.updateCar(car);
-        CarDto savedCarDto = carMapper.mapFromEntityToDto(carSaved);
+        Car car = carMapper.mapDtoToEntity(carDto);
+        Car updatedCar = carService.updateCar(car);
+        CarDto updatedCarDto = carMapper.mapEntityToDto(updatedCar);
 
-        return ResponseEntity.ok(savedCarDto);
+        return ResponseEntity.ok(updatedCarDto);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -62,7 +61,7 @@ public class CarRestController {
     public ResponseEntity<List<CarDto>> listAllCars(){
         List<CarDto> carDtoList = carService.findAllCars()
                 .stream()
-                .map(carMapper::mapFromEntityToDto)
+                .map(carMapper::mapEntityToDto)
                 .toList();
 
         return ResponseEntity.ok(carDtoList);

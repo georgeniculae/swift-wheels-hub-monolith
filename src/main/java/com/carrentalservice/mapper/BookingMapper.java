@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookingMapper {
 
-    public Booking mapFromDtoToEntity(BookingDto bookingDTO){
+    public Booking mapDtoToEntity(BookingDto bookingDTO){
         Booking booking = new Booking();
         BeanUtils.copyProperties(bookingDTO, booking);
 
         return booking;
     }
 
-    public BookingDto mapFromEntityToDto(Booking booking) {
+    public BookingDto mapEntityToDto(Booking booking) {
         BookingDto bookingDTO = new BookingDto();
         BeanUtils.copyProperties(booking, bookingDTO);
 

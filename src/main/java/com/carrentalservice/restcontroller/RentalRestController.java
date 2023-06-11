@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +27,7 @@ public class RentalRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<RentalDto> findRentalById(@PathVariable("id") Long id) {
         Rental rental = rentalService.findRentalById(id);
-        RentalDto rentalDTO = rentalMapper.mapFromEntityToDto(rental);
+        RentalDto rentalDTO = rentalMapper.mapEntityToDto(rental);
 
         return ResponseEntity.ok(rentalDTO);
     }
@@ -42,27 +41,27 @@ public class RentalRestController {
 
     @PostMapping
     public ResponseEntity<RentalDto> createRental(@RequestBody RentalDto rentalDto) {
-        Rental rental = rentalMapper.mapFromDtoToEntity(rentalDto);
+        Rental rental = rentalMapper.mapDtoToEntity(rentalDto);
         Rental savedRental = rentalService.saveRental(rental);
-        RentalDto savedRentalDto = rentalMapper.mapFromEntityToDto(savedRental);
+        RentalDto savedRentalDto = rentalMapper.mapEntityToDto(savedRental);
 
         return ResponseEntity.ok(savedRentalDto);
     }
 
     @PutMapping
     public ResponseEntity<RentalDto> updateRental(@RequestBody RentalDto rentalDto) {
-        Rental rental = rentalMapper.mapFromDtoToEntity(rentalDto);
-        Rental savedRental = rentalService.updateRental(rental);
-        RentalDto savedRentalDto = rentalMapper.mapFromEntityToDto(savedRental);
+        Rental rental = rentalMapper.mapDtoToEntity(rentalDto);
+        Rental updateRental = rentalService.updateRental(rental);
+        RentalDto updatedRentalDto = rentalMapper.mapEntityToDto(updateRental);
 
-        return ResponseEntity.ok(savedRentalDto);
+        return ResponseEntity.ok(updatedRentalDto);
     }
 
     @GetMapping
     public ResponseEntity<List<RentalDto>> listAllRentals() {
         List<RentalDto> rentalDtoList = rentalService.findAllRentals()
                 .stream()
-                .map(rentalMapper::mapFromEntityToDto)
+                .map(rentalMapper::mapEntityToDto)
                 .toList();
 
         return ResponseEntity.ok(rentalDtoList);

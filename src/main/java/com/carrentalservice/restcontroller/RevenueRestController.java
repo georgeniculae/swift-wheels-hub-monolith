@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +27,7 @@ public class RevenueRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<RevenueDto> findRevenueById(@PathVariable("id") Long id) {
         Revenue revenue = revenueService.findRevenueById(id);
-        RevenueDto revenueDTO = revenueMapper.mapFromEntityToDto(revenue);
+        RevenueDto revenueDTO = revenueMapper.mapEntityToDto(revenue);
 
         return ResponseEntity.ok(revenueDTO);
     }
@@ -42,27 +41,27 @@ public class RevenueRestController {
 
     @PostMapping
     public ResponseEntity<RevenueDto> createRevenue(@RequestBody RevenueDto revenueDto) {
-        Revenue revenue = revenueMapper.mapFromDtoToEntity(revenueDto);
+        Revenue revenue = revenueMapper.mapDtoToEntity(revenueDto);
         Revenue savedRevenue = revenueService.saveRevenue(revenue);
-        RevenueDto savedRevenueDto = revenueMapper.mapFromEntityToDto(savedRevenue);
+        RevenueDto savedRevenueDto = revenueMapper.mapEntityToDto(savedRevenue);
 
         return ResponseEntity.ok(savedRevenueDto);
     }
 
     @PutMapping
     public ResponseEntity<RevenueDto> updateRevenue(@RequestBody RevenueDto revenueDto) {
-        Revenue revenue = revenueMapper.mapFromDtoToEntity(revenueDto);
-        Revenue savedRevenue = revenueService.updateRevenue(revenue);
-        RevenueDto savedRevenueDto = revenueMapper.mapFromEntityToDto(savedRevenue);
+        Revenue revenue = revenueMapper.mapDtoToEntity(revenueDto);
+        Revenue updatedRevenue = revenueService.updateRevenue(revenue);
+        RevenueDto updatedRevenueDto = revenueMapper.mapEntityToDto(updatedRevenue);
 
-        return ResponseEntity.ok(savedRevenueDto);
+        return ResponseEntity.ok(updatedRevenueDto);
     }
 
     @GetMapping
     public ResponseEntity<List<RevenueDto>> listAllRevenues() {
         List<RevenueDto> revenueDtoList = revenueService.findAllRevenues()
                 .stream()
-                .map(revenueMapper::mapFromEntityToDto)
+                .map(revenueMapper::mapEntityToDto)
                 .toList();
 
         return ResponseEntity.ok(revenueDtoList);

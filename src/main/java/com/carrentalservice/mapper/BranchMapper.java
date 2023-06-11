@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class BranchMapper {
 
-    public BranchDto mapFromEntityToDto(Branch branch) {
+    public BranchDto mapEntityToDto(Branch branch) {
         BranchDto branchDTO = new BranchDto();
         BeanUtils.copyProperties(branch, branchDTO);
 
         return branchDTO;
     }
 
-    public Branch mapFromDtoToEntity(BranchDto branchDTO) {
+    public Branch mapDtoToEntity(BranchDto branchDTO) {
         Branch branch = new Branch();
         BeanUtils.copyProperties(branchDTO, branch);
 

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +27,7 @@ public class EmployeeRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
-        EmployeeDto employeeDto = employeeMapper.mapFromEntityToDto(employee);
+        EmployeeDto employeeDto = employeeMapper.mapEntityToDto(employee);
 
         return ResponseEntity.ok(employeeDto);
     }
@@ -42,27 +41,27 @@ public class EmployeeRestController {
 
     @PostMapping
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeMapper.mapFromDtoToEntity(employeeDto);
+        Employee employee = employeeMapper.mapDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDto savedEmployeeDTO = employeeMapper.mapFromEntityToDto(savedEmployee);
+        EmployeeDto savedEmployeeDTO = employeeMapper.mapEntityToDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDTO);
     }
 
     @PutMapping
     public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeMapper.mapFromDtoToEntity(employeeDto);
-        Employee savedEmployee = employeeService.updateEmployee(employee);
-        EmployeeDto savedEmployeeDto = employeeMapper.mapFromEntityToDto(savedEmployee);
+        Employee employee = employeeMapper.mapDtoToEntity(employeeDto);
+        Employee updateEmployee = employeeService.updateEmployee(employee);
+        EmployeeDto updatedEmployeeDto = employeeMapper.mapEntityToDto(updateEmployee);
 
-        return ResponseEntity.ok(savedEmployeeDto);
+        return ResponseEntity.ok(updatedEmployeeDto);
     }
 
     @GetMapping
     public ResponseEntity<List<EmployeeDto>> listAllEmployees() {
         List<EmployeeDto> employeeDtoList = employeeService.findAllEmployees()
                 .stream()
-                .map(employeeMapper::mapFromEntityToDto)
+                .map(employeeMapper::mapEntityToDto)
                 .toList();
 
         return ResponseEntity.ok(employeeDtoList);
