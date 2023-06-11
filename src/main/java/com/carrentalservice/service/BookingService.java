@@ -68,14 +68,14 @@ public class BookingService {
     }
 
     public void deleteBookingById(Long id) {
-        Booking bookingById = findBookingById(id);
+        Booking existingBooking = findBookingById(id);
 
-        Car car = bookingById.getCar();
-        car.getBookingList().remove(bookingById);
+        Car car = existingBooking.getCar();
+        car.getBookingList().remove(existingBooking);
         carService.saveCar(car);
 
-        Customer customer = bookingById.getCustomer();
-        customer.getBookingList().remove(bookingById);
+        Customer customer = existingBooking.getCustomer();
+        customer.getBookingList().remove(existingBooking);
         customerService.saveCustomer(customer);
 
         bookingRepository.deleteById(id);

@@ -49,10 +49,10 @@ public class CarService {
     }
 
     public void deleteCarById(Long id) {
-        Car carById = findCarById(id);
+        Car existingCar = findCarById(id);
 
-        Branch branch = carById.getBranch();
-        branch.getCars().remove(carById);
+        Branch branch = existingCar.getBranch();
+        branch.getCars().remove(existingCar);
         branchService.saveBranch(branch);
 
         carRepository.deleteById(id);
