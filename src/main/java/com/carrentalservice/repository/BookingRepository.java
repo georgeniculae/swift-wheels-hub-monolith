@@ -7,13 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    @Query("From Booking booking where lower(booking.bookingName) like '%:bookingName%'")
-    Booking findBookingByName(@Param("bookingName") String bookingName);
+    @Query("From Booking booking where booking.dateOfBooking = :dateOfBooking")
+    Booking findBookingByName(@Param("dateOfBooking") Date dateOfBooking);
 
     List<Booking> findBookingByCustomer(Customer customer);
 
