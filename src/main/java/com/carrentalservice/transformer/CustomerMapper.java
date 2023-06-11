@@ -6,16 +6,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerTransformer {
+public class CustomerMapper {
 
-    public Customer transformFromDtoToEntity(CustomerDto customerDTO){
+    public Customer mapFromDtoToEntity(CustomerDto customerDTO){
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
 
         return customer;
     }
 
-    public CustomerDto transformFromEntityToDto(Customer customer){
+    public CustomerDto mapFromEntityToDto(Customer customer){
         CustomerDto customerDTO = new CustomerDto();
         BeanUtils.copyProperties(customer, customerDTO);
 

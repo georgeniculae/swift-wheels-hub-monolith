@@ -6,16 +6,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BranchTransformer {
+public class BranchMapper {
 
-    public BranchDto transformFromEntityToDto(Branch branch) {
+    public BranchDto mapFromEntityToDto(Branch branch) {
         BranchDto branchDTO = new BranchDto();
         BeanUtils.copyProperties(branch, branchDTO);
 
         return branchDTO;
     }
 
-    public Branch transformFromDtoToEntity(BranchDto branchDTO) {
+    public Branch mapFromDtoToEntity(BranchDto branchDTO) {
         Branch branch = new Branch();
         BeanUtils.copyProperties(branchDTO, branch);
 

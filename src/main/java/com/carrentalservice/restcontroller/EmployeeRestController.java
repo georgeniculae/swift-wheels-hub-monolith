@@ -3,7 +3,7 @@ package com.carrentalservice.restcontroller;
 import com.carrentalservice.dto.EmployeeDto;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.service.EmployeeService;
-import com.carrentalservice.transformer.EmployeeTransformer;
+import com.carrentalservice.transformer.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,18 +17,18 @@ import java.util.List;
 public class EmployeeRestController {
 
     private final EmployeeService employeeService;
-    private final EmployeeTransformer employeeTransformer;
+    private final EmployeeMapper employeeMapper;
 
     @Autowired
-    public EmployeeRestController(EmployeeService employeeService, EmployeeTransformer employeeTransformer) {
+    public EmployeeRestController(EmployeeService employeeService, EmployeeMapper employeeMapper) {
         this.employeeService = employeeService;
-        this.employeeTransformer = employeeTransformer;
+        this.employeeMapper = employeeMapper;
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
-        EmployeeDto employeeDto = employeeTransformer.transformFromEntityToDto(employee);
+        EmployeeDto employeeDto = employeeMapper.mapFromEntityToDto(employee);
 
         return ResponseEntity.ok(employeeDto);
     }
@@ -42,18 +42,18 @@ public class EmployeeRestController {
 
     @PostMapping
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeTransformer.transformFromDtoToEntity(employeeDto);
+        Employee employee = employeeMapper.mapFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDto savedEmployeeDTO = employeeTransformer.transformFromEntityToDto(savedEmployee);
+        EmployeeDto savedEmployeeDTO = employeeMapper.mapFromEntityToDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDTO);
     }
 
     @PutMapping
     public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeTransformer.transformFromDtoToEntity(employeeDto);
+        Employee employee = employeeMapper.mapFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDto savedEmployeeDto = employeeTransformer.transformFromEntityToDto(savedEmployee);
+        EmployeeDto savedEmployeeDto = employeeMapper.mapFromEntityToDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDto);
     }
@@ -64,7 +64,7 @@ public class EmployeeRestController {
         List<EmployeeDto> allEmployeesDto = new ArrayList<>();
 
         for (Employee employee : allEmployees) {
-            allEmployeesDto.add(employeeTransformer.transformFromEntityToDto(employee));
+            allEmployeesDto.add(employeeMapper.mapFromEntityToDto(employee));
         }
 
         return ResponseEntity.ok(allEmployeesDto);

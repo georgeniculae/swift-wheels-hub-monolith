@@ -3,7 +3,7 @@ package com.carrentalservice.restcontroller;
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
 import com.carrentalservice.service.BookingService;
-import com.carrentalservice.transformer.BookingTransformer;
+import com.carrentalservice.transformer.BookingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,18 +17,18 @@ import java.util.List;
 public class BookingRestController {
 
     private final BookingService bookingService;
-    private final BookingTransformer bookingTransformer;
+    private final BookingMapper bookingMapper;
 
     @Autowired
-    public BookingRestController(BookingService bookingService, BookingTransformer bookingTransformer) {
+    public BookingRestController(BookingService bookingService, BookingMapper bookingMapper) {
         this.bookingService = bookingService;
-        this.bookingTransformer = bookingTransformer;
+        this.bookingMapper = bookingMapper;
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<BookingDto> findBookingById(@PathVariable("id") Long id) {
         Booking booking = bookingService.findBookingById(id);
-        BookingDto bookingDto = bookingTransformer.transformFromEntityToDto(booking);
+        BookingDto bookingDto = bookingMapper.mapFromEntityToDto(booking);
 
         return ResponseEntity.ok(bookingDto);
     }
@@ -42,18 +42,18 @@ public class BookingRestController {
 
     @PostMapping
     public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
-        Booking booking = bookingTransformer.transformFromDtoToEntity(bookingDto);
+        Booking booking = bookingMapper.mapFromDtoToEntity(bookingDto);
         Booking saveBooking = bookingService.saveBooking(booking);
-        BookingDto saveBookingDto = bookingTransformer.transformFromEntityToDto(saveBooking);
+        BookingDto saveBookingDto = bookingMapper.mapFromEntityToDto(saveBooking);
 
         return ResponseEntity.ok(saveBookingDto);
     }
 
     @PutMapping
     public ResponseEntity<BookingDto> updateBooking(@RequestBody BookingDto bookingDto) {
-        Booking booking = bookingTransformer.transformFromDtoToEntity(bookingDto);
+        Booking booking = bookingMapper.mapFromDtoToEntity(bookingDto);
         Booking saveBooking = bookingService.saveBooking(booking);
-        BookingDto saveBookingDto = bookingTransformer.transformFromEntityToDto(saveBooking);
+        BookingDto saveBookingDto = bookingMapper.mapFromEntityToDto(saveBooking);
 
         return ResponseEntity.ok(saveBookingDto);
     }
@@ -64,7 +64,7 @@ public class BookingRestController {
         List<BookingDto> allBookingDto = new ArrayList<>();
 
         for (Booking booking : allBooking) {
-            allBookingDto.add(bookingTransformer.transformFromEntityToDto(booking));
+            allBookingDto.add(bookingMapper.mapFromEntityToDto(booking));
         }
 
         return ResponseEntity.ok(allBookingDto);

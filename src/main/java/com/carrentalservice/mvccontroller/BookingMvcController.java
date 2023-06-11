@@ -1,7 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.entity.Booking;
-import com.carrentalservice.entity.Calculator;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.service.*;
@@ -24,16 +23,14 @@ public class BookingMvcController {
     private final CarService carService;
     private final CustomerService customerService;
     private final EmployeeService employeeService;
-    private final Calculator calculator;
 
     @Autowired
-    public BookingMvcController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService, CustomerService customerService, Calculator calculator) {
+    public BookingMvcController(BookingService bookingService, BranchService branchService, CarService carService, EmployeeService employeeService, CustomerService customerService) {
         this.bookingService = bookingService;
         this.branchService = branchService;
         this.carService = carService;
         this.customerService = customerService;
         this.employeeService = employeeService;
-        this.calculator = calculator;
     }
 
     @GetMapping(path = "/bookings")
@@ -64,8 +61,7 @@ public class BookingMvcController {
         Customer customer = customerService.getCustomerLoggedIn();
         booking.setCustomer(customer);
         Car carById = carService.getCarById(booking);
-        calculator.calculateAmountForBooking(booking, carById);
-        bookingService.saveBooking(booking);
+        bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/";
     }
@@ -79,8 +75,7 @@ public class BookingMvcController {
         Customer customer = customerService.getCustomerLoggedIn();
         booking.setCustomer(customer);
         Car carById = carService.getCarById(booking);
-        calculator.calculateAmountForBooking(booking, carById);
-        bookingService.saveBooking(booking);
+        bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/";
 
@@ -101,8 +96,7 @@ public class BookingMvcController {
         }
 
         Car carById = carService.getCarById(booking);
-        calculator.calculateAmountForBooking(booking, carById);
-        bookingService.saveBooking(booking);
+        bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/bookings";
     }
@@ -134,8 +128,7 @@ public class BookingMvcController {
         }
 
         Car carById = carService.getCarById(booking);
-        calculator.calculateAmountForBooking(booking, carById);
-        bookingService.saveBooking(booking);
+        bookingService.saveUpdatedBooking(booking, carById.getAmount());
 
         return "redirect:/account/orders";
     }

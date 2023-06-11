@@ -3,7 +3,7 @@ package com.carrentalservice.restcontroller;
 import com.carrentalservice.dto.RentalOfficeDto;
 import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.service.RentalOfficeService;
-import com.carrentalservice.transformer.RentalOfficeTransformer;
+import com.carrentalservice.transformer.RentalOfficeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,18 +17,18 @@ import java.util.List;
 public class RentalOfficeRestController {
 
     private final RentalOfficeService rentalOfficeService;
-    private final RentalOfficeTransformer rentalOfficeTransformer;
+    private final RentalOfficeMapper rentalOfficeMapper;
 
     @Autowired
-    public RentalOfficeRestController(RentalOfficeService rentalOfficeService, RentalOfficeTransformer rentalOfficeTransformer) {
+    public RentalOfficeRestController(RentalOfficeService rentalOfficeService, RentalOfficeMapper rentalOfficeMapper) {
         this.rentalOfficeService = rentalOfficeService;
-        this.rentalOfficeTransformer = rentalOfficeTransformer;
+        this.rentalOfficeMapper = rentalOfficeMapper;
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<RentalOfficeDto> findRentalOfficeById(@PathVariable("id") Long id) {
         RentalOffice rentalOffice = rentalOfficeService.findRentalOfficeById(id);
-        RentalOfficeDto rentalOfficeDto = rentalOfficeTransformer.transformFromEntityToDto(rentalOffice);
+        RentalOfficeDto rentalOfficeDto = rentalOfficeMapper.mapFromEntityToDto(rentalOffice);
 
         return ResponseEntity.ok(rentalOfficeDto);
     }
@@ -42,18 +42,18 @@ public class RentalOfficeRestController {
 
     @PostMapping
     public ResponseEntity<RentalOfficeDto> createRentalOffice(@RequestBody RentalOfficeDto rentalOfficeDTO) {
-        RentalOffice rentalOffice = rentalOfficeTransformer.transformFromDtoToEntity(rentalOfficeDTO);
+        RentalOffice rentalOffice = rentalOfficeMapper.mapFromDtoToEntity(rentalOfficeDTO);
         RentalOffice savedRentalOffice = rentalOfficeService.saveRentalOffice(rentalOffice);
-        RentalOfficeDto savedRentalOfficeDto = rentalOfficeTransformer.transformFromEntityToDto(savedRentalOffice);
+        RentalOfficeDto savedRentalOfficeDto = rentalOfficeMapper.mapFromEntityToDto(savedRentalOffice);
 
         return ResponseEntity.ok(savedRentalOfficeDto);
     }
 
     @PutMapping
     public ResponseEntity<RentalOfficeDto> updateRentalOffice(@RequestBody RentalOfficeDto rentalOfficeDTO) {
-        RentalOffice rentalOffice = rentalOfficeTransformer.transformFromDtoToEntity(rentalOfficeDTO);
+        RentalOffice rentalOffice = rentalOfficeMapper.mapFromDtoToEntity(rentalOfficeDTO);
         RentalOffice savedRentalOffice = rentalOfficeService.saveRentalOffice(rentalOffice);
-        RentalOfficeDto savedRentalOfficeDto = rentalOfficeTransformer.transformFromEntityToDto(savedRentalOffice);
+        RentalOfficeDto savedRentalOfficeDto = rentalOfficeMapper.mapFromEntityToDto(savedRentalOffice);
 
         return ResponseEntity.ok(savedRentalOfficeDto);
     }
@@ -64,7 +64,7 @@ public class RentalOfficeRestController {
         List<RentalOfficeDto> allRentalOfficesDto = new ArrayList<>();
 
         for (RentalOffice rentalOffice : allRentalOffices) {
-            allRentalOfficesDto.add(rentalOfficeTransformer.transformFromEntityToDto(rentalOffice));
+            allRentalOfficesDto.add(rentalOfficeMapper.mapFromEntityToDto(rentalOffice));
         }
 
         return ResponseEntity.ok(allRentalOfficesDto);

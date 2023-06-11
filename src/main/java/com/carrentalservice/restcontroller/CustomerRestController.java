@@ -3,7 +3,7 @@ package com.carrentalservice.restcontroller;
 import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.service.CustomerService;
-import com.carrentalservice.transformer.CustomerTransformer;
+import com.carrentalservice.transformer.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,18 +17,18 @@ import java.util.List;
 public class CustomerRestController {
 
     private final CustomerService customerService;
-    private final CustomerTransformer customerTransformer;
+    private final CustomerMapper customerMapper;
 
     @Autowired
-    public CustomerRestController(CustomerService customerService, CustomerTransformer customerTransformer) {
+    public CustomerRestController(CustomerService customerService, CustomerMapper customerMapper) {
         this.customerService = customerService;
-        this.customerTransformer = customerTransformer;
+        this.customerMapper = customerMapper;
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") Long id) {
         Customer customer = customerService.findCustomerById(id);
-        CustomerDto customerDto = customerTransformer.transformFromEntityToDto(customer);
+        CustomerDto customerDto = customerMapper.mapFromEntityToDto(customer);
 
         return ResponseEntity.ok(customerDto);
     }
@@ -42,18 +42,18 @@ public class CustomerRestController {
 
     @PostMapping
     public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
-        Customer customer = customerTransformer.transformFromDtoToEntity(customerDto);
+        Customer customer = customerMapper.mapFromDtoToEntity(customerDto);
         Customer saveCustomer = customerService.saveCustomer(customer);
-        CustomerDto savedCustomerDto = customerTransformer.transformFromEntityToDto(saveCustomer);
+        CustomerDto savedCustomerDto = customerMapper.mapFromEntityToDto(saveCustomer);
 
         return ResponseEntity.ok(savedCustomerDto);
     }
 
     @PutMapping
     public ResponseEntity<CustomerDto> updateCustomer(@RequestBody CustomerDto customerDto) {
-        Customer customer = customerTransformer.transformFromDtoToEntity(customerDto);
+        Customer customer = customerMapper.mapFromDtoToEntity(customerDto);
         Customer saveCustomer = customerService.saveCustomer(customer);
-        CustomerDto savedCustomerDto = customerTransformer.transformFromEntityToDto(saveCustomer);
+        CustomerDto savedCustomerDto = customerMapper.mapFromEntityToDto(saveCustomer);
 
         return ResponseEntity.ok(savedCustomerDto);
     }
@@ -64,7 +64,7 @@ public class CustomerRestController {
         List<CustomerDto> allCustomerDto = new ArrayList<>();
 
         for (Customer customer: allCustomer){
-            allCustomerDto.add(customerTransformer.transformFromEntityToDto(customer));
+            allCustomerDto.add(customerMapper.mapFromEntityToDto(customer));
         }
 
         return ResponseEntity.ok(allCustomerDto);

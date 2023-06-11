@@ -2,7 +2,7 @@ package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;
-import com.carrentalservice.transformer.CarTransformer;
+import com.carrentalservice.transformer.CarMapper;
 import com.carrentalservice.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +17,19 @@ import java.util.List;
 public class CarRestController {
 
     private final CarService carService;
-    private final CarTransformer carTransformer;
+    private final CarMapper carMapper;
 
     @Autowired
-    public CarRestController(CarService carService, CarTransformer carTransformer) {
+    public CarRestController(CarService carService, CarMapper carMapper) {
         this.carService = carService;
-        this.carTransformer = carTransformer;
+        this.carMapper = carMapper;
     }
 
     @PostMapping
     public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDto){
-        Car car = carTransformer.transformFromDtoToEntity(carDto);
+        Car car = carMapper.mapFromDtoToEntity(carDto);
         Car savedCar = carService.saveCar(car);
-        CarDto savedCarDto = carTransformer.transformFromEntityToDto(savedCar);
+        CarDto savedCarDto = carMapper.mapFromEntityToDto(savedCar);
 
         return ResponseEntity.ok(savedCarDto);
     }
@@ -37,16 +37,16 @@ public class CarRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id){
         Car car = carService.findCarById(id);
-        CarDto carDto = carTransformer.transformFromEntityToDto(car);
+        CarDto carDto = carMapper.mapFromEntityToDto(car);
 
         return ResponseEntity.ok(carDto);
     }
 
     @PutMapping
     public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto){
-        Car car = carTransformer.transformFromDtoToEntity(carDto);
+        Car car = carMapper.mapFromDtoToEntity(carDto);
         Car carSaved = carService.saveCar(car);
-        CarDto savedCarDto = carTransformer.transformFromEntityToDto(carSaved);
+        CarDto savedCarDto = carMapper.mapFromEntityToDto(carSaved);
 
         return ResponseEntity.ok(savedCarDto);
     }
@@ -64,7 +64,7 @@ public class CarRestController {
         List<CarDto> allCarsDto = new ArrayList<>();
 
         for(Car car: allCars){
-            allCarsDto.add(carTransformer.transformFromEntityToDto(car));
+            allCarsDto.add(carMapper.mapFromEntityToDto(car));
         }
 
         return ResponseEntity.ok(allCarsDto);

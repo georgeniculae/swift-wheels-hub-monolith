@@ -6,16 +6,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RentalTransformer {
+public class RentalMapper {
 
-    public Rental transformFromDtoToEntity(RentalDto rentalDTO){
+    public Rental mapFromDtoToEntity(RentalDto rentalDTO){
         Rental rental = new Rental();
         BeanUtils.copyProperties(rentalDTO, rental);
 
         return rental;
     }
 
-    public RentalDto transformFromEntityToDto(Rental rental){
+    public RentalDto mapFromEntityToDto(Rental rental){
         RentalDto rentalDTO = new RentalDto();
         BeanUtils.copyProperties(rental, rentalDTO);
 

@@ -1,7 +1,6 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.entity.Booking;
-import com.carrentalservice.entity.Calculator;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
@@ -20,14 +19,19 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final CarRepository carRepository;
     private final CustomerRepository customerRepository;
-    private final Calculator calculator;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository, CarRepository carRepository, CustomerRepository customerRepository, Calculator calculator) {
+    public BookingService(BookingRepository bookingRepository, CarRepository carRepository, CustomerRepository customerRepository) {
         this.bookingRepository = bookingRepository;
         this.carRepository = carRepository;
         this.customerRepository = customerRepository;
-        this.calculator = calculator;
+    }
+
+    public Booking saveUpdatedBooking(Booking booking, Double amountFromCar) {
+        double numberOfDaysForBooking = (double) (booking.getDateTo().getTime() - booking.getDateFrom().getTime()) / (1000 * 60 * 60 * 24);
+        booking.setAmount(amountFromCar * numberOfDaysForBooking);
+
+        return saveBooking(booking);
     }
 
     public Booking saveBooking(Booking booking) {
@@ -79,15 +83,17 @@ public class BookingService {
     }
 
     public Double calculateAllAmountSpentByUser(Customer customer) {
-        List<Booking> bookingByCustomerLoggedIn = findBookingByCustomerLoggedIn(customer);
-
-        return calculator.getSumOfAmountOfBookingsOfCustomerLoggedIn(bookingByCustomerLoggedIn);
+        return findBookingByCustomerLoggedIn(customer)
+                .stream()
+                .map(Booking::getAmount)
+                .reduce(0D, Double::sum);
     }
 
     public Double getSumOfAllBookingAmount() {
-        List<Booking> allBookings = findAllBookings();
-
-        return calculator.getSumOfAllBookingAmount(allBookings);
+        return findAllBookings()
+                .stream()
+                .map(Booking::getAmount)
+                .reduce(0D, Double::sum);
     }
 
 }

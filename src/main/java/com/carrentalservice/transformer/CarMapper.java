@@ -6,16 +6,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CarTransformer {
+public class CarMapper {
 
-    public Car transformFromDtoToEntity(CarDto carDTO){
+    public Car mapFromDtoToEntity(CarDto carDTO){
         Car car = new Car();
         BeanUtils.copyProperties(carDTO, car);
 
         return car;
     }
 
-    public CarDto transformFromEntityToDto(Car car){
+    public CarDto mapFromEntityToDto(Car car){
         CarDto carDTO = new CarDto();
         BeanUtils.copyProperties(car, carDTO);
 

@@ -6,16 +6,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookingTransformer {
+public class BookingMapper {
 
-    public Booking transformFromDtoToEntity(BookingDto bookingDTO){
+    public Booking mapFromDtoToEntity(BookingDto bookingDTO){
         Booking booking = new Booking();
         BeanUtils.copyProperties(bookingDTO, booking);
 
         return booking;
     }
 
-    public BookingDto transformFromEntityToDto(Booking booking) {
+    public BookingDto mapFromEntityToDto(Booking booking) {
         BookingDto bookingDTO = new BookingDto();
         BeanUtils.copyProperties(booking, bookingDTO);
 
