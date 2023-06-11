@@ -52,7 +52,7 @@ public class EmployeeRestController {
     @PutMapping
     public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
         Employee employee = employeeMapper.mapFromDtoToEntity(employeeDto);
-        Employee savedEmployee = employeeService.saveEmployee(employee);
+        Employee savedEmployee = employeeService.updateEmployee(employee);
         EmployeeDto savedEmployeeDto = employeeMapper.mapFromEntityToDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDto);

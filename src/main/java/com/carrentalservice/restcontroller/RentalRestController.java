@@ -52,7 +52,7 @@ public class RentalRestController {
     @PutMapping
     public ResponseEntity<RentalDto> updateRental(@RequestBody RentalDto rentalDto) {
         Rental rental = rentalMapper.mapFromDtoToEntity(rentalDto);
-        Rental savedRental = rentalService.saveRental(rental);
+        Rental savedRental = rentalService.updateRental(rental);
         RentalDto savedRentalDto = rentalMapper.mapFromEntityToDto(savedRental);
 
         return ResponseEntity.ok(savedRentalDto);

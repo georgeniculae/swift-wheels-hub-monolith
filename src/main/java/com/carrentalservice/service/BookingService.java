@@ -78,6 +78,13 @@ public class BookingService {
         return this.bookingRepository.findBookingByCustomer(customer);
     }
 
+    public Booking updateBooking(Booking newBooking) {
+        Booking existingBooking = findBookingById(newBooking.getId());
+        newBooking.setId(existingBooking.getId());
+
+        return saveBooking(newBooking);
+    }
+
     public Long countByCustomer(Customer customer) {
         return this.bookingRepository.countByCustomer(customer);
     }

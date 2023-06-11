@@ -52,7 +52,7 @@ public class RevenueRestController {
     @PutMapping
     public ResponseEntity<RevenueDto> updateRevenue(@RequestBody RevenueDto revenueDto) {
         Revenue revenue = revenueMapper.mapFromDtoToEntity(revenueDto);
-        Revenue savedRevenue = revenueService.saveRevenue(revenue);
+        Revenue savedRevenue = revenueService.updateRevenue(revenue);
         RevenueDto savedRevenueDto = revenueMapper.mapFromEntityToDto(savedRevenue);
 
         return ResponseEntity.ok(savedRevenueDto);

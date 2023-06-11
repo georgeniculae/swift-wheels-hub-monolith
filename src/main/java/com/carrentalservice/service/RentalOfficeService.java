@@ -41,6 +41,13 @@ public class RentalOfficeService {
         throw new NotFoundException("Rental office with id " + id + " does not exist.");
     }
 
+    public RentalOffice updateRentalOffice(RentalOffice newRentalOffice) {
+        RentalOffice existingRentalOffice = findRentalOfficeById(newRentalOffice.getId());
+        newRentalOffice.setId(existingRentalOffice.getId());
+
+        return saveRentalOffice(newRentalOffice);
+    }
+
     public Long countRentalOffices() {
         return rentalOfficeRepository.count();
     }

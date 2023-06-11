@@ -51,6 +51,13 @@ public class BranchService {
         throw new NotFoundException("Branch with id " + id + " does not exist.");
     }
 
+    public Branch updateBranch(Branch newBranch) {
+        Branch exitingBranch = findBranchById(newBranch.getId());
+        newBranch.setId(exitingBranch.getId());
+
+        return saveBranch(newBranch);
+    }
+
     public Long countBranches() {
         return branchRepository.count();
     }

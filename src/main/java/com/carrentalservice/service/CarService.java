@@ -52,6 +52,13 @@ public class CarService {
         throw new NotFoundException("Car with id " + id + " does not exist.");
     }
 
+    public Car updateCar(Car newCar) {
+        Car existingCar = findCarById(newCar.getId());
+        newCar.setId(existingCar.getId());
+
+        return saveCar(newCar);
+    }
+
     public void deleteCarById(Long id) {
         Car carById = this.findCarById(id);
 

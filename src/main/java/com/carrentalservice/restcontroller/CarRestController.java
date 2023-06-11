@@ -45,7 +45,7 @@ public class CarRestController {
     @PutMapping
     public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto){
         Car car = carMapper.mapFromDtoToEntity(carDto);
-        Car carSaved = carService.saveCar(car);
+        Car carSaved = carService.updateCar(car);
         CarDto savedCarDto = carMapper.mapFromEntityToDto(carSaved);
 
         return ResponseEntity.ok(savedCarDto);

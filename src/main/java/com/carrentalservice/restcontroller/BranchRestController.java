@@ -52,7 +52,7 @@ public class BranchRestController {
     @PutMapping
     public ResponseEntity<BranchDto> updateBranch(@RequestBody BranchDto branchDto) {
         Branch branch = branchMapper.mapFromDtoToEntity(branchDto);
-        Branch savedBranch = branchService.saveBranch(branch);
+        Branch savedBranch = branchService.updateBranch(branch);
         BranchDto savedBranchDto = branchMapper.mapFromEntityToDto(savedBranch);
 
         return ResponseEntity.ok(savedBranchDto);

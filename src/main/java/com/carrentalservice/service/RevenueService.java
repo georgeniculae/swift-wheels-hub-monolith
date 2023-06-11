@@ -31,6 +31,13 @@ public class RevenueService {
         revenueRepository.deleteById(id);
     }
 
+    public Revenue updateRevenue(Revenue newRevenue) {
+        Revenue existingRevenue = findRevenueById(newRevenue.getId());
+        newRevenue.setId(existingRevenue.getId());
+
+        return saveRevenue(newRevenue);
+    }
+
     public Revenue findRevenueById(Long id) {
         Optional<Revenue> optionalRevenue = revenueRepository.findById(id);
         if (optionalRevenue.isPresent()) {

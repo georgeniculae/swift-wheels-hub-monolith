@@ -27,6 +27,13 @@ public class RentalService {
         return rentalRepository.findAll();
     }
 
+    public Rental updateRental(Rental newRental) {
+        Rental existingRental = findRentalById(newRental.getId());
+        newRental.setId(existingRental.getId());
+
+        return saveRental(newRental);
+    }
+
     public void deleteAllRentals() {
         rentalRepository.deleteAll();
     }

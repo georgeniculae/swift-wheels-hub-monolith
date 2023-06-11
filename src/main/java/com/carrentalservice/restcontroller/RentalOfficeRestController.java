@@ -43,7 +43,7 @@ public class RentalOfficeRestController {
     @PostMapping
     public ResponseEntity<RentalOfficeDto> createRentalOffice(@RequestBody RentalOfficeDto rentalOfficeDTO) {
         RentalOffice rentalOffice = rentalOfficeMapper.mapFromDtoToEntity(rentalOfficeDTO);
-        RentalOffice savedRentalOffice = rentalOfficeService.saveRentalOffice(rentalOffice);
+        RentalOffice savedRentalOffice = rentalOfficeService.updateRentalOffice(rentalOffice);
         RentalOfficeDto savedRentalOfficeDto = rentalOfficeMapper.mapFromEntityToDto(savedRentalOffice);
 
         return ResponseEntity.ok(savedRentalOfficeDto);

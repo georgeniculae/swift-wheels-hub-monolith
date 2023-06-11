@@ -48,6 +48,13 @@ public class CustomerService {
         throw new NotFoundException("Customer with username " + username + " does not exist.");
     }
 
+    public Customer updateCustomer(Customer newCustomer) {
+        Customer existingCustomer = findCustomerById(newCustomer.getId());
+        newCustomer.setId(existingCustomer.getId());
+
+        return saveCustomer(newCustomer);
+    }
+
     public void deleteCustomerById(Long id) {
         findCustomerById(id);
 

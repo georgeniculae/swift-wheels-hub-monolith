@@ -52,7 +52,7 @@ public class BookingRestController {
     @PutMapping
     public ResponseEntity<BookingDto> updateBooking(@RequestBody BookingDto bookingDto) {
         Booking booking = bookingMapper.mapFromDtoToEntity(bookingDto);
-        Booking saveBooking = bookingService.saveBooking(booking);
+        Booking saveBooking = bookingService.updateBooking(booking);
         BookingDto saveBookingDto = bookingMapper.mapFromEntityToDto(saveBooking);
 
         return ResponseEntity.ok(saveBookingDto);

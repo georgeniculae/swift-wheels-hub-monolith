@@ -45,6 +45,13 @@ public class EmployeeService {
         throw new NotFoundException("Employee with id " + id + " does not exist.");
     }
 
+    public Employee updateEmployee(Employee newEmployee) {
+        Employee existingEmployee = findEmployeeById(newEmployee.getId());
+        newEmployee.setId(existingEmployee.getId());
+
+        return saveEmployee(newEmployee);
+    }
+
     public List<Employee> getEmployeesInBranch(Long id) {
         Optional<Branch> optionalBranch = branchRepository.findById(id);
 

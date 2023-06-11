@@ -52,7 +52,7 @@ public class CustomerRestController {
     @PutMapping
     public ResponseEntity<CustomerDto> updateCustomer(@RequestBody CustomerDto customerDto) {
         Customer customer = customerMapper.mapFromDtoToEntity(customerDto);
-        Customer saveCustomer = customerService.saveCustomer(customer);
+        Customer saveCustomer = customerService.updateCustomer(customer);
         CustomerDto savedCustomerDto = customerMapper.mapFromEntityToDto(saveCustomer);
 
         return ResponseEntity.ok(savedCustomerDto);
