@@ -5,28 +5,28 @@ import java.util.Date;
 public class BookingDto extends BaseEntityDto {
 
     private Date dateOfBooking;
-    private CustomerDto customerDto;
-    private CarDto carDTO;
+    private CustomerDto customer;
+    private CarDto car;
     private Date dateFrom;
     private Date dateTo;
-    private RentalDto rentalDto;
-    private ReturnCarDto returnCarDto;
+    private RentalDto rental;
+    private ReturnCarDto returnCar;
     private Double amount;
-    private BranchDto rentalBranchDto;
-    private BranchDto returnBranchDto;
+    private BranchDto rentalBranch;
+    private BranchDto returnBranch;
 
-    public BookingDto(Long id, Date dateOfBooking, CustomerDto customerDto, CarDto carDTO, Date dateFrom, Date dateTo, RentalDto rentalDto, ReturnCarDto returnCarDto, Double amount, BranchDto rentalBranchDto, BranchDto returnBranchDto) {
+    public BookingDto(Long id, Date dateOfBooking, CustomerDto customer, CarDto car, Date dateFrom, Date dateTo, RentalDto rental, ReturnCarDto returnCar, Double amount, BranchDto rentalBranch, BranchDto returnBranch) {
         super(id);
         this.dateOfBooking = dateOfBooking;
-        this.customerDto = customerDto;
-        this.carDTO = carDTO;
+        this.customer = customer;
+        this.car = car;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
-        this.rentalDto = rentalDto;
-        this.returnCarDto = returnCarDto;
+        this.rental = rental;
+        this.returnCar = returnCar;
         this.amount = amount;
-        this.rentalBranchDto = rentalBranchDto;
-        this.returnBranchDto = returnBranchDto;
+        this.rentalBranch = rentalBranch;
+        this.returnBranch = returnBranch;
     }
 
     public BookingDto() {
@@ -41,19 +41,19 @@ public class BookingDto extends BaseEntityDto {
     }
 
     public CustomerDto getCustomerDto() {
-        return customerDto;
+        return customer;
     }
 
     public void setCustomerDto(CustomerDto customerDto) {
-        this.customerDto = customerDto;
+        this.customer = customerDto;
     }
 
-    public CarDto getCarDTO() {
-        return carDTO;
+    public CarDto getCarDto() {
+        return car;
     }
 
-    public void setCarDTO(CarDto carDTO) {
-        this.carDTO = carDTO;
+    public void setCarDto(CarDto carDto) {
+        this.car = carDto;
     }
 
     public Date getDateFrom() {
@@ -73,19 +73,19 @@ public class BookingDto extends BaseEntityDto {
     }
 
     public RentalDto getRentalDto() {
-        return rentalDto;
+        return rental;
     }
 
     public void setRentalDto(RentalDto rentalDto) {
-        this.rentalDto = rentalDto;
+        this.rental = rentalDto;
     }
 
     public ReturnCarDto getReturnCarDto() {
-        return returnCarDto;
+        return returnCar;
     }
 
     public void setReturnCarDto(ReturnCarDto returnCarDto) {
-        this.returnCarDto = returnCarDto;
+        this.returnCar = returnCarDto;
     }
 
     public Double getAmount() {
@@ -97,19 +97,19 @@ public class BookingDto extends BaseEntityDto {
     }
 
     public BranchDto getRentalBranchDto() {
-        return rentalBranchDto;
+        return rentalBranch;
     }
 
     public void setRentalBranchDto(BranchDto rentalBranchDto) {
-        this.rentalBranchDto = rentalBranchDto;
+        this.rentalBranch = rentalBranchDto;
     }
 
     public BranchDto getReturnBranchDto() {
-        return returnBranchDto;
+        return returnBranch;
     }
 
     public void setReturnBranchDto(BranchDto returnBranchDto) {
-        this.returnBranchDto = returnBranchDto;
+        this.returnBranch = returnBranchDto;
     }
 
 }
