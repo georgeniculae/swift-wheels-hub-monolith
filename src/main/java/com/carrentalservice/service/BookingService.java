@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,7 +76,10 @@ public class BookingService {
         carService.saveCar(car);
 
         Customer customer = existingBooking.getCustomer();
-        customer.getBookingList().remove(existingBooking);
+
+        ArrayList<Booking> allBookings = new ArrayList<>(customer.getBookings());
+        allBookings.remove(existingBooking);
+        customer.setBookings(allBookings);
         customerService.saveCustomer(customer);
 
         bookingRepository.deleteById(id);

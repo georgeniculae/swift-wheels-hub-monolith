@@ -1,5 +1,6 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.CarRepository;
@@ -10,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,6 +27,9 @@ class CarServiceTest {
 
     @Mock
     private CarRepository carRepository;
+
+    @Mock
+    private BranchService branchService;
 
     @Test
     void findCarByIdTest_success() {
@@ -58,6 +63,19 @@ class CarServiceTest {
         Car updatedCar = carService.updateCar(car);
 
         assertNotNull(updatedCar);
+    }
+
+    @Test
+    void deleteCarByIdTest_success() {
+        Car car = TestData.createCar();
+        Branch branch = TestData.createRentalBranch();
+        branch.setCars(List.of(car));
+        car.setBranch(branch);
+
+        when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
+        when(branchService.saveBranch(any(Branch.class))).thenReturn(branch);
+
+        assertDoesNotThrow(() -> carService.deleteCarById(1L));
     }
 
 }

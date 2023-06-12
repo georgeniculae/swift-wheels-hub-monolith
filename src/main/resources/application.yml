@@ -2,18 +2,22 @@ server:
   port: 8080
   error:
     include-message: always
-    include-binding-errors: always
-    include-stacktrace: on_trace_param
+    include-binding-errors: never
+    include-stacktrace: never
     include-exception: false
 
 spring:
-  application: car-rental-service
+  application:
+    name: car-rental-service
   datasource:
     url: jdbc:mysql://localhost:3306/car_rental_service?serverTimezone=Europe/Bucharest
     username: root
     password: password
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   mvc:
     throw-exception-if-no-handler-found: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml

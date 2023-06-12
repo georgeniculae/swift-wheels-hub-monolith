@@ -7,6 +7,7 @@ import com.carrentalservice.repository.BranchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +52,9 @@ public class BranchService {
         Branch existingBranch = findBranchById(id);
 
         RentalOffice rentalOffice = existingBranch.getRentalOffice();
-        rentalOffice.getBranches().remove(existingBranch);
+        List<Branch> allBranches = new ArrayList<>(rentalOffice.getBranches());
+        allBranches.remove(existingBranch);
+        rentalOffice.setBranches(allBranches);
         rentalOfficeService.saveRentalOffice(rentalOffice);
 
         branchRepository.deleteById(id);

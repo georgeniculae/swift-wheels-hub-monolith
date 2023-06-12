@@ -52,7 +52,9 @@ public class CarService {
         Car existingCar = findCarById(id);
 
         Branch branch = existingCar.getBranch();
-        branch.getCars().remove(existingCar);
+        List<Car> allCars = new ArrayList<>(branch.getCars());
+        allCars.remove(existingCar);
+        branch.setCars(allCars);
         branchService.saveBranch(branch);
 
         carRepository.deleteById(id);
