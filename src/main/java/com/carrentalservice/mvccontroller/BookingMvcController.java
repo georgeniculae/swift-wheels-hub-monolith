@@ -85,7 +85,6 @@ public class BookingMvcController {
     @PostMapping(path = "/booking/update")
     public String editBooking(@ModelAttribute("booking") @Valid Booking booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-
             return "edit-booking";
         }
 

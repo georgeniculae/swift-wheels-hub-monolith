@@ -35,7 +35,7 @@ public class CustomerService {
             return optionalCustomer.get();
         }
 
-        throw new NotFoundException("Customer with id " + id + " does not exist.");
+        throw new NotFoundException("Customer with id " + id + " does not exist");
     }
 
     public Customer findCustomerByUsername(String username) {
@@ -45,7 +45,7 @@ public class CustomerService {
             return optionalCustomer.get();
         }
 
-        throw new NotFoundException("Customer with username " + username + " does not exist.");
+        throw new NotFoundException("Customer with username " + username + " does not exist");
     }
 
     public Customer updateCustomer(Customer newCustomer) {

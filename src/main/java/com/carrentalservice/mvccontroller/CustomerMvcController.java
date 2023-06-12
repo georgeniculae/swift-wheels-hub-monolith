@@ -50,6 +50,7 @@ public class CustomerMvcController {
         if (bindingResult.hasErrors()) {
             return "settings";
         }
+
         getCustomerUpdate(customer);
 
         return "redirect:/";

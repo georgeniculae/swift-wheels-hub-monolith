@@ -41,11 +41,11 @@ public class UserMvcController {
         Optional<User> userOptional = userService.findUserByUsername(customerDto.getUsername());
 
         if (userOptional.isPresent()) {
-            bindingResult.rejectValue("username", "404", "Username already exists!");
+            bindingResult.rejectValue("username", "404", "Username already exists");
         }
 
         if (!customerDto.getPassword().equals(customerDto.getConfirmPassword())) {
-            bindingResult.rejectValue("password", "404", "Passwords do not match!");
+            bindingResult.rejectValue("password", "404", "Passwords do not match");
         }
 
         if (bindingResult.hasErrors()) {
