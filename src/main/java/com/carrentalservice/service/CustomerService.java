@@ -50,7 +50,11 @@ public class CustomerService {
 
     public Customer updateCustomer(Customer newCustomer) {
         Customer existingCustomer = findCustomerById(newCustomer.getId());
-        newCustomer.setId(existingCustomer.getId());
+
+        existingCustomer.setFirstName(newCustomer.getFirstName());
+        existingCustomer.setLastName(newCustomer.getLastName());
+        existingCustomer.setEmail(newCustomer.getEmail());
+        existingCustomer.setAddress(newCustomer.getAddress());
 
         return saveCustomer(newCustomer);
     }

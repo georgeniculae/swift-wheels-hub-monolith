@@ -3,6 +3,7 @@ package com.carrentalservice.mvccontroller;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.service.BookingService;
 import com.carrentalservice.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import jakarta.validation.Valid;
 
 @Controller
 public class CustomerMvcController {
@@ -51,7 +50,7 @@ public class CustomerMvcController {
             return "settings";
         }
 
-        getCustomerUpdate(customer);
+        customerService.saveCustomer(customer);
 
         return "redirect:/";
     }
@@ -95,22 +94,9 @@ public class CustomerMvcController {
             return "edit-customer";
         }
 
-        getCustomerUpdate(customer);
+        customerService.updateCustomer(customer);
 
         return "redirect:/customers";
-    }
-
-    private void getCustomerUpdate(@ModelAttribute("customer") @Valid Customer customer) {
-        Customer customerUpdate = customerService.findCustomerById(customer.getId());
-
-        if (customerUpdate != null) {
-            customerUpdate.setFirstName(customer.getFirstName());
-            customerUpdate.setLastName(customer.getLastName());
-            customerUpdate.setEmail(customer.getEmail());
-            customerUpdate.setAddress(customer.getAddress());
-        }
-
-        customerService.saveCustomer(customerUpdate);
     }
 
     @GetMapping(path = "/customer/edit/{id}")
