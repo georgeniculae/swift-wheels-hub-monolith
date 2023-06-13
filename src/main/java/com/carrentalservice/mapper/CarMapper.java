@@ -2,24 +2,17 @@ package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Component
-public class CarMapper {
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.WARN,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface CarMapper {
 
-    public Car mapDtoToEntity(CarDto carDTO){
-        Car car = new Car();
-        BeanUtils.copyProperties(carDTO, car);
+    Car mapDtoToEntity(CarDto carDto);
 
-        return car;
-    }
-
-    public CarDto mapEntityToDto(Car car){
-        CarDto carDTO = new CarDto();
-        BeanUtils.copyProperties(car, carDTO);
-
-        return carDTO;
-    }
+    CarDto mapEntityToDto(Car car);
 
 }

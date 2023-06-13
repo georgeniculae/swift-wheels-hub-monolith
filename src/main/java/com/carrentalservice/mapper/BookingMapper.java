@@ -2,24 +2,17 @@ package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Component
-public class BookingMapper {
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.WARN,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface BookingMapper {
 
-    public Booking mapDtoToEntity(BookingDto bookingDTO){
-        Booking booking = new Booking();
-        BeanUtils.copyProperties(bookingDTO, booking);
+    BookingDto mapEntityToDto(Booking booking);
 
-        return booking;
-    }
-
-    public BookingDto mapEntityToDto(Booking booking) {
-        BookingDto bookingDTO = new BookingDto();
-        BeanUtils.copyProperties(booking, bookingDTO);
-
-        return bookingDTO;
-    }
+    Booking mapDtoToEntity(BookingDto bookingDto);
 
 }

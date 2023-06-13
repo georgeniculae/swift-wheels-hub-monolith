@@ -4,28 +4,28 @@ import java.util.Date;
 
 public class RentalDto extends BaseEntityDto {
 
-    private EmployeeDto employeeOfRentalDto;
+    private EmployeeDto employeeOfRental;
     private Date rentalDate;
-    private BookingDto bookingDto;
+    private BookingDto booking;
     private String comments;
 
-    public RentalDto(Long id, EmployeeDto employeeOfRentalDto, Date rentalDate, BookingDto bookingDto, String comments) {
+    public RentalDto(Long id, EmployeeDto employeeOfRental, Date rentalDate, BookingDto booking, String comments) {
         super(id);
-        this.employeeOfRentalDto = employeeOfRentalDto;
+        this.employeeOfRental = employeeOfRental;
         this.rentalDate = rentalDate;
-        this.bookingDto = bookingDto;
+        this.booking = booking;
         this.comments = comments;
     }
 
     public RentalDto() {
     }
 
-    public EmployeeDto getEmployeeOfRentalDto() {
-        return employeeOfRentalDto;
+    public EmployeeDto getEmployeeOfRental() {
+        return employeeOfRental;
     }
 
-    public void setEmployeeOfRentalDto(EmployeeDto employeeOfRentalDto) {
-        this.employeeOfRentalDto = employeeOfRentalDto;
+    public void setEmployeeOfRental(EmployeeDto employeeOfRental) {
+        this.employeeOfRental = employeeOfRental;
     }
 
     public Date getRentalDate() {
@@ -36,12 +36,12 @@ public class RentalDto extends BaseEntityDto {
         this.rentalDate = rentalDate;
     }
 
-    public BookingDto getBookingDto() {
-        return bookingDto;
+    public BookingDto getBooking() {
+        return booking;
     }
 
-    public void setBookingDto(BookingDto bookingDto) {
-        this.bookingDto = bookingDto;
+    public void setBooking(BookingDto booking) {
+        this.booking = booking;
     }
 
     public String getComments() {

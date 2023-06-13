@@ -14,11 +14,11 @@ public class CarDto extends BaseEntityDto {
     private int mileage;
     private Status status;
     private Double amount;
-    private List<BookingDto> bookingDtoList;
-    private BranchDto branchDto;
+    private List<BookingDto> bookings;
+    private BranchDto branch;
     private String urlOfImage;
 
-    public CarDto(Long id, String make, String model, String bodyType, int yearOfProduction, String color, int mileage, Status status, Double amount, List<BookingDto> bookingDtoList, BranchDto branchDto, String urlOfImage) {
+    public CarDto(Long id, String make, String model, String bodyType, int yearOfProduction, String color, int mileage, Status status, Double amount, List<BookingDto> bookings, BranchDto branch, String urlOfImage) {
         super(id);
         this.make = make;
         this.model = model;
@@ -28,8 +28,8 @@ public class CarDto extends BaseEntityDto {
         this.mileage = mileage;
         this.status = status;
         this.amount = amount;
-        this.bookingDtoList = bookingDtoList;
-        this.branchDto = branchDto;
+        this.bookings = bookings;
+        this.branch = branch;
         this.urlOfImage = urlOfImage;
     }
 
@@ -100,20 +100,20 @@ public class CarDto extends BaseEntityDto {
         this.amount = amount;
     }
 
-    public List<BookingDto> getBookingDtoList() {
-        return bookingDtoList;
+    public List<BookingDto> getBookings() {
+        return bookings;
     }
 
-    public void setBookingDtoList(List<BookingDto> bookingDtoList) {
-        this.bookingDtoList = bookingDtoList;
+    public void setBookings(List<BookingDto> bookings) {
+        this.bookings = bookings;
     }
 
-    public BranchDto getBranchDto() {
-        return branchDto;
+    public BranchDto getBranch() {
+        return branch;
     }
 
-    public void setBranchDto(BranchDto branchDto) {
-        this.branchDto = branchDto;
+    public void setBranch(BranchDto branch) {
+        this.branch = branch;
     }
 
     public String getUrlOfImage() {

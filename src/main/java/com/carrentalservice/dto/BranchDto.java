@@ -6,17 +6,17 @@ public class BranchDto extends BaseEntityDto {
 
     private String name;
     private String address;
-    private List<EmployeeDto> employeeDtoList;
-    private List<CarDto> carDtoList;
-    private RentalOfficeDto rentalOfficeDto;
+    private List<EmployeeDto> employees;
+    private List<CarDto> cars;
+    private RentalOfficeDto rentalOffice;
 
-    public BranchDto(Long id, String name, String address, List<EmployeeDto> employeeDtoList, List<CarDto> carDtoList, RentalOfficeDto rentalOfficeDto) {
+    public BranchDto(Long id, String name, String address, List<EmployeeDto> employees, List<CarDto> cars, RentalOfficeDto rentalOffice) {
         super(id);
         this.name = name;
         this.address = address;
-        this.employeeDtoList = employeeDtoList;
-        this.carDtoList = carDtoList;
-        this.rentalOfficeDto = rentalOfficeDto;
+        this.employees = employees;
+        this.cars = cars;
+        this.rentalOffice = rentalOffice;
     }
 
     public BranchDto() {
@@ -38,28 +38,28 @@ public class BranchDto extends BaseEntityDto {
         this.address = address;
     }
 
-    public List<EmployeeDto> getEmployeeDtoList() {
-        return employeeDtoList;
+    public List<EmployeeDto> getEmployees() {
+        return employees;
     }
 
-    public void setEmployeeDtoList(List<EmployeeDto> employeeDtoList) {
-        this.employeeDtoList = employeeDtoList;
+    public void setEmployees(List<EmployeeDto> employees) {
+        this.employees = employees;
     }
 
-    public List<CarDto> getCarDtoList() {
-        return carDtoList;
+    public List<CarDto> getCars() {
+        return cars;
     }
 
-    public void setCarDtoList(List<CarDto> carDtoList) {
-        this.carDtoList = carDtoList;
+    public void setCars(List<CarDto> cars) {
+        this.cars = cars;
     }
 
-    public RentalOfficeDto getRentalOfficeDto() {
-        return rentalOfficeDto;
+    public RentalOfficeDto getRentalOffice() {
+        return rentalOffice;
     }
 
-    public void setRentalOfficeDto(RentalOfficeDto rentalOfficeDto) {
-        this.rentalOfficeDto = rentalOfficeDto;
+    public void setRentalOffice(RentalOfficeDto rentalOffice) {
+        this.rentalOffice = rentalOffice;
     }
 
 }

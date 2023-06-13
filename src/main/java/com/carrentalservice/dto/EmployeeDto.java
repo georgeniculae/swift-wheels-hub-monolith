@@ -13,20 +13,20 @@ public class EmployeeDto extends BaseEntityDto {
     @NotEmpty(message = "Job position cannot be empty!")
     private String jobPosition;
 
-    private BranchDto workingBranchDto;
+    private BranchDto workingBranch;
 
-    private ReturnCarDto returnCarDto;
+    private ReturnCarDto returnCar;
 
-    private RentalDto rentalDto;
+    private RentalDto rental;
 
-    public EmployeeDto(Long id, String firstName, String lastName, String jobPosition, BranchDto workingBranchDto, ReturnCarDto returnCarDto, RentalDto rentalDto) {
+    public EmployeeDto(Long id, String firstName, String lastName, String jobPosition, BranchDto workingBranch, ReturnCarDto returnCar, RentalDto rental) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobPosition = jobPosition;
-        this.workingBranchDto = workingBranchDto;
-        this.returnCarDto = returnCarDto;
-        this.rentalDto = rentalDto;
+        this.workingBranch = workingBranch;
+        this.returnCar = returnCar;
+        this.rental = rental;
     }
 
     public EmployeeDto() {
@@ -56,28 +56,28 @@ public class EmployeeDto extends BaseEntityDto {
         this.jobPosition = jobPosition;
     }
 
-    public BranchDto getWorkingBranchDto() {
-        return workingBranchDto;
+    public BranchDto getWorkingBranch() {
+        return workingBranch;
     }
 
-    public void setWorkingBranchDto(BranchDto workingBranchDto) {
-        this.workingBranchDto = workingBranchDto;
+    public void setWorkingBranch(BranchDto workingBranch) {
+        this.workingBranch = workingBranch;
     }
 
-    public ReturnCarDto getReturnCarDto() {
-        return returnCarDto;
+    public ReturnCarDto getReturnCar() {
+        return returnCar;
     }
 
-    public void setReturnCarDto(ReturnCarDto returnCarDto) {
-        this.returnCarDto = returnCarDto;
+    public void setReturnCar(ReturnCarDto returnCar) {
+        this.returnCar = returnCar;
     }
 
-    public RentalDto getRentalDto() {
-        return rentalDto;
+    public RentalDto getRental() {
+        return rental;
     }
 
-    public void setRentalDto(RentalDto rentalDto) {
-        this.rentalDto = rentalDto;
+    public void setRental(RentalDto rental) {
+        this.rental = rental;
     }
 
 }

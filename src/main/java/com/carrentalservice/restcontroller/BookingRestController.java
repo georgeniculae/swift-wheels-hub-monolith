@@ -2,8 +2,8 @@ package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
-import com.carrentalservice.service.BookingService;
 import com.carrentalservice.mapper.BookingMapper;
+import com.carrentalservice.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

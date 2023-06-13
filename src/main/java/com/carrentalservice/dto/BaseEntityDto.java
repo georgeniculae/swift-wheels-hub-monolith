@@ -18,4 +18,5 @@ public class BaseEntityDto {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

@@ -2,24 +2,17 @@ package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.RentalDto;
 import com.carrentalservice.entity.Rental;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Component
-public class RentalMapper {
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.WARN,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface RentalMapper {
 
-    public Rental mapDtoToEntity(RentalDto rentalDTO){
-        Rental rental = new Rental();
-        BeanUtils.copyProperties(rentalDTO, rental);
+    Rental mapDtoToEntity(RentalDto rentalDto);
 
-        return rental;
-    }
-
-    public RentalDto mapEntityToDto(Rental rental){
-        RentalDto rentalDTO = new RentalDto();
-        BeanUtils.copyProperties(rental, rentalDTO);
-
-        return rentalDTO;
-    }
+    RentalDto mapEntityToDto(Rental rental);
 
 }

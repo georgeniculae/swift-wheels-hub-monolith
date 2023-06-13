@@ -1,25 +1,20 @@
 package com.carrentalservice.mapper;
 
+import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.dto.RentalOfficeDto;
+import com.carrentalservice.entity.Booking;
 import com.carrentalservice.entity.RentalOffice;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Component
-public class RentalOfficeMapper {
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.WARN,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface RentalOfficeMapper {
 
-    public RentalOfficeDto mapEntityToDto(RentalOffice rentalOffice) {
-        RentalOfficeDto rentalOfficeDTO = new RentalOfficeDto();
-        BeanUtils.copyProperties(rentalOffice, rentalOfficeDTO);
+    RentalOfficeDto mapEntityToDto(RentalOffice rentalOffice);
 
-        return rentalOfficeDTO;
-    }
-
-    public RentalOffice mapDtoToEntity(RentalOfficeDto rentalOfficeDTO) {
-        RentalOffice rentalOffice = new RentalOffice();
-        BeanUtils.copyProperties(rentalOfficeDTO, rentalOffice);
-
-        return rentalOffice;
-    }
+    RentalOffice mapDtoToEntity(RentalOfficeDto rentalOfficeDto);
 
 }

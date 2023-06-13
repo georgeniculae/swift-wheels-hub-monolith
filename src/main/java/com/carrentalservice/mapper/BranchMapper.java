@@ -2,24 +2,17 @@ package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.entity.Branch;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Component
-public class BranchMapper {
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.WARN,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface BranchMapper {
 
-    public BranchDto mapEntityToDto(Branch branch) {
-        BranchDto branchDTO = new BranchDto();
-        BeanUtils.copyProperties(branch, branchDTO);
+    BranchDto mapEntityToDto(Branch branch);
 
-        return branchDTO;
-    }
-
-    public Branch mapDtoToEntity(BranchDto branchDTO) {
-        Branch branch = new Branch();
-        BeanUtils.copyProperties(branchDTO, branch);
-
-        return branch;
-    }
+    Branch mapDtoToEntity(BranchDto branchDto);
 
 }

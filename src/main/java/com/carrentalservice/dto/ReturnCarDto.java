@@ -6,17 +6,17 @@ import java.util.List;
 
 public class ReturnCarDto extends BaseEntityDto {
 
-    private EmployeeDto employeeDto;
+    private EmployeeDto employee;
     private Date dateOfReturn;
-    private List<BookingDto> bookingDtoList = new ArrayList<>();
+    private List<BookingDto> bookings = new ArrayList<>();
     private Double additionalPayment;
     private String comments;
 
-    public ReturnCarDto(Long id, EmployeeDto employeeDto, Date dateOfReturn, List<BookingDto> bookingDtoList, Double additionalPayment, String comments) {
+    public ReturnCarDto(Long id, EmployeeDto employee, Date dateOfReturn, List<BookingDto> bookings, Double additionalPayment, String comments) {
         super(id);
-        this.employeeDto = employeeDto;
+        this.employee = employee;
         this.dateOfReturn = dateOfReturn;
-        this.bookingDtoList = bookingDtoList;
+        this.bookings = bookings;
         this.additionalPayment = additionalPayment;
         this.comments = comments;
     }
@@ -24,12 +24,12 @@ public class ReturnCarDto extends BaseEntityDto {
     public ReturnCarDto() {
     }
 
-    public EmployeeDto getEmployeeDto() {
-        return employeeDto;
+    public EmployeeDto getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeDto(EmployeeDto employeeDto) {
-        this.employeeDto = employeeDto;
+    public void setEmployee(EmployeeDto employee) {
+        this.employee = employee;
     }
 
     public Date getDateOfReturn() {
@@ -40,12 +40,12 @@ public class ReturnCarDto extends BaseEntityDto {
         this.dateOfReturn = dateOfReturn;
     }
 
-    public List<BookingDto> getBookingDtoList() {
-        return bookingDtoList;
+    public List<BookingDto> getBookings() {
+        return bookings;
     }
 
-    public void setBookingDtoList(List<BookingDto> bookingDtoList) {
-        this.bookingDtoList = bookingDtoList;
+    public void setBookings(List<BookingDto> bookings) {
+        this.bookings = bookings;
     }
 
     public Double getAdditionalPayment() {

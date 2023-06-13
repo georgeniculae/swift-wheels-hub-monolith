@@ -2,24 +2,17 @@ package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.EmployeeDto;
 import com.carrentalservice.entity.Employee;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Component
-public class EmployeeMapper {
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.WARN,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface EmployeeMapper {
 
-    public EmployeeDto mapEntityToDto(Employee employee) {
-        EmployeeDto employeeDTO = new EmployeeDto();
-        BeanUtils.copyProperties(employee, employeeDTO);
+    EmployeeDto mapEntityToDto(Employee employee);
 
-        return employeeDTO;
-    }
-
-    public Employee mapDtoToEntity(EmployeeDto employeeDTO) {
-        Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDTO, employee);
-
-        return employee;
-    }
+    Employee mapDtoToEntity(EmployeeDto employeeDto);
 
 }

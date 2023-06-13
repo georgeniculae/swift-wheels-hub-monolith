@@ -2,23 +2,17 @@ package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.RevenueDto;
 import com.carrentalservice.entity.Revenue;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Component
-public class RevenueMapper {
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.WARN,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+public interface RevenueMapper {
 
-    public Revenue mapDtoToEntity(RevenueDto revenueDTO) {
-        Revenue revenue = new Revenue();
-        BeanUtils.copyProperties(revenueDTO, revenue);
+    Revenue mapDtoToEntity(RevenueDto revenueDto);
 
-        return revenue;
-    }
+    RevenueDto mapEntityToDto(Revenue revenue);
 
-    public RevenueDto mapEntityToDto(Revenue revenue) {
-        RevenueDto revenueDTO = new RevenueDto();
-        BeanUtils.copyProperties(revenue, revenueDTO);
-
-        return revenueDTO;
-    }
 }
