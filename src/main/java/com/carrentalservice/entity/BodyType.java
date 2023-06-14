@@ -1,5 +1,10 @@
 package com.carrentalservice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum BodyType {
 
     CHOOSE("Choose"),
@@ -13,13 +18,5 @@ public enum BodyType {
     JEEP("Jeep");
 
     private final String displayName;
-
-    BodyType(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
 
 }

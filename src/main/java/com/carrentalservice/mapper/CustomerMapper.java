@@ -11,8 +11,8 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface CustomerMapper {
 
-    Customer mapDtoToEntity(CustomerDto customerDto);
-
     CustomerDto mapEntityToDto(Customer customer);
+
+    Customer mapDtoToEntity(CustomerDto customerDto);
 
 }

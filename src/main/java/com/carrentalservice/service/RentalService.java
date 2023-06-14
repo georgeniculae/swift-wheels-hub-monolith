@@ -3,21 +3,17 @@ package com.carrentalservice.service;
 import com.carrentalservice.entity.Rental;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.RentalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RentalService {
 
     private final RentalRepository rentalRepository;
-
-    @Autowired
-    public RentalService(RentalRepository rentalRepository) {
-        this.rentalRepository = rentalRepository;
-    }
 
     public Rental saveRental(Rental rental) {
         return rentalRepository.save(rental);
@@ -49,7 +45,7 @@ public class RentalService {
             return optionalRental.get();
         }
 
-        throw new NotFoundException("Rental with id " + id + " does not exist.");
+        throw new NotFoundException("Rental with id " + id + " does not exist");
     }
 
     public Long countRental() {

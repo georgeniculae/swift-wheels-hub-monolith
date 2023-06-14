@@ -1,12 +1,13 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.dto.SearchValueDto;
+import com.carrentalservice.entity.Branch;
 import com.carrentalservice.service.BranchService;
+import com.carrentalservice.service.CarService;
 import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.service.RentalOfficeService;
-import com.carrentalservice.entity.Branch;
-import com.carrentalservice.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,23 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.validation.Valid;
-
 @Controller
+@RequiredArgsConstructor
 public class BranchMvcController {
 
     private final BranchService branchService;
     private final CarService carService;
     private final EmployeeService employeeService;
     private final RentalOfficeService rentalOfficeService;
-
-    @Autowired
-    public BranchMvcController(BranchService branchService, CarService carService, EmployeeService employeeService, RentalOfficeService rentalOfficeService) {
-        this.branchService = branchService;
-        this.carService = carService;
-        this.employeeService = employeeService;
-        this.rentalOfficeService = rentalOfficeService;
-    }
 
     @GetMapping(path = "/branches/available-cars")
     public String showAvailableCarsPage(Model model, Long id) {

@@ -11,8 +11,8 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface RevenueMapper {
 
-    Revenue mapDtoToEntity(RevenueDto revenueDto);
-
     RevenueDto mapEntityToDto(Revenue revenue);
+
+    Revenue mapDtoToEntity(RevenueDto revenueDto);
 
 }

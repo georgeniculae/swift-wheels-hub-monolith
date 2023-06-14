@@ -3,21 +3,17 @@ package com.carrentalservice.service;
 import com.carrentalservice.entity.Revenue;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.RevenueRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RevenueService {
 
     private final RevenueRepository revenueRepository;
-
-    @Autowired
-    public RevenueService(RevenueRepository revenueRepository) {
-        this.revenueRepository = revenueRepository;
-    }
 
     public Revenue saveRevenue(Revenue revenue) {
         return revenueRepository.save(revenue);
@@ -44,7 +40,7 @@ public class RevenueService {
             return optionalRevenue.get();
         }
 
-        throw new NotFoundException("Revenue with id " + id + " does not exist.");
+        throw new NotFoundException("Revenue with id " + id + " does not exist");
     }
 
     public Long countRevenues() {

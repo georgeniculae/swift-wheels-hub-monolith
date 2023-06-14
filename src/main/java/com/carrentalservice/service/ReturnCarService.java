@@ -3,21 +3,17 @@ package com.carrentalservice.service;
 import com.carrentalservice.entity.ReturnCar;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.ReturnCarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ReturnCarService {
 
     private final ReturnCarRepository returnCarRepository;
-
-    @Autowired
-    public ReturnCarService(ReturnCarRepository returnCarRepository) {
-        this.returnCarRepository = returnCarRepository;
-    }
 
     public void saveReturnCar(ReturnCar returnCar) {
         returnCarRepository.save(returnCar);
@@ -34,7 +30,7 @@ public class ReturnCarService {
             return optionalReturnCar.get();
         }
 
-        throw new NotFoundException("Return car with id " + id + "does not exist.");
+        throw new NotFoundException("Return car with id " + id + "does not exist");
     }
 
     public void deleteReturnCarById(Long id) {

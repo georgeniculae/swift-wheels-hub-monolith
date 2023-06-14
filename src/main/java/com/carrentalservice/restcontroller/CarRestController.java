@@ -4,13 +4,14 @@ import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/car")
 @CrossOrigin(origins = "*")
 public class CarRestController {
@@ -18,14 +19,8 @@ public class CarRestController {
     private final CarService carService;
     private final CarMapper carMapper;
 
-    @Autowired
-    public CarRestController(CarService carService, CarMapper carMapper) {
-        this.carService = carService;
-        this.carMapper = carMapper;
-    }
-
     @PostMapping
-    public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDto){
+    public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDto) {
         Car car = carMapper.mapDtoToEntity(carDto);
         Car savedCar = carService.saveCar(car);
         CarDto savedCarDto = carMapper.mapEntityToDto(savedCar);
@@ -34,7 +29,7 @@ public class CarRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id){
+    public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id) {
         Car car = carService.findCarById(id);
         CarDto carDto = carMapper.mapEntityToDto(car);
 
@@ -42,7 +37,7 @@ public class CarRestController {
     }
 
     @PutMapping
-    public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto){
+    public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto) {
         Car car = carMapper.mapDtoToEntity(carDto);
         Car updatedCar = carService.updateCar(car);
         CarDto updatedCarDto = carMapper.mapEntityToDto(updatedCar);
@@ -58,7 +53,7 @@ public class CarRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CarDto>> listAllCars(){
+    public ResponseEntity<List<CarDto>> listAllCars() {
         List<CarDto> carDtoList = carService.findAllCars()
                 .stream()
                 .map(carMapper::mapEntityToDto)

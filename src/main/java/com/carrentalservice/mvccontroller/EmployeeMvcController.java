@@ -3,7 +3,8 @@ package com.carrentalservice.mvccontroller;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,20 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class EmployeeMvcController {
 
     private final EmployeeService employeeService;
     private final BranchService branchService;
-
-    @Autowired
-    public EmployeeMvcController(EmployeeService employeeService, BranchService branchService) {
-        this.employeeService = employeeService;
-        this.branchService = branchService;
-    }
 
     @GetMapping(path = "/employees")
     public String showEmployees(Model model) {

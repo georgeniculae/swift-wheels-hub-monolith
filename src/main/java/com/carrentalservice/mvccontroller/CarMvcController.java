@@ -3,26 +3,21 @@ package com.carrentalservice.mvccontroller;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class CarMvcController {
 
     private final CarService carService;
     private final BranchService branchService;
-
-    @Autowired
-    public CarMvcController(CarService carService, BranchService branchService) {
-        this.carService = carService;
-        this.branchService = branchService;
-    }
 
     @GetMapping(path = "/cars")
     public String showCars(Model model, String make) {

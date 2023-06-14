@@ -2,7 +2,8 @@ package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.entity.Revenue;
 import com.carrentalservice.service.RevenueService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,17 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.validation.Valid;
-
 @Controller
+@RequiredArgsConstructor
 public class RevenueMvcController {
 
     private final RevenueService revenueService;
-
-    @Autowired
-    public RevenueMvcController(RevenueService revenueService) {
-        this.revenueService = revenueService;
-    }
 
     @GetMapping(path = "/revenues")
     public String showRevenues(Model model) {

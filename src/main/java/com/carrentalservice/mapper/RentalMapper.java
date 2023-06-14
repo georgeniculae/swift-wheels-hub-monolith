@@ -11,8 +11,8 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface RentalMapper {
 
-    Rental mapDtoToEntity(RentalDto rentalDto);
-
     RentalDto mapEntityToDto(Rental rental);
+
+    Rental mapDtoToEntity(RentalDto rentalDto);
 
 }

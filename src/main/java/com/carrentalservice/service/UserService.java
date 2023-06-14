@@ -5,7 +5,7 @@ import com.carrentalservice.dto.UserDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.entity.User;
 import com.carrentalservice.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,18 +18,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
     private final CustomerService customerService;
-
-    @Autowired
-    public UserService(BCryptPasswordEncoder encoder, UserRepository userRepository, CustomerService customerService) {
-        this.encoder = encoder;
-        this.userRepository = userRepository;
-        this.customerService = customerService;
-    }
 
     public void createUsersIfThereAreNotAny() {
         if (countUsers() == 0) {

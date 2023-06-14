@@ -3,7 +3,7 @@ package com.carrentalservice.service;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-
-    @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
 
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);

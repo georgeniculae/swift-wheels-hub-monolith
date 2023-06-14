@@ -4,7 +4,8 @@ import com.carrentalservice.entity.Rental;
 import com.carrentalservice.service.BookingService;
 import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.service.RentalService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,21 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.validation.Valid;
-
 @Controller
+@RequiredArgsConstructor
 public class RentalMvcController {
 
     private final RentalService rentalService;
     private final EmployeeService employeeService;
     private final BookingService bookingService;
-
-    @Autowired
-    public RentalMvcController(RentalService rentalService, EmployeeService employeeService, BookingService bookingService) {
-        this.rentalService = rentalService;
-        this.employeeService = employeeService;
-        this.bookingService = bookingService;
-    }
 
     @GetMapping(path = "/rentals")
     public String showRentals(Model model) {

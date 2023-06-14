@@ -4,7 +4,7 @@ import com.carrentalservice.entity.Customer;
 import com.carrentalservice.service.BookingService;
 import com.carrentalservice.service.CustomerService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,17 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class CustomerMvcController {
 
     private final CustomerService customerService;
     private final BookingService bookingService;
-
-
-    @Autowired
-    public CustomerMvcController(CustomerService customerService, BookingService bookingService) {
-        this.customerService = customerService;
-        this.bookingService = bookingService;
-    }
 
     @GetMapping(path = "/account/orders")
     public String showCurrentUserOrders(Model model) {

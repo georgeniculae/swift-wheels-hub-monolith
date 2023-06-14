@@ -2,10 +2,10 @@ package com.carrentalservice.util;
 
 import com.carrentalservice.entity.*;
 
-import java.time.Instant;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class TestData {
 
@@ -13,11 +13,11 @@ public class TestData {
         Booking booking = new Booking();
 
         booking.setId(1L);
-        booking.setDateOfBooking(Date.from(Instant.now()));
+        booking.setDateOfBooking(Date.valueOf(LocalDate.of(2023, Month.APRIL, 20)));
         booking.setCar(createCar());
         booking.setCustomer(createCustomer());
-        booking.setDateFrom(Date.from(Instant.now()));
-        booking.setDateTo(Date.from(Instant.now()));
+        booking.setDateFrom(Date.valueOf(LocalDate.of(2023, Month.APRIL, 21)));
+        booking.setDateTo(Date.valueOf(LocalDate.of(2023, Month.APRIL, 22)));
         booking.setRental(createRental());
         booking.setReturnCar(createReturnCar());
         booking.setAmount(50D);

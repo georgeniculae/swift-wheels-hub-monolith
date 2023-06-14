@@ -1,23 +1,18 @@
 package com.carrentalservice.dto;
 
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 public class RevenueDto extends BaseEntityDto {
 
     private Double sumOfAmountsForCarRental;
-
-    public RevenueDto(Long id, Double sumOfAmountsForCarRental) {
-        super(id);
-        this.sumOfAmountsForCarRental = sumOfAmountsForCarRental;
-    }
-
-    public RevenueDto() {
-    }
-
-    public Double getSumOfAmountsForCarRental() {
-        return sumOfAmountsForCarRental;
-    }
-
-    public void setSumOfAmountsForCarRental(Double sumOfAmountsForCarRental) {
-        this.sumOfAmountsForCarRental = sumOfAmountsForCarRental;
-    }
+    private Double dailyRevenue;
+    private Double weeklyRevenue;
+    private Double monthlyRevenue;
+    private Double yearlyRevenue;
 
 }

@@ -4,7 +4,7 @@ import com.carrentalservice.dto.SearchValueDto;
 import com.carrentalservice.entity.Booking;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class SearchMvcController {
 
     private final BookingService bookingService;
@@ -24,18 +25,6 @@ public class SearchMvcController {
     private final RentalOfficeService rentalOfficeService;
     private final RentalService rentalService;
     private final ReturnCarService returnCarService;
-
-    @Autowired
-    public SearchMvcController(BookingService bookingService, BranchService branchService, CarService carService, CustomerService customerService, EmployeeService employeeService, RentalService rentalService, RentalOfficeService rentalOfficeService, ReturnCarService returnCarService) {
-        this.bookingService = bookingService;
-        this.branchService = branchService;
-        this.carService = carService;
-        this.customerService = customerService;
-        this.employeeService = employeeService;
-        this.rentalService = rentalService;
-        this.rentalOfficeService = rentalOfficeService;
-        this.returnCarService = returnCarService;
-    }
 
     @PostMapping(path = "/search")
     public String search(@ModelAttribute("search") String search, Model model, BindingResult bindingResult) {

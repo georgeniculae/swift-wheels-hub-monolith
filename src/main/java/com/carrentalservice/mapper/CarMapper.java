@@ -11,8 +11,8 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface CarMapper {
 
-    Car mapDtoToEntity(CarDto carDto);
-
     CarDto mapEntityToDto(Car car);
+
+    Car mapDtoToEntity(CarDto carDto);
 
 }

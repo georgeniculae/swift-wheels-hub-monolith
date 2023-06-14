@@ -1,10 +1,17 @@
 package com.carrentalservice.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 public class Branch extends BaseEntity {
 
     private String name;
@@ -21,78 +28,9 @@ public class Branch extends BaseEntity {
     private RentalOffice rentalOffice;
 
     @OneToMany(mappedBy = "rentalBranch", cascade = CascadeType.ALL)
-    private List<Booking> rentalBookingList = new ArrayList<>();
+    private List<Booking> rentalBookings = new ArrayList<>();
 
     @OneToMany(mappedBy = "returnBranch", cascade = CascadeType.ALL)
-    private List<Booking> returnBookingList = new ArrayList<>();
-
-    public Branch(String name, String address, List<Employee> employees, List<Car> cars, RentalOffice rentalOffice, List<Booking> rentalBookingList, List<Booking> returnBookingList) {
-        this.name = name;
-        this.address = address;
-        this.employees = employees;
-        this.cars = cars;
-        this.rentalOffice = rentalOffice;
-        this.rentalBookingList = rentalBookingList;
-        this.returnBookingList = returnBookingList;
-    }
-
-    public Branch() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public List<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
-    }
-
-    public RentalOffice getRentalOffice() {
-        return rentalOffice;
-    }
-
-    public void setRentalOffice(RentalOffice rentalOffice) {
-        this.rentalOffice = rentalOffice;
-    }
-
-    public List<Booking> getBookingListRental() {
-        return rentalBookingList;
-    }
-
-    public void setBookingListRental(List<Booking> bookingListRental) {
-        this.rentalBookingList = bookingListRental;
-    }
-
-    public List<Booking> getBookingListReturn() {
-        return returnBookingList;
-    }
-
-    public void setBookingListReturn(List<Booking> bookingListReturn) {
-        this.returnBookingList = bookingListReturn;
-    }
+    private List<Booking> returnBookings = new ArrayList<>();
 
 }

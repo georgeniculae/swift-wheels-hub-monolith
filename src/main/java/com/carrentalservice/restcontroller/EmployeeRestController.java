@@ -4,25 +4,20 @@ import com.carrentalservice.dto.EmployeeDto;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.mapper.EmployeeMapper;
 import com.carrentalservice.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/employee")
+@CrossOrigin(origins = "*")
 public class EmployeeRestController {
 
     private final EmployeeService employeeService;
     private final EmployeeMapper employeeMapper;
-
-    @Autowired
-    public EmployeeRestController(EmployeeService employeeService, EmployeeMapper employeeMapper) {
-        this.employeeService = employeeService;
-        this.employeeMapper = employeeMapper;
-    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {

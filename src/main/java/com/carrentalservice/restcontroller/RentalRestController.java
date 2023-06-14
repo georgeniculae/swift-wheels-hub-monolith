@@ -4,25 +4,20 @@ import com.carrentalservice.dto.RentalDto;
 import com.carrentalservice.entity.Rental;
 import com.carrentalservice.mapper.RentalMapper;
 import com.carrentalservice.service.RentalService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/rental")
 @CrossOrigin(origins = "*")
 public class RentalRestController {
 
     private final RentalService rentalService;
     private final RentalMapper rentalMapper;
-
-    @Autowired
-    public RentalRestController(RentalService rentalService, RentalMapper rentalMapper) {
-        this.rentalService = rentalService;
-        this.rentalMapper = rentalMapper;
-    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<RentalDto> findRentalById(@PathVariable("id") Long id) {

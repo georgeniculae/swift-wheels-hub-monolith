@@ -1,17 +1,22 @@
 package com.carrentalservice.entity;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 public class Booking extends BaseEntity {
 
-    @NotBlank(message = "Date cannot be blank.")
+    @NotBlank(message = "Date cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateOfBooking;
@@ -24,12 +29,12 @@ public class Booking extends BaseEntity {
     @JoinColumn
     private Car car;
 
-    @NotBlank(message = "Date cannot be blank.")
+    @NotBlank(message = "Date cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateFrom;
 
-    @NotEmpty(message = "Date cannot be empty.")
+    @NotEmpty(message = "Date cannot be empty")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateTo;
@@ -50,101 +55,5 @@ public class Booking extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Branch returnBranch;
-
-    public Booking(Date dateOfBooking, Customer customer, Car car, Date dateFrom, Date dateTo, Rental rental, ReturnCar returnCar, Double amount, Branch rentalBranch, Branch returnBranch) {
-        this.dateOfBooking = dateOfBooking;
-        this.customer = customer;
-        this.car = car;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
-        this.rental = rental;
-        this.returnCar = returnCar;
-        this.amount = amount;
-        this.rentalBranch = rentalBranch;
-        this.returnBranch = returnBranch;
-    }
-
-    public Booking() {
-    }
-
-    public Date getDateOfBooking() {
-        return dateOfBooking;
-    }
-
-    public void setDateOfBooking(Date dateOfBooking) {
-        this.dateOfBooking = dateOfBooking;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Date getDateFrom() {
-        return dateFrom;
-    }
-
-    public void setDateFrom(Date dateFrom) {
-        this.dateFrom = dateFrom;
-    }
-
-    public Date getDateTo() {
-        return dateTo;
-    }
-
-    public void setDateTo(Date dateTo) {
-        this.dateTo = dateTo;
-    }
-
-    public Rental getRental() {
-        return rental;
-    }
-
-    public void setRental(Rental rental) {
-        this.rental = rental;
-    }
-
-    public ReturnCar getReturnCar() {
-        return returnCar;
-    }
-
-    public void setReturnCar(ReturnCar returnCar) {
-        this.returnCar = returnCar;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public Branch getRentalBranch() {
-        return rentalBranch;
-    }
-
-    public void setRentalBranch(Branch rentalBranch) {
-        this.rentalBranch = rentalBranch;
-    }
-
-    public Branch getReturnBranch() {
-        return returnBranch;
-    }
-
-    public void setReturnBranch(Branch returnBranch) {
-        this.returnBranch = returnBranch;
-    }
 
 }

@@ -1,6 +1,12 @@
 package com.carrentalservice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum Status {
+
     CHOOSE("Choose"),
     NOT_AVAILABLE("Not available"),
     BROKEN("Broken"),
@@ -9,13 +15,5 @@ public enum Status {
     AVAILABLE("Available");
 
     private final String displayName;
-
-    Status(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
 
 }

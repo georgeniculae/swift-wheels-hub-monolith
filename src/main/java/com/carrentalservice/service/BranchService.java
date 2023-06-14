@@ -4,7 +4,7 @@ import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.BranchRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,16 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BranchService {
 
     private final BranchRepository branchRepository;
     private final RentalOfficeService rentalOfficeService;
-
-    @Autowired
-    public BranchService(BranchRepository branchRepository, RentalOfficeService rentalOfficeService) {
-        this.branchRepository = branchRepository;
-        this.rentalOfficeService = rentalOfficeService;
-    }
 
     public Branch saveBranch(Branch branch) {
         return branchRepository.save(branch);
@@ -38,7 +33,7 @@ public class BranchService {
             return optionalBranch.get();
         }
 
-        throw new NotFoundException("Branch with id " + id + " does not exist.");
+        throw new NotFoundException("Branch with id " + id + " does not exist");
     }
 
     public Branch updateBranch(Branch newBranch) {

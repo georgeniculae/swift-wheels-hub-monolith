@@ -1,8 +1,15 @@
 package com.carrentalservice.dto;
 
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 public class CustomerDto extends UserDto {
 
     private String firstName;
@@ -10,57 +17,5 @@ public class CustomerDto extends UserDto {
     private String email;
     private String address;
     private List<BookingDto> bookings = new ArrayList<>();
-
-    public CustomerDto() {
-    }
-
-    public CustomerDto(Long id, String username, String password, String confirmPassword, String firstName, String lastName, String email, String address, List<BookingDto> bookings) {
-        super(id, username, password, confirmPassword);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.bookings = bookings;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<BookingDto> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<BookingDto> bookings) {
-        this.bookings = bookings;
-    }
 
 }

@@ -4,7 +4,7 @@ import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.CarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,16 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CarService {
 
     private final CarRepository carRepository;
     private final BranchService branchService;
-
-    @Autowired
-    public CarService(CarRepository carRepository, BranchService branchRepository) {
-        this.carRepository = carRepository;
-        this.branchService = branchRepository;
-    }
 
     public Car saveCar(Car car) {
         return carRepository.save(car);
@@ -38,7 +33,7 @@ public class CarService {
             return optionalCar.get();
         }
 
-        throw new NotFoundException("Car with id " + id + " does not exist.");
+        throw new NotFoundException("Car with id " + id + " does not exist");
     }
 
     public Car updateCar(Car newCar) {

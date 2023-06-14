@@ -2,7 +2,8 @@ package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.service.RentalOfficeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,17 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import jakarta.validation.Valid;
-
 @Controller
+@RequiredArgsConstructor
 public class RentalOfficeMvcController {
 
     private final RentalOfficeService rentalOfficeService;
-
-    @Autowired
-    public RentalOfficeMvcController(RentalOfficeService rentalOfficeService) {
-        this.rentalOfficeService = rentalOfficeService;
-    }
 
     @GetMapping(path = "/rental-offices")
     public String showBranches(Model model) {

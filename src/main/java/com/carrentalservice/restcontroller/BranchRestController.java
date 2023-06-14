@@ -4,25 +4,20 @@ import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.entity.Branch;
 import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.service.BranchService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/branch")
 @CrossOrigin(origins = "*")
 public class BranchRestController {
 
     private final BranchService branchService;
     private final BranchMapper branchMapper;
-
-    @Autowired
-    public BranchRestController(BranchService branchService, BranchMapper branchMapper) {
-        this.branchService = branchService;
-        this.branchMapper = branchMapper;
-    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<BranchDto> findBranchById(@PathVariable("id") Long id) {

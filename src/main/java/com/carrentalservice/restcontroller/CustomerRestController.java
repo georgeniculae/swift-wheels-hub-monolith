@@ -4,25 +4,20 @@ import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/customer")
 @CrossOrigin(origins = "*")
 public class CustomerRestController {
 
     private final CustomerService customerService;
     private final CustomerMapper customerMapper;
-
-    @Autowired
-    public CustomerRestController(CustomerService customerService, CustomerMapper customerMapper) {
-        this.customerService = customerService;
-        this.customerMapper = customerMapper;
-    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") Long id) {

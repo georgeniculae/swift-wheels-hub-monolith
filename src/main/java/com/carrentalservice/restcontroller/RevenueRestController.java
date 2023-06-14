@@ -4,25 +4,20 @@ import com.carrentalservice.dto.RevenueDto;
 import com.carrentalservice.entity.Revenue;
 import com.carrentalservice.mapper.RevenueMapper;
 import com.carrentalservice.service.RevenueService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/api/revenue")
 @CrossOrigin(origins = "*")
 public class RevenueRestController {
 
     private final RevenueService revenueService;
     private final RevenueMapper revenueMapper;
-
-    @Autowired
-    public RevenueRestController(RevenueService revenueService, RevenueMapper revenueMapper) {
-        this.revenueService = revenueService;
-        this.revenueMapper = revenueMapper;
-    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<RevenueDto> findRevenueById(@PathVariable("id") Long id) {

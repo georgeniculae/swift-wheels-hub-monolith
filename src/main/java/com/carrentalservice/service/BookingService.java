@@ -5,7 +5,7 @@ import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.repository.BookingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -14,18 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final CarService carService;
     private final CustomerService customerService;
-
-    @Autowired
-    public BookingService(BookingRepository bookingRepository, CarService carService, CustomerService customerService) {
-        this.bookingRepository = bookingRepository;
-        this.carService = carService;
-        this.customerService = customerService;
-    }
 
     public Booking saveBookingUpdatedWithCustomerAndCar(Booking booking) {
         Customer customer = customerService.getCustomerLoggedIn();
@@ -65,14 +59,14 @@ public class BookingService {
             return optionalBooking.get();
         }
 
-        throw new NotFoundException("Booking with id " + id + " does not exist.");
+        throw new NotFoundException("Booking with id " + id + " does not exist");
     }
 
     public void deleteBookingById(Long id) {
         Booking existingBooking = findBookingById(id);
 
         Car car = existingBooking.getCar();
-        car.getBookingList().remove(existingBooking);
+        car.getBookings().remove(existingBooking);
         carService.saveCar(car);
 
         Customer customer = existingBooking.getCustomer();
