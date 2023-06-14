@@ -2,9 +2,6 @@ package com.carrentalservice.dto;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -16,6 +13,5 @@ public class CustomerDto extends UserDto {
     private String lastName;
     private String email;
     private String address;
-    private List<BookingDto> bookings = new ArrayList<>();
 
 }

@@ -5,8 +5,6 @@ import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.entity.Booking;
 import com.carrentalservice.entity.Customer;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AssertionUtils {
@@ -23,18 +21,6 @@ public class AssertionUtils {
         assertEquals(customer.getFirstName(), customerDto.getFirstName());
         assertEquals(customer.getLastName(), customerDto.getLastName());
         assertEquals(customer.getEmail(), customerDto.getEmail());
-        assertBookings(customer.getBookings(), customerDto.getBookings());
-    }
-
-    private static void assertBookings(List<Booking> bookings, List<BookingDto> bookingsDtoList) {
-        assertEquals(bookings.size(), bookingsDtoList.size());
-
-        for (int index = 0; index < bookings.size(); index++) {
-            Booking booking = bookings.get(index);
-            BookingDto bookingDto = bookingsDtoList.get(index);
-
-            assertBooking(booking, bookingDto);
-        }
     }
 
 }
