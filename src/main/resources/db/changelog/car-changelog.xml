@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="create-table-user" author="Liquibase">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="car-rental-service" catalogName="car-rental-service" tableName="car"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="car">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="amount" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_from" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_booking" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_to" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="car_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rental_branch_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="return_branch_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="return_car_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="car_id"
+                                 baseTableName="booking"
+                                 constraintName="fk_booking_car_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="car"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_booking_customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+
+        <addForeignKeyConstraint baseColumnNames="rental_branch_id"
+                                 baseTableName="branch"
+                                 constraintName="fk_booking_branch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="branch"/>
+
+        <addForeignKeyConstraint baseColumnNames="return_branch_id"
+                                 baseTableName="branch"
+                                 constraintName="fk_booking_branch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="branch"/>
+
+        <addForeignKeyConstraint baseColumnNames="return_car_id"
+                                 baseTableName="return_car"
+                                 constraintName="fk_booking_return_car_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="return_car"/>
+    </changeSet>
+</databaseChangeLog>
