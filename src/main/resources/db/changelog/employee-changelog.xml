@@ -21,7 +21,7 @@
             <column name="last_name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="job_position" type="bigint">
+            <column name="job_position" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="working_branch_id" type="bigint">
@@ -33,6 +33,6 @@
                                  baseTableName="employee"
                                  constraintName="fk_employee_working_branch_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="working_branch"/>
+                                 referencedTableName="branch"/>
     </changeSet>
 </databaseChangeLog>

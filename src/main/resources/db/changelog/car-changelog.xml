@@ -11,9 +11,6 @@
             </not>
         </preConditions>
 
-        <!--        <sql>CREATE TYPE body_type_enum AS ENUM('CHOOSE', 'HATCHBACK', 'SEDAN', 'SUV', 'COUPE', 'CONVERTIBLE', 'WAGON', 'VAN', 'JEEP')</sql>-->
-        <!--        <sql>CREATE TYPE status_enum AS ENUM('CHOOSE', 'NOT_AVAILABLE', 'BROKEN', 'IN_REPAIR', 'IN_SERVICE', 'AVAILABLE')</sql>-->
-
         <createTable tableName="car">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
