@@ -11,8 +11,8 @@
             </not>
         </preConditions>
 
-        <sql>CREATE TYPE body_type_enum AS ENUM ('CHOOSE', 'HATCHBACK', 'SEDAN', 'SUV', 'COUPE', 'CONVERTIBLE', 'WAGON', 'VAN', 'JEEP')</sql>
-        <sql>CREATE TYPE status_enum AS ENUM ('CHOOSE', 'NOT_AVAILABLE', 'BROKEN', 'IN_REPAIR', 'IN_SERVICE', 'AVAILABLE')</sql>
+        <!--        <sql>CREATE TYPE body_type_enum AS ENUM('CHOOSE', 'HATCHBACK', 'SEDAN', 'SUV', 'COUPE', 'CONVERTIBLE', 'WAGON', 'VAN', 'JEEP')</sql>-->
+        <!--        <sql>CREATE TYPE status_enum AS ENUM('CHOOSE', 'NOT_AVAILABLE', 'BROKEN', 'IN_REPAIR', 'IN_SERVICE', 'AVAILABLE')</sql>-->
 
         <createTable tableName="car">
             <column name="id" type="bigint" autoIncrement="true">
@@ -21,7 +21,8 @@
             <column name="amount" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="body_type" type="body_type_enum">
+            <column name="body_type"
+                    type="ENUM('CHOOSE', 'HATCHBACK', 'SEDAN', 'SUV', 'COUPE', 'CONVERTIBLE', 'WAGON', 'VAN', 'JEEP')">
                 <constraints nullable="false"/>
             </column>
             <column name="color" type="varchar(50)">
@@ -36,7 +37,8 @@
             <column name="model" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="status" type="status_enum">
+            <column name="status"
+                    type="ENUM('CHOOSE', 'NOT_AVAILABLE', 'BROKEN', 'IN_REPAIR', 'IN_SERVICE', 'AVAILABLE')">
                 <constraints nullable="false"/>
             </column>
             <column name="url_of_image" type="varchar(50)">
