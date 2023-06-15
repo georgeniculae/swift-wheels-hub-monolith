@@ -13,9 +13,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class GlobalErrorAttributesTest {
+class ExceptionHandlingTest {
 
-    private final GlobalErrorAttributes globalErrorAttributes = new GlobalErrorAttributes();
+    private final ExceptionHandling exceptionHandling = new ExceptionHandling();
 
     @Test
     void handleNotFoundExceptionTest() {
@@ -25,7 +25,7 @@ class GlobalErrorAttributesTest {
         WebRequest webRequest = new ServletWebRequest(servletRequest);
 
         ResponseEntity<Map<String, Object>> responseEntity =
-                globalErrorAttributes.handleNotFoundException(notFoundException, webRequest);
+                exceptionHandling.handleNotFoundException(notFoundException, webRequest);
 
         assertEquals(404, responseEntity.getStatusCode().value());
     }
