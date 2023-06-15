@@ -14,10 +14,18 @@ spring:
     username: root
     password: password
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
+    show-sql: true
   mvc:
     throw-exception-if-no-handler-found: true
   liquibase:
     enabled: true
-    change-log: db/changelog/db.changelog-master.xml
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+logging.level.org.hibernate.SQL: DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
