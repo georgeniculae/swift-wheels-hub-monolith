@@ -10,29 +10,33 @@
                 <tableExists schemaName="car-rental-service" catalogName="car-rental-service" tableName="user"/>
             </not>
         </preConditions>
+
         <createTable tableName="user">
+            <column name="dtype" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="username" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="varchar(50)">
+            <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="role" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="address" type="varchar(50)">
+            <column name="address" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
             <column name="email" type="varchar(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="first_name" type="varchar(50)">
+            <column name="first_name" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
-            <column name="last_name" type="varchar(50)">
+            <column name="last_name" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
         </createTable>
@@ -46,12 +50,15 @@
                 WHERE username = 'admin'
             </sqlCheck>
         </preConditions>
+
         <insert tableName="user">
+            <column name="dtype" value="Customer"/>
             <column name="username" value="admin"/>
-            <column name="password" value="admin"/>
+            <column name="password" value="$2a$10$hadYmhDPuigFKchXrkmmUe6i1L8B50Be.ggbdVuszCbYu7yg14Lqa"/>
             <column name="role" value="ROLE_ADMIN"/>
         </insert>
     </changeSet>
+
     <changeSet id="add-user-2" author="Liquibase">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
@@ -60,12 +67,15 @@
                 WHERE username = 'user'
             </sqlCheck>
         </preConditions>
+
         <insert tableName="user">
+            <column name="dtype" value="Customer"/>
             <column name="username" value="user"/>
-            <column name="password" value="user"/>
+            <column name="password" value="$2a$10$TxvQ5OD.ZEK3IEjMS7JFyuFyjm1X8CSaAPGCF/daFahfHXccdKkqO"/>
             <column name="role" value="ROLE_USER"/>
         </insert>
     </changeSet>
+
     <changeSet id="add-user-3" author="Liquibase">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
@@ -74,12 +84,15 @@
                 WHERE username = 'support'
             </sqlCheck>
         </preConditions>
+
         <insert tableName="user">
+            <column name="dtype" value="Customer"/>
             <column name="username" value="support"/>
-            <column name="password" value="support"/>
+            <column name="password" value="$2a$10$bje5mA18dGDa4N/Ds/eQGuBm3anOkjSgn81f6VojjwEGb74VNZpfG"/>
             <column name="role" value="ROLE_SUPPORT"/>
         </insert>
     </changeSet>
+
     <changeSet id="add-user-4" author="Liquibase">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
@@ -88,9 +101,11 @@
                 WHERE username = 'customer'
             </sqlCheck>
         </preConditions>
+
         <insert tableName="user">
+            <column name="dtype" value="Customer"/>
             <column name="username" value="customer"/>
-            <column name="password" value="customer"/>
+            <column name="password" value="$2a$10$jjHGv361u.I.3u4mBSesie8caFJi84b9VZG2pym1BM3c6dqYXDb3W"/>
             <column name="role" value="ROLE_CUSTOMER"/>
         </insert>
     </changeSet>

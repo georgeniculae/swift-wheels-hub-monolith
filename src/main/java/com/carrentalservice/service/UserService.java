@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,38 +20,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
+    private static final String ROLE_USER = "ROLE_USER";
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
-    private final CustomerService customerService;
-
-    public void createUsersIfThereAreNotAny() {
-        if (countUsers() == 0) {
-            createUsers();
-        }
-    }
-
-    private void createUsers() {
-        List<User> users = new ArrayList<>();
-
-        if (!userRepository.existsByUsername("admin")) {
-            users.add(new Customer("admin", encoder.encode("admin"), "ROLE_ADMIN"));
-        }
-
-        if (!userRepository.existsByUsername("user")) {
-            users.add(new Customer("user", encoder.encode("user"), "ROLE_USER"));
-        }
-
-        if (!userRepository.existsByUsername("support")) {
-            users.add(new Customer("support", encoder.encode("support"), "ROLE_SUPPORT"));
-        }
-
-        if (!customerService.existsByUsername("customer")) {
-            users.add(new Customer("customer", encoder.encode("customer"), "ROLE_CUSTOMER"));
-        }
-
-        userRepository.saveAll(users);
-    }
-
 
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -63,7 +33,7 @@ public class UserService implements UserDetailsService {
 
         user.setUsername(userDto.getUsername());
         user.setPassword(encoder.encode(userDto.getPassword()));
-        user.setRole("ROLE_USER");
+        user.setRole(ROLE_USER);
 
         return userRepository.save(user);
     }
