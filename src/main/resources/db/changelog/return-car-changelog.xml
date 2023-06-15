@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="create-table-return-car" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="car-rental-service" catalogName="car-rental-service" tableName="return_car"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="return_car">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="employee_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_return" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="additional_payment" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comments" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="employee_id"
+                                 baseTableName="return_car"
+                                 constraintName="fk_return_car_employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+    </changeSet>
+</databaseChangeLog>

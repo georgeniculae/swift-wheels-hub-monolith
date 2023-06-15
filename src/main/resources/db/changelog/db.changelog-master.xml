@@ -10,6 +10,8 @@
     <include file="db/changelog/car-changelog.xml"/>
     <include file="db/changelog/employee-changelog.xml"/>
     <include file="db/changelog/rental-changelog.xml"/>
+    <include file="db/changelog/rental-office-changelog.xml"/>
+    <include file="db/changelog/return-car-changelog.xml"/>
     <include file="db/changelog/revenue-changelog.xml"/>
     <include file="db/changelog/user-changelog.xml"/>
 </databaseChangeLog>
