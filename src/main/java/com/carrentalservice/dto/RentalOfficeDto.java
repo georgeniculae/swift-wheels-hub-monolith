@@ -3,8 +3,6 @@ package com.carrentalservice.dto;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -25,7 +23,5 @@ public class RentalOfficeDto extends BaseEntityDto {
     private String owner;
 
     private String logoType;
-
-    private List<BranchDto> branches;
 
 }

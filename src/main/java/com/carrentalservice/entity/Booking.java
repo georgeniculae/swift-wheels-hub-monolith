@@ -39,9 +39,6 @@ public class Booking extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date dateTo;
 
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Rental rental;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private ReturnCar returnCar;

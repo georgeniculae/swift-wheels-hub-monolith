@@ -5,7 +5,6 @@ import com.carrentalservice.entity.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
 
 public class TestData {
 
@@ -18,7 +17,6 @@ public class TestData {
         booking.setCustomer(createCustomer());
         booking.setDateFrom(Date.valueOf(LocalDate.of(2023, Month.APRIL, 21)));
         booking.setDateTo(Date.valueOf(LocalDate.of(2023, Month.APRIL, 22)));
-        booking.setRental(createRental());
         booking.setReturnCar(createReturnCar());
         booking.setAmount(50D);
         booking.setRentalBranch(createRentalBranch());
@@ -32,6 +30,7 @@ public class TestData {
 
         car.setId(1L);
         car.setAmount(100D);
+        car.setBranch(createRentalBranch());
 
         return car;
     }
@@ -44,12 +43,13 @@ public class TestData {
         return customer;
     }
 
-    private static Rental createRental() {
-        Rental rental = new Rental();
+    public static Employee createEmployee() {
+        Employee employee = new Employee();
 
-        rental.setId(1L);
+        employee.setId(1L);
+        employee.setWorkingBranch(createRentalBranch());
 
-        return rental;
+        return employee;
     }
 
     private static ReturnCar createReturnCar() {
@@ -73,6 +73,7 @@ public class TestData {
         Branch branch = new Branch();
 
         branch.setId(1L);
+        branch.setRentalOffice(createRentalOffice());
 
         return branch;
     }
@@ -81,7 +82,6 @@ public class TestData {
         RentalOffice rentalOffice = new RentalOffice();
 
         rentalOffice.setId(1L);
-        rentalOffice.setBranches(new ArrayList<>());
 
         return rentalOffice;
     }

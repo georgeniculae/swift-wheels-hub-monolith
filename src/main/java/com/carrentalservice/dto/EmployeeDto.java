@@ -23,6 +23,4 @@ public class EmployeeDto extends BaseEntityDto {
 
     private ReturnCarDto returnCar;
 
-    private RentalDto rental;
-
 }

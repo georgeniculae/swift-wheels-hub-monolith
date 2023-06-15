@@ -23,7 +23,6 @@ public class SearchMvcController {
     private final CustomerService customerService;
     private final EmployeeService employeeService;
     private final RentalOfficeService rentalOfficeService;
-    private final RentalService rentalService;
     private final ReturnCarService returnCarService;
 
     @PostMapping(path = "/search")
@@ -34,7 +33,6 @@ public class SearchMvcController {
         model.addAttribute("car", carService.findCarByName(search));
         model.addAttribute("customer", customerService.findCustomerByName(search));
         model.addAttribute("employee", employeeService.findEmployeeByName(search));
-        model.addAttribute("rental", rentalService.findRentalByName(search));
         model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeByName(search));
         model.addAttribute("returnCar", returnCarService.findReturnCarByName(search));
 
@@ -54,7 +52,6 @@ public class SearchMvcController {
         model.addAttribute("car", new Car());
         model.addAttribute("allCustomers", customerService.findAllCustomer());
         model.addAttribute("allEmployees", employeeService.findAllEmployees());
-        model.addAttribute("allRentals", rentalService.findAllRentals());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
         model.addAttribute("allReturnCars", returnCarService.findAllReturnCar());
 

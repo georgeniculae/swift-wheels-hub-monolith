@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -65,9 +66,12 @@ class BranchServiceTest {
     @Test
     void deleteBranchByIdTest_success() {
         Branch branch = TestData.createRentalBranch();
+        RentalOffice rentalOffice = TestData.createRentalOffice();
+        branch.setRentalOffice(rentalOffice);
+        rentalOffice.setBranches(List.of(branch));
 
         when(branchRepository.findById(anyLong())).thenReturn(Optional.of(branch));
-        when(rentalOfficeService.saveRentalOffice(any(RentalOffice.class))).thenReturn(TestData.createRentalOffice());
+        when(rentalOfficeService.saveRentalOffice(any(RentalOffice.class))).thenReturn(rentalOffice);
 
         assertDoesNotThrow(() -> branchService.deleteBranchById(1L));
     }

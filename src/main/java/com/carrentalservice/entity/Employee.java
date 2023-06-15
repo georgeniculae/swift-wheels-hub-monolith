@@ -27,7 +27,4 @@ public class Employee extends BaseEntity {
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ReturnCar returnCar;
 
-    @OneToOne(mappedBy = "employeeOfRental", fetch = FetchType.LAZY)
-    private Rental rental;
-
 }
