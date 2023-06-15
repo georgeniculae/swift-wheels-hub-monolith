@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT}
   error:
     include-message: always
     include-binding-errors: never
@@ -11,13 +11,9 @@ spring:
     name: car-rental-service
   datasource:
     url: jdbc:mysql://localhost:3306/car_rental_service?serverTimezone=Europe/Bucharest
-    username: root
-    password: password
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
   jpa:
-    properties:
-      hibernate:
-        format_sql: true
-        use_sql_comments: true
     hibernate:
       ddl-auto: none
     show-sql: true
@@ -26,6 +22,3 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
-
-logging.level.org.hibernate.SQL: DEBUG
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
