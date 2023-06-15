@@ -27,7 +27,7 @@
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="rental_office_id"
-                                 baseTableName="rental_office"
+                                 baseTableName="branch"
                                  constraintName="fk_branch_rental_office_id"
                                  referencedColumnNames="id"
                                  referencedTableName="rental_office"/>
