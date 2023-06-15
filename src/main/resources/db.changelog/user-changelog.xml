@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-    <changeSet id="user-1" author="Liquibase">
+    <changeSet id="create-table-user" author="Liquibase">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists schemaName="car-rental-service" catalogName="car-rental-service" tableName="user"/>
@@ -41,41 +41,60 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="user-2" author="Liquibase">
+    <changeSet id="add-user-1" author="Liquibase">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
-                FROM user;
+                FROM user
+                WHERE username = 'admin'
             </sqlCheck>
         </preConditions>
-        <createTable tableName="user">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="username" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="password" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="role" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="password" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="address" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="email" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="first_name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
+        <insert tableName="user">
+            <column name="username" value="admin"/>
+            <column name="password" value="admin"/>
+            <column name="role" value="ROLE_ADMIN"/>
+        </insert>
+    </changeSet>
+    <changeSet id="add-user-2" author="Liquibase">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM user
+                WHERE username = 'user'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="user">
+            <column name="username" value="user"/>
+            <column name="password" value="user"/>
+            <column name="role" value="ROLE_USER"/>
+        </insert>
+    </changeSet>
+    <changeSet id="add-user-3" author="Liquibase">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM user
+                WHERE username = 'support'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="user">
+            <column name="username" value="support"/>
+            <column name="password" value="support"/>
+            <column name="role" value="ROLE_SUPPORT"/>
+        </insert>
+    </changeSet>
+    <changeSet id="add-user-4" author="Liquibase">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM user
+                WHERE username = 'customer'
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="user">
+            <column name="username" value="customer"/>
+            <column name="password" value="customer"/>
+            <column name="role" value="ROLE_CUSTOMER"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
