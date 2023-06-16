@@ -18,7 +18,7 @@ public class AssertionUtils {
         assertReturnBranch(booking.getReturnBranch(), bookingDto.getReturnBranch());
     }
 
-    private static void assertCustomer(Customer customer, CustomerDto customerDto) {
+    public static void assertCustomer(Customer customer, CustomerDto customerDto) {
         assertEquals(customer.getFirstName(), customerDto.getFirstName());
         assertEquals(customer.getLastName(), customerDto.getLastName());
         assertEquals(customer.getEmail(), customerDto.getEmail());
