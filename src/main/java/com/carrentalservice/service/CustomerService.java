@@ -14,6 +14,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerService {
 
+    private static final String ADMIN = "admin";
+    private static final String USER = "user";
+    private static final String CUSTOMER = "customer";
+    private static final String SUPPORT = "support";
     private final CustomerRepository customerRepository;
 
     public Customer saveCustomer(Customer customer) {
@@ -21,7 +25,7 @@ public class CustomerService {
     }
 
     public List<Customer> findAllCustomer() {
-        return customerRepository.findAll();
+        return customerRepository.findCustomers(ADMIN, USER, CUSTOMER, SUPPORT);
     }
 
     public Customer findCustomerById(Long id) {
@@ -60,7 +64,7 @@ public class CustomerService {
     }
 
     public Long countCustomers() {
-        return customerRepository.count();
+        return customerRepository.countCustomers(ADMIN, USER, CUSTOMER, SUPPORT);
     }
 
     public Customer findCustomerByName(String searchString) {
