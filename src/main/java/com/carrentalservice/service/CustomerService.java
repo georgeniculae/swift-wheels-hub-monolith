@@ -25,7 +25,7 @@ public class CustomerService {
     }
 
     public List<Customer> findAllCustomer() {
-        return customerRepository.findCustomers(ADMIN, USER, CUSTOMER, SUPPORT);
+        return customerRepository.findCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT);
     }
 
     public Customer findCustomerById(Long id) {
@@ -63,8 +63,8 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public Long countCustomers() {
-        return customerRepository.countCustomers(ADMIN, USER, CUSTOMER, SUPPORT);
+    public Long countCustomersWithoutBaseUsers() {
+        return customerRepository.countCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT);
     }
 
     public Customer findCustomerByName(String searchString) {

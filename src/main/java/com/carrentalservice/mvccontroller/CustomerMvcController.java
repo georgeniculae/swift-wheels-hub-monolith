@@ -52,7 +52,7 @@ public class CustomerMvcController {
     @GetMapping(path = "/customers")
     public String showCustomers(Model model) {
         model.addAttribute("customers", customerService.findAllCustomer());
-        model.addAttribute("customersNumber", customerService.countCustomers());
+        model.addAttribute("customersNumber", customerService.countCustomersWithoutBaseUsers());
 
         return "customer-list";
     }
