@@ -24,7 +24,7 @@ public class AssertionUtils {
         assertEquals(customer.getEmail(), customerDto.getEmail());
     }
 
-    private static void assertCar(Car car, CarDto carDto) {
+    public static void assertCar(Car car, CarDto carDto) {
         assertEquals(car.getMake(), carDto.getMake());
         assertEquals(car.getModel(), carDto.getModel());
         assertEquals(car.getBodyType(), carDto.getBodyType());
