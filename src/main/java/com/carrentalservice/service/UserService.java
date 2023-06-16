@@ -21,6 +21,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
 
@@ -47,7 +48,7 @@ public class UserService implements UserDetailsService {
         user.setLastName(customerDto.getLastName());
         user.setEmail(customerDto.getEmail());
         user.setAddress(customerDto.getAddress());
-        user.setRole("ROLE_CUSTOMER");
+        user.setRole(ROLE_CUSTOMER);
 
         userRepository.save(user);
     }
