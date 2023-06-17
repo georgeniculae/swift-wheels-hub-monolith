@@ -59,7 +59,6 @@ public class AssertionUtils {
         assertEquals(rentalOffice.getName(), rentalOfficeDto.getName());
         assertEquals(rentalOffice.getContactAddress(), rentalOfficeDto.getInternetDomain());
         assertEquals(rentalOffice.getContactAddress(), rentalOfficeDto.getContactAddress());
-        assertEquals(rentalOffice.getOwner(), rentalOfficeDto.getOwner());
         assertEquals(rentalOffice.getLogoType(), rentalOfficeDto.getLogoType());
     }
 

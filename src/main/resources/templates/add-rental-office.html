@@ -274,16 +274,6 @@
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="owner-span">Owner</span>
-                    </div>
-                    <input type="text" id="owner" th:field="${rentalOffice.owner}"
-                           class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <span th:if="${#fields.hasErrors('owner')}"
-                          th:errors="${rentalOffice.owner}"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
                         <span class="input-group-text" id="logoType-span">Logo type</span>
                     </div>
                     <input type="text" id="logoType" th:field="${rentalOffice.logoType}"

@@ -256,7 +256,6 @@
         <th>Name</th>
         <th>Internet domain</th>
         <th>Contact address</th>
-        <th>Owner</th>
         <th>Edit</th>
         <th>Delete</th>
         </thead>
@@ -267,7 +266,6 @@
             <td th:text="${rentalOffice.name}"></td>
             <td th:text="${rentalOffice.internetDomain}"></td>
             <td th:text="${rentalOffice.contactAddress}"></td>
-            <td th:text="${rentalOffice.owner}"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a th:href="@{/rental-office/edit/{id}(id = ${rentalOffice.id})}">
                     <i>

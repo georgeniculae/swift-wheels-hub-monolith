@@ -24,12 +24,6 @@
     top: 1px;
 }
 
-#showcase1 {
-    background: white;
-    /*background: url('/images/index.jpg') repeat center center / cover;*/
-    height: 100vh;
-}
-
 #showcase {
     background: white;
     background: url('/images/audi-r8.jpg') repeat center center / cover;

@@ -25,9 +25,6 @@
             <column name="contact_address" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="owner" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
             <column name="logo_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
@@ -46,7 +43,6 @@
             <column name="name" value="Test Office"/>
             <column name="internet_domain" value="www"/>
             <column name="contact_address" value="abc"/>
-            <column name="owner" value="Ion Popescu"/>
             <column name="logo_type" value="logo"/>
         </insert>
     </changeSet>
