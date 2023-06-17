@@ -45,8 +45,8 @@ class BookingServiceTest {
         when(carService.findCarById(anyLong())).thenReturn(bookingDto.getCar());
         when(customerService.getLoggedInCustomer()).thenReturn(TestData.createCustomer());
 
-        assertDoesNotThrow(() -> bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto));
-        BookingDto actualBookingDto = bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto);
+        assertDoesNotThrow(() -> bookingService.saveBooking(bookingDto));
+        BookingDto actualBookingDto = bookingService.saveBooking(bookingDto);
 
         assertNotNull(actualBookingDto);
     }
@@ -59,8 +59,8 @@ class BookingServiceTest {
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
         when(carService.findCarById(anyLong())).thenReturn(bookingDto.getCar());
 
-        assertDoesNotThrow(() -> bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto));
-        BookingDto actualBookingDto = bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto);
+        assertDoesNotThrow(() -> bookingService.saveBooking(bookingDto));
+        BookingDto actualBookingDto = bookingService.saveBooking(bookingDto);
 
         assertNotNull(actualBookingDto);
     }

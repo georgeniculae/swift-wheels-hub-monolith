@@ -49,11 +49,10 @@ public class BookingMvcController {
             return "index";
         }
 
-        bookingService.saveBookingUpdatedWithCustomerAndCar(booking);
+        bookingService.saveBooking(booking);
 
         return "redirect:/";
     }
-
 
     @PostMapping(path = "/booking/add")
     public String addBooking(@ModelAttribute("booking") @Valid BookingDto booking, BindingResult bindingResult) {
@@ -61,7 +60,7 @@ public class BookingMvcController {
             return "add-booking";
         }
 
-        bookingService.saveBookingUpdatedWithCustomerAndCar(booking);
+        bookingService.saveBooking(booking);
 
         return "redirect:/";
 

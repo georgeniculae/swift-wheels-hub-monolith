@@ -28,15 +28,8 @@ public class BookingService {
     private final BranchService branchService;
     private final BookingMapper bookingMapper;
 
-    public BookingDto saveBooking(BookingDto bookingDto) {
-        Booking booking = bookingMapper.mapDtoToEntity(bookingDto);
-        Booking savedBooking = bookingRepository.save(booking);
-
-        return bookingMapper.mapEntityToDto(savedBooking);
-    }
-
     @Transactional
-    public BookingDto saveBookingUpdatedWithCustomerAndCar(BookingDto newBookingDto) {
+    public BookingDto saveBooking(BookingDto newBookingDto) {
         Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
 
         Customer customer = customerService.getLoggedInCustomer();
