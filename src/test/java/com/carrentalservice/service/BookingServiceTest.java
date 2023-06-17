@@ -4,12 +4,15 @@ import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.BookingMapper;
+import com.carrentalservice.mapper.BookingMapperImpl;
 import com.carrentalservice.repository.BookingRepository;
 import com.carrentalservice.util.TestData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -19,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,6 +40,9 @@ class BookingServiceTest {
     @Mock
     private CustomerService customerService;
 
+    @Spy
+    private BookingMapper bookingMapper = new BookingMapperImpl();
+
     @Test
     void saveBookingUpdatedWithCustomerAndCarTest_success() {
         Booking booking = TestData.createBooking();
@@ -49,6 +56,8 @@ class BookingServiceTest {
         BookingDto actualBookingDto = bookingService.saveBooking(bookingDto);
 
         assertNotNull(actualBookingDto);
+
+        verify(bookingMapper).mapEntityToDto(any(Booking.class));
     }
 
     @Test
