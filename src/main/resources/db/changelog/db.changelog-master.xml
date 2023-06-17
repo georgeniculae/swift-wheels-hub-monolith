@@ -12,5 +12,6 @@
     <include file="db/changelog/employee-changelog.xml"/>
     <include file="db/changelog/return-car-changelog.xml"/>
     <include file="db/changelog/car-changelog.xml"/>
+    <include file="db/changelog/branch-cars-changelog.xml"/>
     <include file="db/changelog/booking-changelog.xml"/>
 </databaseChangeLog>

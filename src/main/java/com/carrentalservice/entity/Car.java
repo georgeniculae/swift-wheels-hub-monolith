@@ -35,7 +35,7 @@ public class Car extends BaseEntity {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Booking> bookings = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Branch branch = new Branch();
 
     private String urlOfImage;

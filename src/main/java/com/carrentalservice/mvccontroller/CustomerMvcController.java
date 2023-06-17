@@ -1,6 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
-import com.carrentalservice.entity.Customer;
+import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.service.BookingService;
 import com.carrentalservice.service.CustomerService;
 import jakarta.validation.Valid;
@@ -22,24 +22,23 @@ public class CustomerMvcController {
 
     @GetMapping(path = "/account/orders")
     public String showCurrentUserOrders(Model model) {
-        Customer customerLoggedIn = customerService.getCustomerLoggedIn();
-        model.addAttribute("orders", bookingService.findBookingByCustomerLoggedIn(customerLoggedIn));
-        model.addAttribute("bookingsNumber", bookingService.countByCustomer(customerLoggedIn));
-        model.addAttribute("totalAmountSpent", bookingService.getAmountSpentByUser(customerLoggedIn));
+        model.addAttribute("orders", bookingService.findBookingByLoggedInCustomer());
+        model.addAttribute("bookingsNumber", bookingService.countByLoggedInCustomer());
+        model.addAttribute("totalAmountSpent", bookingService.getAmountSpentByLoggedInUser());
 
         return "order-list";
     }
 
     @GetMapping(path = "/settings")
     public String showSettingPage(Model model) {
-        Customer customerLoggedIn = customerService.getCustomerLoggedIn();
+        CustomerDto customerLoggedIn = customerService.getLoggedInCustomerDto();
         model.addAttribute("customer", customerLoggedIn);
 
         return "settings";
     }
 
     @PostMapping(path = "/settings/customer/update")
-    public String editCurrentCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
+    public String editCurrentCustomer(@ModelAttribute("customer") @Valid CustomerDto customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "settings";
         }
@@ -59,13 +58,13 @@ public class CustomerMvcController {
 
     @GetMapping(path = "/customer/registration")
     public String showAddCustomer(Model model) {
-        model.addAttribute("customer", new Customer());
+        model.addAttribute("customer", new CustomerDto());
 
         return "add-customer";
     }
 
     @PostMapping(path = "/customer/add")
-    public String addCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
+    public String addCustomer(@ModelAttribute("customer") @Valid CustomerDto customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-customer";
         }
@@ -83,7 +82,7 @@ public class CustomerMvcController {
     }
 
     @PostMapping(path = "/customer/update")
-    public String editCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
+    public String editCustomer(@ModelAttribute("customer") @Valid CustomerDto customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-customer";
         }

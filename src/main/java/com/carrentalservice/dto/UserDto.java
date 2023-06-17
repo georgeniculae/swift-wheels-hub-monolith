@@ -1,6 +1,6 @@
 package com.carrentalservice.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @NoArgsConstructor
@@ -10,13 +10,13 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class UserDto extends BaseEntityDto {
 
-    @NotBlank(message = "Username cannot be blank")
+    @NotEmpty(message = "Username cannot be empty")
     private String username;
 
-    @NotBlank(message = "Password cannot be blank")
+    @NotEmpty(message = "Password cannot be empty")
     private String password;
 
-    @NotBlank(message = "Confirm password cannot be blank")
+    @NotEmpty(message = "Confirm password cannot be empty")
     private String confirmPassword;
 
 }

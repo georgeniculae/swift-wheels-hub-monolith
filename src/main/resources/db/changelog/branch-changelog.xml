@@ -32,4 +32,19 @@
                                  referencedColumnNames="id"
                                  referencedTableName="rental_office"/>
     </changeSet>
+
+    <changeSet id="add-branch-1" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM branch
+            </sqlCheck>
+        </preConditions>
+
+        <insert tableName="branch">
+            <column name="name" value="Test Branch"/>
+            <column name="address" value="abcd"/>
+            <column name="rental_office_id" value="1"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

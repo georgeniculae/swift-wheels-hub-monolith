@@ -33,4 +33,21 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="add-rental-office-1" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM rental_office
+            </sqlCheck>
+        </preConditions>
+
+        <insert tableName="rental_office">
+            <column name="name" value="Test Office"/>
+            <column name="internet_domain" value="www"/>
+            <column name="contact_address" value="abc"/>
+            <column name="owner" value="Ion Popescu"/>
+            <column name="logo_type" value="logo"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

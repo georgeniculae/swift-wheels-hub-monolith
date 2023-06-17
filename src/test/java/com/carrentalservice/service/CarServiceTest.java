@@ -1,17 +1,22 @@
 package com.carrentalservice.service;
 
-import com.carrentalservice.entity.Branch;
+import com.carrentalservice.dto.BranchDto;
+import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.BranchMapper;
+import com.carrentalservice.mapper.BranchMapperImpl;
+import com.carrentalservice.mapper.CarMapper;
+import com.carrentalservice.mapper.CarMapperImpl;
 import com.carrentalservice.repository.CarRepository;
 import com.carrentalservice.util.TestData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +36,12 @@ class CarServiceTest {
     @Mock
     private BranchService branchService;
 
+    @Spy
+    private CarMapper carMapper = new CarMapperImpl();
+
+    @Spy
+    private BranchMapper branchMapper = new BranchMapperImpl();
+
     @Test
     void findCarByIdTest_success() {
         Car car = TestData.createCar();
@@ -38,9 +49,9 @@ class CarServiceTest {
         when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
 
         assertDoesNotThrow(() -> carService.findCarById(1L));
-        Car actualCar = carService.findCarById(1L);
+        CarDto actualCarDto = carService.findCarById(1L);
 
-        assertNotNull(actualCar);
+        assertNotNull(actualCarDto);
     }
 
     @Test
@@ -55,25 +66,24 @@ class CarServiceTest {
     @Test
     void updateCarTest_success() {
         Car car = TestData.createCar();
+        CarDto carDto = TestData.createCarDto();
 
         when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
         when(carRepository.save(any(Car.class))).thenReturn(car);
 
-        assertDoesNotThrow(() -> carService.updateCar(car));
-        Car updatedCar = carService.updateCar(car);
+        assertDoesNotThrow(() -> carService.updateCar(carDto));
+        CarDto updatedCarDto = carService.updateCar(carDto);
 
-        assertNotNull(updatedCar);
+        assertNotNull(updatedCarDto);
     }
 
     @Test
     void deleteCarByIdTest_success() {
         Car car = TestData.createCar();
-        Branch branch = TestData.createRentalBranch();
-        branch.setCars(List.of(car));
-        car.setBranch(branch);
+        BranchDto branchDto = TestData.createRentalBranchDto();
 
         when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
-        when(branchService.saveBranch(any(Branch.class))).thenReturn(branch);
+        when(branchService.saveBranch(any(BranchDto.class))).thenReturn(branchDto);
 
         assertDoesNotThrow(() -> carService.deleteCarById(1L));
     }

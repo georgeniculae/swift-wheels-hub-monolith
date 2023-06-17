@@ -1,6 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
-import com.carrentalservice.entity.RentalOffice;
+import com.carrentalservice.dto.RentalOfficeDto;
 import com.carrentalservice.service.RentalOfficeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class RentalOfficeMvcController {
     }
 
     @PostMapping(path = "/rental-office/add")
-    public String addRentalOffice(@ModelAttribute("rental-office") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
+    public String addRentalOffice(@ModelAttribute("rental-office") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-rental-office";
         }
@@ -46,18 +46,18 @@ public class RentalOfficeMvcController {
 
     @GetMapping(path = "/rental-office/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("rentalOffice", new RentalOffice());
+        model.addAttribute("rentalOffice", new RentalOfficeDto());
 
         return "add-rental-office";
     }
 
     @PostMapping(path = "/rental-office/update")
-    public String editRentalOffice(@ModelAttribute("rental-office") @Valid RentalOffice rentalOffice, BindingResult bindingResult) {
+    public String editRentalOffice(@ModelAttribute("rental-office") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-rental-office";
         }
 
-        rentalOfficeService.saveRentalOffice(rentalOffice);
+        rentalOfficeService.updateRentalOffice(rentalOffice);
 
         return "redirect:/rental-offices";
     }

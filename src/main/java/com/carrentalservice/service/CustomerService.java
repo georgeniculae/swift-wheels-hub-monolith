@@ -1,7 +1,9 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,16 +21,29 @@ public class CustomerService {
     private static final String CUSTOMER = "customer";
     private static final String SUPPORT = "support";
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
-    public Customer saveCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerDto saveCustomer(CustomerDto customerDto) {
+        Customer customer = customerMapper.mapDtoToEntity(customerDto);
+        Customer savedCustomer = customerRepository.save(customer);
+
+        return customerMapper.mapEntityToDto(savedCustomer);
     }
 
-    public List<Customer> findAllCustomer() {
-        return customerRepository.findCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT);
+    public List<CustomerDto> findAllCustomer() {
+        return customerRepository.findCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT)
+                .stream()
+                .map(customerMapper::mapEntityToDto)
+                .toList();
     }
 
-    public Customer findCustomerById(Long id) {
+    public CustomerDto findCustomerById(Long id) {
+        Customer customer = findEntityById(id);
+
+        return customerMapper.mapEntityToDto(customer);
+    }
+
+    public Customer findEntityById(Long id) {
         Optional<Customer> optionalCustomer = customerRepository.findById(id);
 
         if (optionalCustomer.isPresent()) {
@@ -38,25 +53,19 @@ public class CustomerService {
         throw new NotFoundException("Customer with id " + id + " does not exist");
     }
 
-    public Customer findCustomerByUsername(String username) {
-        Optional<Customer> optionalCustomer = customerRepository.findCustomerByUsername(username);
+    public CustomerDto updateCustomer(CustomerDto newCustomerDto) {
+        Customer existingCustomer = findEntityById(newCustomerDto.getId());
 
-        if (optionalCustomer.isPresent()) {
-            return optionalCustomer.get();
-        }
+        existingCustomer.setFirstName(newCustomerDto.getFirstName());
+        existingCustomer.setLastName(newCustomerDto.getLastName());
+        existingCustomer.setEmail(newCustomerDto.getEmail());
+        existingCustomer.setAddress(newCustomerDto.getAddress());
 
-        throw new NotFoundException("Customer with username " + username + " does not exist");
+        return saveCustomer(newCustomerDto);
     }
 
-    public Customer updateCustomer(Customer newCustomer) {
-        Customer existingCustomer = findCustomerById(newCustomer.getId());
-
-        existingCustomer.setFirstName(newCustomer.getFirstName());
-        existingCustomer.setLastName(newCustomer.getLastName());
-        existingCustomer.setEmail(newCustomer.getEmail());
-        existingCustomer.setAddress(newCustomer.getAddress());
-
-        return saveCustomer(newCustomer);
+    public void saveEntity(Customer customer) {
+        customerRepository.save(customer);
     }
 
     public void deleteCustomerById(Long id) {
@@ -67,18 +76,34 @@ public class CustomerService {
         return customerRepository.countCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT);
     }
 
-    public Customer findCustomerByName(String searchString) {
-        return customerRepository.findCustomerByName(searchString);
+    public CustomerDto findCustomerByName(String searchString) {
+        Customer customer = customerRepository.findCustomerByName(searchString);
+
+        return customerMapper.mapEntityToDto(customer);
     }
 
     public boolean existsByUsername(String username) {
         return customerRepository.existsByUsername(username);
     }
 
-    public Customer getCustomerLoggedIn() {
+    public CustomerDto getLoggedInCustomerDto() {
+       return customerMapper.mapEntityToDto(getLoggedInCustomer());
+    }
+
+    public Customer getLoggedInCustomer() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return findCustomerByUsername(name);
+    }
+
+    private Customer findCustomerByUsername(String username) {
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByUsername(username);
+
+        if (optionalCustomer.isPresent()) {
+            return optionalCustomer.get();
+        }
+
+        throw new NotFoundException("Customer with username " + username + " does not exist");
     }
 
 }

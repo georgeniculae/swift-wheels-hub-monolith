@@ -1,7 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.dto.CustomerDto;
-import com.carrentalservice.entity.User;
 import com.carrentalservice.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,9 +31,9 @@ public class UserMvcController {
 
     @PostMapping(path = "/user/register")
     public String registerUser(@ModelAttribute("customer") @Valid CustomerDto customerDto, BindingResult bindingResult) {
-        Optional<User> userOptional = userService.findUserByUsername(customerDto.getUsername());
+        boolean userPresent = userService.existsUserByUsername(customerDto.getUsername());
 
-        if (userOptional.isPresent()) {
+        if (userPresent) {
             bindingResult.rejectValue("username", "404", "Username/password incorrect");
         }
 

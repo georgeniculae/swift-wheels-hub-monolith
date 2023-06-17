@@ -1,7 +1,9 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.dto.RentalOfficeDto;
 import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.RentalOfficeMapper;
 import com.carrentalservice.repository.RentalOfficeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,20 +16,37 @@ import java.util.Optional;
 public class RentalOfficeService {
 
     private final RentalOfficeRepository rentalOfficeRepository;
+    private final RentalOfficeMapper rentalOfficeMapper;
 
-    public RentalOffice saveRentalOffice(RentalOffice rentalOffice) {
-        return rentalOfficeRepository.save(rentalOffice);
+    public RentalOfficeDto saveRentalOffice(RentalOfficeDto rentalOfficeDto) {
+        RentalOffice rentalOffice = rentalOfficeMapper.mapDtoToEntity(rentalOfficeDto);
+        RentalOffice savedRentalOffice = rentalOfficeRepository.save(rentalOffice);
+
+        return rentalOfficeMapper.mapEntityToDto(savedRentalOffice);
     }
 
-    public List<RentalOffice> findAllRentalOffices() {
-        return rentalOfficeRepository.findAll();
+    public List<RentalOfficeDto> findAllRentalOffices() {
+        return rentalOfficeRepository.findAll()
+                .stream()
+                .map(rentalOfficeMapper::mapEntityToDto)
+                .toList();
     }
 
     public void deleteRentalOfficeById(Long id) {
         rentalOfficeRepository.deleteById(id);
     }
 
-    public RentalOffice findRentalOfficeById(Long id) {
+    public RentalOfficeDto findRentalOfficeById(Long id) {
+        RentalOffice rentalOffice = findEntityById(id);
+
+        return rentalOfficeMapper.mapEntityToDto(rentalOffice);
+    }
+
+    public RentalOffice saveEntity(RentalOffice rentalOffice) {
+        return rentalOfficeRepository.save(rentalOffice);
+    }
+
+    public RentalOffice findEntityById(Long id) {
         Optional<RentalOffice> optionalRentalOffice = rentalOfficeRepository.findById(id);
 
         if (optionalRentalOffice.isPresent()) {
@@ -37,19 +56,21 @@ public class RentalOfficeService {
         throw new NotFoundException("Rental office with id " + id + " does not exist");
     }
 
-    public RentalOffice updateRentalOffice(RentalOffice newRentalOffice) {
-        RentalOffice existingRentalOffice = findRentalOfficeById(newRentalOffice.getId());
-        newRentalOffice.setId(existingRentalOffice.getId());
+    public RentalOfficeDto updateRentalOffice(RentalOfficeDto newRentalOfficeDto) {
+        RentalOffice existingRentalOffice = findEntityById(newRentalOfficeDto.getId());
+        newRentalOfficeDto.setId(existingRentalOffice.getId());
 
-        return saveRentalOffice(newRentalOffice);
+        return saveRentalOffice(newRentalOfficeDto);
     }
 
     public Long countRentalOffices() {
         return rentalOfficeRepository.count();
     }
 
-    public RentalOffice findRentalOfficeByName(String searchString) {
-        return rentalOfficeRepository.findRentalOfficeByName(searchString);
+    public RentalOfficeDto findRentalOfficeByName(String searchString) {
+        RentalOffice rentalOffice = rentalOfficeRepository.findRentalOfficeByName(searchString);
+
+        return rentalOfficeMapper.mapEntityToDto(rentalOffice);
     }
 
 }

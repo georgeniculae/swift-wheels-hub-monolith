@@ -1,8 +1,6 @@
 package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.CarDto;
-import com.carrentalservice.entity.Car;
-import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,30 +15,24 @@ import java.util.List;
 public class CarRestController {
 
     private final CarService carService;
-    private final CarMapper carMapper;
 
     @PostMapping
     public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDto) {
-        Car car = carMapper.mapDtoToEntity(carDto);
-        Car savedCar = carService.saveCar(car);
-        CarDto savedCarDto = carMapper.mapEntityToDto(savedCar);
+        CarDto savedCarDto = carService.saveCar(carDto);
 
         return ResponseEntity.ok(savedCarDto);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id) {
-        Car car = carService.findCarById(id);
-        CarDto carDto = carMapper.mapEntityToDto(car);
+        CarDto carDto = carService.findCarById(id);
 
         return ResponseEntity.ok(carDto);
     }
 
     @PutMapping
     public ResponseEntity<CarDto> updateCar(@RequestBody CarDto carDto) {
-        Car car = carMapper.mapDtoToEntity(carDto);
-        Car updatedCar = carService.updateCar(car);
-        CarDto updatedCarDto = carMapper.mapEntityToDto(updatedCar);
+        CarDto updatedCarDto = carService.updateCar(carDto);
 
         return ResponseEntity.ok(updatedCarDto);
     }
@@ -54,10 +46,7 @@ public class CarRestController {
 
     @GetMapping
     public ResponseEntity<List<CarDto>> listAllCars() {
-        List<CarDto> carDtoList = carService.findAllCars()
-                .stream()
-                .map(carMapper::mapEntityToDto)
-                .toList();
+        List<CarDto> carDtoList = carService.findAllCars();
 
         return ResponseEntity.ok(carDtoList);
     }

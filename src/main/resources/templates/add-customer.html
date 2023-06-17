@@ -272,6 +272,33 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
+                <span class="input-group-text" id="username-span">Username</span>
+            </div>
+            <input type="text" id="username" th:field="${customer.username}" class="form-control"
+                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <span th:if="${#fields.hasErrors('username')}" th:errors="${customer.username}"></span>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="password-span">Password</span>
+            </div>
+            <input type="text" id="password" th:field="${customer.password}" class="form-control"
+                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="${customer.password}"></span>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="confirm-password-span">Confirm Password</span>
+            </div>
+            <input type="text" id="confirm-password" th:field="${customer.confirmPassword}" class="form-control"
+                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="${customer.confirmPassword}"></span>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
                 <span class="input-group-text" id="address-span">Address</span>
             </div>
             <input type="text" id="address" th:field="${customer.address}" class="form-control"

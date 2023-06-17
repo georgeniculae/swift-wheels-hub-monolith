@@ -1,8 +1,6 @@
 package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.BookingDto;
-import com.carrentalservice.entity.Booking;
-import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +15,10 @@ import java.util.List;
 public class BookingRestController {
 
     private final BookingService bookingService;
-    private final BookingMapper bookingMapper;
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<BookingDto> findBookingById(@PathVariable("id") Long id) {
-        Booking booking = bookingService.findBookingById(id);
-        BookingDto bookingDto = bookingMapper.mapEntityToDto(booking);
+        BookingDto bookingDto = bookingService.findBookingById(id);
 
         return ResponseEntity.ok(bookingDto);
     }
@@ -36,28 +32,21 @@ public class BookingRestController {
 
     @PostMapping
     public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
-        Booking booking = bookingMapper.mapDtoToEntity(bookingDto);
-        Booking saveBooking = bookingService.saveBooking(booking);
-        BookingDto saveBookingDto = bookingMapper.mapEntityToDto(saveBooking);
+        BookingDto saveBookingDto = bookingService.saveBooking(bookingDto);
 
         return ResponseEntity.ok(saveBookingDto);
     }
 
     @PutMapping
     public ResponseEntity<BookingDto> updateBooking(@RequestBody BookingDto bookingDto) {
-        Booking booking = bookingMapper.mapDtoToEntity(bookingDto);
-        Booking updatedBooking = bookingService.updateBooking(booking);
-        BookingDto updatedBookingDto = bookingMapper.mapEntityToDto(updatedBooking);
+        BookingDto updatedBookingDto = bookingService.updateBooking(bookingDto);
 
         return ResponseEntity.ok(updatedBookingDto);
     }
 
     @GetMapping
     public ResponseEntity<List<BookingDto>> listAllBooking() {
-        List<BookingDto> bookingDtoList = bookingService.findAllBookings()
-                .stream()
-                .map(bookingMapper::mapEntityToDto)
-                .toList();
+        List<BookingDto> bookingDtoList = bookingService.findAllBookings();
 
         return ResponseEntity.ok(bookingDtoList);
     }

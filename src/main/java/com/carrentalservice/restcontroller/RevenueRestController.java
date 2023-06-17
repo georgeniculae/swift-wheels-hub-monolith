@@ -1,8 +1,6 @@
 package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.RevenueDto;
-import com.carrentalservice.entity.Revenue;
-import com.carrentalservice.mapper.RevenueMapper;
 import com.carrentalservice.service.RevenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +15,12 @@ import java.util.List;
 public class RevenueRestController {
 
     private final RevenueService revenueService;
-    private final RevenueMapper revenueMapper;
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<RevenueDto> findRevenueById(@PathVariable("id") Long id) {
-        Revenue revenue = revenueService.findRevenueById(id);
-        RevenueDto revenueDTO = revenueMapper.mapEntityToDto(revenue);
+        RevenueDto revenueDto = revenueService.findRevenueById(id);
 
-        return ResponseEntity.ok(revenueDTO);
+        return ResponseEntity.ok(revenueDto);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -36,28 +32,21 @@ public class RevenueRestController {
 
     @PostMapping
     public ResponseEntity<RevenueDto> createRevenue(@RequestBody RevenueDto revenueDto) {
-        Revenue revenue = revenueMapper.mapDtoToEntity(revenueDto);
-        Revenue savedRevenue = revenueService.saveRevenue(revenue);
-        RevenueDto savedRevenueDto = revenueMapper.mapEntityToDto(savedRevenue);
+        RevenueDto savedRevenueDto = revenueService.saveRevenue(revenueDto);
 
         return ResponseEntity.ok(savedRevenueDto);
     }
 
     @PutMapping
     public ResponseEntity<RevenueDto> updateRevenue(@RequestBody RevenueDto revenueDto) {
-        Revenue revenue = revenueMapper.mapDtoToEntity(revenueDto);
-        Revenue updatedRevenue = revenueService.updateRevenue(revenue);
-        RevenueDto updatedRevenueDto = revenueMapper.mapEntityToDto(updatedRevenue);
+        RevenueDto updatedRevenueDto = revenueService.updateRevenue(revenueDto);
 
         return ResponseEntity.ok(updatedRevenueDto);
     }
 
     @GetMapping
     public ResponseEntity<List<RevenueDto>> listAllRevenues() {
-        List<RevenueDto> revenueDtoList = revenueService.findAllRevenues()
-                .stream()
-                .map(revenueMapper::mapEntityToDto)
-                .toList();
+        List<RevenueDto> revenueDtoList = revenueService.findAllRevenues();
 
         return ResponseEntity.ok(revenueDtoList);
     }

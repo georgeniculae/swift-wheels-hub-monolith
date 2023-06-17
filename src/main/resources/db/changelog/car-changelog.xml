@@ -15,36 +15,36 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="amount" type="bigint">
+            <column name="make" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="model" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="body_type"
                     type="ENUM('CHOOSE', 'HATCHBACK', 'SEDAN', 'SUV', 'COUPE', 'CONVERTIBLE', 'WAGON', 'VAN', 'JEEP')">
                 <constraints nullable="false"/>
             </column>
+            <column name="year_of_production" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="color" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="make" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
             <column name="mileage" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="model" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="status"
                     type="ENUM('CHOOSE', 'NOT_AVAILABLE', 'BROKEN', 'IN_REPAIR', 'IN_SERVICE', 'AVAILABLE')">
                 <constraints nullable="false"/>
             </column>
-            <column name="url_of_image" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="year_of_production" type="int">
+            <column name="amount" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="branch_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url_of_image" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -54,5 +54,26 @@
                                  constraintName="fk_car_branch_id"
                                  referencedColumnNames="id"
                                  referencedTableName="branch"/>
+    </changeSet>
+
+    <changeSet id="add-car-1" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM car
+            </sqlCheck>
+        </preConditions>
+
+        <insert tableName="car">
+            <column name="make" value="Volkswagen"/>
+            <column name="model" value="Golf"/>
+            <column name="year_of_production" value="2010"/>
+            <column name="color" value="black"/>
+            <column name="mileage" value="250000"/>
+            <column name="status" value="AVAILABLE"/>
+            <column name="amount" value="500"/>
+            <column name="branch_id" value="1"/>
+            <column name="url_of_image" value="url"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

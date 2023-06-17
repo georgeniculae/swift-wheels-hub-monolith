@@ -1,8 +1,6 @@
 package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.BranchDto;
-import com.carrentalservice.entity.Branch;
-import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.service.BranchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +15,10 @@ import java.util.List;
 public class BranchRestController {
 
     private final BranchService branchService;
-    private final BranchMapper branchMapper;
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<BranchDto> findBranchById(@PathVariable("id") Long id) {
-        Branch branch = branchService.findBranchById(id);
-        BranchDto branchDto = branchMapper.mapEntityToDto(branch);
+        BranchDto branchDto = branchService.findBranchById(id);
 
         return ResponseEntity.ok(branchDto);
     }
@@ -36,28 +32,21 @@ public class BranchRestController {
 
     @PostMapping
     public ResponseEntity<BranchDto> createBranch(@RequestBody BranchDto branchDto) {
-        Branch branch = branchMapper.mapDtoToEntity(branchDto);
-        Branch savedBranch = branchService.saveBranch(branch);
-        BranchDto savedBranchDto = branchMapper.mapEntityToDto(savedBranch);
+        BranchDto savedBranchDto = branchService.saveBranch(branchDto);
 
         return ResponseEntity.ok(savedBranchDto);
     }
 
     @PutMapping
     public ResponseEntity<BranchDto> updateBranch(@RequestBody BranchDto branchDto) {
-        Branch branch = branchMapper.mapDtoToEntity(branchDto);
-        Branch updatedBranch = branchService.updateBranch(branch);
-        BranchDto updatedBranchDto = branchMapper.mapEntityToDto(updatedBranch);
+        BranchDto updatedBranchDto = branchService.updateBranch(branchDto);
 
         return ResponseEntity.ok(updatedBranchDto);
     }
 
     @GetMapping
     public ResponseEntity<List<BranchDto>> listAllBranches() {
-        List<BranchDto> branchDtoList = branchService.findAllBranches()
-                .stream()
-                .map(branchMapper::mapEntityToDto)
-                .toList();
+        List<BranchDto> branchDtoList = branchService.findAllBranches();
 
         return ResponseEntity.ok(branchDtoList);
     }

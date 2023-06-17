@@ -1,8 +1,10 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,34 @@ public class CarService {
 
     private final CarRepository carRepository;
     private final BranchService branchService;
+    private final CarMapper carMapper;
 
-    public Car saveCar(Car car) {
-        return carRepository.save(car);
+    public CarDto saveCar(CarDto carDto) {
+        Car car = carMapper.mapDtoToEntity(carDto);
+        car.setBranch(branchService.findEntityById(carDto.getBranch().getId()));
+        Car savedCar = carRepository.save(car);
+
+        return carMapper.mapEntityToDto(savedCar);
     }
 
-    public List<Car> findAllCars() {
-        return carRepository.findAll();
+    public List<CarDto> findAllCars() {
+        return carRepository.findAll()
+                .stream()
+                .map(carMapper::mapEntityToDto)
+                .toList();
     }
 
-    public Car findCarById(Long id) {
+    public CarDto findCarById(Long id) {
+        Car car = findEntityById(id);
+
+        return carMapper.mapEntityToDto(car);
+    }
+
+    public void saveEntity(Car car) {
+        carRepository.save(car);
+    }
+
+    public Car findEntityById(Long id) {
         Optional<Car> optionalCar = carRepository.findById(id);
 
         if (optionalCar.isPresent()) {
@@ -36,21 +56,23 @@ public class CarService {
         throw new NotFoundException("Car with id " + id + " does not exist");
     }
 
-    public Car updateCar(Car newCar) {
-        Car existingCar = findCarById(newCar.getId());
+    public CarDto updateCar(CarDto newCarDto) {
+        Car newCar = carMapper.mapDtoToEntity(newCarDto);
+        Car existingCar = findEntityById(newCarDto.getId());
         newCar.setId(existingCar.getId());
+        Car savedCar = carRepository.save(newCar);
 
-        return saveCar(newCar);
+        return carMapper.mapEntityToDto(savedCar);
     }
 
     public void deleteCarById(Long id) {
-        Car existingCar = findCarById(id);
+        Car existingCar = findEntityById(id);
 
         Branch branch = existingCar.getBranch();
         List<Car> allCars = new ArrayList<>(branch.getCars());
         allCars.remove(existingCar);
         branch.setCars(allCars);
-        branchService.saveBranch(branch);
+        branchService.saveEntity(branch);
 
         carRepository.deleteById(id);
     }

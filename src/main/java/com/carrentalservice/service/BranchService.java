@@ -1,9 +1,12 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.repository.BranchRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +20,31 @@ public class BranchService {
 
     private final BranchRepository branchRepository;
     private final RentalOfficeService rentalOfficeService;
+    private final BranchMapper branchMapper;
 
-    public Branch saveBranch(Branch branch) {
-        return branchRepository.save(branch);
+    @Transactional
+    public BranchDto saveBranch(BranchDto branchDto) {
+        Branch newBranch = branchMapper.mapDtoToEntity(branchDto);
+        newBranch.setRentalOffice(rentalOfficeService.findEntityById(branchDto.getRentalOffice().getId()));
+        Branch savedBranch = branchRepository.save(newBranch);
+
+        return branchMapper.mapEntityToDto(savedBranch);
     }
 
-    public List<Branch> findAllBranches() {
-        return branchRepository.findAll();
+    public List<BranchDto> findAllBranches() {
+        return branchRepository.findAll()
+                .stream()
+                .map(branchMapper::mapEntityToDto)
+                .toList();
     }
 
-    public Branch findBranchById(Long id) {
+    public BranchDto findBranchById(Long id) {
+        Branch branch = findEntityById(id);
+
+        return branchMapper.mapEntityToDto(branch);
+    }
+
+    public Branch findEntityById(Long id) {
         Optional<Branch> optionalBranch = branchRepository.findById(id);
 
         if (optionalBranch.isPresent()) {
@@ -36,21 +54,28 @@ public class BranchService {
         throw new NotFoundException("Branch with id " + id + " does not exist");
     }
 
-    public Branch updateBranch(Branch newBranch) {
-        Branch exitingBranch = findBranchById(newBranch.getId());
+    public Branch saveEntity(Branch branch) {
+        return branchRepository.save(branch);
+    }
+
+    public BranchDto updateBranch(BranchDto newBranchDto) {
+        Branch newBranch = branchMapper.mapDtoToEntity(newBranchDto);
+        Branch exitingBranch = findEntityById(newBranchDto.getId());
         newBranch.setId(exitingBranch.getId());
 
-        return saveBranch(newBranch);
+        Branch savedBranch = saveEntity(newBranch);
+
+        return branchMapper.mapEntityToDto(savedBranch);
     }
 
     public void deleteBranchById(Long id) {
-        Branch existingBranch = findBranchById(id);
+        Branch existingBranch = findEntityById(id);
 
         RentalOffice rentalOffice = existingBranch.getRentalOffice();
         List<Branch> allBranches = new ArrayList<>(rentalOffice.getBranches());
         allBranches.remove(existingBranch);
         rentalOffice.setBranches(allBranches);
-        rentalOfficeService.saveRentalOffice(rentalOffice);
+        rentalOfficeService.saveEntity(rentalOffice);
 
         branchRepository.deleteById(id);
     }

@@ -1,8 +1,8 @@
 package com.carrentalservice.mvccontroller;
 
+import com.carrentalservice.dto.BookingDto;
+import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.dto.SearchValueDto;
-import com.carrentalservice.entity.Booking;
-import com.carrentalservice.entity.Car;
 import com.carrentalservice.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -45,11 +45,11 @@ public class SearchMvcController {
     @GetMapping(path = "/")
     public String showSearch(Model model) {
         model.addAttribute("search", new SearchValueDto());
-        model.addAttribute("booking", new Booking());
+        model.addAttribute("booking", new BookingDto());
         model.addAttribute("allBookings", bookingService.findAllBookings());
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("allCars", carService.findAllCars());
-        model.addAttribute("car", new Car());
+        model.addAttribute("car", new CarDto());
         model.addAttribute("allCustomers", customerService.findAllCustomer());
         model.addAttribute("allEmployees", employeeService.findAllEmployees());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());

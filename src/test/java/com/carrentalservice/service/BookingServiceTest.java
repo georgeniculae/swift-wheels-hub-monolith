@@ -1,5 +1,6 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
@@ -38,28 +39,30 @@ class BookingServiceTest {
     @Test
     void saveBookingUpdatedWithCustomerAndCarTest_success() {
         Booking booking = TestData.createBooking();
+        BookingDto bookingDto = TestData.createBookingDto();
 
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
-        when(carService.findCarById(anyLong())).thenReturn(TestData.createCar());
-        when(customerService.getCustomerLoggedIn()).thenReturn(TestData.createCustomer());
+        when(carService.findCarById(anyLong())).thenReturn(bookingDto.getCar());
+        when(customerService.getLoggedInCustomer()).thenReturn(TestData.createCustomer());
 
-        assertDoesNotThrow(() -> bookingService.saveBookingUpdatedWithCustomerAndCar(booking));
-        Booking actualBooking = bookingService.saveBookingUpdatedWithCustomerAndCar(booking);
+        assertDoesNotThrow(() -> bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto));
+        BookingDto actualBookingDto = bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto);
 
-        assertNotNull(actualBooking);
+        assertNotNull(actualBookingDto);
     }
 
     @Test
     void savedBookingWithUpdatedCarTest_success() {
         Booking booking = TestData.createBooking();
+        BookingDto bookingDto = TestData.createBookingDto();
 
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
-        when(carService.findCarById(anyLong())).thenReturn(TestData.createCar());
+        when(carService.findCarById(anyLong())).thenReturn(bookingDto.getCar());
 
-        assertDoesNotThrow(() -> bookingService.saveBookingWithUpdatedCar(booking));
-        Booking actualBooking = bookingService.saveBookingWithUpdatedCar(booking);
+        assertDoesNotThrow(() -> bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto));
+        BookingDto actualBookingDto = bookingService.saveBookingUpdatedWithCustomerAndCar(bookingDto);
 
-        assertNotNull(actualBooking);
+        assertNotNull(actualBookingDto);
     }
 
     @Test
@@ -69,9 +72,9 @@ class BookingServiceTest {
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
 
         assertDoesNotThrow(() -> bookingService.findBookingById(1L));
-        Booking actualBooking = bookingService.findBookingById(1L);
+        BookingDto actualBookingDto = bookingService.findBookingById(1L);
 
-        assertNotNull(actualBooking);
+        assertNotNull(actualBookingDto);
     }
 
     @Test
@@ -96,14 +99,15 @@ class BookingServiceTest {
     @Test
     void updateBookingTest_success() {
         Booking booking = TestData.createBooking();
+        BookingDto bookingDto = TestData.createBookingDto();
 
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
 
-        assertDoesNotThrow(() -> bookingService.updateBooking(booking));
-        Booking updatedBooking = bookingService.updateBooking(booking);
+        assertDoesNotThrow(() -> bookingService.updateBooking(bookingDto));
+        BookingDto updatedBookingDto = bookingService.updateBooking(bookingDto);
 
-        assertNotNull(updatedBooking);
+        assertNotNull(updatedBookingDto);
     }
 
     @Test
@@ -111,8 +115,10 @@ class BookingServiceTest {
         Booking booking = TestData.createBooking();
         Customer customer = TestData.createCustomer();
 
-        when(bookingRepository.findBookingByCustomer(any(Customer.class))).thenReturn(List.of(booking));
-        Double amount = bookingService.getAmountSpentByUser(customer);
+        when(customerService.getLoggedInCustomer()).thenReturn(customer);
+        when(bookingRepository.findBookingsByCustomer(any(Customer.class))).thenReturn(List.of(booking));
+
+        Double amount = bookingService.getAmountSpentByLoggedInUser();
         assertEquals(50, amount);
     }
 

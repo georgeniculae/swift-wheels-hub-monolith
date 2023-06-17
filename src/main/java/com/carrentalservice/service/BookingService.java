@@ -1,14 +1,19 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
+import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.repository.BookingRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,61 +25,61 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final CarService carService;
     private final CustomerService customerService;
+    private final BranchService branchService;
+    private final BookingMapper bookingMapper;
 
-    public Booking saveBookingUpdatedWithCustomerAndCar(Booking booking) {
-        Customer customer = customerService.getCustomerLoggedIn();
-        Car carById = carService.findCarById(booking.getCar().getId());
-        booking.setCustomer(customer);
-        booking.setCar(carById);
+    public BookingDto saveBooking(BookingDto bookingDto) {
+        Booking booking = bookingMapper.mapDtoToEntity(bookingDto);
+        Booking savedBooking = bookingRepository.save(booking);
 
-        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
+        return bookingMapper.mapEntityToDto(savedBooking);
     }
 
-    public Booking saveBookingWithUpdatedCar(Booking booking) {
-        Car carById = carService.findCarById(booking.getCar().getId());
-        booking.setCar(carById);
+    @Transactional
+    public BookingDto saveBookingUpdatedWithCustomerAndCar(BookingDto newBookingDto) {
+        Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
 
-        return saveBookingWithCalculatedAmount(booking, carById.getAmount());
+        Customer customer = customerService.getLoggedInCustomer();
+        Car car = carService.findEntityById(newBookingDto.getCar().getId());
+        Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
+
+        newBooking.setCustomer(customer);
+        newBooking.setCar(car);
+        newBooking.setRentalBranch(rentalBranch);
+
+        Booking savedBooking = saveBookingWithCalculatedAmount(newBooking, car.getAmount());
+
+        return bookingMapper.mapEntityToDto(savedBooking);
     }
 
-    public Booking saveBookingWithCalculatedAmount(Booking booking, Double amountFromCar) {
-        double numberOfDaysForBooking = (double) (booking.getDateTo().getTime() - booking.getDateFrom().getTime()) / (1000 * 60 * 60 * 24);
-        booking.setAmount(amountFromCar * numberOfDaysForBooking);
+    @Transactional
+    public BookingDto findBookingById(Long id) {
+        Booking booking = findEntityById(id);
 
-        return saveBooking(booking);
+        return bookingMapper.mapEntityToDto(booking);
     }
 
-    public Booking saveBooking(Booking booking) {
-        return bookingRepository.save(booking);
+    public List<BookingDto> findAllBookings() {
+        return bookingRepository.findAll()
+                .stream()
+                .map(bookingMapper::mapEntityToDto)
+                .toList();
     }
 
-    public List<Booking> findAllBookings() {
-        return bookingRepository.findAll();
-    }
-
-    public Booking findBookingById(Long id) {
-        Optional<Booking> optionalBooking = bookingRepository.findById(id);
-
-        if (optionalBooking.isPresent()) {
-            return optionalBooking.get();
-        }
-
-        throw new NotFoundException("Booking with id " + id + " does not exist");
-    }
-
+    @Transactional
     public void deleteBookingById(Long id) {
-        Booking existingBooking = findBookingById(id);
+        Booking existingBooking = findEntityById(id);
 
         Car car = existingBooking.getCar();
         car.getBookings().remove(existingBooking);
-        carService.saveCar(car);
+        carService.saveEntity(car);
 
         Customer customer = existingBooking.getCustomer();
 
         ArrayList<Booking> allBookings = new ArrayList<>(customer.getBookings());
         allBookings.remove(existingBooking);
         customer.setBookings(allBookings);
-        customerService.saveCustomer(customer);
+        customerService.saveEntity(customer);
 
         bookingRepository.deleteById(id);
     }
@@ -83,37 +88,65 @@ public class BookingService {
         return bookingRepository.count();
     }
 
-    public Booking findBookingByName(String searchString) {
-        return bookingRepository.findBookingByName(Date.valueOf(searchString));
+    public BookingDto findBookingByName(String searchString) {
+        Booking booking = bookingRepository.findBookingByName(Date.valueOf(searchString));
+
+        return bookingMapper.mapEntityToDto(booking);
     }
 
-    public Booking updateBooking(Booking newBooking) {
-        Booking existingBooking = findBookingById(newBooking.getId());
+    public BookingDto updateBooking(BookingDto newBookingDto) {
+        Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
+        Booking existingBooking = findEntityById(newBookingDto.getId());
         newBooking.setId(existingBooking.getId());
+        newBooking.setRentalBranch(existingBooking.getRentalBranch());
+        newBooking.setAmount(existingBooking.getAmount());
 
-        return saveBooking(newBooking);
+        Booking savedBooking = bookingRepository.save(newBooking);
+
+        return bookingMapper.mapEntityToDto(savedBooking);
     }
 
-    public Long countByCustomer(Customer customer) {
-        return bookingRepository.countByCustomer(customer);
+    public Long countByLoggedInCustomer() {
+        return bookingRepository.countByCustomer(customerService.getLoggedInCustomer());
     }
 
-    public List<Booking> findBookingByCustomerLoggedIn(Customer customerLoggedIn) {
-        return bookingRepository.findBookingByCustomer(customerLoggedIn);
-    }
-
-    public Double getAmountSpentByUser(Customer customer) {
-        return findBookingByCustomerLoggedIn(customer)
+    public List<BookingDto> findBookingByLoggedInCustomer() {
+        return bookingRepository.findBookingsByCustomer(customerService.getLoggedInCustomer())
                 .stream()
-                .map(Booking::getAmount)
+                .map(bookingMapper::mapEntityToDto)
+                .toList();
+    }
+
+    public Double getAmountSpentByLoggedInUser() {
+        return findBookingByLoggedInCustomer()
+                .stream()
+                .map(BookingDto::getAmount)
                 .reduce(0D, Double::sum);
     }
 
     public Double getSumOfAllBookingAmount() {
         return findAllBookings()
                 .stream()
-                .map(Booking::getAmount)
+                .map(BookingDto::getAmount)
                 .reduce(0D, Double::sum);
+    }
+
+    private Booking saveBookingWithCalculatedAmount(Booking booking, Double amount) {
+        int bookingDays = Period.between(booking.getDateFrom().toLocalDate(), booking.getDateTo().toLocalDate()).getDays();
+
+        booking.setAmount(amount * bookingDays);
+
+        return bookingRepository.save(booking);
+    }
+
+    private Booking findEntityById(Long id) {
+        Optional<Booking> optionalBooking = bookingRepository.findById(id);
+
+        if (optionalBooking.isPresent()) {
+            return optionalBooking.get();
+        }
+
+        throw new NotFoundException("Booking with id " + id + " does not exist");
     }
 
 }

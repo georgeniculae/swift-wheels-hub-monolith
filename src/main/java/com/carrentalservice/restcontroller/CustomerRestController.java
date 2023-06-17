@@ -1,7 +1,6 @@
 package com.carrentalservice.restcontroller;
 
 import com.carrentalservice.dto.CustomerDto;
-import com.carrentalservice.entity.Customer;
 import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +20,7 @@ public class CustomerRestController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") Long id) {
-        Customer customer = customerService.findCustomerById(id);
-        CustomerDto customerDto = customerMapper.mapEntityToDto(customer);
+        CustomerDto customerDto = customerService.findCustomerById(id);
 
         return ResponseEntity.ok(customerDto);
     }
@@ -36,28 +34,21 @@ public class CustomerRestController {
 
     @PostMapping
     public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
-        Customer customer = customerMapper.mapDtoToEntity(customerDto);
-        Customer saveCustomer = customerService.saveCustomer(customer);
-        CustomerDto savedCustomerDto = customerMapper.mapEntityToDto(saveCustomer);
+        CustomerDto savedCustomerDto = customerService.saveCustomer(customerDto);
 
         return ResponseEntity.ok(savedCustomerDto);
     }
 
     @PutMapping
     public ResponseEntity<CustomerDto> updateCustomer(@RequestBody CustomerDto customerDto) {
-        Customer customer = customerMapper.mapDtoToEntity(customerDto);
-        Customer updatedCustomer = customerService.updateCustomer(customer);
-        CustomerDto updatedCustomerDto = customerMapper.mapEntityToDto(updatedCustomer);
+        CustomerDto updatedCustomerDto = customerService.updateCustomer(customerDto);
 
         return ResponseEntity.ok(updatedCustomerDto);
     }
 
     @GetMapping
     public ResponseEntity<List<CustomerDto>> listAllCustomer() {
-        List<CustomerDto> customerDtoList = customerService.findAllCustomer()
-                .stream()
-                .map(customerMapper::mapEntityToDto)
-                .toList();
+        List<CustomerDto> customerDtoList = customerService.findAllCustomer();
 
         return ResponseEntity.ok(customerDtoList);
     }

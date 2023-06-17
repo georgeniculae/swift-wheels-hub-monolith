@@ -1,7 +1,7 @@
 package com.carrentalservice.mvccontroller;
 
+import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.dto.SearchValueDto;
-import com.carrentalservice.entity.Branch;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.CarService;
 import com.carrentalservice.service.EmployeeService;
@@ -26,7 +26,7 @@ public class BranchMvcController {
     private final RentalOfficeService rentalOfficeService;
 
     @GetMapping(path = "/branches/available-cars")
-    public String showAvailableCarsPage(Model model, Long id) {
+    public String showAvailableCarsPage(Model model) {
         model.addAttribute("cars", carService.findAllCars());
 
         return "/availableCars";
@@ -49,7 +49,7 @@ public class BranchMvcController {
     }
 
     @GetMapping(path = "/branches/branch-id-list")
-    public String showBranchById(Model model, Long id) {
+    public String showBranchById(Model model) {
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("employees", employeeService.findAllEmployees());
         model.addAttribute("selectedBranch", "");
@@ -70,10 +70,10 @@ public class BranchMvcController {
     }
 
     @GetMapping(path = "/branches/branch-id-list/selected")
-    public String showSelectedBranch(Model model, Long id) {
+    public String showSelectedBranch(Model model) {
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("employees", employeeService.findAllEmployees());
-        model.addAttribute("selectedBranch", new Branch());
+        model.addAttribute("selectedBranch", new BranchDto());
         model.addAttribute("cars", carService.findAllCars());
 
         return "/branch-id-list";
@@ -87,12 +87,11 @@ public class BranchMvcController {
     }
 
     @PostMapping(path = "/branch/add")
-    public String addBranch(@ModelAttribute("branch") @Valid Branch branch, BindingResult bindingResult) {
+    public String addBranch(@ModelAttribute("branch") @Valid BranchDto branch, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-branch";
         }
 
-        branch.setRentalOffice(rentalOfficeService.findRentalOfficeById(branch.getRentalOffice().getId()));
         branchService.saveBranch(branch);
 
         return "redirect:/branches";
@@ -100,20 +99,19 @@ public class BranchMvcController {
 
     @GetMapping(path = "/branch/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("branch", new Branch());
+        model.addAttribute("branch", new BranchDto());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
 
         return "add-branch";
     }
 
     @PostMapping(path = "/branch/update")
-    public String editBranch(@ModelAttribute("branch") @Valid Branch branch, BindingResult bindingResult) {
+    public String editBranch(@ModelAttribute("branch") @Valid BranchDto branch, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-branch";
         }
 
-        branch.setRentalOffice(rentalOfficeService.findRentalOfficeById(branch.getRentalOffice().getId()));
-        branchService.saveBranch(branch);
+        branchService.updateBranch(branch);
 
         return "redirect:/branches";
     }

@@ -1,6 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
-import com.carrentalservice.entity.Revenue;
+import com.carrentalservice.dto.RevenueDto;
 import com.carrentalservice.service.RevenueService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +35,13 @@ public class RevenueMvcController {
 
     @GetMapping(path = "/revenue/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("revenue", new Revenue());
+        model.addAttribute("revenue", new RevenueDto());
 
         return "add-revenue";
     }
 
     @PostMapping(path = "/revenue/add")
-    public String addRevenue(@ModelAttribute("revenue") @Valid Revenue revenue, BindingResult bindingResult) {
+    public String addRevenue(@ModelAttribute("revenue") @Valid RevenueDto revenue, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-revenue";
         }
@@ -59,12 +59,12 @@ public class RevenueMvcController {
     }
 
     @PostMapping(path = "/revenue/update")
-    public String editRevenue(@ModelAttribute("revenue") @Valid Revenue revenue, BindingResult bindingResult) {
+    public String editRevenue(@ModelAttribute("revenue") @Valid RevenueDto revenue, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-revenue";
         }
 
-        revenueService.saveRevenue(revenue);
+        revenueService.updateRevenue(revenue);
 
         return "redirect:/revenues";
     }

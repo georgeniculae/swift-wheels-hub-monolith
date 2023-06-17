@@ -19,9 +19,6 @@ public class RentalOfficeDto extends BaseEntityDto {
     @NotEmpty(message = "Contact address cannot be empty")
     private String contactAddress;
 
-    @NotEmpty(message = "Owner cannot be empty")
-    private String owner;
-
     private String logoType;
 
 }

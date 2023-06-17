@@ -1,7 +1,9 @@
 package com.carrentalservice.service;
 
+import com.carrentalservice.dto.RevenueDto;
 import com.carrentalservice.entity.Revenue;
 import com.carrentalservice.exception.NotFoundException;
+import com.carrentalservice.mapper.RevenueMapper;
 import com.carrentalservice.repository.RevenueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,27 +16,41 @@ import java.util.Optional;
 public class RevenueService {
 
     private final RevenueRepository revenueRepository;
+    private final RevenueMapper revenueMapper;
 
-    public Revenue saveRevenue(Revenue revenue) {
-        return revenueRepository.save(revenue);
+    public RevenueDto saveRevenue(RevenueDto revenueDto) {
+        Revenue revenue = revenueMapper.mapDtoToEntity(revenueDto);
+        Revenue savedRevenue = revenueRepository.save(revenue);
+
+        return revenueMapper.mapEntityToDto(savedRevenue);
     }
 
-    public List<Revenue> findAllRevenues() {
-        return revenueRepository.findAll();
+    public List<RevenueDto> findAllRevenues() {
+        return revenueRepository.findAll()
+                .stream()
+                .map(revenueMapper::mapEntityToDto)
+                .toList();
     }
 
     public void deleteRevenueById(Long id) {
         revenueRepository.deleteById(id);
     }
 
-    public Revenue updateRevenue(Revenue newRevenue) {
-        Revenue existingRevenue = findRevenueById(newRevenue.getId());
+    public RevenueDto updateRevenue(RevenueDto newRevenueDto) {
+        Revenue newRevenue = revenueMapper.mapDtoToEntity(newRevenueDto);
+        Revenue existingRevenue = findEntityById(newRevenueDto.getId());
         newRevenue.setId(existingRevenue.getId());
 
-        return saveRevenue(newRevenue);
+        return saveRevenue(newRevenueDto);
     }
 
-    public Revenue findRevenueById(Long id) {
+    public RevenueDto findRevenueById(Long id) {
+        Revenue revenue = findEntityById(id);
+
+        return revenueMapper.mapEntityToDto(revenue);
+    }
+
+    private Revenue findEntityById(Long id) {
         Optional<Revenue> optionalRevenue = revenueRepository.findById(id);
         if (optionalRevenue.isPresent()) {
             return optionalRevenue.get();

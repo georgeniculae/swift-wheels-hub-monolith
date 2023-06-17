@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReturnCarRepository extends JpaRepository<ReturnCar, Long> {
 
-    @Query("From ReturnCar returnCar where returnCar.comments like '%:comments%'")
+    @Query("From ReturnCar returnCar " +
+            "where returnCar.comments like '%:comments%'")
     ReturnCar findReturnCarByName(@Param("comments") String comments);
 
 }

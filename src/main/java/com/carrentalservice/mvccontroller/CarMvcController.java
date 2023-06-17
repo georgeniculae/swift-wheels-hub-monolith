@@ -1,5 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
+import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.CarService;
@@ -40,19 +41,18 @@ public class CarMvcController {
 
     @GetMapping(path = "/car/registration")
     public String showRegistration(Model model) {
-        model.addAttribute("car", new Car());
+        model.addAttribute("car", new CarDto());
         model.addAttribute("allBranches", branchService.findAllBranches());
 
         return "add-car";
     }
 
     @PostMapping(path = "/car/add")
-    public String addCar(@ModelAttribute("car") @Valid Car car, BindingResult bindingResult) {
+    public String addCar(@ModelAttribute("car") @Valid CarDto car, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-car";
         }
 
-        car.setBranch(branchService.findBranchById(car.getBranch().getId()));
         carService.saveCar(car);
 
         return "redirect:/cars";
@@ -66,13 +66,12 @@ public class CarMvcController {
     }
 
     @PostMapping(path = "/car/update")
-    public String editCar(@ModelAttribute("car") @Valid Car car, BindingResult bindingResult) {
+    public String editCar(@ModelAttribute("car") @Valid CarDto car, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-car";
         }
 
-        car.setBranch(branchService.findBranchById(car.getBranch().getId()));
-        carService.saveCar(car);
+        carService.updateCar(car);
 
         return "redirect:/cars";
     }
