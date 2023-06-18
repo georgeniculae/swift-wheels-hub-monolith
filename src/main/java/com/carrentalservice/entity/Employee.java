@@ -1,6 +1,9 @@
 package com.carrentalservice.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -21,10 +24,10 @@ public class Employee extends BaseEntity {
     @NotEmpty(message = "Job position cannot be empty")
     private String jobPosition;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Branch workingBranch;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     private ReturnCar returnCar;
 
 }

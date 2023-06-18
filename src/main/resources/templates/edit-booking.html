@@ -257,55 +257,6 @@
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="customer.id-span">Customer id</span>
-                    </div>
-                    <input type="text" id="customer.id" th:field="${booking.customer.id}"
-                           class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <span th:if="${#fields.hasErrors('customer.id')}"
-                          th:errors="${booking.customer.id}"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="customer.firstName-span">Customer's first name</span>
-                    </div>
-                    <input type="text" id="customer.firstName" th:field="${booking.customer.firstName}"
-                           class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <span th:if="${#fields.hasErrors('customer.firstName')}"
-                          th:errors="${booking.customer.firstName}"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="customer.lastName-span">Customer's first name</span>
-                    </div>
-                    <input type="text" id="customer.lastName" th:field="${booking.customer.lastName}"
-                           class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <span th:if="${#fields.hasErrors('customer.lastName')}"
-                          th:errors="${booking.customer.lastName}"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="customer.email-span">Customer's email</span>
-                    </div>
-                    <input type="text" id="customer.email" th:field="${booking.customer.email}" class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <span th:if="${#fields.hasErrors('customer.email')}"
-                          th:errors="${booking.customer.email}"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="customer.address-span">Customer's address</span>
-                    </div>
-                    <input type="text" id="customer.address" th:field="${booking.customer.address}"
-                           class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <span th:if="${#fields.hasErrors('customer.address')}"
-                          th:errors="${booking.customer.address}"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
                         <span class="input-group-text" id="dateFrom-span">Booking starting date</span>
                     </div>
                     <input type="text" id="dateFrom" th:field="${booking.dateFrom}"

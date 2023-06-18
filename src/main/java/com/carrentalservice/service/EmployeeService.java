@@ -22,6 +22,7 @@ public class EmployeeService {
 
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
         Employee newEmployee = employeeMapper.mapDtoToEntity(employeeDto);
+
         Branch workingBranch = branchService.findEntityById(employeeDto.getWorkingBranch().getId());
         newEmployee.setWorkingBranch(workingBranch);
         Employee savedEmployee = employeeRepository.save(newEmployee);
@@ -57,10 +58,19 @@ public class EmployeeService {
     }
 
     public EmployeeDto updateEmployee(EmployeeDto newEmployeeDto) {
-        Employee existingEmployee = findEntityById(newEmployeeDto.getId());
-        newEmployeeDto.setId(existingEmployee.getId());
+        Employee newEmployee = employeeMapper.mapDtoToEntity(newEmployeeDto);
 
-        return saveEmployee(newEmployeeDto);
+        Employee existingEmployee = findEntityById(newEmployeeDto.getId());
+        Branch workingBranch = branchService.findEntityById(newEmployee.getWorkingBranch().getId());
+
+        existingEmployee.setFirstName(newEmployee.getFirstName());
+        existingEmployee.setLastName(newEmployee.getLastName());
+        existingEmployee.setJobPosition(newEmployee.getJobPosition());
+        existingEmployee.setWorkingBranch(workingBranch);
+
+        Employee savedEmployee = employeeRepository.save(existingEmployee);
+
+        return employeeMapper.mapEntityToDto(savedEmployee);
     }
 
     public List<EmployeeDto> getEmployeesInBranch(Long id) {

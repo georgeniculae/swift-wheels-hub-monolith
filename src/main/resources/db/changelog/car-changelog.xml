@@ -67,6 +67,7 @@
         <insert tableName="car">
             <column name="make" value="Volkswagen"/>
             <column name="model" value="Golf"/>
+            <column name="body_type" value="HATCHBACK"/>
             <column name="year_of_production" value="2010"/>
             <column name="color" value="black"/>
             <column name="mileage" value="250000"/>

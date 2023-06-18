@@ -28,7 +28,7 @@ public class RentalOffice extends BaseEntity {
 
     private String logoType;
 
-    @OneToMany(mappedBy = "rentalOffice", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "rentalOffice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Branch> branches;
 
 }

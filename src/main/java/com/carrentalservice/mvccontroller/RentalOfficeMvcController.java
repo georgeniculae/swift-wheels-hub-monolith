@@ -34,7 +34,7 @@ public class RentalOfficeMvcController {
     }
 
     @PostMapping(path = "/rental-office/add")
-    public String addRentalOffice(@ModelAttribute("rental-office") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
+    public String addRentalOffice(@ModelAttribute("rentalOffice") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-rental-office";
         }
@@ -52,7 +52,7 @@ public class RentalOfficeMvcController {
     }
 
     @PostMapping(path = "/rental-office/update")
-    public String editRentalOffice(@ModelAttribute("rental-office") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
+    public String editRentalOffice(@ModelAttribute("rentalOffice") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-rental-office";
         }
@@ -64,7 +64,7 @@ public class RentalOfficeMvcController {
 
     @GetMapping(path = "/rental-office/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("rental-office", this.rentalOfficeService.findRentalOfficeById(id));
+        model.addAttribute("rentalOffice", this.rentalOfficeService.findRentalOfficeById(id));
 
         return "edit-rental-office";
     }

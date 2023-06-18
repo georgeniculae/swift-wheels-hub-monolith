@@ -32,11 +32,11 @@ public class Car extends BaseEntity {
 
     private Double amount;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Branch branch = new Branch();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Branch branch;
 
     private String urlOfImage;
 

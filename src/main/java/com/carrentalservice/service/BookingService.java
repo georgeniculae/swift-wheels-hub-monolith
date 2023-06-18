@@ -89,12 +89,18 @@ public class BookingService {
 
     public BookingDto updateBooking(BookingDto newBookingDto) {
         Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
-        Booking existingBooking = findEntityById(newBookingDto.getId());
-        newBooking.setId(existingBooking.getId());
-        newBooking.setRentalBranch(existingBooking.getRentalBranch());
-        newBooking.setAmount(existingBooking.getAmount());
 
-        Booking savedBooking = bookingRepository.save(newBooking);
+        Booking existingBooking = findEntityById(newBookingDto.getId());
+        Car car = carService.findEntityById(newBookingDto.getCar().getId());
+
+        existingBooking.setDateOfBooking(newBooking.getDateOfBooking());
+        existingBooking.setDateFrom(newBooking.getDateFrom());
+        existingBooking.setDateTo(newBookingDto.getDateTo());
+        existingBooking.setCar(car);
+        existingBooking.setRentalBranch(car.getBranch());
+        existingBooking.setAmount(getAmount(newBooking, car.getAmount()));
+
+        Booking savedBooking = bookingRepository.save(existingBooking);
 
         return bookingMapper.mapEntityToDto(savedBooking);
     }
@@ -125,11 +131,19 @@ public class BookingService {
     }
 
     private Booking saveBookingWithCalculatedAmount(Booking booking, Double amount) {
-        int bookingDays = Period.between(booking.getDateFrom().toLocalDate(), booking.getDateTo().toLocalDate()).getDays();
-
-        booking.setAmount(amount * bookingDays);
+        booking.setAmount(getAmount(booking, amount));
 
         return bookingRepository.save(booking);
+    }
+
+    private Double getAmount(Booking booking, Double amount) {
+        int bookingDays = Period.between(booking.getDateFrom().toLocalDate(), booking.getDateTo().toLocalDate()).getDays();
+
+        if (bookingDays == 0) {
+            return amount;
+        }
+
+        return bookingDays * amount;
     }
 
     private Booking findEntityById(Long id) {

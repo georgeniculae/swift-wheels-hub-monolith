@@ -23,7 +23,7 @@ public class ReturnCar extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date dateOfReturn;
 
-    @OneToMany(mappedBy = "returnCar", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "returnCar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();
 
     private Double additionalPayment;

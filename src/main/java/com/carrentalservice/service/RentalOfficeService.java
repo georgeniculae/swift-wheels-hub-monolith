@@ -57,10 +57,18 @@ public class RentalOfficeService {
     }
 
     public RentalOfficeDto updateRentalOffice(RentalOfficeDto newRentalOfficeDto) {
-        RentalOffice existingRentalOffice = findEntityById(newRentalOfficeDto.getId());
-        newRentalOfficeDto.setId(existingRentalOffice.getId());
+        RentalOffice newRentalOffice = rentalOfficeMapper.mapDtoToEntity(newRentalOfficeDto);
 
-        return saveRentalOffice(newRentalOfficeDto);
+        RentalOffice existingRentalOffice = findEntityById(newRentalOfficeDto.getId());
+
+        existingRentalOffice.setName(newRentalOffice.getName());
+        existingRentalOffice.setInternetDomain(newRentalOffice.getInternetDomain());
+        existingRentalOffice.setContactAddress(newRentalOffice.getContactAddress());
+        existingRentalOffice.setLogoType(newRentalOffice.getLogoType());
+
+        RentalOffice savedRentalOffice = rentalOfficeRepository.save(existingRentalOffice);
+
+        return rentalOfficeMapper.mapEntityToDto(savedRentalOffice);
     }
 
     public Long countRentalOffices() {

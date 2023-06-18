@@ -38,6 +38,7 @@ public class RevenueService {
 
     public RevenueDto updateRevenue(RevenueDto newRevenueDto) {
         Revenue newRevenue = revenueMapper.mapDtoToEntity(newRevenueDto);
+
         Revenue existingRevenue = findEntityById(newRevenueDto.getId());
         newRevenue.setId(existingRevenue.getId());
 

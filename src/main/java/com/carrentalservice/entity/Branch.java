@@ -18,19 +18,19 @@ public class Branch extends BaseEntity {
 
     private String address;
 
-    @OneToMany(mappedBy = "workingBranch", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "workingBranch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Car> cars;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private RentalOffice rentalOffice;
 
-    @OneToMany(mappedBy = "rentalBranch", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rentalBranch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> rentalBookings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "returnBranch", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "returnBranch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> returnBookings = new ArrayList<>();
 
 }

@@ -20,11 +20,11 @@ public class Booking extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date dateOfBooking;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private Customer customer;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private Car car;
 
@@ -38,17 +38,17 @@ public class Booking extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date dateTo;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private ReturnCar returnCar;
 
     private Double amount;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private Branch rentalBranch;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private Branch returnBranch;
 
