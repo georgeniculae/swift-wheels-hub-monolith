@@ -19,7 +19,7 @@ public class Invoice extends BaseEntity {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date dateOfReturn;
+    private Date carDateOfReturn;
 
     private Double additionalPayment;
 

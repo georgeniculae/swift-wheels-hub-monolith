@@ -18,7 +18,7 @@
             <column name="employee_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_of_return" type="date">
+            <column name="car_date_of_return" type="date">
                 <constraints nullable="false"/>
             </column>
             <column name="additional_payment" type="double">

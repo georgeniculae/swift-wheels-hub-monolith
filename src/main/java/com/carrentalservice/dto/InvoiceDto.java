@@ -12,7 +12,7 @@ import java.sql.Date;
 public class InvoiceDto extends BaseEntityDto {
 
     private EmployeeDto employee;
-    private Date dateOfReturn;
+    private Date carDateOfReturn;
     private Double additionalPayment;
     private String comments;
 
