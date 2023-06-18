@@ -234,7 +234,7 @@
             <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown7" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Invoice
+                    Invoices
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" th:href="@{/invoice/registration}"
@@ -382,7 +382,7 @@
 
     <div style="background: linear-gradient(45deg, white, transparent); text-align-last: center">
         <p th:text="'You have ' +  ${bookingsNumber} + ' bookings for a total of $' + ${totalAmountSpent} + '!'"></p>
-        <h3>Booking list</h3>
+        <h3>Bookings</h3>
     </div>
 
     <table class="table table-hover table-responsive"

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -230,7 +230,7 @@
             <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown7" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Invoice
+                    Invoices
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" th:href="@{/invoice/registration}"
@@ -343,7 +343,7 @@
 <div class="container">
     <div>
         <div class="container" style="background-color: orange">
-            <h3 th:text="'Branch ...  Cars list - status available'"></h3>
+            <h3 th:text="'Branch ...  Cars - status available'"></h3>
         </div>
     </div>
     <table class="table table-hover table-responsive">

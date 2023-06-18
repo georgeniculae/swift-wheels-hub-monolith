@@ -234,7 +234,7 @@
             <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown7" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Invoice
+                    Invoices
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" th:href="@{/invoice/registration}"
@@ -351,22 +351,33 @@
         <div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="employee-span">Employee</span>
+                    <span class="input-group-text" id="carDateOfReturn-span">Date of return of the car</span>
                 </div>
-                <input type="text" id="employee" th:field="${invoice.employee.id}" class="form-control"
-                       aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                       placeholder="employee id">
-                <span th:if="${#fields.hasErrors('employee')}" th:errors="${invoice.employee}"></span>
+                <input type="date" id="carDateOfReturn" th:field="${invoice.carDateOfReturn}"
+                       class="form-control"
+                       aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <span th:if="${#fields.hasErrors('carDateOfReturn')}" th:errors="${invoice.carDateOfReturn}"></span>
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="carDateOfReturn-span">Date of return of the car</span>
+                    <span class="input-group-text" id="isVehicleDamaged-span">Damaged</span>
                 </div>
-                <input type="datetime-local" id="carDateOfReturn" th:field="${invoice.carDateOfReturn}"
-                       class="form-control"
+                <select id="inputGroupSelect2" class="custom-select"
+                        th:field="${invoice.isVehicleDamaged}">
+                    <option selected th:value="null">Choose option</option>
+                    <option th:value="1">Yes</option>
+                    <option th:value="0">No</option>
+                </select>
+            </div>
+
+            <div th:if="${invoice.isVehicleDamaged}" class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="damageCost-span">Damage cost</span>
+                </div>
+                <input type="text" id="damageCost"
+                       th:field="${invoice.damageCost}" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('carDateOfReturn')}" th:errors="${invoice.carDateOfReturn}"></span>
             </div>
 
             <div class="input-group mb-3">

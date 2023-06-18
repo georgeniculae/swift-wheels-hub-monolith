@@ -15,16 +15,25 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="employee_id" type="bigint">
+            <column name="customer_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="car_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="reception_employee_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="car_date_of_return" type="date">
                 <constraints nullable="false"/>
             </column>
+            <column name="is_vehicle_damaged" type="boolean">
+                <constraints nullable="false"/>
+            </column>
             <column name="additional_payment" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="damage_cost" type="double">
                 <constraints nullable="false"/>
             </column>
             <column name="comments" type="varchar(255)">
@@ -32,15 +41,21 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseColumnNames="employee_id"
+        <addForeignKeyConstraint baseColumnNames="customer_id"
                                  baseTableName="invoice"
-                                 constraintName="fk_invoice_employee_id"
+                                 constraintName="fk_invoice_customer_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="employee"/>
+                                 referencedTableName="user"/>
 
         <addForeignKeyConstraint baseColumnNames="car_id"
                                  baseTableName="invoice"
                                  constraintName="fk_invoice_car_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="car"/>
+
+        <addForeignKeyConstraint baseColumnNames="reception_employee_id"
+                                 baseTableName="invoice"
+                                 constraintName="fk_invoice_reception_employee_id"
                                  referencedColumnNames="id"
                                  referencedTableName="employee"/>
     </changeSet>

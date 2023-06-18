@@ -1,9 +1,6 @@
 package com.carrentalservice.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -27,6 +24,9 @@ public class Customer extends User {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings = new ArrayList<>();
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Invoice invoice;
 
     public Customer(String username, String password, String role) {
         super(username, password, role);

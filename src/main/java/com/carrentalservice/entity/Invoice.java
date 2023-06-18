@@ -1,6 +1,7 @@
 package com.carrentalservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,14 +16,22 @@ import java.sql.Date;
 public class Invoice extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee employee;
+    private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee receptionEmployee;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date carDateOfReturn;
+
+    @NotNull
+    private Boolean isVehicleDamaged;
+
+    private Double damageCost;
 
     private Double additionalPayment;
 

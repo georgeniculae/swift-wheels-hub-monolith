@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,7 +26,7 @@ public class Employee extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Branch workingBranch;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Invoice invoice;
+    @OneToMany(mappedBy = "receptionEmployee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Invoice> invoices;
 
 }

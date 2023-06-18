@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -234,7 +234,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
             <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown7" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Invoice
+                    Invoices
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" th:href="@{/invoice/registration}"
@@ -388,7 +388,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
                     <option selected th:value="null">Choose car</option>
                     <option th:each="car : ${allCars}" th:value="${car.id}"
                             th:if="${car.status.displayName} == 'Available'"
-                            th:text="${car.make} + ' ' + ${car.model}+ ' ' + ${car.color}+ ' ' + ${car.bodyType.displayName}+ ' ' + ${car.status.displayName}+ ' in ' + ${car.branch.name}+ ' for $' + ${car.amount}">
+                            th:text="${car.make} + ' ' + ${car.model}+ ' ' + ${car.color} + ' ' + ${car.bodyType.displayName}+ ' ' + ${car.status.displayName}+ ' in ' + ${car.branch.name}+ ' for $' + ${car.amount}">
                     </option>
                 </select>
             </div>
