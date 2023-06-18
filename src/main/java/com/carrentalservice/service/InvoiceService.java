@@ -30,7 +30,7 @@ public class InvoiceService {
             return optionalInvoice.get();
         }
 
-        throw new NotFoundException("Return car with id " + id + "does not exist");
+        throw new NotFoundException("Invoice with id " + id + "does not exist");
     }
 
     public void deleteInvoiceById(Long id) {
