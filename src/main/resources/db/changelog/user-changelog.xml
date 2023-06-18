@@ -109,4 +109,13 @@
             <column name="role" value="ROLE_CUSTOMER"/>
         </insert>
     </changeSet>
+
+    <changeSet id="add-user-5" author="George Niculae">
+        <insert tableName="user">
+            <column name="dtype" value="Customer"/>
+            <column name="username" value="ionpopescu"/>
+            <column name="password" value="$2a$12$M3ifxwJFF6cZi2Mt//JaIuW5dtJztCXNhv6rq.cfGG0vxXrJsAqZq"/>
+            <column name="role" value="ROLE_CUSTOMER"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
