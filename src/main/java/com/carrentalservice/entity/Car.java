@@ -40,4 +40,7 @@ public class Car extends BaseEntity {
 
     private String urlOfImage;
 
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Invoice> invoices;
+
 }

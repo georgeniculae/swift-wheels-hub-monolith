@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -344,8 +344,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     </div>
 </nav>
 
-</br>
-
 <div class="container" style="margin-top: 5rem">
     <form th:action="@{/booking/add}" th:object="${booking}" method="post">
         <div>
@@ -383,7 +381,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="workingBranch-span">Car</span>
+                    <span class="input-group-text" id="car-span">Car</span>
                 </div>
                 <select id="inputGroupSelect2" class="custom-select"
                         th:field="${booking.car.id}">

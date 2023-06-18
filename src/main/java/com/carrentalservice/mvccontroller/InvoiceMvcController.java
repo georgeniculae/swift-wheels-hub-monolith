@@ -30,9 +30,9 @@ public class InvoiceMvcController {
     }
 
     @GetMapping(path = "/invoice/registration")
-    public String showRegistration(Model model, Long id) {
+    public String showRegistration(Model model) {
         model.addAttribute("invoice", new InvoiceDto());
-        model.addAttribute("employee", employeeService.findEmployeeById(id));
+        model.addAttribute("employees", employeeService.findAllEmployees());
 
         return "add-invoice";
     }

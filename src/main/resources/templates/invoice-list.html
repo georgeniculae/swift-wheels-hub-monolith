@@ -344,38 +344,20 @@
 <br>
 
 <div class="container">
-    <div>
-        <div class="container" style="background-color: orange">
-            <ul style="display: inline-flex; list-style: none; text-align: center">
-                <li>
-                    <h3 style="padding-top: 20px">Invoice list</h3>
-                </li>
-                <li style="padding-top: 25px;padding-left: 10px">|</li>
-                <li style="padding-top: 25px; padding-left: 10px">
-                    <p th:text="'A total of ' +  ${invoicesNumber} + ' invoices' "></p>
-                </li>
-                <li style="padding-top: 25px;padding-left: 10px"
-                    sec:authorize="hasRole('ROLE_ADMIN')">|</li>
-                <li style="padding-top: 25px; padding-left: 10px"
-                    sec:authorize="hasRole('ROLE_ADMIN')">
-                    You can add a new one <a th:href="@{/invoice/registration}">here</a>
-                </li>
-            </ul>
-        </div>
-    </div>
     <table class="table table-hover table-responsive">
         <thead>
         <tr>
             <th scope="col">Id</th>
-<!--            <th scope="col">Employee id</th>-->
+            <th scope="col">Employee id</th>
             <th scope="col">Date of return of the car</th>
             <th scope="col">Additional payment</th>
             <th scope="col">Comment</th>
         </thead>
+
         <tbody>
         <tr th:each="invoice: ${invoices}">
             <td th:text="${invoice.id}"></td>
-<!--            <td th:text="${invoice.employee.id}"></td>-->
+            <td th:text="${invoice.employee.id}"></td>
             <td th:text="${invoice.carDateOfReturn}"></td>
             <td th:text="${invoice.additionalPayment}"></td>
             <td th:text="${invoice.comments}"></td>
@@ -383,9 +365,11 @@
                 <a th:href="@{/invoice/edit/{id}(id = ${invoice.id})}">
                     <i>
                         <button type="button" class="btn btn-primary">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
+                                <path fill-rule="evenodd"
+                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
                             </svg>
                         </button>
                     </i>
@@ -395,9 +379,11 @@
                 <a th:href="@{/invoice/delete/{id}(id = ${invoice.id})}">
                     <i>
                         <button type="button" class="btn btn-primary">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                <path fill-rule="evenodd"
+                                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
                             </svg>
                         </button>
                     </i>

@@ -18,6 +18,9 @@
             <column name="employee_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="car_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="car_date_of_return" type="date">
                 <constraints nullable="false"/>
             </column>
@@ -31,7 +34,13 @@
 
         <addForeignKeyConstraint baseColumnNames="employee_id"
                                  baseTableName="invoice"
-                                 constraintName="fk_return_car_employee_id"
+                                 constraintName="fk_invoice_employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="car_id"
+                                 baseTableName="invoice"
+                                 constraintName="fk_invoice_car_id"
                                  referencedColumnNames="id"
                                  referencedTableName="employee"/>
     </changeSet>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -353,8 +353,9 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="employee-span">Employee</span>
                 </div>
-                <input type="text" id="employee" th:field="${invoice.employee}" class="form-control"
-                       aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="id employee">
+                <input type="text" id="employee" th:field="${invoice.employee.id}" class="form-control"
+                       aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                       placeholder="employee id">
                 <span th:if="${#fields.hasErrors('employee')}" th:errors="${invoice.employee}"></span>
             </div>
 
@@ -362,7 +363,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="carDateOfReturn-span">Date of return of the car</span>
                 </div>
-                <input type="datetime-local" id="carDateOfReturn" th:field="${invoice.carDateOfReturn}" class="form-control"
+                <input type="datetime-local" id="carDateOfReturn" th:field="${invoice.carDateOfReturn}"
+                       class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 <span th:if="${#fields.hasErrors('carDateOfReturn')}" th:errors="${invoice.carDateOfReturn}"></span>
             </div>

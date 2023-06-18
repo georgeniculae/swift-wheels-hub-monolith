@@ -14,8 +14,11 @@ import java.sql.Date;
 @EqualsAndHashCode(callSuper = true)
 public class Invoice extends BaseEntity {
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Car car;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
