@@ -116,6 +116,10 @@
             <column name="username" value="ionpopescu"/>
             <column name="password" value="$2a$12$M3ifxwJFF6cZi2Mt//JaIuW5dtJztCXNhv6rq.cfGG0vxXrJsAqZq"/>
             <column name="role" value="ROLE_CUSTOMER"/>
+            <column name="address" value="Ploiesti"/>
+            <column name="email" value="ion.popescu@test.com"/>
+            <column name="first_name" value="Ion"/>
+            <column name="last_name" value="Popescu"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
