@@ -35,4 +35,20 @@
                                  referencedColumnNames="id"
                                  referencedTableName="branch"/>
     </changeSet>
+
+    <changeSet id="add-employee-1" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM employee
+            </sqlCheck>
+        </preConditions>
+
+        <insert tableName="employee">
+            <column name="first_name" value="Vasile"/>
+            <column name="last_name" value="Ionescu"/>
+            <column name="job_position" value="manager"/>
+            <column name="working_branch_id" value="1"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
