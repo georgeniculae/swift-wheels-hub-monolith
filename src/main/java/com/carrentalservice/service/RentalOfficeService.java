@@ -56,15 +56,13 @@ public class RentalOfficeService {
         throw new NotFoundException("Rental office with id " + id + " does not exist");
     }
 
-    public RentalOfficeDto updateRentalOffice(RentalOfficeDto newRentalOfficeDto) {
-        RentalOffice newRentalOffice = rentalOfficeMapper.mapDtoToEntity(newRentalOfficeDto);
+    public RentalOfficeDto updateRentalOffice(RentalOfficeDto updatedRentalOfficeDto) {
+        RentalOffice existingRentalOffice = findEntityById(updatedRentalOfficeDto.getId());
 
-        RentalOffice existingRentalOffice = findEntityById(newRentalOfficeDto.getId());
-
-        existingRentalOffice.setName(newRentalOffice.getName());
-        existingRentalOffice.setInternetDomain(newRentalOffice.getInternetDomain());
-        existingRentalOffice.setContactAddress(newRentalOffice.getContactAddress());
-        existingRentalOffice.setLogoType(newRentalOffice.getLogoType());
+        existingRentalOffice.setName(updatedRentalOfficeDto.getName());
+        existingRentalOffice.setInternetDomain(updatedRentalOfficeDto.getInternetDomain());
+        existingRentalOffice.setContactAddress(updatedRentalOfficeDto.getContactAddress());
+        existingRentalOffice.setLogoType(updatedRentalOfficeDto.getLogoType());
 
         RentalOffice savedRentalOffice = rentalOfficeRepository.save(existingRentalOffice);
 

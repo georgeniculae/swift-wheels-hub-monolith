@@ -56,13 +56,21 @@ public class CarService {
         throw new NotFoundException("Car with id " + id + " does not exist");
     }
 
-    public CarDto updateCar(CarDto newCarDto) {
-        Car newCar = carMapper.mapDtoToEntity(newCarDto);
+    public CarDto updateCar(CarDto updatedCarDto) {
+        Car existingCar = findEntityById(updatedCarDto.getId());
 
-        Car existingCar = findEntityById(newCarDto.getId());
-        Branch branch = branchService.findEntityById(newCar.getBranch().getId());
-        newCar.setId(existingCar.getId());
-        newCar.setBranch(branch);
+        Branch branch = branchService.findEntityById(updatedCarDto.getBranch().getId());
+
+        existingCar.setMake(updatedCarDto.getMake());
+        existingCar.setModel(updatedCarDto.getModel());
+        existingCar.setBodyType(updatedCarDto.getBodyType());
+        existingCar.setYearOfProduction(updatedCarDto.getYearOfProduction());
+        existingCar.setColor(updatedCarDto.getColor());
+        existingCar.setMileage(updatedCarDto.getMileage());
+        existingCar.setAmount(updatedCarDto.getAmount());
+        existingCar.setStatus(updatedCarDto.getStatus());
+        existingCar.setBranch(branch);
+        existingCar.setUrlOfImage(updatedCarDto.getUrlOfImage());
 
         Car savedCar = carRepository.save(existingCar);
 

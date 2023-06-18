@@ -58,14 +58,12 @@ public class BranchService {
         return branchRepository.save(branch);
     }
 
-    public BranchDto updateBranch(BranchDto newBranchDto) {
-        Branch newBranch = branchMapper.mapDtoToEntity(newBranchDto);
+    public BranchDto updateBranch(BranchDto updatedBranchDto) {
+        RentalOffice rentalOffice = rentalOfficeService.findEntityById(updatedBranchDto.getRentalOffice().getId());
 
-        RentalOffice rentalOffice = rentalOfficeService.findEntityById(newBranch.getRentalOffice().getId());
-
-        Branch exitingBranch = findEntityById(newBranchDto.getId());
-        exitingBranch.setName(newBranch.getName());
-        exitingBranch.setAddress(newBranch.getAddress());
+        Branch exitingBranch = findEntityById(updatedBranchDto.getId());
+        exitingBranch.setName(updatedBranchDto.getName());
+        exitingBranch.setAddress(updatedBranchDto.getAddress());
         exitingBranch.setRentalOffice(rentalOffice);
 
         Branch savedBranch = saveEntity(exitingBranch);

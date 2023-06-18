@@ -87,18 +87,17 @@ public class BookingService {
         return bookingMapper.mapEntityToDto(booking);
     }
 
-    public BookingDto updateBooking(BookingDto newBookingDto) {
-        Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
+    public BookingDto updateBooking(BookingDto updatedBookingDto) {
+        Booking existingBooking = findEntityById(updatedBookingDto.getId());
 
-        Booking existingBooking = findEntityById(newBookingDto.getId());
-        Car car = carService.findEntityById(newBookingDto.getCar().getId());
+        Car car = carService.findEntityById(updatedBookingDto.getCar().getId());
 
-        existingBooking.setDateOfBooking(newBooking.getDateOfBooking());
-        existingBooking.setDateFrom(newBooking.getDateFrom());
-        existingBooking.setDateTo(newBookingDto.getDateTo());
+        existingBooking.setDateOfBooking(updatedBookingDto.getDateOfBooking());
+        existingBooking.setDateFrom(updatedBookingDto.getDateFrom());
+        existingBooking.setDateTo(updatedBookingDto.getDateTo());
         existingBooking.setCar(car);
         existingBooking.setRentalBranch(car.getBranch());
-        existingBooking.setAmount(getAmount(newBooking, car.getAmount()));
+        existingBooking.setAmount(getAmount(updatedBookingDto.getDateFrom(), updatedBookingDto.getDateTo(), car.getAmount()));
 
         Booking savedBooking = bookingRepository.save(existingBooking);
 
@@ -131,13 +130,13 @@ public class BookingService {
     }
 
     private Booking saveBookingWithCalculatedAmount(Booking booking, Double amount) {
-        booking.setAmount(getAmount(booking, amount));
+        booking.setAmount(getAmount(booking.getDateFrom(), booking.getDateTo(), amount));
 
         return bookingRepository.save(booking);
     }
 
-    private Double getAmount(Booking booking, Double amount) {
-        int bookingDays = Period.between(booking.getDateFrom().toLocalDate(), booking.getDateTo().toLocalDate()).getDays();
+    private Double getAmount(Date dateFrom, Date dateTo, Double amount) {
+        int bookingDays = Period.between(dateFrom.toLocalDate(), dateTo.toLocalDate()).getDays();
 
         if (bookingDays == 0) {
             return amount;

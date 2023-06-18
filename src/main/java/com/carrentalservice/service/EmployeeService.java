@@ -57,15 +57,14 @@ public class EmployeeService {
         throw new NotFoundException("Employee with id " + id + " does not exist");
     }
 
-    public EmployeeDto updateEmployee(EmployeeDto newEmployeeDto) {
-        Employee newEmployee = employeeMapper.mapDtoToEntity(newEmployeeDto);
+    public EmployeeDto updateEmployee(EmployeeDto updatedEmployeeDto) {
+        Employee existingEmployee = findEntityById(updatedEmployeeDto.getId());
 
-        Employee existingEmployee = findEntityById(newEmployeeDto.getId());
-        Branch workingBranch = branchService.findEntityById(newEmployee.getWorkingBranch().getId());
+        Branch workingBranch = branchService.findEntityById(updatedEmployeeDto.getWorkingBranch().getId());
 
-        existingEmployee.setFirstName(newEmployee.getFirstName());
-        existingEmployee.setLastName(newEmployee.getLastName());
-        existingEmployee.setJobPosition(newEmployee.getJobPosition());
+        existingEmployee.setFirstName(updatedEmployeeDto.getFirstName());
+        existingEmployee.setLastName(updatedEmployeeDto.getLastName());
+        existingEmployee.setJobPosition(updatedEmployeeDto.getJobPosition());
         existingEmployee.setWorkingBranch(workingBranch);
 
         Employee savedEmployee = employeeRepository.save(existingEmployee);

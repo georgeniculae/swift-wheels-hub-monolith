@@ -53,15 +53,17 @@ public class CustomerService {
         throw new NotFoundException("Customer with id " + id + " does not exist");
     }
 
-    public CustomerDto updateCustomer(CustomerDto newCustomerDto) {
-        Customer existingCustomer = findEntityById(newCustomerDto.getId());
+    public CustomerDto updateCustomer(CustomerDto updatedCustomerDto) {
+        Customer existingCustomer = findEntityById(updatedCustomerDto.getId());
 
-        existingCustomer.setFirstName(newCustomerDto.getFirstName());
-        existingCustomer.setLastName(newCustomerDto.getLastName());
-        existingCustomer.setEmail(newCustomerDto.getEmail());
-        existingCustomer.setAddress(newCustomerDto.getAddress());
+        existingCustomer.setFirstName(updatedCustomerDto.getFirstName());
+        existingCustomer.setLastName(updatedCustomerDto.getLastName());
+        existingCustomer.setEmail(updatedCustomerDto.getEmail());
+        existingCustomer.setAddress(updatedCustomerDto.getAddress());
 
-        return saveCustomer(newCustomerDto);
+        Customer savedCustomer = customerRepository.save(existingCustomer);
+
+        return customerMapper.mapEntityToDto(savedCustomer);
     }
 
     public void saveEntity(Customer customer) {
@@ -87,7 +89,7 @@ public class CustomerService {
     }
 
     public CustomerDto getLoggedInCustomerDto() {
-       return customerMapper.mapEntityToDto(getLoggedInCustomer());
+        return customerMapper.mapEntityToDto(getLoggedInCustomer());
     }
 
     public Customer getLoggedInCustomer() {
