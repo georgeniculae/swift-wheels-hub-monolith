@@ -368,7 +368,7 @@
         <tr>
             <th scope="col">Id</th>
 <!--            <th scope="col">Employee id</th>-->
-            <th scope="col">Date of return</th>
+            <th scope="col">Date of return of the car</th>
             <th scope="col">Additional payment</th>
             <th scope="col">Comment</th>
         </thead>
@@ -376,7 +376,7 @@
         <tr th:each="invoice: ${invoices}">
             <td th:text="${invoice.id}"></td>
 <!--            <td th:text="${invoice.employee.id}"></td>-->
-            <td th:text="${invoice.dateOfReturn}"></td>
+            <td th:text="${invoice.carDateOfReturn}"></td>
             <td th:text="${invoice.additionalPayment}"></td>
             <td th:text="${invoice.comments}"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">

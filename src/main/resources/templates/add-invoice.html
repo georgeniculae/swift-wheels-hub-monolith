@@ -357,13 +357,14 @@
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="id employee">
                 <span th:if="${#fields.hasErrors('employee')}" th:errors="${invoice.employee}"></span>
             </div>
+
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="dateOfReturn-span">Date of return</span>
+                    <span class="input-group-text" id="carDateOfReturn-span">Date of return of the car</span>
                 </div>
-                <input type="datetime-local" id="dateOfReturn" th:field="${invoice.dateOfReturn}" class="form-control"
+                <input type="datetime-local" id="carDateOfReturn" th:field="${invoice.carDateOfReturn}" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="${invoice.dateOfReturn}"></span>
+                <span th:if="${#fields.hasErrors('carDateOfReturn')}" th:errors="${invoice.carDateOfReturn}"></span>
             </div>
 
             <div class="input-group mb-3">

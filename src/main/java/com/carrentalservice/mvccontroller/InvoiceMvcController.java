@@ -1,6 +1,8 @@
 package com.carrentalservice.mvccontroller;
 
+import com.carrentalservice.dto.InvoiceDto;
 import com.carrentalservice.entity.Invoice;
+import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.service.InvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,19 +19,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class InvoiceMvcController {
 
     private final InvoiceService invoiceService;
+    private final EmployeeService employeeService;
 
     @GetMapping(path = "/invoices")
     public String showInvoices(Model model) {
         model.addAttribute("invoice", invoiceService.findAllInvoices());
         model.addAttribute("invoicesNumber", invoiceService.countInvoice());
 
-        return "invoices-list";
+        return "invoice-list";
     }
 
     @GetMapping(path = "/invoice/registration")
     public String showRegistration(Model model, Long id) {
-        model.addAttribute("invoice", new Invoice());
-//        model.addAttribute("employee", employeeService.findEmployeeById(id));
+        model.addAttribute("invoice", new InvoiceDto());
+        model.addAttribute("employee", employeeService.findEmployeeById(id));
 
         return "add-invoice";
     }
