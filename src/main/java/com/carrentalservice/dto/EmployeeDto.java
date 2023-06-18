@@ -21,6 +21,4 @@ public class EmployeeDto extends BaseEntityDto {
 
     private BranchDto workingBranch;
 
-    private ReturnCarDto returnCar;
-
 }

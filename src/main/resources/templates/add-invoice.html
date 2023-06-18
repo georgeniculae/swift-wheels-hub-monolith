@@ -241,41 +241,41 @@
 </nav>
 <br>
 <div class="container">
-    <form th:action="@{/return-car/add}" th:object="${returnCar}" method="post">
+    <form th:action="@{/invoice/add}" th:object="${invoice}" method="post">
         <div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="employee-span">Employee</span>
                 </div>
-                <input type="text" id="employee" th:field="${returnCar.employee}" class="form-control"
+                <input type="text" id="employee" th:field="${invoice.employee}" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="id employee">
-                <span th:if="${#fields.hasErrors('employee')}" th:errors="${returnCar.employee}"></span>
+                <span th:if="${#fields.hasErrors('employee')}" th:errors="${invoice.employee}"></span>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="dateOfReturn-span">Date of return</span>
                 </div>
-                <input type="datetime-local" id="dateOfReturn" th:field="${returnCar.dateOfReturn}" class="form-control"
+                <input type="datetime-local" id="dateOfReturn" th:field="${invoice.dateOfReturn}" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="${returnCar.dateOfReturn}"></span>
+                <span th:if="${#fields.hasErrors('dateOfReturn')}" th:errors="${invoice.dateOfReturn}"></span>
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="additionalPayment-span">Additional payment</span>
                 </div>
-                <input type="text" id="additionalPayment" th:field="${returnCar.additionalPayment}" class="form-control"
+                <input type="text" id="additionalPayment" th:field="${invoice.additionalPayment}" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('additionalPayment')}" th:errors="${returnCar.additionalPayment}"></span>
+                <span th:if="${#fields.hasErrors('additionalPayment')}" th:errors="${invoice.additionalPayment}"></span>
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="comments-span">Comments</span>
                 </div>
-                <input type="text" id="comments" th:field="${returnCar.comments}" class="form-control"
+                <input type="text" id="comments" th:field="${invoice.comments}" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('comments')}" th:errors="${returnCar.comments}"></span>
+                <span th:if="${#fields.hasErrors('comments')}" th:errors="${invoice.comments}"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">

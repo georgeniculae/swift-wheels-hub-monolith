@@ -18,7 +18,6 @@ public class TestData {
         booking.setCustomer(createCustomer());
         booking.setDateFrom(Date.valueOf(LocalDate.of(2023, Month.APRIL, 21)));
         booking.setDateTo(Date.valueOf(LocalDate.of(2023, Month.APRIL, 22)));
-        booking.setReturnCar(createReturnCar());
         booking.setAmount(50D);
         booking.setRentalBranch(createRentalBranch());
         booking.setReturnBranch(createReturnBranch());
@@ -53,12 +52,12 @@ public class TestData {
         return employee;
     }
 
-    private static ReturnCar createReturnCar() {
-        ReturnCar returnCar = new ReturnCar();
+    private static Invoice createInvoice() {
+        Invoice invoice = new Invoice();
 
-        returnCar.setId(1L);
+        invoice.setId(1L);
 
-        return returnCar;
+        return invoice;
     }
 
     public static Branch createRentalBranch() {
@@ -96,7 +95,6 @@ public class TestData {
         bookingDto.setCustomer(createCustomerDto());
         bookingDto.setDateFrom(Date.valueOf(LocalDate.of(2023, Month.APRIL, 21)));
         bookingDto.setDateTo(Date.valueOf(LocalDate.of(2023, Month.APRIL, 22)));
-        bookingDto.setReturnCar(createReturnCarDto());
         bookingDto.setAmount(50D);
         bookingDto.setRentalBranch(createRentalBranchDto());
         bookingDto.setReturnBranch(createReturnBranchDto());
@@ -131,12 +129,12 @@ public class TestData {
         return employeeDto;
     }
 
-    private static ReturnCarDto createReturnCarDto() {
-        ReturnCarDto returnCarDto = new ReturnCarDto();
+    private static InvoiceDto createInvoiceDto() {
+        InvoiceDto invoiceDto = new InvoiceDto();
 
-        returnCarDto.setId(1L);
+        invoiceDto.setId(1L);
 
-        return returnCarDto;
+        return invoiceDto;
     }
 
     public static BranchDto createRentalBranchDto() {

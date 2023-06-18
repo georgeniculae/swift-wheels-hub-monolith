@@ -38,10 +38,6 @@ public class Booking extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date dateTo;
 
-    @ManyToOne
-    @JoinColumn
-    private ReturnCar returnCar;
-
     private Double amount;
 
     @ManyToOne

@@ -4,14 +4,14 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-    <changeSet id="create-table-return-car" author="George Niculae">
+    <changeSet id="create-table-invoice" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="car-rental-service" catalogName="car-rental-service" tableName="return_car"/>
+                <tableExists schemaName="car-rental-service" catalogName="car-rental-service" tableName="invoice"/>
             </not>
         </preConditions>
 
-        <createTable tableName="return_car">
+        <createTable tableName="invoice">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -30,7 +30,7 @@
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="employee_id"
-                                 baseTableName="return_car"
+                                 baseTableName="invoice"
                                  constraintName="fk_return_car_employee_id"
                                  referencedColumnNames="id"
                                  referencedTableName="employee"/>

@@ -16,7 +16,6 @@ public class BookingDto extends BaseEntityDto {
     private CarDto car;
     private Date dateFrom;
     private Date dateTo;
-    private ReturnCarDto returnCar;
     private Double amount;
     private BranchDto rentalBranch;
     private BranchDto returnBranch;

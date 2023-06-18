@@ -23,7 +23,7 @@ public class SearchMvcController {
     private final CustomerService customerService;
     private final EmployeeService employeeService;
     private final RentalOfficeService rentalOfficeService;
-    private final ReturnCarService returnCarService;
+    private final InvoiceService invoiceService;
 
     @PostMapping(path = "/search")
     public String search(@ModelAttribute("search") String search, Model model, BindingResult bindingResult) {
@@ -34,7 +34,7 @@ public class SearchMvcController {
         model.addAttribute("customer", customerService.findCustomerByName(search));
         model.addAttribute("employee", employeeService.findEmployeeByName(search));
         model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeByName(search));
-        model.addAttribute("returnCar", returnCarService.findReturnCarByName(search));
+        model.addAttribute("invoice", invoiceService.findInvoiceByName(search));
 
         ObjectError error = new ObjectError("search", "Nothing found");
         bindingResult.addError(error);
@@ -53,8 +53,9 @@ public class SearchMvcController {
         model.addAttribute("allCustomers", customerService.findAllCustomer());
         model.addAttribute("allEmployees", employeeService.findAllEmployees());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
-        model.addAttribute("allReturnCars", returnCarService.findAllReturnCar());
+        model.addAttribute("allInvoicesCars", invoiceService.findAllInvoices());
 
         return "index";
     }
+
 }

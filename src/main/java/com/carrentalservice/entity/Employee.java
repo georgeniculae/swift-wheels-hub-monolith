@@ -1,9 +1,6 @@
 package com.carrentalservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -27,7 +24,7 @@ public class Employee extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Branch workingBranch;
 
-    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
-    private ReturnCar returnCar;
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Invoice invoice;
 
 }

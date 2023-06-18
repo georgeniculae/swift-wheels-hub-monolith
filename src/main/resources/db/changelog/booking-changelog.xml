@@ -39,9 +39,6 @@
             <column name="return_branch_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
-            <column name="return_car_id" type="bigint">
-                <constraints nullable="true"/>
-            </column>
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="car_id"
@@ -67,11 +64,5 @@
                                  constraintName="fk_booking_return_branch_id"
                                  referencedColumnNames="id"
                                  referencedTableName="branch"/>
-
-        <addForeignKeyConstraint baseColumnNames="return_car_id"
-                                 baseTableName="booking"
-                                 constraintName="fk_booking_return_car_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="return_car"/>
     </changeSet>
 </databaseChangeLog>
