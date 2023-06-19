@@ -247,7 +247,7 @@
                                 <path fill-rule="evenodd"
                                       d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
                             </svg>
-                            Edit invoice
+                            Active invoices
                         </button>
                     </a>
                     <div class="dropdown-divider"></div>
@@ -415,7 +415,7 @@
                     <span class="input-group-text" id="status-span">Status</span>
                 </div>
                 <select id="inputGroupSelect" class="custom-select" th:field="${car.carStatus}">
-                    <option th:each="status : ${T(com.carrentalservice.entity.CarStatus).values()}"
+                    <option th:each="carStatus : ${T(com.carrentalservice.entity.CarStatus).values()}"
                             th:value="${carStatus}"
                             th:text="${carStatus.displayName}">
                     </option>
