@@ -18,10 +18,6 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final InvoiceMapper invoiceMapper;
 
-    public Invoice saveEntity(Invoice invoice) {
-        return invoiceRepository.save(invoice);
-    }
-
     public void updateInvoice(Invoice invoice) {
         invoiceRepository.save(invoice);
     }
