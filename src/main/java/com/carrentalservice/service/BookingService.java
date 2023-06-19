@@ -37,18 +37,19 @@ public class BookingService {
         newBooking.setCustomer(customer);
         newBooking.setCar(car);
         newBooking.setRentalBranch(rentalBranch);
-        newBooking.setBookingStatus(BookingStatus.IN_PROGRESS);
+        newBooking.setStatus(BookingStatus.IN_PROGRESS);
 
-        setupNewInvoice(customer, car);
+        setupNewInvoice(newBooking, car, customer);
 
         Booking savedBooking = saveBookingWithCalculatedAmount(newBooking, car.getAmount());
 
         return bookingMapper.mapEntityToDto(savedBooking);
     }
 
-    private void setupNewInvoice(Customer customer, Car car) {
+    private void setupNewInvoice(Booking booking, Car car, Customer customer) {
         Invoice invoice = new Invoice();
 
+        invoice.setBooking(booking);
         invoice.setCustomer(customer);
         invoice.setCar(car);
 

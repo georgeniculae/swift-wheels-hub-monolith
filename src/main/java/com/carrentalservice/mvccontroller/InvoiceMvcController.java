@@ -18,6 +18,14 @@ public class InvoiceMvcController {
 
     private final InvoiceService invoiceService;
 
+    @GetMapping(path = "/invoice/active-invoices")
+    public String showActiveInvoices(Model model) {
+        model.addAttribute("invoices", invoiceService.findAllActiveInvoices());
+        model.addAttribute("numberOfInvoices", invoiceService.countAllActiveInvoices());
+
+        return "active-invoice";
+    }
+
     @GetMapping(path = "/invoices")
     public String showInvoices(Model model) {
         model.addAttribute("invoice", invoiceService.findAllInvoices());

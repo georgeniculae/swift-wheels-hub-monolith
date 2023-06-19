@@ -21,7 +21,7 @@ public class Booking extends BaseEntity {
     private Date dateOfBooking;
 
     @Enumerated(EnumType.STRING)
-    private BookingStatus bookingStatus;
+    private BookingStatus status;
 
     @ManyToOne
     @JoinColumn
@@ -50,5 +50,8 @@ public class Booking extends BaseEntity {
     @ManyToOne
     @JoinColumn
     private Branch returnBranch;
+
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Invoice invoice;
 
 }

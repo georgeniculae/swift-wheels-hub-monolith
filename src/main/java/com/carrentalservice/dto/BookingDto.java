@@ -13,7 +13,7 @@ import java.sql.Date;
 public class BookingDto extends BaseEntityDto {
 
     private Date dateOfBooking;
-    private BookingStatus bookingStatus;
+    private BookingStatus status;
     private CustomerDto customer;
     private CarDto car;
     private Date dateFrom;

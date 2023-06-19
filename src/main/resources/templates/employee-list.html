@@ -238,7 +238,7 @@
                     Invoices
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" th:href="@{/invoice/registration}"
+                    <a class="dropdown-item" th:href="@{/invoice/active-invoices}"
                        sec:authorize="hasRole('ROLE_ADMIN')">
                         <button type="button" class="btn btn-outline-primary">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square"
@@ -349,7 +349,6 @@
 
 <div class="container">
     <div>
-
         <div style="background: linear-gradient(45deg, white, transparent); text-align-last: center">
             <p th:text="'Total number of cars: ' +  ${employeesNumber}"></p>
             <h3>Employees</h3>
@@ -405,10 +404,8 @@
                         </i>
                     </a>
                 </td>
-
             </tr>
             </tbody>
-
         </table>
     </div>
 </div>

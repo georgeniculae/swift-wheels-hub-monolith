@@ -6,11 +6,27 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
-    @Query("From Invoice invoice " +
-            "where invoice.comments like '%:comments%'")
+    @Query("""
+            From Invoice invoice
+            where invoice.comments like '%:comments%'""")
     Invoice findInvoiceByName(@Param("comments") String comments);
+
+    @Query("""
+            From Invoice i
+            join i.booking b
+            where b.status = 'IN_PROGRESS'""")
+    List<Invoice> findActiveInvoices();
+
+    @Query("""
+            Select count(i)
+            From Invoice i
+            join i.booking b
+            where b.status = 'IN_PROGRESS'""")
+    Long countActiveInvoices();
 
 }

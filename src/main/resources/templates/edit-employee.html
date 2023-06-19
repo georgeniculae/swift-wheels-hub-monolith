@@ -237,7 +237,7 @@
                     Invoices
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" th:href="@{/invoice/registration}"
+                    <a class="dropdown-item" th:href="@{/invoice/active-invoices}"
                        sec:authorize="hasRole('ROLE_ADMIN')">
                         <button type="button" class="btn btn-outline-primary">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square"
@@ -354,7 +354,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="firstname-span">First name</span>
                 </div>
-                <input type="text" th:field="${employee.firstName}" id="firstName" class="form-control"
+                <input type="text" th:field="${employee.firstName}" id="firstname" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 <span th:if="${#fields.hasErrors('firstName')}" th:errors="${employee.firstName}"></span>
             </div>
@@ -363,23 +363,23 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="lastname-span">Last name</span>
                 </div>
-                <input type="text" th:field="${employee.lastName}" id="lastName" class="form-control"
+                <input type="text" th:field="${employee.lastName}" id="lastname" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 <span th:if="${#fields.hasErrors('lastName')}" th:errors="${employee.lastName}"></span>
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="jobposition-span">Job position</span>
+                    <span class="input-group-text" id="job_position_span">Job position</span>
                 </div>
-                <input type="text" th:field="${employee.jobPosition}" id="jobPosition" class="form-control"
+                <input type="text" th:field="${employee.jobPosition}" id="job-position" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 <span th:if="${#fields.hasErrors('jobPosition')}" th:errors="${employee.jobPosition}"></span>
             </div>
 
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="workingbranch-span">Working branch</span>
+                    <span class="input-group-text" id="working-branch-span">Working branch</span>
                 </div>
                 <select id="inputGroupSelect2" class="custom-select" th:field="${employee.workingBranch.id}">
                     <option selected th:value="null">Choose</option>

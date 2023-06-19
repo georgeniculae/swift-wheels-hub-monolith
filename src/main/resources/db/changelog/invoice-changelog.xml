@@ -21,6 +21,9 @@
             <column name="car_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="booking_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="reception_employee_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
@@ -52,6 +55,12 @@
                                  constraintName="fk_invoice_car_id"
                                  referencedColumnNames="id"
                                  referencedTableName="car"/>
+
+        <addForeignKeyConstraint baseColumnNames="booking_id"
+                                 baseTableName="invoice"
+                                 constraintName="fk_invoice_booking_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="booking"/>
 
         <addForeignKeyConstraint baseColumnNames="reception_employee_id"
                                  baseTableName="invoice"

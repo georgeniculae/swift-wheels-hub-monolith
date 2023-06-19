@@ -18,7 +18,7 @@
             <column name="date_of_booking" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="booking_status" type="ENUM('IN_PROGRESS', 'CLOSED')">>
+            <column name="status" type="ENUM('IN_PROGRESS', 'CLOSED')">>
                 <constraints nullable="false"/>
             </column>
             <column name="amount" type="double">

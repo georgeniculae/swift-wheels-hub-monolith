@@ -13,6 +13,7 @@ public class InvoiceDto extends BaseEntityDto {
 
     private CustomerDto customer;
     private CarDto car;
+    private BookingDto booking;
     private EmployeeDto receptionEmployee;
     private Date carDateOfReturn;
     private Boolean isVehicleDamaged;
