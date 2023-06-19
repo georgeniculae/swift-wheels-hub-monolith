@@ -34,26 +34,12 @@ public class BookingService {
         Car car = carService.findEntityById(newBookingDto.getCar().getId());
         Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
 
-        newBooking.setCustomer(customer);
-        newBooking.setCar(car);
-        newBooking.setRentalBranch(rentalBranch);
-        newBooking.setStatus(BookingStatus.IN_PROGRESS);
+        setupNewBooking(newBooking, customer, car, rentalBranch);
+        setupNewInvoice(newBooking, customer, car);
 
-        setupNewInvoice(newBooking, car, customer);
-
-        Booking savedBooking = saveBookingWithCalculatedAmount(newBooking, car.getAmount());
+        Booking savedBooking = bookingRepository.save(newBooking);
 
         return bookingMapper.mapEntityToDto(savedBooking);
-    }
-
-    private void setupNewInvoice(Booking booking, Car car, Customer customer) {
-        Invoice invoice = new Invoice();
-
-        invoice.setBooking(booking);
-        invoice.setCustomer(customer);
-        invoice.setCar(car);
-
-        invoiceService.saveEntity(invoice);
     }
 
     @Transactional
@@ -98,6 +84,7 @@ public class BookingService {
         return bookingMapper.mapEntityToDto(booking);
     }
 
+    @Transactional
     public BookingDto updateBooking(BookingDto updatedBookingDto) {
         Booking existingBooking = findEntityById(updatedBookingDto.getId());
 
@@ -140,12 +127,6 @@ public class BookingService {
                 .reduce(0D, Double::sum);
     }
 
-    private Booking saveBookingWithCalculatedAmount(Booking booking, Double amount) {
-        booking.setAmount(getAmount(booking.getDateFrom(), booking.getDateTo(), amount));
-
-        return bookingRepository.save(booking);
-    }
-
     private Double getAmount(Date dateFrom, Date dateTo, Double amount) {
         int bookingDays = Period.between(dateFrom.toLocalDate(), dateTo.toLocalDate()).getDays();
 
@@ -164,6 +145,24 @@ public class BookingService {
         }
 
         throw new NotFoundException("Booking with id " + id + " does not exist");
+    }
+
+    private void setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch) {
+        newBooking.setCustomer(customer);
+        newBooking.setCar(car);
+        newBooking.setRentalBranch(rentalBranch);
+        newBooking.setStatus(BookingStatus.IN_PROGRESS);
+        newBooking.setAmount(getAmount(newBooking.getDateFrom(), newBooking.getDateTo(), car.getAmount()));
+    }
+
+    private void setupNewInvoice(Booking booking, Customer customer, Car car) {
+        Invoice invoice = new Invoice();
+
+        invoice.setBooking(booking);
+        invoice.setCustomer(customer);
+        invoice.setCar(car);
+
+        invoiceService.saveEntity(invoice);
     }
 
 }
