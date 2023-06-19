@@ -1,7 +1,7 @@
 'use strict';
 
 $(function() {
-$("input[type='password'][data-eye]").each(function(i) {
+    $("input[type='password'][data-eye]").each(function(i) {
         var $this = $(this),
             id = 'eye-password-' + i,
             el = $('#' + id);
