@@ -21,7 +21,7 @@ public class Invoice extends BaseEntity {
     private Car car;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Employee receptionEmployee;
+    private Employee receptionistEmployee;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Booking booking;

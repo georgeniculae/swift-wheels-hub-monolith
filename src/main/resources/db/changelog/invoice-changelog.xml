@@ -24,7 +24,7 @@
             <column name="booking_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="reception_employee_id" type="bigint">
+            <column name="receptionist_employee_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
             <column name="car_date_of_return" type="date">
@@ -62,9 +62,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="booking"/>
 
-        <addForeignKeyConstraint baseColumnNames="reception_employee_id"
+        <addForeignKeyConstraint baseColumnNames="receptionist_employee_id"
                                  baseTableName="invoice"
-                                 constraintName="fk_invoice_reception_employee_id"
+                                 constraintName="fk_invoice_receptionist_employee_id"
                                  referencedColumnNames="id"
                                  referencedTableName="employee"/>
     </changeSet>

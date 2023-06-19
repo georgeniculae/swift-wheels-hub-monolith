@@ -26,7 +26,7 @@ public class Employee extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Branch workingBranch;
 
-    @OneToMany(mappedBy = "receptionEmployee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "receptionistEmployee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Invoice> invoices;
 
 }
