@@ -9,11 +9,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RevenueRepository extends JpaRepository<Revenue, Long> {
 
-    @Query("From Revenue revenue where " +
-            "revenue.dailyRevenue = :revenue or " +
-            "revenue.monthlyRevenue = :revenue or " +
-            "revenue.weeklyRevenue = :revenue or " +
-            "revenue.yearlyRevenue = :revenue")
+    @Query("""
+            From Revenue revenue where
+            revenue.dailyRevenue = :revenue or
+            revenue.monthlyRevenue = :revenue or
+            revenue.weeklyRevenue = :revenue or
+            revenue.yearlyRevenue = :revenue""")
     Revenue findRevenueByDetails(@Param("revenue") Double revenue);
 
 }

@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RentalOfficeRepository extends JpaRepository<RentalOffice, Long> {
 
-    @Query("From RentalOffice rentalOffice " +
-            "where lower(rentalOffice.name) like '%:rentalOfficeName%'")
+    @Query("""
+            From RentalOffice rentalOffice
+            where lower(rentalOffice.name) like '%:rentalOfficeName%'""")
     RentalOffice findRentalOfficeByName(@Param("rentalOfficeName") String rentalOfficeName);
 
 }
