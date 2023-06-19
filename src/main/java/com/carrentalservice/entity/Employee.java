@@ -24,6 +24,7 @@ public class Employee extends BaseEntity {
     private String jobPosition;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "working_branch_id")
     private Branch workingBranch;
 
     @OneToMany(mappedBy = "receptionistEmployee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

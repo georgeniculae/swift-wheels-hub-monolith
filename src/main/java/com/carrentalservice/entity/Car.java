@@ -36,6 +36,7 @@ public class Car extends BaseEntity {
     private List<Booking> bookings = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id")
     private Branch branch;
 
     private String urlOfImage;

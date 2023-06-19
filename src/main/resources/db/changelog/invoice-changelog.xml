@@ -21,11 +21,11 @@
             <column name="car_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="booking_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
             <column name="receptionist_employee_id" type="bigint">
                 <constraints nullable="true"/>
+            </column>
+            <column name="booking_id" type="bigint">
+                <constraints nullable="false"/>
             </column>
             <column name="car_date_of_return" type="date">
                 <constraints nullable="true"/>
@@ -56,16 +56,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="car"/>
 
-        <addForeignKeyConstraint baseColumnNames="booking_id"
-                                 baseTableName="invoice"
-                                 constraintName="fk_invoice_booking_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="booking"/>
-
         <addForeignKeyConstraint baseColumnNames="receptionist_employee_id"
                                  baseTableName="invoice"
                                  constraintName="fk_invoice_receptionist_employee_id"
                                  referencedColumnNames="id"
                                  referencedTableName="employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="booking_id"
+                                 baseTableName="invoice"
+                                 constraintName="fk_invoice_booking_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="booking"/>
     </changeSet>
 </databaseChangeLog>

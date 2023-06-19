@@ -23,7 +23,6 @@ public class BookingService {
     private final CarService carService;
     private final CustomerService customerService;
     private final BranchService branchService;
-    private final InvoiceService invoiceService;
     private final BookingMapper bookingMapper;
 
     @Transactional
@@ -34,8 +33,8 @@ public class BookingService {
         Car car = carService.findEntityById(newBookingDto.getCar().getId());
         Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
 
-        setupNewBooking(newBooking, customer, car, rentalBranch);
-        setupNewInvoice(newBooking, customer, car);
+        Invoice invoice = setupInvoice(newBooking, customer, car);
+        setupNewBooking(newBooking, customer, car, rentalBranch, invoice);
 
         Booking savedBooking = bookingRepository.save(newBooking);
 
@@ -147,22 +146,26 @@ public class BookingService {
         throw new NotFoundException("Booking with id " + id + " does not exist");
     }
 
-    private void setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch) {
+
+    private Invoice setupInvoice(Booking newBooking, Customer customer, Car car) {
+        Invoice invoice = new Invoice();
+
+        newBooking.setInvoice(invoice);
+
+        invoice.setCustomer(customer);
+        invoice.setCar(car);
+        invoice.setBooking(newBooking);
+
+        return invoice;
+    }
+
+    private void setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch, Invoice invoice) {
         newBooking.setCustomer(customer);
         newBooking.setCar(car);
         newBooking.setRentalBranch(rentalBranch);
         newBooking.setStatus(BookingStatus.IN_PROGRESS);
         newBooking.setAmount(getAmount(newBooking.getDateFrom(), newBooking.getDateTo(), car.getAmount()));
-    }
-
-    private void setupNewInvoice(Booking booking, Customer customer, Car car) {
-        Invoice invoice = new Invoice();
-
-        invoice.setBooking(booking);
-        invoice.setCustomer(customer);
-        invoice.setCar(car);
-
-        invoiceService.saveEntity(invoice);
+        newBooking.setInvoice(invoice);
     }
 
 }

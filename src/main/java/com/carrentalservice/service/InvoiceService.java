@@ -18,8 +18,8 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final InvoiceMapper invoiceMapper;
 
-    public void saveEntity(Invoice invoice) {
-        invoiceRepository.save(invoice);
+    public Invoice saveEntity(Invoice invoice) {
+        return invoiceRepository.save(invoice);
     }
 
     public void updateInvoice(Invoice invoice) {
@@ -30,7 +30,11 @@ public class InvoiceService {
         return invoiceRepository.findAll();
     }
 
-    public Invoice findInvoiceById(Long id) {
+    public Optional<Invoice> findAllByCustomerId(Long customerId) {
+        return invoiceRepository.findByCustomerId(customerId);
+    }
+
+    public Invoice findEntityById(Long id) {
         Optional<Invoice> optionalInvoice = invoiceRepository.findById(id);
 
         if (optionalInvoice.isPresent()) {
@@ -41,8 +45,6 @@ public class InvoiceService {
     }
 
     public void deleteInvoiceById(Long id) {
-        findInvoiceById(id);
-
         invoiceRepository.deleteById(id);
     }
 
@@ -55,14 +57,14 @@ public class InvoiceService {
     }
 
     public List<InvoiceDto> findAllActiveInvoices() {
-        return invoiceRepository.findActiveInvoices()
+        return invoiceRepository.findAllActiveInvoices()
                 .stream()
                 .map(invoiceMapper::mapEntityToDto)
                 .toList();
     }
 
-    public Long countAllActiveInvoices() {
-        return invoiceRepository.countActiveInvoices();
+    public int countAllActiveInvoices() {
+        return findAllActiveInvoices().size();
     }
 
 }

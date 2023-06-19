@@ -24,11 +24,11 @@ public class Booking extends BaseEntity {
     private BookingStatus status;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "car_id")
     private Car car;
 
     @NotNull(message = "Date cannot be null")
@@ -44,14 +44,14 @@ public class Booking extends BaseEntity {
     private Double amount;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "rental_branch_id")
     private Branch rentalBranch;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "return_branch_id")
     private Branch returnBranch;
 
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private Invoice invoice;
 
 }

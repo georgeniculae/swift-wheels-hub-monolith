@@ -1,6 +1,7 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.entity.Invoice;
+import com.carrentalservice.service.BookingService;
 import com.carrentalservice.service.InvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +55,7 @@ public class InvoiceMvcController {
 
     @GetMapping(path = "/invoice/edit/{id}")
     public String showInvoiceEditPage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("invoice", invoiceService.findInvoiceById(id));
+        model.addAttribute("invoice", invoiceService.findEntityById(id));
 
         return "edit-invoice";
     }
