@@ -1,10 +1,7 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.BookingDto;
-import com.carrentalservice.entity.Booking;
-import com.carrentalservice.entity.Branch;
-import com.carrentalservice.entity.Car;
-import com.carrentalservice.entity.Customer;
+import com.carrentalservice.entity.*;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.repository.BookingRepository;
@@ -26,6 +23,7 @@ public class BookingService {
     private final CarService carService;
     private final CustomerService customerService;
     private final BranchService branchService;
+    private final InvoiceService invoiceService;
     private final BookingMapper bookingMapper;
 
     @Transactional
@@ -39,10 +37,22 @@ public class BookingService {
         newBooking.setCustomer(customer);
         newBooking.setCar(car);
         newBooking.setRentalBranch(rentalBranch);
+        newBooking.setBookingStatus(BookingStatus.IN_PROGRESS);
+
+        setupNewInvoice(customer, car);
 
         Booking savedBooking = saveBookingWithCalculatedAmount(newBooking, car.getAmount());
 
         return bookingMapper.mapEntityToDto(savedBooking);
+    }
+
+    private void setupNewInvoice(Customer customer, Car car) {
+        Invoice invoice = new Invoice();
+
+        invoice.setCustomer(customer);
+        invoice.setCar(car);
+
+        invoiceService.saveEntity(invoice);
     }
 
     @Transactional

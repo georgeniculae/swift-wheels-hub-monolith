@@ -1,7 +1,6 @@
 package com.carrentalservice.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,7 +27,6 @@ public class Invoice extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date carDateOfReturn;
 
-    @NotNull
     private Boolean isVehicleDamaged;
 
     private Double damageCost;

@@ -15,7 +15,11 @@ public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
 
-    public void saveInvoice(Invoice invoice) {
+    public void saveEntity(Invoice invoice) {
+        invoiceRepository.save(invoice);
+    }
+
+    public void updateInvoice(Invoice invoice) {
         invoiceRepository.save(invoice);
     }
 

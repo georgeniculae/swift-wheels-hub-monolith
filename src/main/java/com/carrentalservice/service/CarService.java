@@ -68,7 +68,7 @@ public class CarService {
         existingCar.setColor(updatedCarDto.getColor());
         existingCar.setMileage(updatedCarDto.getMileage());
         existingCar.setAmount(updatedCarDto.getAmount());
-        existingCar.setStatus(updatedCarDto.getStatus());
+        existingCar.setCarStatus(updatedCarDto.getCarStatus());
         existingCar.setBranch(branch);
         existingCar.setUrlOfImage(updatedCarDto.getUrlOfImage());
 

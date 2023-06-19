@@ -15,13 +15,16 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="date_of_booking" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="booking_status" type="ENUM('IN_PROGRESS', 'CLOSED')">>
+                <constraints nullable="false"/>
+            </column>
             <column name="amount" type="double">
                 <constraints nullable="false"/>
             </column>
             <column name="date_from" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date_of_booking" type="date">
                 <constraints nullable="false"/>
             </column>
             <column name="date_to" type="date">

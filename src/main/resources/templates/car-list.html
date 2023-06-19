@@ -402,7 +402,7 @@
             <td th:text="${car.yearOfProduction}"></td>
             <td th:text="${car.color}"></td>
             <td th:text="${car.mileage}"></td>
-            <td th:text="${car.status.displayName}"></td>
+            <td th:text="${car.carStatus.displayName}"></td>
             <td th:text="'$' + ${car.amount}"></td>
             <td th:text="${car.branch != null}? ${car.branch.name}: 'N/A'"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">

@@ -34,7 +34,7 @@
             <column name="mileage" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="status"
+            <column name="car_status"
                     type="ENUM('CHOOSE', 'NOT_AVAILABLE', 'BROKEN', 'IN_REPAIR', 'IN_SERVICE', 'AVAILABLE')">
                 <constraints nullable="false"/>
             </column>
@@ -71,7 +71,7 @@
             <column name="year_of_production" value="2010"/>
             <column name="color" value="black"/>
             <column name="mileage" value="250000"/>
-            <column name="status" value="AVAILABLE"/>
+            <column name="car_status" value="AVAILABLE"/>
             <column name="amount" value="500"/>
             <column name="branch_id" value="1"/>
             <column name="url_of_image" value="url"/>

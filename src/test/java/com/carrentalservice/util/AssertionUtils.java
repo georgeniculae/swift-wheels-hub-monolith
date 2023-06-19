@@ -31,7 +31,7 @@ public class AssertionUtils {
         assertEquals(car.getYearOfProduction(), carDto.getYearOfProduction());
         assertEquals(car.getColor(), carDto.getColor());
         assertEquals(car.getMileage(), carDto.getMileage());
-        assertEquals(car.getStatus(), carDto.getStatus());
+        assertEquals(car.getCarStatus(), carDto.getCarStatus());
         assertEquals(car.getAmount(), carDto.getAmount());
         assertBranch(car.getBranch(), carDto.getBranch());
         assertEquals(car.getUrlOfImage(), carDto.getUrlOfImage());

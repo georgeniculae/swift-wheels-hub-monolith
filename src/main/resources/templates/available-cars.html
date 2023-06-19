@@ -372,7 +372,7 @@
             <td th:text="${car.yearOfProduction}"></td>
             <td th:text="${car.color}"></td>
             <td th:text="${car.mileage}"></td>
-            <td th:text="${car.status.displayName}"></td>
+            <td th:text="${car.carStatus.displayName}"></td>
             <td th:text="${car.amount}"></td>
             <td th:text="${car.branch != null}? ${car.branch.name}: 'N/A'"></td>
         </tr>
@@ -389,8 +389,6 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-
-</div>
 
 </body>
 </html>

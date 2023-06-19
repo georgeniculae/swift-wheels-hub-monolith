@@ -20,6 +20,9 @@ public class Booking extends BaseEntity {
     @Temporal(TemporalType.DATE)
     private Date dateOfBooking;
 
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
+
     @ManyToOne
     @JoinColumn
     private Customer customer;

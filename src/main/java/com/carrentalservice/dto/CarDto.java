@@ -1,7 +1,7 @@
 package com.carrentalservice.dto;
 
 import com.carrentalservice.entity.BodyType;
-import com.carrentalservice.entity.Status;
+import com.carrentalservice.entity.CarStatus;
 import lombok.*;
 
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class CarDto extends BaseEntityDto {
     private int yearOfProduction;
     private String color;
     private int mileage;
-    private Status status;
+    private CarStatus carStatus;
     private Double amount;
     private BranchDto branch;
     private String urlOfImage;

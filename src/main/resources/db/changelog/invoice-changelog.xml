@@ -22,22 +22,22 @@
                 <constraints nullable="false"/>
             </column>
             <column name="reception_employee_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="car_date_of_return" type="date">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="is_vehicle_damaged" type="boolean">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="additional_payment" type="double">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="damage_cost" type="double">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="comments" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
 

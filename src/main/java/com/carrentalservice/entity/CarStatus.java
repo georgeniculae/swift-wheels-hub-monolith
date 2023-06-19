@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum Status {
+public enum CarStatus {
 
     CHOOSE("Choose"),
     NOT_AVAILABLE("Not available"),

@@ -28,7 +28,7 @@ public class Car extends BaseEntity {
     private int mileage;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private CarStatus carStatus;
 
     private Double amount;
 

@@ -370,7 +370,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="bodyType-span">Body Type</span>
                 </div>
-                <select id="inputGroupSelect1" class="custom-select" th:field="${car.bodyType}" }>
+                <select id="inputGroupSelect1" class="custom-select" th:field="${car.bodyType}">
                     <option th:each="bodyType : ${T(com.carrentalservice.entity.BodyType).values()}"
                             th:value="${bodyType}"
                             th:text="${bodyType.displayName}">
@@ -414,10 +414,10 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="status-span">Status</span>
                 </div>
-                <select id="inputGroupSelect" class="custom-select" th:field="${car.status}" }>
-                    <option th:each="status : ${T(com.carrentalservice.entity.Status).values()}"
-                            th:value="${status}"
-                            th:text="${status.displayName}">
+                <select id="inputGroupSelect" class="custom-select" th:field="${car.carStatus}">
+                    <option th:each="status : ${T(com.carrentalservice.entity.CarStatus).values()}"
+                            th:value="${carStatus}"
+                            th:text="${carStatus.displayName}">
                     </option>
                 </select>
             </div>
