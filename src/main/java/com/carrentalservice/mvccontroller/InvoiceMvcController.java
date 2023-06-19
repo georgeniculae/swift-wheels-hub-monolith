@@ -28,8 +28,8 @@ public class InvoiceMvcController {
 
     @GetMapping(path = "/invoices")
     public String showInvoices(Model model) {
-        model.addAttribute("invoice", invoiceService.findAllInvoices());
-        model.addAttribute("invoicesNumber", invoiceService.countInvoice());
+        model.addAttribute("invoices", invoiceService.findAllInvoices());
+        model.addAttribute("numberOfInvoices", invoiceService.countInvoice());
 
         return "invoice-list";
     }

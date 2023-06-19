@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -17,7 +16,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/MyStyles.css/}"/>
 </head>
 
-<body class="bg">
+<body id="showcase">
 
 <nav class="nav">
     <p class="paragraf">Hi, <span sec:authentication="name"></span>!</p>
@@ -348,21 +347,38 @@
 <br>
 
 <div class="container">
-    <table class="table table-hover table-responsive">
+    <div style="background: linear-gradient(45deg, white, transparent); text-align-last: center">
+        <p th:text="'Total number of invoices: ' +  ${numberOfInvoices}"></p>
+        <h3>Invoices</h3>
+    </div>
+
+    <table class="table table-hover table-responsive"
+           style="margin-top: 2rem; background: linear-gradient(45deg, white, transparent)">
         <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Employee id</th>
-            <th scope="col">Date of return of the car</th>
-            <th scope="col">Additional payment</th>
-            <th scope="col">Comment</th>
+        <th>Id</th>
+        <th>Customer</th>
+        <th>Car</th>
+        <th>Booking id</th>
+        <th>Receptionist employee</th>
+        <th>Date of return of the car</th>
+        <th>Damaged</th>
+        <th>Damage cost</th>
+        <th>Additional payment</th>
+        <th>Comments</th>
+        <th>Edit</th>
+        <th>Delete</th>
         </thead>
 
         <tbody>
-        <tr th:each="invoice: ${invoices}">
+        <tr th:each="invoice : ${invoices}">
             <td th:text="${invoice.id}"></td>
-            <td th:text="${invoice.employee.id}"></td>
+            <td th:text="${invoice.customer.firstName} + ' ' + ${invoice.customer.lastName}"></td>
+            <td th:text="${invoice.car.make} + ' ' + ${invoice.car.model}"></td>
+            <td th:text="${invoice.booking.id}"></td>
+            <td th:text="${invoice.receptionistEmployee} != null ? ${invoice.receptionistEmployee.firstName} + ' ' + ${invoice.receptionistEmployee.lastName} : ''"></td>
             <td th:text="${invoice.carDateOfReturn}"></td>
+            <td th:text="${invoice.isVehicleDamaged}"></td>
+            <td th:text="${invoice.damageCost}"></td>
             <td th:text="${invoice.additionalPayment}"></td>
             <td th:text="${invoice.comments}"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
@@ -383,7 +399,8 @@
                 <a th:href="@{/invoice/delete/{id}(id = ${invoice.id})}">
                     <i>
                         <button type="button" class="btn btn-primary">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"
+                                 fill="currentColor"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
                                 <path fill-rule="evenodd"
@@ -396,7 +413,8 @@
         </tr>
         </tbody>
     </table>
-</div> <!-- /container -->
+</div>
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
@@ -404,6 +422,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
+<script th:src="@{/css/DamageCostInput.js}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 </body>
 </html>
