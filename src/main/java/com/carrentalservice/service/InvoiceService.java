@@ -18,8 +18,11 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final InvoiceMapper invoiceMapper;
 
-    public void updateInvoice(Invoice invoice) {
-        invoiceRepository.save(invoice);
+    public InvoiceDto updateInvoice(InvoiceDto invoiceDto) {
+        Invoice invoice = invoiceMapper.mapDtoToEntity(invoiceDto);
+        Invoice savedInvoice = invoiceRepository.save(invoice);
+
+        return invoiceMapper.mapEntityToDto(savedInvoice);
     }
 
     public List<Invoice> findAllInvoices() {
@@ -28,6 +31,12 @@ public class InvoiceService {
 
     public Optional<Invoice> findAllByCustomerId(Long customerId) {
         return invoiceRepository.findByCustomerId(customerId);
+    }
+
+    public InvoiceDto findInvoiceById(Long id) {
+        Invoice invoice = findEntityById(id);
+
+        return invoiceMapper.mapEntityToDto(invoice);
     }
 
     public Invoice findEntityById(Long id) {

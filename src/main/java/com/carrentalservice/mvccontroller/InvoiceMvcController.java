@@ -1,7 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
-import com.carrentalservice.entity.Invoice;
-import com.carrentalservice.service.BookingService;
+import com.carrentalservice.dto.InvoiceDto;
 import com.carrentalservice.service.InvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +42,7 @@ public class InvoiceMvcController {
     }
 
     @PostMapping(path = "/invoice/update")
-    public String editInvoice(@ModelAttribute("invoice") @Valid Invoice invoice, BindingResult bindingResult) {
+    public String editInvoice(@ModelAttribute("invoice") @Valid InvoiceDto invoice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-invoice";
         }
