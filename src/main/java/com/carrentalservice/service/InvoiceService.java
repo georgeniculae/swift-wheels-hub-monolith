@@ -1,6 +1,7 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.InvoiceDto;
+import com.carrentalservice.entity.Employee;
 import com.carrentalservice.entity.Invoice;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.InvoiceMapper;
@@ -16,11 +17,22 @@ import java.util.Optional;
 public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
+    private final EmployeeService employeeService;
     private final InvoiceMapper invoiceMapper;
 
     public InvoiceDto updateInvoice(InvoiceDto invoiceDto) {
-        Invoice invoice = invoiceMapper.mapDtoToEntity(invoiceDto);
-        Invoice savedInvoice = invoiceRepository.save(invoice);
+        Invoice existingInvoice = findEntityById(invoiceDto.getId());
+
+        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployee().getId());
+
+        existingInvoice.setCarDateOfReturn(invoiceDto.getCarDateOfReturn());
+        existingInvoice.setReceptionistEmployee(receptionistEmployee);
+        existingInvoice.setIsVehicleDamaged(invoiceDto.getIsVehicleDamaged());
+        existingInvoice.setDamageCost(invoiceDto.getDamageCost());
+        existingInvoice.setAdditionalPayment(invoiceDto.getAdditionalPayment());
+        existingInvoice.setComments(invoiceDto.getComments());
+
+        Invoice savedInvoice = invoiceRepository.save(existingInvoice);
 
         return invoiceMapper.mapEntityToDto(savedInvoice);
     }

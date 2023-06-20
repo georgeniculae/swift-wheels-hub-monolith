@@ -47,7 +47,7 @@ public class EmployeeService {
         return employeeMapper.mapEntityToDto(employee);
     }
 
-    private Employee findEntityById(Long id) {
+    public Employee findEntityById(Long id) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
 
         if (optionalEmployee.isPresent()) {

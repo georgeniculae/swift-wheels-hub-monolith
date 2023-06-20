@@ -336,15 +336,31 @@
 
 <div class="container">
     <form th:action="@{/invoice/update}" th:object="${invoice}" method="post">
+        <input hidden th:field="${invoice.id}">
         <div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="carDateOfReturn-span">Date of return of the car</span>
+                    <span class="input-group-text" id="car-date-of-return-span">Date of return of the car</span>
                 </div>
-                <input type="date" id="carDateOfReturn" th:field="${invoice.carDateOfReturn}"
+                <input type="date" id="car-date-of-return" th:field="${invoice.carDateOfReturn}"
                        class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 <span th:if="${#fields.hasErrors('carDateOfReturn')}" th:errors="${invoice.carDateOfReturn}"></span>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="receptionist-employee-span">Receptionist employee</span>
+                </div>
+                <select id="inputGroupSelect2" class="custom-select"
+                        th:field="${invoice.receptionistEmployee.id}">
+
+                    <option selected th:value="null">Employees</option>
+                    <option th:each="employee : ${employees}"
+                            th:value="${employee.id}"
+                            th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' from working branch ' + ${employee.workingBranch.name}">
+                    </option>
+                </select>
             </div>
 
             <div class="input-group mb-3">

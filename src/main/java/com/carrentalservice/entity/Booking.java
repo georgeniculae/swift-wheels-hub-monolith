@@ -51,7 +51,7 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "return_branch_id")
     private Branch returnBranch;
 
-    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Invoice invoice;
 
 }

@@ -1,6 +1,7 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.dto.InvoiceDto;
+import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.service.InvoiceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class InvoiceMvcController {
 
     private final InvoiceService invoiceService;
+    private final EmployeeService employeeService;
 
     @GetMapping(path = "/invoice/active-invoices")
     public String showActiveInvoices(Model model) {
@@ -54,7 +56,8 @@ public class InvoiceMvcController {
 
     @GetMapping(path = "/invoice/edit/{id}")
     public String showInvoiceEditPage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("invoice", invoiceService.findEntityById(id));
+        model.addAttribute("invoice", invoiceService.findInvoiceById(id));
+        model.addAttribute("employees", employeeService.findAllEmployees());
 
         return "edit-invoice";
     }
