@@ -357,6 +357,7 @@
             <th>End date</th>
             <th>Car</th>
             <th>Amount</th>
+            <th>Status</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -374,7 +375,8 @@
             <td th:text="${booking.dateTo}"></td>
             <td th:text="${booking.car.make} + ' ' + ${booking.car.model}"></td>
             <td th:text="${booking.amount} + '$'"></td>
-            <td sec:authorize="hasRole('ROLE_ADMIN')">
+            <td th:text="${booking.status.displayName}"></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')" th:if="${booking.status.displayName == 'In progress'}">
                 <a th:href="@{/booking/edit/{id}(id = ${booking.id})}">
                     <i>
                         <button type="button" class="btn btn-primary">
@@ -388,7 +390,7 @@
                     </i>
                 </a>
             </td>
-            <td sec:authorize="hasRole('ROLE_ADMIN')">
+            <td sec:authorize="hasRole('ROLE_ADMIN')" th:if="${booking.status.displayName == 'In progress'}">
                 <a th:href="@{/booking/delete/{id}(id = ${booking.id})}">
                     <i>
                         <button type="button" class="btn btn-primary">

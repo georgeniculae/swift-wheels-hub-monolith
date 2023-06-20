@@ -10,6 +10,6 @@ public enum BookingStatus {
     IN_PROGRESS("In progress"),
     CLOSED("Closed");
 
-    private final String status;
+    private final String displayName;
 
 }
