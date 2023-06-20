@@ -1,6 +1,8 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.InvoiceDto;
+import com.carrentalservice.entity.Booking;
+import com.carrentalservice.entity.BookingStatus;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.entity.Invoice;
 import com.carrentalservice.exception.NotFoundException;
@@ -31,6 +33,8 @@ public class InvoiceService {
         existingInvoice.setDamageCost(invoiceDto.getDamageCost());
         existingInvoice.setAdditionalPayment(invoiceDto.getAdditionalPayment());
         existingInvoice.setComments(invoiceDto.getComments());
+        Booking booking = existingInvoice.getBooking();
+        booking.setStatus(BookingStatus.CLOSED);
 
         Invoice savedInvoice = invoiceRepository.save(existingInvoice);
 
