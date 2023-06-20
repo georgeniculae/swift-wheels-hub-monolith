@@ -1,5 +1,7 @@
 body {
-    background: #fff;
+    background: white;
+    background: url('/images/chevrolet-camaro-cabrio.jpg') repeat center center / cover;
+    height: 100vh;
 }
 
 .accordion .card {
