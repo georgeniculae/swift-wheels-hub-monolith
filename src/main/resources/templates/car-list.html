@@ -336,31 +336,6 @@
 <br>
 
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Cars</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select car by...
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/search(make)">Make</a>
-                        <a class="dropdown-item" href="#">Model</a>
-                        <a class="dropdown-item" href="#">Body type</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" th:href="@{/cars}">Id</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
     <table class="table table-hover table-responsive"
            style="margin-top: 2rem; background: linear-gradient(45deg, white, transparent)">
         <thead>
@@ -424,23 +399,6 @@
         </tr>
         </tbody>
     </table>
-
-    <form th:action="@{/car-list}" method="post">
-        <input type="text">
-        <button type="submit">Search</button>
-    </form>
-
-    <div>
-        <div class="row">
-            <div class="col-sm-8"><a href="#"><img src="/images/coupe.jpg" alt="..." class="img-thumbnail"></a></div>
-            <div class="col-sm-4"><img src="/images/toyota-chr.jpg" alt="..." class="img-thumbnail"></div>
-        </div>
-        <div class="row" style="padding-top: 1rem">
-            <div class="col-sm"><img src="/images/xenon-xt.jpg" alt="..." class="img-thumbnail"></div>
-            <div class="col-sm"><img src="/images/hatchback.jpg" alt="..." class="img-thumbnail"></div>
-            <div class="col-sm"><img src="/images/fiat-talento.jpg" alt="..." class="img-thumbnail"></div>
-        </div>
-    </div>
 </div> <!-- /container -->
 <!-- Bootstrap core JavaScript
 ================================================== -->
