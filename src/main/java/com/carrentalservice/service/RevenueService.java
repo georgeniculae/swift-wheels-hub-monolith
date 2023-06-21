@@ -17,11 +17,11 @@ public class RevenueService {
     private final RevenueRepository revenueRepository;
     private final RevenueMapper revenueMapper;
 
-    public Revenue saveEntity(Revenue revenue) {
-        return revenueRepository.save(revenue);
+    public void saveEntity(Revenue revenue) {
+        revenueRepository.save(revenue);
     }
 
-    public Long getTotalAmount() {
+    public Double getTotalAmount() {
         return revenueRepository.getTotalAmount();
     }
 
@@ -32,8 +32,10 @@ public class RevenueService {
                 .toList();
     }
 
-    public Revenue findRevenueByDetails(Date search) {
-        return revenueRepository.findRevenueByDetails(search);
+    public RevenueDto findRevenueByDetails(Date search) {
+        Revenue revenue = revenueRepository.findRevenueByDetails(search);
+
+        return revenueMapper.mapEntityToDto(revenue);
     }
 
 }

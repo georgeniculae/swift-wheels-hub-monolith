@@ -4,11 +4,9 @@ import com.carrentalservice.dto.RevenueDto;
 import com.carrentalservice.service.RevenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -24,6 +22,20 @@ public class RevenueRestController {
         List<RevenueDto> revenueDtoList = revenueService.findAllRevenues();
 
         return ResponseEntity.ok(revenueDtoList);
+    }
+
+    @GetMapping(path = "/total")
+    public ResponseEntity<Double> getTotalAmount() {
+        Double totalAmount = revenueService.getTotalAmount();
+
+        return ResponseEntity.ok(totalAmount);
+    }
+
+    @GetMapping(path = "/{date}")
+    public ResponseEntity<RevenueDto> findRevenueByDetails(@RequestParam("date") Date date) {
+        RevenueDto revenue = revenueService.findRevenueByDetails(date);
+
+        return ResponseEntity.ok(revenue);
     }
 
 }
