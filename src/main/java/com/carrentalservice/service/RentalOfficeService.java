@@ -42,8 +42,8 @@ public class RentalOfficeService {
         return rentalOfficeMapper.mapEntityToDto(rentalOffice);
     }
 
-    public RentalOffice saveEntity(RentalOffice rentalOffice) {
-        return rentalOfficeRepository.save(rentalOffice);
+    public void saveEntity(RentalOffice rentalOffice) {
+        rentalOfficeRepository.save(rentalOffice);
     }
 
     public RentalOffice findEntityById(Long id) {
