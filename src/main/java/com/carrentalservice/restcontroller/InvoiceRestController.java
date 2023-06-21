@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/invoice")
+@RequestMapping(path = "/api/invoice")
 public class InvoiceRestController {
 
     private final InvoiceService invoiceService;
@@ -22,5 +22,7 @@ public class InvoiceRestController {
 
         return ResponseEntity.ok(undatedinvoiceDto);
     }
+
+
 
 }
