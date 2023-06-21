@@ -31,4 +31,11 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
             where b.status = 'IN_PROGRESS'""")
     List<Invoice> findAllActiveInvoices();
 
+    @Query("""
+            Select count(i)
+            From Invoice i
+            join i.booking b
+            where b.status = 'IN_PROGRESS'""")
+    Long countAllActiveInvoices();
+
 }

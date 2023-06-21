@@ -72,7 +72,7 @@ public class InvoiceService {
         invoiceRepository.deleteById(id);
     }
 
-    public Long countInvoice() {
+    public Long countInvoices() {
         return invoiceRepository.count();
     }
 
@@ -87,8 +87,8 @@ public class InvoiceService {
                 .toList();
     }
 
-    public int countAllActiveInvoices() {
-        return findAllActiveInvoices().size();
+    public long countAllActiveInvoices() {
+        return invoiceRepository.countAllActiveInvoices();
     }
 
     private void setupRevenue(Invoice existingInvoice) {
