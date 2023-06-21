@@ -51,6 +51,13 @@ public class InvoiceService {
                 .toList();
     }
 
+    public List<InvoiceDto> findAllActiveInvoices() {
+        return invoiceRepository.findAllActiveInvoices()
+                .stream()
+                .map(invoiceMapper::mapEntityToDto)
+                .toList();
+    }
+
     public List<InvoiceDto> findAllInvoicesByCustomerId(Long customerId) {
         return invoiceRepository.findByCustomerId(customerId)
                 .stream()
@@ -64,16 +71,6 @@ public class InvoiceService {
         return invoiceMapper.mapEntityToDto(invoice);
     }
 
-    public Invoice findEntityById(Long id) {
-        Optional<Invoice> optionalInvoice = invoiceRepository.findById(id);
-
-        if (optionalInvoice.isPresent()) {
-            return optionalInvoice.get();
-        }
-
-        throw new NotFoundException("Invoice with id " + id + "does not exist");
-    }
-
     public void deleteInvoiceById(Long id) {
         invoiceRepository.deleteById(id);
     }
@@ -82,19 +79,24 @@ public class InvoiceService {
         return invoiceRepository.count();
     }
 
-    public Invoice findInvoiceByName(String searchString) {
-        return invoiceRepository.findInvoiceByName(searchString);
-    }
+    public InvoiceDto findInvoiceByName(String searchString) {
+        Invoice invoice = invoiceRepository.findInvoiceByName(searchString);
 
-    public List<InvoiceDto> findAllActiveInvoices() {
-        return invoiceRepository.findAllActiveInvoices()
-                .stream()
-                .map(invoiceMapper::mapEntityToDto)
-                .toList();
+        return invoiceMapper.mapEntityToDto(invoice);
     }
 
     public long countAllActiveInvoices() {
         return invoiceRepository.countAllActiveInvoices();
+    }
+
+    public Invoice findEntityById(Long id) {
+        Optional<Invoice> optionalInvoice = invoiceRepository.findById(id);
+
+        if (optionalInvoice.isPresent()) {
+            return optionalInvoice.get();
+        }
+
+        throw new NotFoundException("Invoice with id " + id + "does not exist");
     }
 
     private void setupRevenue(Invoice existingInvoice) {

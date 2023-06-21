@@ -22,7 +22,21 @@ public class InvoiceRestController {
         return ResponseEntity.ok(allInvoices);
     }
 
-    @GetMapping(path = "/invoice/{customerId}")
+    @GetMapping(path = "/active")
+    public ResponseEntity<List<InvoiceDto>> findAllActiveInvoices() {
+        List<InvoiceDto> allInvoices = invoiceService.findAllActiveInvoices();
+
+        return ResponseEntity.ok(allInvoices);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<InvoiceDto> findInvoiceById(@RequestParam("id") Long id) {
+        InvoiceDto invoice = invoiceService.findInvoiceById(id);
+
+        return ResponseEntity.ok(invoice);
+    }
+
+    @GetMapping(path = "/by-customer/{customerId}")
     public ResponseEntity<List<InvoiceDto>> findAllInvoicesByCustomerId(@RequestParam("customerId") Long customerId) {
         List<InvoiceDto> allInvoices = invoiceService.findAllInvoicesByCustomerId(customerId);
 
@@ -34,6 +48,13 @@ public class InvoiceRestController {
         InvoiceDto undatedinvoiceDto = invoiceService.updateInvoice(invoiceDto);
 
         return ResponseEntity.ok(undatedinvoiceDto);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<InvoiceDto> deleteInvoiceById(@RequestParam("id") Long id) {
+        invoiceService.deleteInvoiceById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }
