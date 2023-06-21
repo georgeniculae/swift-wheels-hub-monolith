@@ -16,4 +16,7 @@ public interface RevenueRepository extends JpaRepository<Revenue, Long> {
             revenue.dateOfRevenue = :dateOfRevenue""")
     Revenue findRevenueByDetails(@Param("dateOfRevenue") Date dateOfRevenue);
 
+    @Query("SELECT sum(revenue.amountFromBooking) from Revenue revenue")
+    Long getTotalAmount();
+
 }

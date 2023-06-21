@@ -335,6 +335,7 @@
 <br>
 <div class="container">
     <div style="background: linear-gradient(45deg, white, transparent); text-align-last: center">
+        <p th:text="'Total amount: ' +  ${totalAmount} + '$'"></p>
         <h3>Revenues</h3>
     </div>
 
@@ -342,19 +343,15 @@
            style="margin-top: 2rem; background: linear-gradient(45deg, white, transparent)">
         <thead>
         <th>Id</th>
-        <th>Daily revenue</th>
-        <th>Weekly revenue</th>
-        <th>Monthly revenue</th>
-        <th>Yearly revenue</th>
+        <th>Date of revenue</th>
+        <th>Amount from booking</th>
         </thead>
 
         <tbody>
         <tr th:each="revenue : ${revenues}">
             <td th:text="${revenue.id} + '. '"></td>
-            <td th:text="${revenue.dailyRevenue}"></td>
-            <td th:text="${revenue.weeklyRevenue}"></td>
-            <td th:text="${revenue.monthlyRevenue}"></td>
-            <td th:text="${revenue.yearlyRevenue}"></td>
+            <td th:text="${revenue.dateOfRevenue}"></td>
+            <td th:text="${revenue.amountFromBooking}"></td>
         </tr>
         </tbody>
     </table>

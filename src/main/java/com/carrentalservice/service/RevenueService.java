@@ -21,8 +21,8 @@ public class RevenueService {
         return revenueRepository.save(revenue);
     }
 
-    public void getDailyAmount() {
-
+    public Long getTotalAmount() {
+        return revenueRepository.getTotalAmount();
     }
 
     public List<RevenueDto> findAllRevenues() {
