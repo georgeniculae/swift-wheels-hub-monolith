@@ -39,6 +39,9 @@
             <column name="damage_cost" type="double">
                 <constraints nullable="true"/>
             </column>
+            <column name="total_amount" type="double">
+                <constraints nullable="true"/>
+            </column>
             <column name="comments" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>

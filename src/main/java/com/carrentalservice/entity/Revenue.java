@@ -3,6 +3,8 @@ package com.carrentalservice.entity;
 import jakarta.persistence.Entity;
 import lombok.*;
 
+import java.sql.Date;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,10 +13,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class Revenue extends BaseEntity {
 
-    private Double sumOfAmountsForCarRental;
-    private Double dailyRevenue;
-    private Double weeklyRevenue;
-    private Double monthlyRevenue;
-    private Double yearlyRevenue;
+    private Date dateOfRevenue;
+    private Double amountFromBooking;
 
 }

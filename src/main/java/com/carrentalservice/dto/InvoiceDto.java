@@ -19,6 +19,7 @@ public class InvoiceDto extends BaseEntityDto {
     private Boolean isVehicleDamaged;
     private Double damageCost;
     private Double additionalPayment;
+    private Double totalAmount;
     private String comments;
 
 }

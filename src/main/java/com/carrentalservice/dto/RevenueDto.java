@@ -2,6 +2,8 @@ package com.carrentalservice.dto;
 
 import lombok.*;
 
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -9,10 +11,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class RevenueDto extends BaseEntityDto {
 
-    private Double sumOfAmountsForCarRental;
-    private Double dailyRevenue;
-    private Double weeklyRevenue;
-    private Double monthlyRevenue;
-    private Double yearlyRevenue;
+    private Date dateOfRevenue;
+    private Double amountFromBooking;
 
 }

@@ -7,6 +7,7 @@ import com.carrentalservice.repository.RevenueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -16,6 +17,14 @@ public class RevenueService {
     private final RevenueRepository revenueRepository;
     private final RevenueMapper revenueMapper;
 
+    public Revenue saveEntity(Revenue revenue) {
+        return revenueRepository.save(revenue);
+    }
+
+    public void getDailyAmount() {
+
+    }
+
     public List<RevenueDto> findAllRevenues() {
         return revenueRepository.findAll()
                 .stream()
@@ -23,7 +32,7 @@ public class RevenueService {
                 .toList();
     }
 
-    public Revenue findRevenueByDetails(Double search) {
+    public Revenue findRevenueByDetails(Date search) {
         return revenueRepository.findRevenueByDetails(search);
     }
 

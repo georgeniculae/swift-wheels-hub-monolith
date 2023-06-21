@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -40,6 +39,8 @@ public class Invoice extends BaseEntity {
     private Double damageCost;
 
     private Double additionalPayment;
+
+    private Double totalAmount;
 
     private String comments;
 

@@ -15,19 +15,10 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="sum_of_amounts_for_car_rental" type="double">
+            <column name="date_of_revenue" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="daily_revenue" type="double">
-                <constraints nullable="false"/>
-            </column>
-            <column name="weekly_revenue" type="double">
-                <constraints nullable="false"/>
-            </column>
-            <column name="monthly_revenue" type="double">
-                <constraints nullable="false"/>
-            </column>
-            <column name="yearly_revenue" type="double">
+            <column name="amount_from_booking" type="double">
                 <constraints nullable="false"/>
             </column>
         </createTable>

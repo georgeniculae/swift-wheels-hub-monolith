@@ -6,7 +6,6 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="db/changelog/user-changelog.xml"/>
-    <include file="db/changelog/revenue-changelog.xml"/>
     <include file="db/changelog/rental-office-changelog.xml"/>
     <include file="db/changelog/branch-changelog.xml"/>
     <include file="db/changelog/employee-changelog.xml"/>
@@ -14,4 +13,5 @@
     <include file="db/changelog/branch-cars-changelog.xml"/>
     <include file="db/changelog/booking-changelog.xml"/>
     <include file="db/changelog/invoice-changelog.xml"/>
+    <include file="db/changelog/revenue-changelog.xml"/>
 </databaseChangeLog>
