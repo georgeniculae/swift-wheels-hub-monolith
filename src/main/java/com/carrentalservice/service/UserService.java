@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
         return userRepository.existsByUsername(username);
     }
 
-    public UserDto saveUserDto(UserDto userDto) {
+    public UserDto saveUser(UserDto userDto) {
         User user = new User();
 
         user.setUsername(userDto.getUsername());

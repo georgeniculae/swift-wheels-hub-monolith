@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/invoice")
+@CrossOrigin(origins = "*")
 public class InvoiceRestController {
 
     private final InvoiceService invoiceService;
@@ -55,6 +56,20 @@ public class InvoiceRestController {
         invoiceService.deleteInvoiceById(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(path = "/count")
+    public ResponseEntity<Long> countInvoices() {
+        Long invoices = invoiceService.countInvoices();
+
+        return ResponseEntity.ok(invoices);
+    }
+
+    @GetMapping(path = "/active-count")
+    public ResponseEntity<Long> countActiveInvoices() {
+        Long invoices = invoiceService.countAllActiveInvoices();
+
+        return ResponseEntity.ok(invoices);
     }
 
 }

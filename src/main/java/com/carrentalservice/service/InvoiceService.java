@@ -75,14 +75,14 @@ public class InvoiceService {
         invoiceRepository.deleteById(id);
     }
 
-    public Long countInvoices() {
-        return invoiceRepository.count();
-    }
-
     public InvoiceDto findInvoiceByName(String searchString) {
         Invoice invoice = invoiceRepository.findInvoiceByName(searchString);
 
         return invoiceMapper.mapEntityToDto(invoice);
+    }
+
+    public Long countInvoices() {
+        return invoiceRepository.count();
     }
 
     public long countAllActiveInvoices() {
