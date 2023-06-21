@@ -72,7 +72,7 @@ public class EmployeeService {
         return employeeMapper.mapEntityToDto(savedEmployee);
     }
 
-    public List<EmployeeDto> getEmployeesInBranch(Long id) {
+    public List<EmployeeDto> findEmployeesByBranchId(Long id) {
         Branch branch = branchService.findEntityById(id);
 
         return branch.getEmployees()

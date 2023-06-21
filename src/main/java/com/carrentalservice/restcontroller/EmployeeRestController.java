@@ -51,4 +51,11 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeeDtoList);
     }
 
+    @GetMapping(path = "/branch/{id}")
+    public ResponseEntity<List<EmployeeDto>> findEmployeesByBranchId(@RequestParam("id") Long id) {
+        List<EmployeeDto> employeeDtoList = employeeService.findEmployeesByBranchId(id);
+
+        return ResponseEntity.ok(employeeDtoList);
+    }
+
 }

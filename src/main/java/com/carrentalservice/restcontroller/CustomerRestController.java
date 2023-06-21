@@ -53,4 +53,11 @@ public class CustomerRestController {
         return ResponseEntity.ok(customerDtoList);
     }
 
+    @GetMapping(path = "/username")
+    public ResponseEntity<Boolean> existsUserByUsername(@RequestParam("username") String username) {
+        boolean existsUser = customerService.existsByUsername(username);
+
+        return ResponseEntity.ok(existsUser);
+    }
+
 }
