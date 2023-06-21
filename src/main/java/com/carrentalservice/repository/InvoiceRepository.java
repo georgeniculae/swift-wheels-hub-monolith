@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
@@ -23,7 +22,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
             join i.booking b
             where c.id = :customerId and
             b.status = 'IN_PROGRESS'""")
-    Optional<Invoice> findByCustomerId(@Param("customerId") Long customerId);
+    List<Invoice> findByCustomerId(@Param("customerId") Long customerId);
 
     @Query("""
             From Invoice i

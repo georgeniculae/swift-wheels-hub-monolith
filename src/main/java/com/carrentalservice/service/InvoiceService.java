@@ -44,12 +44,18 @@ public class InvoiceService {
         return invoiceMapper.mapEntityToDto(savedInvoice);
     }
 
-    public List<Invoice> findAllInvoices() {
-        return invoiceRepository.findAll();
+    public List<InvoiceDto> findAllInvoices() {
+        return invoiceRepository.findAll()
+                .stream()
+                .map(invoiceMapper::mapEntityToDto)
+                .toList();
     }
 
-    public Optional<Invoice> findAllByCustomerId(Long customerId) {
-        return invoiceRepository.findByCustomerId(customerId);
+    public List<InvoiceDto> findAllInvoicesByCustomerId(Long customerId) {
+        return invoiceRepository.findByCustomerId(customerId)
+                .stream()
+                .map(invoiceMapper::mapEntityToDto)
+                .toList();
     }
 
     public InvoiceDto findInvoiceById(Long id) {
