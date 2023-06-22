@@ -29,8 +29,8 @@ public class UserRestController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PostMapping(path = "customer")
-    public ResponseEntity<UserDto> saveUser(@RequestBody CustomerDto customerDto) {
+    @PostMapping(path = "/customer")
+    public ResponseEntity<UserDto> saveCustomer(@RequestBody CustomerDto customerDto) {
         CustomerDto registeredCustomerDto = userService.registerCustomer(customerDto);
 
         return ResponseEntity.ok(registeredCustomerDto);
