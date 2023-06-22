@@ -3,27 +3,21 @@ package com.carrentalservice.service;
 import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.dto.UserDto;
 import com.carrentalservice.entity.Customer;
+import com.carrentalservice.entity.Role;
 import com.carrentalservice.entity.User;
 import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.mapper.UserMapper;
 import com.carrentalservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService {
 
-    private static final String ROLE_USER = "ROLE_USER";
-    private static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
     private final CustomerMapper customerMapper;
@@ -38,7 +32,7 @@ public class UserService implements UserDetailsService {
 
         user.setUsername(userDto.getUsername());
         user.setPassword(encoder.encode(userDto.getPassword()));
-        user.setRole(ROLE_USER);
+        user.setRole(Role.CUSTOMER);
 
         User savedUser = userRepository.save(user);
 
@@ -54,7 +48,7 @@ public class UserService implements UserDetailsService {
         customer.setLastName(customerDto.getLastName());
         customer.setEmail(customerDto.getEmail());
         customer.setAddress(customerDto.getAddress());
-        customer.setRole(ROLE_CUSTOMER);
+        customer.setRole(Role.CUSTOMER);
 
         Customer savedCustomer = userRepository.save(customer);
 
@@ -65,19 +59,12 @@ public class UserService implements UserDetailsService {
         return userRepository.count();
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+    public void saveEntity(User user) {
+        userRepository.save(user);
+    }
 
-        if (optionalUser.isPresent()) {
-            return new org.springframework.security.core.userdetails.User(
-                    optionalUser.get().getUsername(),
-                    optionalUser.get().getPassword(),
-                    List.of(new SimpleGrantedAuthority(optionalUser.get().getRole()))
-            );
-        }
-
-        throw new UsernameNotFoundException("Username not found");
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 }

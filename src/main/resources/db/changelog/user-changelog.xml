@@ -39,6 +39,9 @@
             <column name="last_name" type="varchar(255)">
                 <constraints nullable="true"/>
             </column>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -56,6 +59,9 @@
             <column name="username" value="admin"/>
             <column name="password" value="$2a$10$hadYmhDPuigFKchXrkmmUe6i1L8B50Be.ggbdVuszCbYu7yg14Lqa"/>
             <column name="role" value="ROLE_ADMIN"/>
+            <column name="first_name" value="admin"/>
+            <column name="last_name" value="admin"/>
+            <column name="email" value="admin@test.com"/>
         </insert>
     </changeSet>
 
@@ -73,6 +79,9 @@
             <column name="username" value="user"/>
             <column name="password" value="$2a$10$TxvQ5OD.ZEK3IEjMS7JFyuFyjm1X8CSaAPGCF/daFahfHXccdKkqO"/>
             <column name="role" value="ROLE_USER"/>
+            <column name="first_name" value="user"/>
+            <column name="last_name" value="user"/>
+            <column name="email" value="user@test.com"/>
         </insert>
     </changeSet>
 
@@ -90,6 +99,9 @@
             <column name="username" value="support"/>
             <column name="password" value="$2a$10$bje5mA18dGDa4N/Ds/eQGuBm3anOkjSgn81f6VojjwEGb74VNZpfG"/>
             <column name="role" value="ROLE_SUPPORT"/>
+            <column name="first_name" value="support"/>
+            <column name="last_name" value="support"/>
+            <column name="email" value="support@test.com"/>
         </insert>
     </changeSet>
 
@@ -107,6 +119,9 @@
             <column name="username" value="customer"/>
             <column name="password" value="$2a$10$jjHGv361u.I.3u4mBSesie8caFJi84b9VZG2pym1BM3c6dqYXDb3W"/>
             <column name="role" value="ROLE_CUSTOMER"/>
+            <column name="first_name" value="customer"/>
+            <column name="last_name" value="customer"/>
+            <column name="email" value="customer@test.com"/>
         </insert>
     </changeSet>
 
@@ -120,6 +135,7 @@
             <column name="email" value="ion.popescu@test.com"/>
             <column name="first_name" value="Ion"/>
             <column name="last_name" value="Popescu"/>
+            <column name="date_of_birth" value="1980-04-15"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

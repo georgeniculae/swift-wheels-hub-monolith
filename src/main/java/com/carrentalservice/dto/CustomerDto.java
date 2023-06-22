@@ -2,6 +2,8 @@ package com.carrentalservice.dto;
 
 import lombok.*;
 
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -9,9 +11,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class CustomerDto extends UserDto {
 
-    private String firstName;
-    private String lastName;
-    private String email;
+    private Date dateOfBirth;
     private String address;
 
 }

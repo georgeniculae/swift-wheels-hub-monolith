@@ -1,9 +1,12 @@
 package com.carrentalservice.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -14,11 +17,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Customer extends User {
 
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
+    private Date dateOfBirth;
 
     private String address;
 
@@ -28,8 +27,8 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Invoice> invoice;
 
-    public Customer(String username, String password, String role) {
-        super(username, password, role);
+    public Customer(String username, String password, Role role, String firstName, String lastName, String email) {
+        super(username, password, role, firstName, lastName, email);
     }
 
 }
