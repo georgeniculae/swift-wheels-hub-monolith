@@ -24,7 +24,7 @@
             <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="role" type="varchar(50)">
+            <column name="role"  type="ENUM('ADMIN', 'USER', 'SUPPORT', 'CUSTOMER')">
                 <constraints nullable="false"/>
             </column>
             <column name="address" type="varchar(255)">
@@ -58,7 +58,7 @@
             <column name="dtype" value="Customer"/>
             <column name="username" value="admin"/>
             <column name="password" value="$2a$10$hadYmhDPuigFKchXrkmmUe6i1L8B50Be.ggbdVuszCbYu7yg14Lqa"/>
-            <column name="role" value="ROLE_ADMIN"/>
+            <column name="role" value="ADMIN"/>
             <column name="first_name" value="admin"/>
             <column name="last_name" value="admin"/>
             <column name="email" value="admin@test.com"/>
@@ -78,7 +78,7 @@
             <column name="dtype" value="Customer"/>
             <column name="username" value="user"/>
             <column name="password" value="$2a$10$TxvQ5OD.ZEK3IEjMS7JFyuFyjm1X8CSaAPGCF/daFahfHXccdKkqO"/>
-            <column name="role" value="ROLE_USER"/>
+            <column name="role" value="USER"/>
             <column name="first_name" value="user"/>
             <column name="last_name" value="user"/>
             <column name="email" value="user@test.com"/>
@@ -98,7 +98,7 @@
             <column name="dtype" value="Customer"/>
             <column name="username" value="support"/>
             <column name="password" value="$2a$10$bje5mA18dGDa4N/Ds/eQGuBm3anOkjSgn81f6VojjwEGb74VNZpfG"/>
-            <column name="role" value="ROLE_SUPPORT"/>
+            <column name="role" value="SUPPORT"/>
             <column name="first_name" value="support"/>
             <column name="last_name" value="support"/>
             <column name="email" value="support@test.com"/>
@@ -118,7 +118,7 @@
             <column name="dtype" value="Customer"/>
             <column name="username" value="customer"/>
             <column name="password" value="$2a$10$jjHGv361u.I.3u4mBSesie8caFJi84b9VZG2pym1BM3c6dqYXDb3W"/>
-            <column name="role" value="ROLE_CUSTOMER"/>
+            <column name="role" value="CUSTOMER"/>
             <column name="first_name" value="customer"/>
             <column name="last_name" value="customer"/>
             <column name="email" value="customer@test.com"/>
@@ -130,7 +130,7 @@
             <column name="dtype" value="Customer"/>
             <column name="username" value="ionpopescu"/>
             <column name="password" value="$2a$12$M3ifxwJFF6cZi2Mt//JaIuW5dtJztCXNhv6rq.cfGG0vxXrJsAqZq"/>
-            <column name="role" value="ROLE_CUSTOMER"/>
+            <column name="role" value="CUSTOMER"/>
             <column name="address" value="Ploiesti"/>
             <column name="email" value="ion.popescu@test.com"/>
             <column name="first_name" value="Ion"/>
