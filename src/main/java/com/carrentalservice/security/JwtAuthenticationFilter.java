@@ -1,6 +1,6 @@
 package com.carrentalservice.security;
 
-import com.carrentalservice.service.UserLoadDetailsService;
+import com.carrentalservice.service.LoggingUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER = "Bearer ";
     private final JwtService jwtService;
-    private final UserLoadDetailsService userLoadDetailsService;
+    private final LoggingUserDetailsService loggingUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String userEmail = jwtService.extractUsername(jwt);
 
         if (StringUtils.isNotEmpty(userEmail) && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userLoadDetailsService.userDetailsService().loadUserByUsername(userEmail);
+            UserDetails userDetails = loggingUserDetailsService.userDetailsService().loadUserByUsername(userEmail);
 
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();

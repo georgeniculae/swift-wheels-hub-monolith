@@ -1,6 +1,6 @@
 package com.carrentalservice.security;
 
-import com.carrentalservice.service.UserLoadDetailsService;
+import com.carrentalservice.service.LoggingUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +26,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserLoadDetailsService userLoadDetailsService;
+    private final LoggingUserDetailsService loggingUserDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -63,7 +63,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-        authProvider.setUserDetailsService(userLoadDetailsService.userDetailsService());
+        authProvider.setUserDetailsService(loggingUserDetailsService.userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
