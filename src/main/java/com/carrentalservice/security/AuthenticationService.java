@@ -24,7 +24,7 @@ public class AuthenticationService {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.CUSTOMER);
+        user.setRole(Role.ROLE_CUSTOMER);
 
         userService.saveEntity(user);
 

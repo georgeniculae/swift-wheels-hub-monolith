@@ -32,7 +32,7 @@ public class UserService {
 
         user.setUsername(userDto.getUsername());
         user.setPassword(encoder.encode(userDto.getPassword()));
-        user.setRole(Role.CUSTOMER);
+        user.setRole(Role.ROLE_CUSTOMER);
 
         User savedUser = userRepository.save(user);
 
@@ -48,7 +48,7 @@ public class UserService {
         customer.setLastName(customerDto.getLastName());
         customer.setEmail(customerDto.getEmail());
         customer.setAddress(customerDto.getAddress());
-        customer.setRole(Role.CUSTOMER);
+        customer.setRole(Role.ROLE_CUSTOMER);
 
         Customer savedCustomer = userRepository.save(customer);
 
