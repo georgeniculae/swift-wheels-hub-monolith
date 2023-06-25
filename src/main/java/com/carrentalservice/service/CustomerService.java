@@ -75,7 +75,7 @@ public class CustomerService {
     }
 
     public Long countCustomersWithoutBaseUsers() {
-        return customerRepository.countCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT);
+        return customerRepository.countCustomersWithoutBaseUsers(ADMIN, USER, SUPPORT);
     }
 
     public CustomerDto findCustomerByName(String searchString) {

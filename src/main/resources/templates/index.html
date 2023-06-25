@@ -519,31 +519,35 @@
 </div>
 
 <div class="sectiontitle">
-    <h2>Projects statistics</h2>
+    <h2>Statistics</h2>
     <span class="headerLine"></span>
 </div>
 
-<div class="container">
+<div class="container" style="margin-left: 340px">
     <div class="wraper">
         <div class="row">
             <div class="four col-md-3">
-                <div class="counter-box colored"><i class="fa fa-thumbs-o-up"></i> <span class="counter">3320</span>
-                    <p>Happy Customers</p>
+                <div class="counter-box colored"><i class="fa fa-group"></i>
+                    <span class="counter">
+                        <p th:text="${numberOfCustomers}"></p>
+                    </span>
+                    <p>Registered members</p>
                 </div>
             </div>
             <div class="four col-md-3">
-                <div class="counter-box"><i class="fa fa-group"></i> <span class="counter">4675</span>
-                    <p>Registered Members</p>
+                <div class="counter-box"><i class="fa fa-car"></i>
+                    <span class="counter">
+                        <p th:text="${numberOfCars}"></p>
+                    </span>
+                    <p>Available cars</p>
                 </div>
             </div>
             <div class="four col-md-3">
-                <div class="counter-box"><i class="fa fa-shopping-cart"></i> <span class="counter">185</span>
-                    <p>Available Cars</p>
-                </div>
-            </div>
-            <div class="four col-md-3">
-                <div class="counter-box"><i class="fa fa-user"></i> <span class="counter">4280</span>
-                    <p>Clients Served</p>
+                <div class="counter-box"><i class="fa fa-user"></i>
+                    <span class="counter">
+                        <p th:text="${customersWithBookings}"></p>
+                    </span>
+                    <p>Clients served</p>
                 </div>
             </div>
         </div>
@@ -698,15 +702,6 @@
         <div class="row">
             <div class="col-md-8 col-sm-6 col-xs-12">
                 <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved</p>
-            </div>
-
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <ul class="social-icons">
-                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a class="youtube" href="#"><i class="fab fa-youtube"></i></a></li>
-                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                </ul>
             </div>
         </div>
     </div>

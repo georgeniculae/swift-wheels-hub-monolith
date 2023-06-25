@@ -30,9 +30,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
                                                  @Param("customerUsername") String customerUsername);
 
     @Query("Select count(customer) From Customer customer " +
-            "where customer.username not in (:adminUsername, :userUsername, :supportUsername, :customerUsername)")
+            "where customer.username not in (:adminUsername, :userUsername, :supportUsername)")
     Long countCustomersWithoutBaseUsers(@Param("adminUsername") String adminUsername,
                                         @Param("userUsername") String userUsername,
-                                        @Param("supportUsername") String supportUsername,
-                                        @Param("customerUsername") String customerUsername);
+                                        @Param("supportUsername") String supportUsername);
+
 }

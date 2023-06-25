@@ -54,6 +54,9 @@ public class SearchMvcController {
         model.addAttribute("allEmployees", employeeService.findAllEmployees());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
         model.addAttribute("allInvoicesCars", invoiceService.findAllInvoices());
+        model.addAttribute("numberOfCars", carService.countCars());
+        model.addAttribute("numberOfCustomers", customerService.countCustomersWithoutBaseUsers());
+        model.addAttribute("customersWithBookings", bookingService.countCustomersWithBookings());
 
         return "index";
     }

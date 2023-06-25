@@ -32,9 +32,7 @@ public class CarMvcController {
     public String searchCarByMake(Model model, @RequestParam(value = "make", required = false) String make) {
         List<Car> carList = carService.findCarsByMake(make);
 
-        for (Car car1 : carList) {
-            model.addAttribute("carByMake", car1);
-        }
+        carList.forEach(car -> model.addAttribute("carByMake", car));
 
         return "/search";
     }

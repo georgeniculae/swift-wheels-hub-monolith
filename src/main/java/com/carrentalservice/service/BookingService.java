@@ -77,6 +77,14 @@ public class BookingService {
         return bookingRepository.count();
     }
 
+    public Long countCustomersWithBookings() {
+        return bookingRepository.findAll()
+                .stream()
+                .map(Booking::getCustomer)
+                .distinct()
+                .count();
+    }
+
     public BookingDto findBookingByName(String searchString) {
         Booking booking = bookingRepository.findBookingByName(Date.valueOf(searchString));
 

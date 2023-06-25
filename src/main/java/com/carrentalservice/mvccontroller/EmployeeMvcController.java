@@ -31,7 +31,7 @@ public class EmployeeMvcController {
     @GetMapping(path = "/all-employees")
     public String showEmployeesForIndex(Model model) {
         model.addAttribute("employees", employeeService.findAllEmployees());
-        model.addAttribute("employeesNumber", employeeService.countEmployees());
+        model.addAttribute("numberOfEmployees", employeeService.countEmployees());
 
         return "index";
     }
