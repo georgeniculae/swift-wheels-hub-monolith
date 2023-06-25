@@ -2,7 +2,7 @@ package com.carrentalservice.service;
 
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.*;
-import com.carrentalservice.exception.CarRentalException;
+import com.carrentalservice.exception.CarRentalServiceException;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.repository.BookingRepository;
@@ -146,15 +146,15 @@ public class BookingService {
         LocalDate currentDate = LocalDate.now();
 
         if (dateOfBooking.isBefore(currentDate) || dateFrom.isBefore(currentDate) || dateTo.isBefore(currentDate)) {
-            throw new CarRentalException(HttpStatus.BAD_REQUEST, "A date of booking cannot be in the past");
+            throw new CarRentalServiceException(HttpStatus.BAD_REQUEST, "A date of booking cannot be in the past");
         }
 
         if (dateFrom.isBefore(dateOfBooking)) {
-            throw new CarRentalException(HttpStatus.BAD_REQUEST, "Date of booking is before date from");
+            throw new CarRentalServiceException(HttpStatus.BAD_REQUEST, "Date of booking is before date from");
         }
 
         if (dateFrom.isAfter(dateTo)) {
-            throw new CarRentalException(HttpStatus.BAD_REQUEST, "Date from is after date to");
+            throw new CarRentalServiceException(HttpStatus.BAD_REQUEST, "Date from is after date to");
         }
     }
 
