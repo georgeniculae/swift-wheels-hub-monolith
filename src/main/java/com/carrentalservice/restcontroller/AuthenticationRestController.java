@@ -1,8 +1,8 @@
 package com.carrentalservice.restcontroller;
 
-import com.carrentalservice.entity.JwtAuthenticationResponse;
-import com.carrentalservice.entity.SignInRequest;
-import com.carrentalservice.entity.SignUpRequest;
+import com.carrentalservice.entity.AuthenticationResponse;
+import com.carrentalservice.entity.AuthenticationRequest;
+import com.carrentalservice.entity.RegisterRequest;
 import com.carrentalservice.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +15,14 @@ public class AuthenticationRestController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/sign-up")
-    public ResponseEntity<JwtAuthenticationResponse> signUp(@RequestBody SignUpRequest request) {
-        return ResponseEntity.ok(authenticationService.signUp(request));
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody SignInRequest request) {
-        return ResponseEntity.ok(authenticationService.signIn(request));
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
 }
