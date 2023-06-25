@@ -23,6 +23,7 @@ public class CarService {
 
     public CarDto saveCar(CarDto carDto) {
         Car car = carMapper.mapDtoToEntity(carDto);
+
         car.setBranch(branchService.findEntityById(carDto.getBranch().getId()));
         Car savedCar = carRepository.save(car);
 
@@ -78,14 +79,6 @@ public class CarService {
     }
 
     public void deleteCarById(Long id) {
-        Car existingCar = findEntityById(id);
-
-        Branch branch = existingCar.getBranch();
-        List<Car> allCars = new ArrayList<>(branch.getCars());
-        allCars.remove(existingCar);
-        branch.setCars(allCars);
-        branchService.saveEntity(branch);
-
         carRepository.deleteById(id);
     }
 

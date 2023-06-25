@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,21 +77,7 @@ public class BookingService {
                 .toList();
     }
 
-    @Transactional
     public void deleteBookingById(Long id) {
-        Booking existingBooking = findEntityById(id);
-
-        Car car = existingBooking.getCar();
-        car.getBookings().remove(existingBooking);
-        carService.saveEntity(car);
-
-        Customer customer = existingBooking.getCustomer();
-
-        ArrayList<Booking> allBookings = new ArrayList<>(customer.getBookings());
-        allBookings.remove(existingBooking);
-        customer.setBookings(allBookings);
-        customerService.saveEntity(customer);
-
         bookingRepository.deleteById(id);
     }
 

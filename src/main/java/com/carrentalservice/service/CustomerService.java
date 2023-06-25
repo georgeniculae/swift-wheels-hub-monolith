@@ -66,10 +66,6 @@ public class CustomerService {
         return customerMapper.mapEntityToDto(savedCustomer);
     }
 
-    public void saveEntity(Customer customer) {
-        customerRepository.save(customer);
-    }
-
     public void deleteCustomerById(Long id) {
         customerRepository.deleteById(id);
     }
