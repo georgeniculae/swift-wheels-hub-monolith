@@ -2,14 +2,17 @@ package com.carrentalservice.service;
 
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.*;
+import com.carrentalservice.exception.CarRentalException;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.repository.BookingRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class BookingService {
 
     @Transactional
     public BookingDto saveBooking(BookingDto newBookingDto) {
+        validateBookingDates(newBookingDto);
         Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
 
         Customer customer = customerService.getLoggedInCustomer();
@@ -37,6 +41,25 @@ public class BookingService {
         setupNewBooking(newBooking, customer, car, rentalBranch, invoice);
 
         Booking savedBooking = bookingRepository.save(newBooking);
+
+        return bookingMapper.mapEntityToDto(savedBooking);
+    }
+
+    @Transactional
+    public BookingDto updateBooking(BookingDto updatedBookingDto) {
+        validateBookingDates(updatedBookingDto);
+        Booking existingBooking = findEntityById(updatedBookingDto.getId());
+
+        Car car = carService.findEntityById(updatedBookingDto.getCar().getId());
+
+        existingBooking.setDateOfBooking(updatedBookingDto.getDateOfBooking());
+        existingBooking.setDateFrom(updatedBookingDto.getDateFrom());
+        existingBooking.setDateTo(updatedBookingDto.getDateTo());
+        existingBooking.setCar(car);
+        existingBooking.setRentalBranch(car.getBranch());
+        existingBooking.setAmount(getAmount(updatedBookingDto.getDateFrom(), updatedBookingDto.getDateTo(), car.getAmount()));
+
+        Booking savedBooking = bookingRepository.save(existingBooking);
 
         return bookingMapper.mapEntityToDto(savedBooking);
     }
@@ -91,24 +114,6 @@ public class BookingService {
         return bookingMapper.mapEntityToDto(booking);
     }
 
-    @Transactional
-    public BookingDto updateBooking(BookingDto updatedBookingDto) {
-        Booking existingBooking = findEntityById(updatedBookingDto.getId());
-
-        Car car = carService.findEntityById(updatedBookingDto.getCar().getId());
-
-        existingBooking.setDateOfBooking(updatedBookingDto.getDateOfBooking());
-        existingBooking.setDateFrom(updatedBookingDto.getDateFrom());
-        existingBooking.setDateTo(updatedBookingDto.getDateTo());
-        existingBooking.setCar(car);
-        existingBooking.setRentalBranch(car.getBranch());
-        existingBooking.setAmount(getAmount(updatedBookingDto.getDateFrom(), updatedBookingDto.getDateTo(), car.getAmount()));
-
-        Booking savedBooking = bookingRepository.save(existingBooking);
-
-        return bookingMapper.mapEntityToDto(savedBooking);
-    }
-
     public Long countByLoggedInCustomer() {
         return bookingRepository.countByCustomer(customerService.getLoggedInCustomer());
     }
@@ -132,6 +137,25 @@ public class BookingService {
                 .stream()
                 .map(BookingDto::getAmount)
                 .reduce(0D, Double::sum);
+    }
+
+    private void validateBookingDates(BookingDto newBookingDto) {
+        LocalDate dateOfBooking = newBookingDto.getDateOfBooking().toLocalDate();
+        LocalDate dateFrom = newBookingDto.getDateFrom().toLocalDate();
+        LocalDate dateTo = newBookingDto.getDateTo().toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+
+        if (dateOfBooking.isBefore(currentDate) || dateFrom.isBefore(currentDate) || dateTo.isBefore(currentDate)) {
+            throw new CarRentalException(HttpStatus.BAD_REQUEST, "A date of booking cannot be in the past");
+        }
+
+        if (dateFrom.isBefore(dateOfBooking)) {
+            throw new CarRentalException(HttpStatus.BAD_REQUEST, "Date of booking is before date from");
+        }
+
+        if (dateFrom.isAfter(dateTo)) {
+            throw new CarRentalException(HttpStatus.BAD_REQUEST, "Date from is after date to");
+        }
     }
 
     private Double getAmount(Date dateFrom, Date dateTo, Double amount) {

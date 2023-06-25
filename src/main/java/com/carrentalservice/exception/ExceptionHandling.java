@@ -26,6 +26,14 @@ public class ExceptionHandling extends DefaultErrorAttributes {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorAttributes);
     }
 
+    @ExceptionHandler(CarRentalException.class)
+    public ResponseEntity<Map<String, Object>> handleCarRentalException(CarRentalException e, WebRequest request) {
+        HttpStatus notFound = HttpStatus.NOT_FOUND;
+
+        Map<String, Object> errorAttributes = getErrorAttributesMap(request, e.getMessage(), e.getReason(), notFound);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorAttributes);
+    }
 
     private Map<String, Object> getErrorAttributesMap(WebRequest webRequest, String errorMessage, String cause, HttpStatus httpStatus) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
