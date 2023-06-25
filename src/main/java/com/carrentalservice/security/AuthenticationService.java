@@ -1,6 +1,9 @@
 package com.carrentalservice.security;
 
 import com.carrentalservice.entity.*;
+import com.carrentalservice.entity.authentication.AuthenticationRequest;
+import com.carrentalservice.entity.authentication.AuthenticationResponse;
+import com.carrentalservice.entity.authentication.RegisterRequest;
 import com.carrentalservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

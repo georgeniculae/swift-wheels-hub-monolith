@@ -1,4 +1,4 @@
-package com.carrentalservice.entity;
+package com.carrentalservice.entity.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
+public class AuthenticationRequest {
 
-    private String firstName;
-    private String lastName;
-    private String email;
+    private String username;
     private String password;
 
 }

@@ -1,4 +1,4 @@
-package com.carrentalservice.entity;
+package com.carrentalservice.entity.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

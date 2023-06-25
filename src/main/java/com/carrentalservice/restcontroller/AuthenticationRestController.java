@@ -1,8 +1,8 @@
 package com.carrentalservice.restcontroller;
 
-import com.carrentalservice.entity.AuthenticationResponse;
-import com.carrentalservice.entity.AuthenticationRequest;
-import com.carrentalservice.entity.RegisterRequest;
+import com.carrentalservice.entity.authentication.AuthenticationResponse;
+import com.carrentalservice.entity.authentication.AuthenticationRequest;
+import com.carrentalservice.entity.authentication.RegisterRequest;
 import com.carrentalservice.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
