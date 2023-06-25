@@ -64,7 +64,7 @@ public class RentalOfficeMvcController {
 
     @GetMapping(path = "/rental-office/edit/{id}")
     public String showUpdatePage(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("rentalOffice", this.rentalOfficeService.findRentalOfficeById(id));
+        model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeById(id));
 
         return "edit-rental-office";
     }

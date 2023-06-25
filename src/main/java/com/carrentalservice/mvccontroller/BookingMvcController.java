@@ -68,7 +68,7 @@ public class BookingMvcController {
 
     @GetMapping(path = "/booking/delete/{id}")
     public String deleteBookingById(@PathVariable("id") Long id) {
-        this.bookingService.deleteBookingById(id);
+        bookingService.deleteBookingById(id);
 
         return "redirect:/account/orders";
     }

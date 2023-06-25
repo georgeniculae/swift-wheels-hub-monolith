@@ -77,7 +77,7 @@ public class EmployeeMvcController {
             return "edit-employee";
         }
 
-        this.employeeService.updateEmployee(employee);
+        employeeService.updateEmployee(employee);
 
         return "redirect:/employees";
     }
