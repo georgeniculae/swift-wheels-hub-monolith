@@ -1,7 +1,6 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.CustomerDto;
-import com.carrentalservice.dto.UserDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.entity.Role;
 import com.carrentalservice.entity.User;
@@ -25,18 +24,6 @@ public class UserService {
 
     public boolean existsUserByUsername(String username) {
         return userRepository.existsByUsername(username);
-    }
-
-    public UserDto saveUser(UserDto userDto) {
-        User user = new User();
-
-        user.setUsername(userDto.getUsername());
-        user.setPassword(encoder.encode(userDto.getPassword()));
-        user.setRole(Role.ROLE_CUSTOMER);
-
-        User savedUser = userRepository.save(user);
-
-        return userMapper.mapEntityToDto(savedUser);
     }
 
     public CustomerDto registerCustomer(CustomerDto customerDto) {

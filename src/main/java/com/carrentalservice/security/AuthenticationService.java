@@ -21,17 +21,19 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        User user = new User();
+        Customer customer = new Customer();
 
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.ROLE_CUSTOMER);
+        customer.setUsername(request.getUsername());
+        customer.setPassword(passwordEncoder.encode(request.getPassword()));
+        customer.setFirstName(request.getFirstName());
+        customer.setLastName(request.getLastName());
+        customer.setEmail(request.getEmail());
+        customer.setAddress(request.getAddress());
+        customer.setRole(Role.ROLE_CUSTOMER);
 
-        userService.saveEntity(user);
+        userService.saveEntity(customer);
 
-        var jwt = jwtService.generateToken(user);
+        var jwt = jwtService.generateToken(customer);
 
         return AuthenticationResponse.builder()
                 .token(jwt)
