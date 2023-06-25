@@ -80,18 +80,18 @@ public class BookingService {
 
     @Transactional
     public void deleteBookingById(Long id) {
-//        Booking existingBooking = findEntityById(id);
-//
-//        Car car = existingBooking.getCar();
-//        car.getBookings().remove(existingBooking);
-//        carService.saveEntity(car);
-//
-//        Customer customer = existingBooking.getCustomer();
-//
-//        ArrayList<Booking> allBookings = new ArrayList<>(customer.getBookings());
-//        allBookings.remove(existingBooking);
-//        customer.setBookings(allBookings);
-//        customerService.saveEntity(customer);
+        Booking existingBooking = findEntityById(id);
+
+        Car car = existingBooking.getCar();
+        car.getBookings().remove(existingBooking);
+        carService.saveEntity(car);
+
+        Customer customer = existingBooking.getCustomer();
+
+        ArrayList<Booking> allBookings = new ArrayList<>(customer.getBookings());
+        allBookings.remove(existingBooking);
+        customer.setBookings(allBookings);
+        customerService.saveEntity(customer);
 
         bookingRepository.deleteById(id);
     }
