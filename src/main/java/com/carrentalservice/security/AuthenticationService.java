@@ -30,6 +30,7 @@ public class AuthenticationService {
         customer.setEmail(request.getEmail());
         customer.setAddress(request.getAddress());
         customer.setRole(Role.ROLE_CUSTOMER);
+        customer.setDateOfBirth(request.getDateOfBirth());
 
         userService.saveEntity(customer);
 
