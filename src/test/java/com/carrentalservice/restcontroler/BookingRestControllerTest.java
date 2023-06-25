@@ -2,7 +2,6 @@ package com.carrentalservice.restcontroler;
 
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.restcontroller.BookingRestController;
-import com.carrentalservice.security.JwtAuthenticationFilter;
 import com.carrentalservice.service.BookingService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,9 +36,6 @@ class BookingRestControllerTest {
 
     @MockBean
     private BookingMapper bookingMapper;
-
-    @MockBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Test
     void findBookingByIdTest_success() throws Exception {
