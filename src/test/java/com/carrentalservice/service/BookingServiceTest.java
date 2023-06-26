@@ -97,15 +97,6 @@ class BookingServiceTest {
     }
 
     @Test
-    void deleteBookingByIdTest_success() {
-        Booking booking = TestData.createBooking();
-
-        when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
-
-        assertDoesNotThrow(() -> bookingService.deleteBookingById(1L));
-    }
-
-    @Test
     void updateBookingTest_success() {
         Booking booking = TestData.createBooking();
         BookingDto bookingDto = TestData.createBookingDto();

@@ -51,7 +51,7 @@ public class BookingService {
 
         Car car = carService.findEntityById(updatedBookingDto.getCar().getId());
 
-        existingBooking.setDateOfBooking(updatedBookingDto.getDateOfBooking());
+        existingBooking.setDateOfBooking(getCurrentDate());
         existingBooking.setDateFrom(updatedBookingDto.getDateFrom());
         existingBooking.setDateTo(updatedBookingDto.getDateTo());
         existingBooking.setCar(car);
@@ -124,18 +124,17 @@ public class BookingService {
                 .reduce(0D, Double::sum);
     }
 
+    public Date getCurrentDate() {
+        return Date.valueOf(LocalDate.now());
+    }
+
     private void validateBookingDates(BookingDto newBookingDto) {
-        LocalDate dateOfBooking = newBookingDto.getDateOfBooking().toLocalDate();
         LocalDate dateFrom = newBookingDto.getDateFrom().toLocalDate();
         LocalDate dateTo = newBookingDto.getDateTo().toLocalDate();
         LocalDate currentDate = LocalDate.now();
 
-        if (dateOfBooking.isBefore(currentDate) || dateFrom.isBefore(currentDate) || dateTo.isBefore(currentDate)) {
+        if (dateFrom.isBefore(currentDate) || dateTo.isBefore(currentDate)) {
             throw new CarRentalServiceException(HttpStatus.BAD_REQUEST, "A date of booking cannot be in the past");
-        }
-
-        if (dateFrom.isBefore(dateOfBooking)) {
-            throw new CarRentalServiceException(HttpStatus.BAD_REQUEST, "Date of booking is before date from");
         }
 
         if (dateFrom.isAfter(dateTo)) {

@@ -337,12 +337,11 @@
         <div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="dateOfBooking-span">Date</span>
+                    <span class="input-group-text" id="date-of-booking-span">Date of booking</span>
                 </div>
-                <input type="date" id="dateOfBooking" th:field="${booking.dateOfBooking}" class="form-control"
-                       aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                       placeholder="yyyy-MM-dd">
-                <span th:if="${#fields.hasErrors('dateOfBooking')}" th:errors="${booking.dateOfBooking}"></span>
+                <div type="date" id="date-of-booking" th:text="${currentDate}" class="form-control"
+                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
             </div>
 
             <div class="input-group mb-3">

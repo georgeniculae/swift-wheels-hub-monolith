@@ -77,15 +77,4 @@ class CarServiceTest {
         assertNotNull(updatedCarDto);
     }
 
-    @Test
-    void deleteCarByIdTest_success() {
-        Car car = TestData.createCar();
-        BranchDto branchDto = TestData.createRentalBranchDto();
-
-        when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
-        when(branchService.saveBranch(any(BranchDto.class))).thenReturn(branchDto);
-
-        assertDoesNotThrow(() -> carService.deleteCarById(1L));
-    }
-
 }

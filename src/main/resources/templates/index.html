@@ -397,12 +397,11 @@
             <form th:action="@{/}" th:object="${booking}" method="post">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="dateOfBooking-span">Date</span>
+                        <span class="input-group-text" id="date-of-booking-span">Date of booking</span>
                     </div>
-                    <input type="date" id="dateOfBooking" th:field="${booking.dateOfBooking}" class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                           placeholder="yyyy-MM-dd">
-                    <span th:if="${#fields.hasErrors('dateOfBooking')}" th:errors="${booking.dateOfBooking}"></span>
+                    <div type="date" id="date-of-booking" th:text="${currentDate}" class="form-control"
+                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
                 </div>
 
                 <div class="input-group mb-3">
@@ -527,7 +526,8 @@
     <div class="wraper">
         <div class="row">
             <div class="four col-md-3">
-                <div class="counter-box colored"><i class="fa fa-group"></i>
+                <div class="counter-box colored">
+                    <i class="fa fa-group"></i>
                     <span class="counter">
                         <p th:text="${numberOfCustomers}"></p>
                     </span>

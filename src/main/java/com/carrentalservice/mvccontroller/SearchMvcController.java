@@ -57,6 +57,7 @@ public class SearchMvcController {
         model.addAttribute("numberOfCars", carService.countCars());
         model.addAttribute("numberOfCustomers", customerService.countCustomersWithoutBaseUsers());
         model.addAttribute("customersWithBookings", bookingService.countCustomersWithBookings());
+        model.addAttribute("currentDate", bookingService.getCurrentDate());
 
         return "index";
     }

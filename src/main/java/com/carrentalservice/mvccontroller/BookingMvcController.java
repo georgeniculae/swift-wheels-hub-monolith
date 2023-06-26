@@ -39,6 +39,7 @@ public class BookingMvcController {
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("allCars", carService.findAllCars());
         model.addAttribute("employees", employeeService.findAllEmployees());
+        model.addAttribute("currentDate", bookingService.getCurrentDate());
 
         return "add-booking";
     }
