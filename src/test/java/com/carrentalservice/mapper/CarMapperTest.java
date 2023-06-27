@@ -25,4 +25,14 @@ class CarMapperTest {
         AssertionUtils.assertCar(car, carDto);
     }
 
+    @Test
+    void mapDtoToEntityTest_success() {
+        CarDto carDto = TestData.createCarDto();
+
+        Car car = carMapper.mapDtoToEntity(carDto);
+
+        assertNotNull(carDto);
+        AssertionUtils.assertCar(car, carDto);
+    }
+
 }
