@@ -2,12 +2,14 @@ package com.carrentalservice.service;
 
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
+import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.mapper.BookingMapperImpl;
 import com.carrentalservice.repository.BookingRepository;
 import com.carrentalservice.util.TestData;
+import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,8 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceTest {
@@ -40,38 +41,29 @@ class BookingServiceTest {
     @Mock
     private CustomerService customerService;
 
+    @Mock
+    private BranchService branchService;
+
     @Spy
     private BookingMapper bookingMapper = new BookingMapperImpl();
 
     @Test
     void saveBookingUpdatedWithCustomerAndCarTest_success() {
-        Booking booking = TestData.createBooking();
-        BookingDto bookingDto = TestData.createBookingDto();
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
+        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        Car car = booking.getCar();
 
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
-        when(carService.findCarById(anyLong())).thenReturn(bookingDto.getCar());
+        when(carService.findEntityById(anyLong())).thenReturn(car);
         when(customerService.getLoggedInCustomer()).thenReturn(TestData.createCustomer());
+        when(branchService.findEntityById(anyLong())).thenReturn(car.getBranch());
 
         assertDoesNotThrow(() -> bookingService.saveBooking(bookingDto));
         BookingDto actualBookingDto = bookingService.saveBooking(bookingDto);
 
         assertNotNull(actualBookingDto);
 
-        verify(bookingMapper).mapEntityToDto(any(Booking.class));
-    }
-
-    @Test
-    void savedBookingWithUpdatedCarTest_success() {
-        Booking booking = TestData.createBooking();
-        BookingDto bookingDto = TestData.createBookingDto();
-
-        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
-        when(carService.findCarById(anyLong())).thenReturn(bookingDto.getCar());
-
-        assertDoesNotThrow(() -> bookingService.saveBooking(bookingDto));
-        BookingDto actualBookingDto = bookingService.saveBooking(bookingDto);
-
-        assertNotNull(actualBookingDto);
+        verify(bookingMapper, times(2)).mapEntityToDto(any(Booking.class));
     }
 
     @Test
@@ -98,11 +90,13 @@ class BookingServiceTest {
 
     @Test
     void updateBookingTest_success() {
-        Booking booking = TestData.createBooking();
-        BookingDto bookingDto = TestData.createBookingDto();
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
+        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        Car car = booking.getCar();
 
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
+        when(carService.findEntityById(anyLong())).thenReturn(car);
 
         assertDoesNotThrow(() -> bookingService.updateBooking(bookingDto));
         BookingDto updatedBookingDto = bookingService.updateBooking(bookingDto);

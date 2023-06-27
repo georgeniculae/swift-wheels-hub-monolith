@@ -1,6 +1,6 @@
 {
   "id": 1,
-  "dateOfBooking": "2020-02-20",
+  "dateOfBooking": "2050-02-20",
   "status": "IN_PROGRESS",
   "customer": {
     "id": 1,
@@ -16,8 +16,15 @@
     "color": "black",
     "mileage": 270000,
     "carStatus": "AVAILABLE",
-    "amount": 500
+    "amount": 500,
+    "branch": {
+      "id": 1,
+      "name": "Test Branch",
+      "address": "Ploiesti"
+    }
   },
+  "dateFrom": "2050-02-21",
+  "dateTo": "2050-02-22",
   "rentalBranch": {
     "id": 1,
     "name": "Test Branch",

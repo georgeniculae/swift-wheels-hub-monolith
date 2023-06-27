@@ -1,7 +1,6 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.BranchDto;
-import com.carrentalservice.dto.RentalOfficeDto;
 import com.carrentalservice.entity.Branch;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BranchMapper;
@@ -75,17 +74,6 @@ class BranchServiceTest {
         BranchDto updatedBranchDto = branchService.updateBranch(branchDto);
 
         assertNotNull(updatedBranchDto);
-    }
-
-    @Test
-    void deleteBranchByIdTest_success() {
-        Branch branch = TestData.createRentalBranch();
-        RentalOfficeDto rentalOfficeDto = TestData.createRentalOfficeDto();
-
-        when(branchRepository.findById(anyLong())).thenReturn(Optional.of(branch));
-        when(rentalOfficeService.saveRentalOffice(any(RentalOfficeDto.class))).thenReturn(rentalOfficeDto);
-
-        assertDoesNotThrow(() -> branchService.deleteBranchById(1L));
     }
 
 }

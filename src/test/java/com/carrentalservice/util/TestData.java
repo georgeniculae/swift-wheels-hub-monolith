@@ -13,11 +13,11 @@ public class TestData {
         Booking booking = new Booking();
 
         booking.setId(1L);
-        booking.setDateOfBooking(Date.valueOf(LocalDate.of(2023, Month.APRIL, 20)));
+        booking.setDateOfBooking(Date.valueOf(LocalDate.of(2050, Month.APRIL, 20)));
         booking.setCar(createCar());
         booking.setCustomer(createCustomer());
-        booking.setDateFrom(Date.valueOf(LocalDate.of(2023, Month.APRIL, 21)));
-        booking.setDateTo(Date.valueOf(LocalDate.of(2023, Month.APRIL, 22)));
+        booking.setDateFrom(Date.valueOf(LocalDate.of(2050, Month.APRIL, 21)));
+        booking.setDateTo(Date.valueOf(LocalDate.of(2050, Month.APRIL, 22)));
         booking.setAmount(50D);
         booking.setRentalBranch(createRentalBranch());
         booking.setReturnBranch(createReturnBranch());

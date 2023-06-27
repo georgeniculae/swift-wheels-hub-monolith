@@ -10,7 +10,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,14 +71,6 @@ public class BranchService {
     }
 
     public void deleteBranchById(Long id) {
-        Branch existingBranch = findEntityById(id);
-
-        RentalOffice rentalOffice = existingBranch.getRentalOffice();
-        List<Branch> allBranches = new ArrayList<>(rentalOffice.getBranches());
-        allBranches.remove(existingBranch);
-        rentalOffice.setBranches(allBranches);
-        rentalOfficeService.saveEntity(rentalOffice);
-
         branchRepository.deleteById(id);
     }
 
