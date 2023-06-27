@@ -1,3 +1,31 @@
 {
-  "id": 1
+  "id": 1,
+  "dateOfBooking": "2020-02-20",
+  "status": "IN_PROGRESS",
+  "customer": {
+    "id": 1,
+    "dateOfBirth": "1980-01-25",
+    "address": "Ploiesti"
+  },
+  "car": {
+    "id": 1,
+    "make": "Volkswagen",
+    "model": "Golf",
+    "bodyType": "HATCHBACK",
+    "yearOfProduction": 2010,
+    "color": "black",
+    "mileage": 270000,
+    "carStatus": "AVAILABLE",
+    "amount": 500
+  },
+  "rentalBranch": {
+    "id": 1,
+    "name": "Test Branch",
+    "address": "Ploiesti"
+  },
+  "returnBranch": {
+    "id": 1,
+    "name": "Test Branch",
+    "address": "Ploiesti"
+  }
 }
