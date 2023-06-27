@@ -5,6 +5,7 @@ import com.carrentalservice.entity.Customer;
 import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.mapper.CustomerMapperImpl;
 import com.carrentalservice.repository.CustomerRepository;
+import com.carrentalservice.util.AssertionUtils;
 import com.carrentalservice.util.TestData;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,6 +46,20 @@ class CustomerServiceTest {
         assertNotNull(actualCustomerDto);
 
         verify(customerMapper, times(2)).mapEntityToDto(any(Customer.class));
+    }
+
+    @Test
+    void updateCustomerTest_success() {
+        Customer customer = TestData.createCustomer();
+        CustomerDto customerDto = TestData.createCustomerDto();
+
+        when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
+
+        assertDoesNotThrow(() -> customerService.updateCustomer(customerDto));
+        CustomerDto updatedCustomerDto = customerService.updateCustomer(customerDto);
+
+        AssertionUtils.assertCustomer(customer, updatedCustomerDto);
     }
 
 }
