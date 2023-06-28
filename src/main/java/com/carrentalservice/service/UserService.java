@@ -3,11 +3,14 @@ package com.carrentalservice.service;
 import com.carrentalservice.dto.CustomerDto;
 import com.carrentalservice.entity.Customer;
 import com.carrentalservice.entity.Role;
+import com.carrentalservice.entity.User;
 import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +42,14 @@ public class UserService {
 
     public Long countUsers() {
         return userRepository.count();
+    }
+
+    public void saveEntity(Customer customer) {
+        userRepository.save(customer);
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 }
