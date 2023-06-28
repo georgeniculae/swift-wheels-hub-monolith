@@ -13,6 +13,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             From Employee employee
             where lower(employee.firstName) like '%:employeeName%'
             or lower(employee.lastName) like '%:employeeName%'""")
-    Employee findEmployeeByName(@Param("employeeName") String employeeName);
+    Employee findByName(@Param("employeeName") String employeeName);
 
 }

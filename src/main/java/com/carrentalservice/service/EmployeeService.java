@@ -86,7 +86,7 @@ public class EmployeeService {
     }
 
     public EmployeeDto findEmployeeByName(String searchString) {
-        Employee employee = employeeRepository.findEmployeeByName(searchString);
+        Employee employee = employeeRepository.findByName(searchString);
 
         return employeeMapper.mapEntityToDto(employee);
     }
