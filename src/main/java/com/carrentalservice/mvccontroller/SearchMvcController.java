@@ -50,7 +50,7 @@ public class SearchMvcController {
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("allCars", carService.findAllCars());
         model.addAttribute("car", new CarDto());
-        model.addAttribute("allCustomers", customerService.findAllCustomer());
+        model.addAttribute("allCustomers", customerService.findAllCustomers());
         model.addAttribute("allEmployees", employeeService.findAllEmployees());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
         model.addAttribute("allInvoicesCars", invoiceService.findAllInvoices());

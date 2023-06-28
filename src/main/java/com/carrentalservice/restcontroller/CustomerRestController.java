@@ -48,7 +48,7 @@ public class CustomerRestController {
 
     @GetMapping
     public ResponseEntity<List<CustomerDto>> listAllCustomer() {
-        List<CustomerDto> customerDtoList = customerService.findAllCustomer();
+        List<CustomerDto> customerDtoList = customerService.findAllCustomers();
 
         return ResponseEntity.ok(customerDtoList);
     }

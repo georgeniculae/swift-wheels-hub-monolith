@@ -30,7 +30,7 @@ public class CustomerService {
         return customerMapper.mapEntityToDto(savedCustomer);
     }
 
-    public List<CustomerDto> findAllCustomer() {
+    public List<CustomerDto> findAllCustomers() {
         return customerRepository.findCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT)
                 .stream()
                 .map(customerMapper::mapEntityToDto)
@@ -91,11 +91,11 @@ public class CustomerService {
     public Customer getLoggedInCustomer() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return findCustomerByUsername(name);
+        return findEntityByUsername(name);
     }
 
-    private Customer findCustomerByUsername(String username) {
-        Optional<Customer> optionalCustomer = customerRepository.findCustomerByUsername(username);
+    private Customer findEntityByUsername(String username) {
+        Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
 
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get();

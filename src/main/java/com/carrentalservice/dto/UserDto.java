@@ -1,5 +1,6 @@
 package com.carrentalservice.dto;
 
+import com.carrentalservice.entity.Role;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -15,6 +16,9 @@ public class UserDto extends BaseEntityDto {
 
     @NotEmpty(message = "Password cannot be empty")
     private String password;
+
+    @NotEmpty(message = "Role cannot be empty")
+    private Role role;
 
     @NotEmpty(message = "Confirm password cannot be empty")
     private String confirmPassword;
