@@ -4,8 +4,6 @@ import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Branch;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.exception.NotFoundException;
-import com.carrentalservice.mapper.BranchMapper;
-import com.carrentalservice.mapper.BranchMapperImpl;
 import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.mapper.CarMapperImpl;
 import com.carrentalservice.repository.CarRepository;
@@ -19,13 +17,13 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CarServiceTest {
@@ -42,9 +40,6 @@ class CarServiceTest {
     @Spy
     private CarMapper carMapper = new CarMapperImpl();
 
-    @Spy
-    private BranchMapper branchMapper = new BranchMapperImpl();
-
     @Test
     void findCarByIdTest_success() {
         Car car = TestData.createCar();
@@ -55,6 +50,7 @@ class CarServiceTest {
         CarDto actualCarDto = carService.findCarById(1L);
 
         assertNotNull(actualCarDto);
+        verify(carMapper, times(2)).mapEntityToDto(any(Car.class));
     }
 
     @Test
@@ -96,7 +92,13 @@ class CarServiceTest {
 
     @Test
     void findAllCarsTest_success() {
+        Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
 
+        when(carRepository.findAll()).thenReturn(List.of(car));
+
+        assertDoesNotThrow(() -> carService.findAllCars());
+        List<CarDto> carDtoList = carService.findAllCars();
+        AssertionUtils.assertCar(car, carDtoList.get(0));
     }
 
 }
