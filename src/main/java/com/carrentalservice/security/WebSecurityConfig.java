@@ -21,10 +21,17 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((requestMatcherRegistry) -> requestMatcherRegistry
-                        .requestMatchers("/register", "/user/register", "/", "/css/**", "/images/**").permitAll()
-                        .requestMatchers("/branch/**", "/car/**", "/customer/**", "/employee/**", "/rental-office/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                .authorizeHttpRequests(request ->
+                        request.requestMatchers("/",
+                                        "/register",
+                                        "/user/register",
+                                        "/css/**",
+                                        "/images/**").permitAll()
+                                .requestMatchers("/branch/**",
+                                        "/car/**", "/customer/**",
+                                        "/employee/**",
+                                        "/rental-office/**").hasRole("ADMIN")
+                                .anyRequest().authenticated()
                 )
                 .formLogin(loginConfig -> loginConfig.loginPage("/login").permitAll())
                 .logout(logoutConfig -> logoutConfig.invalidateHttpSession(true)
@@ -36,4 +43,3 @@ public class WebSecurityConfig {
     }
 
 }
-
