@@ -2,12 +2,16 @@ package com.carrentalservice.service;
 
 import com.carrentalservice.dto.InvoiceDto;
 import com.carrentalservice.entity.*;
+import com.carrentalservice.exception.CarRentalServiceException;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.InvoiceMapper;
 import com.carrentalservice.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -23,6 +27,7 @@ public class InvoiceService {
     private final InvoiceMapper invoiceMapper;
 
     public InvoiceDto updateInvoice(InvoiceDto invoiceDto) {
+        validateInvoice(invoiceDto);
         Invoice existingInvoice = findEntityById(invoiceDto.getId());
 
         Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployee().getId());
@@ -99,6 +104,29 @@ public class InvoiceService {
         throw new NotFoundException("Invoice with id " + id + "does not exist");
     }
 
+    private void validateInvoice(InvoiceDto invoiceDto) {
+        validateDateOfReturnOfTheCar(invoiceDto.getCarDateOfReturn());
+
+        if (invoiceDto.getIsVehicleDamaged() && ObjectUtils.isEmpty(invoiceDto.getDamageCost())) {
+            throw new CarRentalServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    "If the vehicle is damaged, the damage cost cannot be null/empty"
+            );
+        }
+    }
+
+    private void validateDateOfReturnOfTheCar(Date dateOfReturnOfTheCar) {
+        LocalDate dateOfReturnOfTheCarAsLocalDate = dateOfReturnOfTheCar.toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+
+        if (dateOfReturnOfTheCarAsLocalDate.isBefore(currentDate)) {
+            throw new CarRentalServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    "Date of return of the car cannot be in the past"
+            );
+        }
+    }
+
     private void setupRevenue(Invoice existingInvoice) {
         Revenue revenue = new Revenue();
 
@@ -127,7 +155,8 @@ public class InvoiceService {
         return Period.between(bookingDateFrom, bookingDateTo).getDays();
     }
 
-    private double getMoneyForLateReturn(LocalDate carReturnDate, LocalDate bookingDateTo, LocalDate bookingDateFrom, Double carAmount) {
+    private double getMoneyForLateReturn(LocalDate carReturnDate, LocalDate bookingDateTo, LocalDate bookingDateFrom,
+                                         Double carAmount) {
         return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount + getDaysPeriod(bookingDateTo, carReturnDate) * 2 * carAmount;
     }
 
