@@ -93,8 +93,8 @@ public class BookingService {
                 .count();
     }
 
-    public BookingDto findBookingByName(String searchString) {
-        Booking booking = bookingRepository.findBookingByName(Date.valueOf(searchString));
+    public BookingDto findBookingByDateOfBooking(String searchString) {
+        Booking booking = bookingRepository.findByDateOfBooking(Date.valueOf(searchString));
 
         return bookingMapper.mapEntityToDto(booking);
     }

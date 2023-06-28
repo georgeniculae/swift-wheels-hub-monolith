@@ -16,7 +16,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("""
             From Booking booking
             where booking.dateOfBooking = :dateOfBooking""")
-    Booking findBookingByName(@Param("dateOfBooking") Date dateOfBooking);
+    Booking findByDateOfBooking(@Param("dateOfBooking") Date dateOfBooking);
 
     List<Booking> findBookingsByCustomer(Customer customer);
 

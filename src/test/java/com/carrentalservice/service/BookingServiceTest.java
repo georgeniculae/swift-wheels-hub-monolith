@@ -17,6 +17,9 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,6 +129,26 @@ class BookingServiceTest {
         Double sumOfAllBookingAmount = bookingService.getSumOfAllBookingAmount();
 
         assertEquals(50, sumOfAllBookingAmount);
+    }
+
+    @Test
+    void countCustomersWithBookingsTest_success() {
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
+
+        when(bookingRepository.findAll()).thenReturn(List.of(booking));
+
+        assertDoesNotThrow(() -> bookingService.countCustomersWithBookings());
+        assertEquals(1, bookingService.countCustomersWithBookings());
+    }
+
+    @Test
+    void findBookingByDateOfBookingTest_success() {
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
+
+        when(bookingRepository.findByDateOfBooking(Date.valueOf(LocalDate.of(2050, Month.FEBRUARY, 20))))
+                .thenReturn(booking);
+
+        assertDoesNotThrow(() -> bookingService.findBookingByDateOfBooking("2050-02-20"));
     }
 
 }

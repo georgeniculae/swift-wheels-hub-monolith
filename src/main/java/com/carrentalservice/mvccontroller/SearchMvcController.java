@@ -28,7 +28,7 @@ public class SearchMvcController {
     @PostMapping(path = "/search")
     public String search(@ModelAttribute("search") String search, Model model, BindingResult bindingResult) {
         model.addAttribute("search", new SearchValueDto());
-        model.addAttribute("booking", bookingService.findBookingByName(search));
+        model.addAttribute("booking", bookingService.findBookingByDateOfBooking(search));
         model.addAttribute("branch", branchService.findBranchByName(search));
         model.addAttribute("car", carService.findCarByName(search));
         model.addAttribute("customer", customerService.findCustomerByName(search));
