@@ -1,5 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
+import com.carrentalservice.security.JwtAuthenticationFilter;
 import com.carrentalservice.service.BookingService;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.CarService;
@@ -40,6 +41,9 @@ class BookingMvcControllerTest {
 
     @MockBean
     private EmployeeService employeeService;
+
+    @MockBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Test
     void showBookingTest_success() throws Exception {
