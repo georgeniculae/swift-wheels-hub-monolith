@@ -49,7 +49,7 @@ public class AssertionUtils {
         assertRentalOffice(returnBranch.getRentalOffice(), returnBranchDto.getRentalOffice());
     }
 
-    private static void assertBranch(Branch branch, BranchDto branchDto) {
+    public static void assertBranch(Branch branch, BranchDto branchDto) {
         assertEquals(branch.getName(), branchDto.getName());
         assertEquals(branch.getAddress(), branchDto.getAddress());
         assertRentalOffice(branch.getRentalOffice(), branchDto.getRentalOffice());
@@ -57,7 +57,6 @@ public class AssertionUtils {
 
     private static void assertRentalOffice(RentalOffice rentalOffice, RentalOfficeDto rentalOfficeDto) {
         assertEquals(rentalOffice.getName(), rentalOfficeDto.getName());
-        assertEquals(rentalOffice.getContactAddress(), rentalOfficeDto.getInternetDomain());
         assertEquals(rentalOffice.getContactAddress(), rentalOfficeDto.getContactAddress());
         assertEquals(rentalOffice.getLogoType(), rentalOfficeDto.getLogoType());
     }

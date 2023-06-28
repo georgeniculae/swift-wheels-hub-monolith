@@ -9,7 +9,6 @@ import com.carrentalservice.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,10 +40,6 @@ public class CarService {
         Car car = findEntityById(id);
 
         return carMapper.mapEntityToDto(car);
-    }
-
-    public void saveEntity(Car car) {
-        carRepository.save(car);
     }
 
     public Car findEntityById(Long id) {
@@ -91,7 +86,7 @@ public class CarService {
     }
 
     public List<Car> findCarsByMake(String make) {
-        return new ArrayList<>(carRepository.findCarsByMake(make));
+        return carRepository.findCarsByMake(make);
     }
 
 }

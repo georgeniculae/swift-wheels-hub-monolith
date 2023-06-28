@@ -13,9 +13,6 @@ public class RentalOfficeDto extends BaseEntityDto {
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
-    @NotEmpty(message = "Internet domain cannot be empty")
-    private String internetDomain;
-
     @NotEmpty(message = "Contact address cannot be empty")
     private String contactAddress;
 

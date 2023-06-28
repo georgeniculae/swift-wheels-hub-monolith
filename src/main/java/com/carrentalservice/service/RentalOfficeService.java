@@ -42,10 +42,6 @@ public class RentalOfficeService {
         return rentalOfficeMapper.mapEntityToDto(rentalOffice);
     }
 
-    public void saveEntity(RentalOffice rentalOffice) {
-        rentalOfficeRepository.save(rentalOffice);
-    }
-
     public RentalOffice findEntityById(Long id) {
         Optional<RentalOffice> optionalRentalOffice = rentalOfficeRepository.findById(id);
 
@@ -60,7 +56,6 @@ public class RentalOfficeService {
         RentalOffice existingRentalOffice = findEntityById(updatedRentalOfficeDto.getId());
 
         existingRentalOffice.setName(updatedRentalOfficeDto.getName());
-        existingRentalOffice.setInternetDomain(updatedRentalOfficeDto.getInternetDomain());
         existingRentalOffice.setContactAddress(updatedRentalOfficeDto.getContactAddress());
         existingRentalOffice.setLogoType(updatedRentalOfficeDto.getLogoType());
 

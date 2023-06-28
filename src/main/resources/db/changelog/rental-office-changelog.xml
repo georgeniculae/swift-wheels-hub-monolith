@@ -19,9 +19,6 @@
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="internet_domain" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
             <column name="contact_address" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
@@ -41,7 +38,6 @@
 
         <insert tableName="rental_office">
             <column name="name" value="Test Office"/>
-            <column name="internet_domain" value="www"/>
             <column name="contact_address" value="abc"/>
             <column name="logo_type" value="logo"/>
         </insert>

@@ -8,7 +8,9 @@ import com.carrentalservice.mapper.BranchMapperImpl;
 import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.mapper.CarMapperImpl;
 import com.carrentalservice.repository.BranchRepository;
+import com.carrentalservice.util.AssertionUtils;
 import com.carrentalservice.util.TestData;
+import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,8 +18,10 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -74,6 +78,31 @@ class BranchServiceTest {
         BranchDto updatedBranchDto = branchService.updateBranch(branchDto);
 
         assertNotNull(updatedBranchDto);
+    }
+
+    @Test
+    void saveBranchTest_success() {
+        Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
+        BranchDto branchDto = TestUtils.getResourceAsJson("/data/BranchDto.json", BranchDto.class);
+
+        when(branchRepository.save(any(Branch.class))).thenReturn(branch);
+
+        assertDoesNotThrow(() -> branchService.saveBranch(branchDto));
+        BranchDto savedBranchDto = branchService.saveBranch(branchDto);
+
+        assertThat(savedBranchDto).usingRecursiveAssertion().isEqualTo(branchDto);
+    }
+
+    @Test
+    void findAllBranchesTest_success() {
+        Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
+
+        when(branchRepository.findAll()).thenReturn(List.of(branch));
+
+        assertDoesNotThrow(() -> branchService.findAllBranches());
+        List<BranchDto> branchDtoList = branchService.findAllBranches();
+
+        AssertionUtils.assertBranch(branch, branchDtoList.get(0));
     }
 
 }

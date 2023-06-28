@@ -20,9 +20,6 @@ public class RentalOffice extends BaseEntity {
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
-    @NotEmpty(message = "Internet domain cannot be empty")
-    private String internetDomain;
-
     @NotEmpty(message = "Contact address domain cannot be empty")
     private String contactAddress;
 
