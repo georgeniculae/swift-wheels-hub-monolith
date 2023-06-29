@@ -32,8 +32,8 @@ public class RevenueRestController {
     }
 
     @GetMapping(path = "/{date}")
-    public ResponseEntity<RevenueDto> findRevenueByDetails(@RequestParam("date") Date date) {
-        RevenueDto revenue = revenueService.findRevenueByDetails(date);
+    public ResponseEntity<RevenueDto> findRevenueByDate(@RequestParam("date") Date dateOfRevenue) {
+        RevenueDto revenue = revenueService.findRevenueByDate(dateOfRevenue);
 
         return ResponseEntity.ok(revenue);
     }

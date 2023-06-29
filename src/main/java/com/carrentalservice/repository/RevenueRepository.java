@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Repository
 public interface RevenueRepository extends JpaRepository<Revenue, Long> {
@@ -14,7 +15,7 @@ public interface RevenueRepository extends JpaRepository<Revenue, Long> {
     @Query("""
             From Revenue revenue where
             revenue.dateOfRevenue = :dateOfRevenue""")
-    Revenue findRevenueByDetails(@Param("dateOfRevenue") Date dateOfRevenue);
+    Optional<Revenue> findRevenueByDetails(@Param("dateOfRevenue") Date dateOfRevenue);
 
     @Query("SELECT sum(revenue.amountFromBooking) from Revenue revenue")
     Double getTotalAmount();

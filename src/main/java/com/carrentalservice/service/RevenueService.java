@@ -2,6 +2,7 @@ package com.carrentalservice.service;
 
 import com.carrentalservice.dto.RevenueDto;
 import com.carrentalservice.entity.Revenue;
+import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.RevenueMapper;
 import com.carrentalservice.repository.RevenueRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,10 +34,14 @@ public class RevenueService {
                 .toList();
     }
 
-    public RevenueDto findRevenueByDetails(Date search) {
-        Revenue revenue = revenueRepository.findRevenueByDetails(search);
+    public RevenueDto findRevenueByDate(Date dateOfRevenue) {
+        Optional<Revenue> optionalRevenue = revenueRepository.findRevenueByDetails(dateOfRevenue);
 
-        return revenueMapper.mapEntityToDto(revenue);
+        if (optionalRevenue.isPresent()) {
+            return revenueMapper.mapEntityToDto(optionalRevenue.get());
+        }
+
+        throw new NotFoundException("Revenue from date: " + dateOfRevenue + " does not exist");
     }
 
 }
