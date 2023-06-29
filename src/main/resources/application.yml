@@ -17,6 +17,9 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
   mvc:
     throw-exception-if-no-handler-found: true
   liquibase:
@@ -28,6 +31,12 @@ logging:
     org:
       springframework:
         security: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
 
 token:
   signing:
