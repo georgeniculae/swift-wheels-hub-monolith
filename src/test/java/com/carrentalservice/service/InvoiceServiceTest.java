@@ -123,4 +123,17 @@ class InvoiceServiceTest {
         assertEquals("Invoice with id 1 does not exist", notFoundException.getMessage());
     }
 
+    @Test
+    void findInvoiceByFilterTest_success() {
+        Invoice invoice = TestUtils.getResourceAsJson("/data/Invoice.json", Invoice.class);
+        invoice.getBooking().setStatus(BookingStatus.IN_PROGRESS);
+
+        when(invoiceRepository.findInvoiceByComments(anyString())).thenReturn(invoice);
+
+        assertDoesNotThrow(() -> invoiceService.findInvoiceByComments("comment"));
+        InvoiceDto invoiceDto = invoiceService.findInvoiceByComments("comment");
+
+        AssertionUtils.assertInvoice(invoice, invoiceDto);
+    }
+
 }

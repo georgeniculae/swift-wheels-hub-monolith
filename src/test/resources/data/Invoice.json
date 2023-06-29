@@ -107,5 +107,5 @@
   "carDateOfReturn": "2050-02-22",
   "isVehicleDamaged": true,
   "damageCost": 50,
-  "comments": ""
+  "comments": "comment"
 }

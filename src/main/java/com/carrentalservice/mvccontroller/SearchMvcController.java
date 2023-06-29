@@ -34,7 +34,7 @@ public class SearchMvcController {
         model.addAttribute("customer", customerService.findCustomerByFilter(search));
         model.addAttribute("employee", employeeService.findEmployeeByFilter(search));
         model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeByName(search));
-        model.addAttribute("invoice", invoiceService.findInvoiceByFilter(search));
+        model.addAttribute("invoice", invoiceService.findInvoiceByComments(search));
 
         ObjectError error = new ObjectError("search", "Nothing found");
         bindingResult.addError(error);

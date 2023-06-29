@@ -14,7 +14,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     @Query("""
             From Invoice invoice
             where invoice.comments like '%:comments%'""")
-    Invoice findInvoiceByFilter(@Param("comments") String comments);
+    Invoice findInvoiceByComments(@Param("comments") String comments);
 
     @Query("""
             From Invoice i

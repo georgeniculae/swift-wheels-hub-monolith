@@ -80,8 +80,8 @@ public class InvoiceService {
         invoiceRepository.deleteById(id);
     }
 
-    public InvoiceDto findInvoiceByFilter(String searchString) {
-        Invoice invoice = invoiceRepository.findInvoiceByFilter(searchString);
+    public InvoiceDto findInvoiceByComments(String searchString) {
+        Invoice invoice = invoiceRepository.findInvoiceByComments(searchString);
 
         return invoiceMapper.mapEntityToDto(invoice);
     }
