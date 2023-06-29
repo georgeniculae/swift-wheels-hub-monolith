@@ -31,6 +31,10 @@ logging:
     org:
       springframework:
         security: DEBUG
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: TRACE
       hibernate:
         SQL: DEBUG
         type:
