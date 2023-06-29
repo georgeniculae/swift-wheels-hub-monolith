@@ -9,7 +9,6 @@ import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.mapper.BookingMapperImpl;
 import com.carrentalservice.repository.BookingRepository;
 import com.carrentalservice.util.AssertionUtils;
-import com.carrentalservice.util.TestData;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,11 +54,12 @@ class BookingServiceTest {
     void saveBookingUpdatedWithCustomerAndCarTest_success() {
         Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
         BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
         Car car = booking.getCar();
 
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
         when(carService.findEntityById(anyLong())).thenReturn(car);
-        when(customerService.getLoggedInCustomer()).thenReturn(TestData.createCustomer());
+        when(customerService.getLoggedInCustomer()).thenReturn(customer);
         when(branchService.findEntityById(anyLong())).thenReturn(car.getBranch());
 
         assertDoesNotThrow(() -> bookingService.saveBooking(bookingDto));
@@ -72,7 +72,7 @@ class BookingServiceTest {
 
     @Test
     void findBookingByIdTest_success() {
-        Booking booking = TestData.createBooking();
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
 
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
 
@@ -110,26 +110,26 @@ class BookingServiceTest {
 
     @Test
     void calculateAllAmountSpentByUserTest_success() {
-        Booking booking = TestData.createBooking();
-        Customer customer = TestData.createCustomer();
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
+        Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
 
         when(customerService.getLoggedInCustomer()).thenReturn(customer);
         when(bookingRepository.findBookingsByCustomer(any(Customer.class))).thenReturn(List.of(booking));
 
         Double amount = bookingService.getAmountSpentByLoggedInUser();
-        assertEquals(50, amount);
+        assertEquals(500, amount);
     }
 
     @Test
     void getSumOfAllBookingAmountTest_success() {
-        Booking booking = TestData.createBooking();
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
 
         when(bookingRepository.findAll()).thenReturn(List.of(booking));
 
         assertDoesNotThrow(() -> bookingService.getSumOfAllBookingAmount());
         Double sumOfAllBookingAmount = bookingService.getSumOfAllBookingAmount();
 
-        assertEquals(50, sumOfAllBookingAmount);
+        assertEquals(500, sumOfAllBookingAmount);
     }
 
     @Test

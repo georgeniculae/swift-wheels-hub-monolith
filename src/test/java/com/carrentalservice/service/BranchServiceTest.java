@@ -8,7 +8,6 @@ import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.mapper.BranchMapperImpl;
 import com.carrentalservice.repository.BranchRepository;
 import com.carrentalservice.util.AssertionUtils;
-import com.carrentalservice.util.TestData;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +42,9 @@ class BranchServiceTest {
 
     @Test
     void findBranchByIdTest_success() {
-        when(branchRepository.findById(anyLong())).thenReturn(Optional.of(TestData.createRentalBranch()));
+        Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
+
+        when(branchRepository.findById(anyLong())).thenReturn(Optional.of(branch));
 
         assertDoesNotThrow(() -> branchService.findBranchById(1L));
         BranchDto actualBranchDto = branchService.findBranchById(1L);
@@ -64,8 +65,8 @@ class BranchServiceTest {
 
     @Test
     void updateBranchTest_success() {
-        Branch branch = TestData.createRentalBranch();
-        BranchDto branchDto = TestData.createRentalBranchDto();
+        Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
+        BranchDto branchDto = TestUtils.getResourceAsJson("/data/BranchDto.json", BranchDto.class);
 
         when(branchRepository.findById(anyLong())).thenReturn(Optional.of(branch));
         when(branchRepository.save(branch)).thenReturn(branch);

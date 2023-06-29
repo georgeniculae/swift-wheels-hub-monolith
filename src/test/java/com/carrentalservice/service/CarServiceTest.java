@@ -8,7 +8,6 @@ import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.mapper.CarMapperImpl;
 import com.carrentalservice.repository.CarRepository;
 import com.carrentalservice.util.AssertionUtils;
-import com.carrentalservice.util.TestData;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +41,7 @@ class CarServiceTest {
 
     @Test
     void findCarByIdTest_success() {
-        Car car = TestData.createCar();
+        Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
 
         when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
 
@@ -64,8 +63,8 @@ class CarServiceTest {
 
     @Test
     void updateCarTest_success() {
-        Car car = TestData.createCar();
-        CarDto carDto = TestData.createCarDto();
+        Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
+        CarDto carDto = TestUtils.getResourceAsJson("/data/CarDto.json", CarDto.class);
 
         when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
         when(carRepository.save(any(Car.class))).thenReturn(car);

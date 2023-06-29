@@ -2,15 +2,11 @@ package com.carrentalservice.mapper;
 
 import com.carrentalservice.dto.BookingDto;
 import com.carrentalservice.entity.Booking;
-import com.carrentalservice.entity.Car;
 import com.carrentalservice.util.AssertionUtils;
-import com.carrentalservice.util.TestData;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,10 +17,7 @@ class BookingMapperTest {
 
     @Test
     void mapEntityToDtoTest_success() {
-        Booking booking = TestData.createBooking();
-        Car car = TestData.createCar();
-        car.setBookings(List.of(booking));
-        booking.setCar(car);
+        Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
 
         BookingDto bookingDto = bookingMapper.mapEntityToDto(booking);
 

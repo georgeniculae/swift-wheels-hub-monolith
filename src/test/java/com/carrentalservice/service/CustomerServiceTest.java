@@ -7,7 +7,6 @@ import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.mapper.CustomerMapperImpl;
 import com.carrentalservice.repository.CustomerRepository;
 import com.carrentalservice.util.AssertionUtils;
-import com.carrentalservice.util.TestData;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +41,7 @@ class CustomerServiceTest {
 
     @Test
     void findCustomerByIdTest_success() {
-        Customer customer = TestData.createCustomer();
+        Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
 
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
 
@@ -67,8 +66,8 @@ class CustomerServiceTest {
 
     @Test
     void updateCustomerTest_success() {
-        Customer customer = TestData.createCustomer();
-        CustomerDto customerDto = TestData.createCustomerDto();
+        Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
+        CustomerDto customerDto = TestUtils.getResourceAsJson("/data/CustomerDto.json", CustomerDto.class);
 
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);

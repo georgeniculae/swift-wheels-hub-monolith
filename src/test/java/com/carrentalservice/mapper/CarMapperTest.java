@@ -3,7 +3,7 @@ package com.carrentalservice.mapper;
 import com.carrentalservice.dto.CarDto;
 import com.carrentalservice.entity.Car;
 import com.carrentalservice.util.AssertionUtils;
-import com.carrentalservice.util.TestData;
+import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,7 +17,7 @@ class CarMapperTest {
 
     @Test
     void mapEntityToDtoTest_success() {
-        Car car = TestData.createCar();
+        Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
 
         CarDto carDto = carMapper.mapEntityToDto(car);
 
@@ -27,7 +27,7 @@ class CarMapperTest {
 
     @Test
     void mapDtoToEntityTest_success() {
-        CarDto carDto = TestData.createCarDto();
+        CarDto carDto = TestUtils.getResourceAsJson("/data/CarDto.json", CarDto.class);
 
         Car car = carMapper.mapDtoToEntity(carDto);
 
