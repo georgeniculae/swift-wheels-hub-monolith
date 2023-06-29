@@ -69,9 +69,13 @@ public class RentalOfficeService {
     }
 
     public RentalOfficeDto findRentalOfficeByName(String searchString) {
-        RentalOffice rentalOffice = rentalOfficeRepository.findRentalOfficeByName(searchString);
+        Optional<RentalOffice> optionalRentalOffice = rentalOfficeRepository.findRentalOfficeByName(searchString);
 
-        return rentalOfficeMapper.mapEntityToDto(rentalOffice);
+        if (optionalRentalOffice.isPresent()) {
+            return rentalOfficeMapper.mapEntityToDto(optionalRentalOffice.get());
+        }
+
+        throw new NotFoundException("Rental office with name: " + searchString + " does not exist");
     }
 
 }

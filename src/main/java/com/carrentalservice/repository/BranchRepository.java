@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface BranchRepository extends JpaRepository<Branch, Long> {
 
@@ -13,6 +15,6 @@ public interface BranchRepository extends JpaRepository<Branch, Long> {
             From Branch branch
             where lower(branch.name) like '%:filter%' or
             lower(branch.rentalOffice) like '%:filter%'""")
-    Branch findBranchByFilter(@Param("filter") String filter);
+    Optional<Branch> findBranchByFilter(@Param("filter") String filter);
 
 }

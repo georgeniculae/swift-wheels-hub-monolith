@@ -94,9 +94,13 @@ public class BookingService {
     }
 
     public BookingDto findBookingByDateOfBooking(String searchString) {
-        Booking booking = bookingRepository.findByDateOfBooking(Date.valueOf(searchString));
+        Optional<Booking> optionalBooking = bookingRepository.findByDateOfBooking(Date.valueOf(searchString));
 
-        return bookingMapper.mapEntityToDto(booking);
+        if (optionalBooking.isPresent()) {
+            return bookingMapper.mapEntityToDto(optionalBooking.get());
+        }
+
+        throw new NotFoundException("Booking from date: " + searchString + " does not exist");
     }
 
     public Long countByLoggedInCustomer() {

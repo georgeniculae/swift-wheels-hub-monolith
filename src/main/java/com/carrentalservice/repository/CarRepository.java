@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
@@ -15,7 +16,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
             From Car car
             where lower(car.make) like '%:filter%'
             or lower(car.model) like '%:filter%'""")
-    Car findCarByFilter(@Param("filter") String filter);
+    Optional<Car> findCarByFilter(@Param("filter") String filter);
 
     List<Car> findCarsByMake(String make);
 

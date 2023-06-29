@@ -86,9 +86,13 @@ public class EmployeeService {
     }
 
     public EmployeeDto findEmployeeByFilter(String searchString) {
-        Employee employee = employeeRepository.findByFilter(searchString);
+        Optional<Employee> optionalEmployee = employeeRepository.findByFilter(searchString);
 
-        return employeeMapper.mapEntityToDto(employee);
+        if (optionalEmployee.isPresent()) {
+            return employeeMapper.mapEntityToDto(optionalEmployee.get());
+        }
+
+        throw new NotFoundException("Employee with filter: " + searchString + " does not exist");
     }
 
 }

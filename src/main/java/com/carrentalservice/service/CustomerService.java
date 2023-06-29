@@ -75,9 +75,13 @@ public class CustomerService {
     }
 
     public CustomerDto findCustomerByFilter(String searchString) {
-        Customer customer = customerRepository.findCustomerByFilter(searchString);
+        Optional<Customer> optionalCustomer = customerRepository.findCustomerByFilter(searchString);
 
-        return customerMapper.mapEntityToDto(customer);
+        if (optionalCustomer.isPresent()) {
+            return customerMapper.mapEntityToDto(optionalCustomer.get());
+        }
+
+        throw new NotFoundException("Customer with filter: " + searchString + " does not exist");
     }
 
     public boolean existsByUsername(String username) {

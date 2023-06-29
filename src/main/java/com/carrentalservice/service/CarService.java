@@ -81,8 +81,14 @@ public class CarService {
         return carRepository.count();
     }
 
-    public Car findCarByFilter(String searchString) {
-        return carRepository.findCarByFilter(searchString);
+    public CarDto findCarByFilter(String searchString) {
+        Optional<Car> optionalCar = carRepository.findCarByFilter(searchString);
+
+        if (optionalCar.isPresent()) {
+            return carMapper.mapEntityToDto(optionalCar.get());
+        }
+
+        throw new NotFoundException("Car with filter: " + searchString + " does not exist");
     }
 
     public List<Car> findCarsByMake(String make) {

@@ -81,9 +81,13 @@ public class InvoiceService {
     }
 
     public InvoiceDto findInvoiceByComments(String searchString) {
-        Invoice invoice = invoiceRepository.findInvoiceByComments(searchString);
+        Optional<Invoice> optionalInvoice = invoiceRepository.findInvoiceByComments(searchString);
 
-        return invoiceMapper.mapEntityToDto(invoice);
+        if (optionalInvoice.isPresent()) {
+            return invoiceMapper.mapEntityToDto(optionalInvoice.get());
+        }
+
+        throw new NotFoundException("Invoice with comment: " + searchString + " does not exist");
     }
 
     public Long countInvoices() {

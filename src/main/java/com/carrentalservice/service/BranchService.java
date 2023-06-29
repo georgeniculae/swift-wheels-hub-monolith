@@ -78,8 +78,14 @@ public class BranchService {
         return branchRepository.count();
     }
 
-    public Branch findBranchByFilter(String searchString) {
-        return branchRepository.findBranchByFilter(searchString);
+    public BranchDto findBranchByFilter(String searchString) {
+        Optional<Branch> optionalBranch = branchRepository.findBranchByFilter(searchString);
+
+        if (optionalBranch.isPresent()) {
+            return branchMapper.mapEntityToDto(optionalBranch.get());
+        }
+
+        throw new NotFoundException("Branch with filter: " + searchString + " does not exist");
     }
 
 }

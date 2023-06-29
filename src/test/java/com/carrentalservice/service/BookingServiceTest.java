@@ -8,6 +8,7 @@ import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.mapper.BookingMapperImpl;
 import com.carrentalservice.repository.BookingRepository;
+import com.carrentalservice.util.AssertionUtils;
 import com.carrentalservice.util.TestData;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
@@ -146,9 +147,24 @@ class BookingServiceTest {
         Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
 
         when(bookingRepository.findByDateOfBooking(Date.valueOf(LocalDate.of(2050, Month.FEBRUARY, 20))))
-                .thenReturn(booking);
+                .thenReturn(Optional.of(booking));
 
         assertDoesNotThrow(() -> bookingService.findBookingByDateOfBooking("2050-02-20"));
+        BookingDto bookingDto = bookingService.findBookingByDateOfBooking("2050-02-20");
+
+        AssertionUtils.assertBooking(booking, bookingDto);
+    }
+
+    @Test
+    void findBookingByDateOfBookingTest_errorOnFindingByDateOfBooking() {
+        when(bookingRepository.findByDateOfBooking(Date.valueOf(LocalDate.of(2050, Month.FEBRUARY, 20))))
+                .thenReturn(Optional.empty());
+
+        NotFoundException notFoundException =
+                assertThrows(NotFoundException.class, () -> bookingService.findBookingByDateOfBooking("2050-02-20"));
+
+        assertNotNull(notFoundException);
+        assertEquals("Booking from date: 2050-02-20 does not exist", notFoundException.getMessage());
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
@@ -16,7 +17,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("""
             From Booking booking
             where booking.dateOfBooking = :dateOfBooking""")
-    Booking findByDateOfBooking(@Param("dateOfBooking") Date dateOfBooking);
+    Optional<Booking> findByDateOfBooking(@Param("dateOfBooking") Date dateOfBooking);
 
     List<Booking> findBookingsByCustomer(Customer customer);
 

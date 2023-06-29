@@ -5,8 +5,6 @@ import com.carrentalservice.entity.Branch;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.mapper.BranchMapperImpl;
-import com.carrentalservice.mapper.CarMapper;
-import com.carrentalservice.mapper.CarMapperImpl;
 import com.carrentalservice.repository.BranchRepository;
 import com.carrentalservice.util.AssertionUtils;
 import com.carrentalservice.util.TestData;
@@ -38,9 +36,6 @@ class BranchServiceTest {
 
     @Mock
     private RentalOfficeService rentalOfficeService;
-
-    @Spy
-    private CarMapper carMapper = new CarMapperImpl();
 
     @Spy
     private BranchMapper branchMapper = new BranchMapperImpl();

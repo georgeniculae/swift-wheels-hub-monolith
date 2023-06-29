@@ -128,7 +128,7 @@ class InvoiceServiceTest {
         Invoice invoice = TestUtils.getResourceAsJson("/data/Invoice.json", Invoice.class);
         invoice.getBooking().setStatus(BookingStatus.IN_PROGRESS);
 
-        when(invoiceRepository.findInvoiceByComments(anyString())).thenReturn(invoice);
+        when(invoiceRepository.findInvoiceByComments(anyString())).thenReturn(Optional.of(invoice));
 
         assertDoesNotThrow(() -> invoiceService.findInvoiceByComments("comment"));
         InvoiceDto invoiceDto = invoiceService.findInvoiceByComments("comment");
