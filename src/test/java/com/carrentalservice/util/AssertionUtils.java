@@ -68,4 +68,7 @@ public class AssertionUtils {
         assertEquals(employee.getFirstName(), employeeDto.getFirstName());
     }
 
+    public static void assertInvoice(Invoice invoice, InvoiceDto invoiceDto) {
+
+    }
 }

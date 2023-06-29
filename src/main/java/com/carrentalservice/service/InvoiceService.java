@@ -157,7 +157,8 @@ public class InvoiceService {
 
     private double getMoneyForLateReturn(LocalDate carReturnDate, LocalDate bookingDateTo, LocalDate bookingDateFrom,
                                          Double carAmount) {
-        return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount + getDaysPeriod(bookingDateTo, carReturnDate) * 2 * carAmount;
+        return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount +
+                getDaysPeriod(bookingDateTo, carReturnDate) * 2 * carAmount;
     }
 
 }

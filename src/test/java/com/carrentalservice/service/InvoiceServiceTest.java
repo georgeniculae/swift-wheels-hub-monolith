@@ -7,6 +7,7 @@ import com.carrentalservice.entity.Revenue;
 import com.carrentalservice.mapper.InvoiceMapper;
 import com.carrentalservice.mapper.InvoiceMapperImpl;
 import com.carrentalservice.repository.InvoiceRepository;
+import com.carrentalservice.util.AssertionUtils;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -55,6 +57,18 @@ class InvoiceServiceTest {
         assertDoesNotThrow(() -> invoiceService.updateInvoice(invoiceDto));
 
         verify(invoiceMapper, times(1)).mapEntityToDto(any(Invoice.class));
+    }
+
+    @Test
+    void findAllInvoicesTest_success() {
+        Invoice invoice = TestUtils.getResourceAsJson("/data/Invoice.json", Invoice.class);
+
+        when(invoiceRepository.findAll()).thenReturn(List.of(invoice));
+
+        assertDoesNotThrow(() -> invoiceService.findAllInvoices());
+        List<InvoiceDto> invoiceDtoList = invoiceService.findAllInvoices();
+
+        AssertionUtils.assertInvoice(invoice, invoiceDtoList.get(0));
     }
 
 }
