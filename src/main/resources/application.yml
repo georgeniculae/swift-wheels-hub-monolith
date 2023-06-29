@@ -31,6 +31,9 @@ logging:
     org:
       springframework:
         security: DEBUG
+        web:
+          csrf:
+            CsrfFilter: DEBUG
         jdbc:
           core:
             JdbcTemplate: DEBUG

@@ -15,7 +15,7 @@ import java.sql.Date;
 @EqualsAndHashCode(callSuper = true)
 public class Booking extends BaseEntity {
 
-    @NotNull(message = "Date cannot be null")
+    @NotNull(message = "Date of booking cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateOfBooking;
@@ -31,12 +31,12 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @NotNull(message = "Date cannot be null")
+    @NotNull(message = "Date from cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateFrom;
 
-    @NotNull(message = "Date cannot be blank")
+    @NotNull(message = "Date to cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dateTo;

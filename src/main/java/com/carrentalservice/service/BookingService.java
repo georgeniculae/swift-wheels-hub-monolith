@@ -182,6 +182,7 @@ public class BookingService {
     private void setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch, Invoice invoice) {
         newBooking.setCustomer(customer);
         newBooking.setCar(car);
+        newBooking.setDateOfBooking(Date.valueOf(LocalDate.now()));
         newBooking.setRentalBranch(rentalBranch);
         newBooking.setStatus(BookingStatus.IN_PROGRESS);
         newBooking.setAmount(getAmount(newBooking.getDateFrom(), newBooking.getDateTo(), car.getAmount()));

@@ -17,11 +17,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(BookingRestController.class)
@@ -46,7 +46,7 @@ class BookingRestControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
@@ -60,7 +60,7 @@ class BookingRestControllerTest {
     void findBookingByIdTest_successWithMockUser() throws Exception {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
@@ -74,7 +74,7 @@ class BookingRestControllerTest {
     void findBookingByIdTest_notAuthorize() throws Exception {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isUnauthorized())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized())
                 .andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
@@ -82,4 +82,5 @@ class BookingRestControllerTest {
         assertEquals("Unauthorized", response.getErrorMessage());
         assertEquals(401, status);
     }
+
 }
