@@ -71,7 +71,7 @@ class BookingRestControllerTest {
 
     @Test
     @WithAnonymousUser()
-    void findBookingByIdTest_notAuthorize() throws Exception {
+    void findBookingByIdTest_unauthorized() throws Exception {
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
