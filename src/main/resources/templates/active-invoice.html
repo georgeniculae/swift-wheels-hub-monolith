@@ -351,7 +351,6 @@
         <th>Date of return of the car</th>
         <th>Damaged</th>
         <th>Damage cost</th>
-        <th>Additional payment</th>
         <th>Comments</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -367,7 +366,6 @@
             <td th:text="${invoice.carDateOfReturn}"></td>
             <td th:text="${invoice.isVehicleDamaged}"></td>
             <td th:text="${invoice.damageCost}"></td>
-            <td th:text="${invoice.additionalPayment}"></td>
             <td th:text="${invoice.comments}"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a th:href="@{/invoice/edit/{id}(id = ${invoice.id})}">

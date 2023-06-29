@@ -351,7 +351,6 @@
         <th>Date of return of the car</th>
         <th>Damaged</th>
         <th>Damage cost</th>
-        <th>Additional payment</th>
         <th>Comments</th>
         <th>Booking status</th>
         </thead>
@@ -366,7 +365,6 @@
             <td th:text="${invoice.carDateOfReturn}"></td>
             <td th:text="${invoice.isVehicleDamaged}"></td>
             <td th:text="${invoice.damageCost}"></td>
-            <td th:text="${invoice.additionalPayment}"></td>
             <td th:text="${invoice.comments}"></td>
             <td th:text="${invoice.booking.status.displayName}"></td>
         </tbody>

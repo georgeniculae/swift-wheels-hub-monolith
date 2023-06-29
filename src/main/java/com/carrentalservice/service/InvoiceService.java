@@ -101,7 +101,7 @@ public class InvoiceService {
             return optionalInvoice.get();
         }
 
-        throw new NotFoundException("Invoice with id " + id + "does not exist");
+        throw new NotFoundException("Invoice with id " + id + " does not exist");
     }
 
     private void validateInvoice(InvoiceDto invoiceDto) {

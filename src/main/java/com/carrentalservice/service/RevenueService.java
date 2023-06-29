@@ -17,8 +17,8 @@ public class RevenueService {
     private final RevenueRepository revenueRepository;
     private final RevenueMapper revenueMapper;
 
-    public void saveEntity(Revenue revenue) {
-        revenueRepository.save(revenue);
+    public Revenue saveEntity(Revenue revenue) {
+        return revenueRepository.save(revenue);
     }
 
     public Double getTotalAmount() {
