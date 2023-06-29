@@ -76,12 +76,14 @@
         "rentalOffice": {
           "id": 1,
           "name": "Test Rental Office",
-          "contactAddress": "contact"
+          "contactAddress": "Ploiesti",
+          "logoType": ""
         }
       }
     },
     "dateFrom": "2050-02-21",
     "dateTo": "2050-02-22",
+    "amount": 500,
     "rentalBranch": {
       "id": 1,
       "name": "Test Branch",
@@ -89,7 +91,8 @@
       "rentalOffice": {
         "id": 1,
         "name": "Test Rental Office",
-        "contactAddress": "contact"
+        "contactAddress": "Ploiesti",
+        "logoType": ""
       }
     },
     "returnBranch": {

@@ -85,4 +85,14 @@ public class AssertionUtils {
         assertEquals(revenue.getDateOfRevenue(), revenueDto.getDateOfRevenue());
         assertEquals(revenue.getAmountFromBooking(), revenueDto.getAmountFromBooking());
     }
+
+    public static void assertUser(User user, UserDto userDto) {
+        assertEquals(user.getUsername(), userDto.getUsername());
+        assertEquals(user.getPassword(), userDto.getPassword());
+        assertEquals(user.getRole(), userDto.getRole());
+        assertEquals(user.getFirstName(), userDto.getFirstName());
+        assertEquals(user.getLastName(), userDto.getLastName());
+        assertEquals(user.getEmail(), userDto.getEmail());
+    }
+
 }
