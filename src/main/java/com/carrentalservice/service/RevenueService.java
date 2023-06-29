@@ -35,7 +35,7 @@ public class RevenueService {
     }
 
     public RevenueDto findRevenueByDate(Date dateOfRevenue) {
-        Optional<Revenue> optionalRevenue = revenueRepository.findRevenueByDetails(dateOfRevenue);
+        Optional<Revenue> optionalRevenue = revenueRepository.findByDateOfRevenue(dateOfRevenue);
 
         if (optionalRevenue.isPresent()) {
             return revenueMapper.mapEntityToDto(optionalRevenue.get());

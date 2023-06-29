@@ -80,4 +80,9 @@ public class AssertionUtils {
         assertEquals(invoice.getTotalAmount(), invoiceDto.getTotalAmount());
         assertEquals(invoice.getComments(), invoiceDto.getComments());
     }
+
+    public static void assertRevenue(Revenue revenue, RevenueDto revenueDto) {
+        assertEquals(revenue.getDateOfRevenue(), revenueDto.getDateOfRevenue());
+        assertEquals(revenue.getAmountFromBooking(), revenueDto.getAmountFromBooking());
+    }
 }
