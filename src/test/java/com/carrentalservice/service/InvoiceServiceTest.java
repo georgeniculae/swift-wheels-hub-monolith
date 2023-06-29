@@ -1,9 +1,11 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.InvoiceDto;
+import com.carrentalservice.entity.BookingStatus;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.entity.Invoice;
 import com.carrentalservice.entity.Revenue;
+import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.InvoiceMapper;
 import com.carrentalservice.mapper.InvoiceMapperImpl;
 import com.carrentalservice.repository.InvoiceRepository;
@@ -19,7 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -69,6 +71,56 @@ class InvoiceServiceTest {
         List<InvoiceDto> invoiceDtoList = invoiceService.findAllInvoices();
 
         AssertionUtils.assertInvoice(invoice, invoiceDtoList.get(0));
+    }
+
+    @Test
+    void findAllActiveInvoicesTest_success() {
+        Invoice invoice = TestUtils.getResourceAsJson("/data/Invoice.json", Invoice.class);
+        invoice.getBooking().setStatus(BookingStatus.IN_PROGRESS);
+
+        when(invoiceRepository.findAllActiveInvoices()).thenReturn(List.of(invoice));
+
+        assertDoesNotThrow(() -> invoiceService.findAllInvoices());
+        List<InvoiceDto> invoiceDtoList = invoiceService.findAllActiveInvoices();
+
+        AssertionUtils.assertInvoice(invoice, invoiceDtoList.get(0));
+    }
+
+    @Test
+    void findAllInvoicesByCustomerIdTest_success() {
+        Invoice invoice = TestUtils.getResourceAsJson("/data/Invoice.json", Invoice.class);
+        invoice.getBooking().setStatus(BookingStatus.IN_PROGRESS);
+
+        when(invoiceRepository.findByCustomerId(anyLong())).thenReturn(List.of(invoice));
+
+        assertDoesNotThrow(() -> invoiceService.findAllInvoicesByCustomerId(1L));
+        List<InvoiceDto> invoiceDtoList = invoiceService.findAllInvoicesByCustomerId(1L);
+
+        AssertionUtils.assertInvoice(invoice, invoiceDtoList.get(0));
+    }
+
+    @Test
+    void findInvoiceByIdTest_success() {
+        Invoice invoice = TestUtils.getResourceAsJson("/data/Invoice.json", Invoice.class);
+        invoice.getBooking().setStatus(BookingStatus.IN_PROGRESS);
+
+        when(invoiceRepository.findById(anyLong())).thenReturn(Optional.of(invoice));
+
+        assertDoesNotThrow(() -> invoiceService.findInvoiceById(1L));
+        InvoiceDto invoiceDto = invoiceService.findInvoiceById(1L);
+
+        AssertionUtils.assertInvoice(invoice, invoiceDto);
+    }
+
+    @Test
+    void findInvoiceByIdTest_errorOnFindingById() {
+        when(invoiceRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        NotFoundException notFoundException =
+                assertThrows(NotFoundException.class, () -> invoiceService.findInvoiceById(1L));
+
+        assertNotNull(notFoundException);
+        assertEquals("Invoice with id 1 does not exist", notFoundException.getMessage());
     }
 
 }

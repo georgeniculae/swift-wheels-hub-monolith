@@ -85,8 +85,8 @@ public class EmployeeService {
         return employeeRepository.count();
     }
 
-    public EmployeeDto findEmployeeByName(String searchString) {
-        Employee employee = employeeRepository.findByName(searchString);
+    public EmployeeDto findEmployeeByFilter(String searchString) {
+        Employee employee = employeeRepository.findByFilter(searchString);
 
         return employeeMapper.mapEntityToDto(employee);
     }

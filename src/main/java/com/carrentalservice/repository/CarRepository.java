@@ -13,9 +13,9 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     @Query("""
             From Car car
-            where lower(car.make) like '%:carName%'
-            or lower(car.model) like '%:carName%'""")
-    Car findCarByName(@Param("carName") String carName);
+            where lower(car.make) like '%:filter%'
+            or lower(car.model) like '%:filter%'""")
+    Car findCarByFilter(@Param("filter") String filter);
 
     List<Car> findCarsByMake(String make);
 

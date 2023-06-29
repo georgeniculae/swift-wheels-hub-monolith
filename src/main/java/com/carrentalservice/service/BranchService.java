@@ -78,8 +78,8 @@ public class BranchService {
         return branchRepository.count();
     }
 
-    public Branch findBranchByName(String searchString) {
-        return branchRepository.findBranchByName(searchString);
+    public Branch findBranchByFilter(String searchString) {
+        return branchRepository.findBranchByFilter(searchString);
     }
 
 }

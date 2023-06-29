@@ -29,12 +29,12 @@ public class SearchMvcController {
     public String search(@ModelAttribute("search") String search, Model model, BindingResult bindingResult) {
         model.addAttribute("search", new SearchValueDto());
         model.addAttribute("booking", bookingService.findBookingByDateOfBooking(search));
-        model.addAttribute("branch", branchService.findBranchByName(search));
-        model.addAttribute("car", carService.findCarByName(search));
-        model.addAttribute("customer", customerService.findCustomerByName(search));
-        model.addAttribute("employee", employeeService.findEmployeeByName(search));
+        model.addAttribute("branch", branchService.findBranchByFilter(search));
+        model.addAttribute("car", carService.findCarByFilter(search));
+        model.addAttribute("customer", customerService.findCustomerByFilter(search));
+        model.addAttribute("employee", employeeService.findEmployeeByFilter(search));
         model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeByName(search));
-        model.addAttribute("invoice", invoiceService.findInvoiceByName(search));
+        model.addAttribute("invoice", invoiceService.findInvoiceByFilter(search));
 
         ObjectError error = new ObjectError("search", "Nothing found");
         bindingResult.addError(error);

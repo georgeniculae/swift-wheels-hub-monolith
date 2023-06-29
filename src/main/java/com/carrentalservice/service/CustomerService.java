@@ -74,8 +74,8 @@ public class CustomerService {
         return customerRepository.countCustomersWithoutBaseUsers(ADMIN, USER, SUPPORT);
     }
 
-    public CustomerDto findCustomerByName(String searchString) {
-        Customer customer = customerRepository.findCustomerByName(searchString);
+    public CustomerDto findCustomerByFilter(String searchString) {
+        Customer customer = customerRepository.findCustomerByFilter(searchString);
 
         return customerMapper.mapEntityToDto(customer);
     }

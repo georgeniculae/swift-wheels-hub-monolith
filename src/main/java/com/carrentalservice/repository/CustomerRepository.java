@@ -16,9 +16,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query("""
             From Customer customer
-            where lower(customer.firstName) like '%:customerName%'
-            or lower(customer.lastName) like '%:customerName%'""")
-    Customer findCustomerByName(@Param("customerName") String customerName);
+            where lower(customer.firstName) like '%:filter%'
+            or lower(customer.lastName) like '%:filter%'""")
+    Customer findCustomerByFilter(@Param("filter") String filter);
 
     boolean existsByUsername(String username);
 

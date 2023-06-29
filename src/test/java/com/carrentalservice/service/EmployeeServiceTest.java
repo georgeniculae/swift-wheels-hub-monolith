@@ -121,10 +121,10 @@ class EmployeeServiceTest {
     void findEmployeeByNameTest_success() {
         Employee employee = TestUtils.getResourceAsJson("/data/Employee.json", Employee.class);
 
-        when(employeeRepository.findByName(anyString())).thenReturn(employee);
+        when(employeeRepository.findByFilter(anyString())).thenReturn(employee);
 
-        assertDoesNotThrow(() -> employeeService.findEmployeeByName("Ion"));
-        EmployeeDto employeeDto = employeeService.findEmployeeByName("Ion");
+        assertDoesNotThrow(() -> employeeService.findEmployeeByFilter("Ion"));
+        EmployeeDto employeeDto = employeeService.findEmployeeByFilter("Ion");
         AssertionUtils.assertEmployee(employee, employeeDto);
     }
 

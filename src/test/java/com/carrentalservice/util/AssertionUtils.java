@@ -69,6 +69,15 @@ public class AssertionUtils {
     }
 
     public static void assertInvoice(Invoice invoice, InvoiceDto invoiceDto) {
-
+        assertCustomer(invoice.getCustomer(), invoiceDto.getCustomer());
+        assertCar(invoice.getCar(), invoiceDto.getCar());
+        assertEmployee(invoice.getReceptionistEmployee(), invoiceDto.getReceptionistEmployee());
+        assertBooking(invoice.getBooking(), invoiceDto.getBooking());
+        assertEquals(invoice.getCarDateOfReturn(), invoiceDto.getCarDateOfReturn());
+        assertEquals(invoice.getIsVehicleDamaged(), invoiceDto.getIsVehicleDamaged());
+        assertEquals(invoice.getDamageCost(), invoiceDto.getDamageCost());
+        assertEquals(invoice.getAdditionalPayment(), invoiceDto.getAdditionalPayment());
+        assertEquals(invoice.getTotalAmount(), invoiceDto.getTotalAmount());
+        assertEquals(invoice.getComments(), invoiceDto.getComments());
     }
 }

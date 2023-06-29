@@ -81,8 +81,8 @@ public class CarService {
         return carRepository.count();
     }
 
-    public Car findCarByName(String searchString) {
-        return carRepository.findCarByName(searchString);
+    public Car findCarByFilter(String searchString) {
+        return carRepository.findCarByFilter(searchString);
     }
 
     public List<Car> findCarsByMake(String make) {

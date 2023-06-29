@@ -80,7 +80,13 @@
     "rentalBranch": {
       "id": 1,
       "name": "Test Branch",
-      "address": "Ploiesti"
+      "address": "Ploiesti",
+      "rentalOffice": {
+        "id": 1,
+        "name": "Test Rental Office",
+        "contactAddress": "Ploiesti",
+        "logoType": ""
+      }
     },
     "returnBranch": {
       "id": 1,

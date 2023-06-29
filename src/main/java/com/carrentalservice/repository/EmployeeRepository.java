@@ -11,8 +11,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query("""
             From Employee employee
-            where lower(employee.firstName) like '%:employeeName%'
-            or lower(employee.lastName) like '%:employeeName%'""")
-    Employee findByName(@Param("employeeName") String employeeName);
+            where lower(employee.firstName) like '%:filter%'
+            or lower(employee.lastName) like '%:filter%'""")
+    Employee findByFilter(@Param("filter") String filter);
 
 }
