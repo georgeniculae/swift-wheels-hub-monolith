@@ -16,7 +16,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
             From Car car
             where lower(car.make) like '%:filter%'
             or lower(car.model) like '%:filter%'""")
-    Optional<Car> findCarByFilter(@Param("filter") String filter);
+    Optional<Car> findByFilter(@Param("filter") String filter);
 
     List<Car> findCarsByMake(String make);
 

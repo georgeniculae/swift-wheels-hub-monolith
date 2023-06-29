@@ -82,7 +82,7 @@ public class CarService {
     }
 
     public CarDto findCarByFilter(String searchString) {
-        Optional<Car> optionalCar = carRepository.findCarByFilter(searchString);
+        Optional<Car> optionalCar = carRepository.findByFilter(searchString);
 
         if (optionalCar.isPresent()) {
             return carMapper.mapEntityToDto(optionalCar.get());

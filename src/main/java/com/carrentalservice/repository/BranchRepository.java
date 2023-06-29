@@ -15,6 +15,6 @@ public interface BranchRepository extends JpaRepository<Branch, Long> {
             From Branch branch
             where lower(branch.name) like '%:filter%' or
             lower(branch.rentalOffice) like '%:filter%'""")
-    Optional<Branch> findBranchByFilter(@Param("filter") String filter);
+    Optional<Branch> findByFilter(@Param("filter") String filter);
 
 }

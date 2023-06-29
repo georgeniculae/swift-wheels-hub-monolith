@@ -131,4 +131,27 @@ class CustomerServiceTest {
         assertEquals("Customer with username null does not exist", notFoundException.getMessage());
     }
 
+    @Test
+    void findCarByFilterTest_success() {
+        Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
+
+        when(customerRepository.findByFilter(anyString())).thenReturn(Optional.of(customer));
+
+        assertDoesNotThrow(() -> customerService.findCustomerByFilter("Test"));
+        CustomerDto customerDto = customerService.findCustomerByFilter("Test");
+
+        AssertionUtils.assertCustomer(customer, customerDto);
+    }
+
+    @Test
+    void findCarByFilterTest_errorOnFindingByFilter() {
+        when(customerRepository.findByFilter(anyString())).thenReturn(Optional.empty());
+
+        NotFoundException notFoundException =
+                assertThrows(NotFoundException.class, () -> customerService.findCustomerByFilter("Test"));
+
+        assertNotNull(notFoundException);
+        assertEquals("Customer with filter: Test does not exist", notFoundException.getMessage());
+    }
+
 }

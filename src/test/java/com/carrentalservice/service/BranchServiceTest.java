@@ -2,6 +2,7 @@ package com.carrentalservice.service;
 
 import com.carrentalservice.dto.BranchDto;
 import com.carrentalservice.entity.Branch;
+import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.mapper.BranchMapperImpl;
@@ -79,7 +80,9 @@ class BranchServiceTest {
     void saveBranchTest_success() {
         Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
         BranchDto branchDto = TestUtils.getResourceAsJson("/data/BranchDto.json", BranchDto.class);
+        RentalOffice rentalOffice = TestUtils.getResourceAsJson("/data/RentalOffice.json", RentalOffice.class);
 
+        when(rentalOfficeService.findEntityById(anyLong())).thenReturn(rentalOffice);
         when(branchRepository.save(any(Branch.class))).thenReturn(branch);
 
         assertDoesNotThrow(() -> branchService.saveBranch(branchDto));
@@ -98,6 +101,29 @@ class BranchServiceTest {
         List<BranchDto> branchDtoList = branchService.findAllBranches();
 
         AssertionUtils.assertBranch(branch, branchDtoList.get(0));
+    }
+
+    @Test
+    void findBranchByFilterTest_success() {
+        Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
+
+        when(branchRepository.findByFilter(anyString())).thenReturn(Optional.of(branch));
+
+        assertDoesNotThrow(() -> branchService.findBranchByFilter("Test"));
+        BranchDto branchDto = branchService.findBranchByFilter("Test");
+
+        AssertionUtils.assertBranch(branch, branchDto);
+    }
+
+    @Test
+    void findBranchByFilterTest_errorOnFindingByFilter() {
+        when(branchRepository.findByFilter(anyString())).thenReturn(Optional.empty());
+
+        NotFoundException notFoundException =
+                assertThrows(NotFoundException.class, () -> branchService.findBranchByFilter("Test"));
+
+        assertNotNull(notFoundException);
+        assertEquals("Branch with filter: Test does not exist", notFoundException.getMessage());
     }
 
 }

@@ -75,7 +75,7 @@ public class CustomerService {
     }
 
     public CustomerDto findCustomerByFilter(String searchString) {
-        Optional<Customer> optionalCustomer = customerRepository.findCustomerByFilter(searchString);
+        Optional<Customer> optionalCustomer = customerRepository.findByFilter(searchString);
 
         if (optionalCustomer.isPresent()) {
             return customerMapper.mapEntityToDto(optionalCustomer.get());

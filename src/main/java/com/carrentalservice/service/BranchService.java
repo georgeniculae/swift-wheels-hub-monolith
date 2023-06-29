@@ -24,6 +24,7 @@ public class BranchService {
     @Transactional
     public BranchDto saveBranch(BranchDto branchDto) {
         Branch newBranch = branchMapper.mapDtoToEntity(branchDto);
+
         newBranch.setRentalOffice(rentalOfficeService.findEntityById(branchDto.getRentalOffice().getId()));
         Branch savedBranch = branchRepository.save(newBranch);
 
@@ -79,7 +80,7 @@ public class BranchService {
     }
 
     public BranchDto findBranchByFilter(String searchString) {
-        Optional<Branch> optionalBranch = branchRepository.findBranchByFilter(searchString);
+        Optional<Branch> optionalBranch = branchRepository.findByFilter(searchString);
 
         if (optionalBranch.isPresent()) {
             return branchMapper.mapEntityToDto(optionalBranch.get());

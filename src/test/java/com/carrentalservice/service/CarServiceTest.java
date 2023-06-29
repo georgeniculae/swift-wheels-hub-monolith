@@ -101,4 +101,27 @@ class CarServiceTest {
         AssertionUtils.assertCar(car, carDtoList.get(0));
     }
 
+    @Test
+    void findCarByFilterTest_success() {
+        Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
+
+        when(carRepository.findByFilter(anyString())).thenReturn(Optional.of(car));
+
+        assertDoesNotThrow(() -> carService.findCarByFilter("Test"));
+        CarDto carDto = carService.findCarByFilter("Test");
+
+        AssertionUtils.assertCar(car, carDto);
+    }
+
+    @Test
+    void findCarByFilterTest_errorOnFindingByFilter() {
+        when(carRepository.findByFilter(anyString())).thenReturn(Optional.empty());
+
+        NotFoundException notFoundException =
+                assertThrows(NotFoundException.class, () -> carService.findCarByFilter("Test"));
+
+        assertNotNull(notFoundException);
+        assertEquals("Car with filter: Test does not exist", notFoundException.getMessage());
+    }
+
 }

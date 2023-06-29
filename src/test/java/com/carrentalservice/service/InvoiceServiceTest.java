@@ -136,4 +136,15 @@ class InvoiceServiceTest {
         AssertionUtils.assertInvoice(invoice, invoiceDto);
     }
 
+    @Test
+    void findInvoiceByFilterTest_errorOnFindingByComments() {
+        when(invoiceRepository.findInvoiceByComments(anyString())).thenReturn(Optional.empty());
+
+        NotFoundException notFoundException =
+                assertThrows(NotFoundException.class, () -> invoiceService.findInvoiceByComments("comment"));
+
+        assertNotNull(notFoundException);
+        assertEquals("Invoice with comment: comment does not exist", notFoundException.getMessage());
+    }
+
 }
