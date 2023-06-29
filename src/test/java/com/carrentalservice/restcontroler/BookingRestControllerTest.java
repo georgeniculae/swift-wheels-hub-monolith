@@ -30,7 +30,7 @@ class BookingRestControllerTest {
     public static final String PATH = "/api/booking";
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mockMvc;
 
     @MockBean
     private BookingService bookingService;
@@ -43,7 +43,7 @@ class BookingRestControllerTest {
 
     @Test
     void findBookingByIdTest_success() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -58,7 +58,7 @@ class BookingRestControllerTest {
     @Test
     @WithMockUser(value = "admin", username = "admin", password = "admin", roles = "ADMIN")
     void findBookingByIdTest_successWithMockUser() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
@@ -72,7 +72,7 @@ class BookingRestControllerTest {
     @Test
     @WithAnonymousUser()
     void findBookingByIdTest_notAuthorize() throws Exception {
-        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1)
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isUnauthorized())
                 .andReturn();
