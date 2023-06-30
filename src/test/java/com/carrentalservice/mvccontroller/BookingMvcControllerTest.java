@@ -138,4 +138,25 @@ class BookingMvcControllerTest {
         assertNotNull(responseAsString);
     }
 
+    @Test
+    void addBookingTest_success() throws Exception {
+        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+
+        when(bookingService.saveBooking(any(BookingDto.class))).thenReturn(bookingDto);
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/booking/add")
+                        .with(csrf())
+                        .with(user("admin").password("admin").roles("ADMIN"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bookingDto)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(200, response.getStatus());
+        String responseAsString = response.getContentAsString();
+        assertNotNull(responseAsString);
+    }
+
 }
