@@ -14,8 +14,7 @@ public enum BodyType {
     COUPE("Coupe"),
     CONVERTIBLE("Convertible"),
     WAGON("Wagon"),
-    VAN("Van"),
-    JEEP("Jeep");
+    VAN("Van");
 
     private final String displayName;
 
