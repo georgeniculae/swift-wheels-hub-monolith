@@ -88,7 +88,7 @@ public class CustomerService {
         return customerRepository.existsByUsername(username);
     }
 
-    public CustomerDto getLoggedInCustomerDto() {
+    public CustomerDto findLoggedInCustomer() {
         return customerMapper.mapEntityToDto(getLoggedInCustomer());
     }
 

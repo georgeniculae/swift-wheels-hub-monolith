@@ -111,7 +111,7 @@ class CustomerServiceTest {
 
         when(customerRepository.findByUsername(null)).thenReturn(Optional.of(customer));
 
-        assertDoesNotThrow(() -> customerService.getLoggedInCustomerDto());
+        assertDoesNotThrow(() -> customerService.findLoggedInCustomer());
     }
 
     @Test
@@ -125,7 +125,7 @@ class CustomerServiceTest {
         when(customerRepository.findByUsername(null)).thenReturn(Optional.empty());
 
         NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> customerService.getLoggedInCustomerDto());
+                assertThrows(NotFoundException.class, () -> customerService.findLoggedInCustomer());
         assertNotNull(notFoundException);
         assertEquals("Customer with username null does not exist", notFoundException.getMessage());
     }
