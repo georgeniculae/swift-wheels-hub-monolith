@@ -31,8 +31,7 @@ public class CustomerMvcController {
 
     @GetMapping(path = "/settings")
     public String showSettingPage(Model model) {
-        CustomerDto customerLoggedIn = customerService.findLoggedInCustomer();
-        model.addAttribute("customer", customerLoggedIn);
+        model.addAttribute("customer", customerService.findLoggedInCustomer());
 
         return "settings";
     }
