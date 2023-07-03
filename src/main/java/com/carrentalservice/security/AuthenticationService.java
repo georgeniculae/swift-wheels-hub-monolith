@@ -47,7 +47,7 @@ public class AuthenticationService {
         );
 
         User user = userService.findByUsername(request.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
 
         var jwt = jwtService.generateToken(user);
 
