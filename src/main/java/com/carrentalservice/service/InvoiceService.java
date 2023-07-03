@@ -24,6 +24,7 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final EmployeeService employeeService;
     private final RevenueService revenueService;
+    private final CarService carService;
     private final InvoiceMapper invoiceMapper;
 
     public InvoiceDto updateInvoice(InvoiceDto invoiceDto) {
@@ -31,6 +32,8 @@ public class InvoiceService {
         Invoice existingInvoice = findEntityById(invoiceDto.getId());
 
         Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployee().getId());
+        Car car = carService.findEntityById(existingInvoice.getCar().getId());
+        car.setCarStatus(invoiceDto.getIsVehicleDamaged() ? CarStatus.BROKEN : CarStatus.AVAILABLE);
 
         existingInvoice.setCarDateOfReturn(invoiceDto.getCarDateOfReturn());
         existingInvoice.setReceptionistEmployee(receptionistEmployee);
@@ -152,7 +155,8 @@ public class InvoiceService {
             return getMoneyForLateReturn(carReturnDate, bookingDateTo, bookingDateFrom, carAmount);
         }
 
-        return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount + existingInvoice.getDamageCost();
+        return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount +
+                (ObjectUtils.isEmpty(existingInvoice.getDamageCost()) ? 0D : existingInvoice.getDamageCost());
     }
 
     private int getDaysPeriod(LocalDate bookingDateFrom, LocalDate bookingDateTo) {

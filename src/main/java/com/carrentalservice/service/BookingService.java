@@ -34,6 +34,7 @@ public class BookingService {
 
         Customer customer = customerService.getLoggedInCustomer();
         Car car = carService.findEntityById(newBookingDto.getCar().getId());
+        car.setCarStatus(CarStatus.NOT_AVAILABLE);
         Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
 
         Invoice invoice = setupInvoice(newBooking, customer, car);
