@@ -1,9 +1,12 @@
 package com.carrentalservice.restcontroler;
 
+import com.carrentalservice.dto.BookingDto;
+import com.carrentalservice.entity.Booking;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.restcontroller.BookingRestController;
 import com.carrentalservice.security.JwtAuthenticationFilter;
 import com.carrentalservice.service.BookingService;
+import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,6 +48,10 @@ class BookingRestControllerTest {
 
     @Test
     void findBookingByIdTest_success() throws Exception {
+        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+
+        when(bookingService.findBookingById(anyLong())).thenReturn(bookingDto);
+
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .accept(MediaType.APPLICATION_JSON))
