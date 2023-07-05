@@ -108,7 +108,7 @@ public class BookingService {
         return bookingRepository.countByCustomer(customerService.getLoggedInCustomer());
     }
 
-    public List<BookingDto> findBookingByLoggedInCustomer() {
+    public List<BookingDto> findBookingsByLoggedInCustomer() {
         return bookingRepository.findBookingsByCustomer(customerService.getLoggedInCustomer())
                 .stream()
                 .map(bookingMapper::mapEntityToDto)
@@ -116,7 +116,7 @@ public class BookingService {
     }
 
     public Double getAmountSpentByLoggedInUser() {
-        return findBookingByLoggedInCustomer()
+        return findBookingsByLoggedInCustomer()
                 .stream()
                 .map(BookingDto::getAmount)
                 .reduce(0D, Double::sum);

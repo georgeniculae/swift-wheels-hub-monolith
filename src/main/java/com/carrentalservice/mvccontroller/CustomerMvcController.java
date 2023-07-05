@@ -22,7 +22,7 @@ public class CustomerMvcController {
 
     @GetMapping(path = "/account/orders")
     public String showCurrentUserOrders(Model model) {
-        model.addAttribute("orders", bookingService.findBookingByLoggedInCustomer());
+        model.addAttribute("orders", bookingService.findBookingsByLoggedInCustomer());
         model.addAttribute("bookingsNumber", bookingService.countByLoggedInCustomer());
         model.addAttribute("totalAmountSpent", bookingService.getAmountSpentByLoggedInUser());
 
