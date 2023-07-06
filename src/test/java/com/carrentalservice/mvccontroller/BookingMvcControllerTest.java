@@ -7,7 +7,6 @@ import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.CarService;
 import com.carrentalservice.service.EmployeeService;
 import com.carrentalservice.util.TestUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +49,6 @@ class BookingMvcControllerTest {
 
     @MockBean
     private JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     void showBookingTest_success() throws Exception {
@@ -99,6 +95,7 @@ class BookingMvcControllerTest {
     @Test
     void addBookingFromIndexTest_success() throws Exception {
         BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        String valueAsString = TestUtils.writeValueAsString(bookingDto);
 
         when(bookingService.saveBooking(any(BookingDto.class))).thenReturn(bookingDto);
 
@@ -107,7 +104,7 @@ class BookingMvcControllerTest {
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(bookingDto)))
+                        .content(valueAsString))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -120,6 +117,7 @@ class BookingMvcControllerTest {
     @Test
     void addBookingFromIndexTest_unauthorized() throws Exception {
         BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        String valueAsString = TestUtils.writeValueAsString(bookingDto);
 
         when(bookingService.saveBooking(any(BookingDto.class))).thenReturn(bookingDto);
 
@@ -128,7 +126,7 @@ class BookingMvcControllerTest {
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(bookingDto)))
+                        .content(valueAsString))
                 .andExpect(status().isForbidden())
                 .andReturn();
 
@@ -141,6 +139,7 @@ class BookingMvcControllerTest {
     @Test
     void addBookingTest_success() throws Exception {
         BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        String valueAsString = TestUtils.writeValueAsString(bookingDto);
 
         when(bookingService.saveBooking(any(BookingDto.class))).thenReturn(bookingDto);
 
@@ -149,7 +148,7 @@ class BookingMvcControllerTest {
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(bookingDto)))
+                        .content(valueAsString))
                 .andExpect(status().isOk())
                 .andReturn();
 

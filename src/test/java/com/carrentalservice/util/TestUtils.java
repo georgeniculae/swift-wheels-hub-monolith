@@ -14,6 +14,14 @@ public class TestUtils {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new JavaTimeModule());
 
+    public static String writeValueAsString(Object object) {
+        try {
+            return OBJECT_MAPPER.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static <T> T getResourceAsJson(String resourceName, Class<T> valueType) {
         try {
             return OBJECT_MAPPER.readValue(getRespurceAsString(resourceName), valueType);
