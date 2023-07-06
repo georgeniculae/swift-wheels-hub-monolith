@@ -18,7 +18,7 @@ public class TestUtils {
         try {
             return OBJECT_MAPPER.readValue(getRespurceAsString(resourceName), valueType);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed getting resource: " + resourceName);
+            throw new RuntimeException("Failed getting resource: " + resourceName + ", cause: " + e.getMessage());
         }
     }
 
