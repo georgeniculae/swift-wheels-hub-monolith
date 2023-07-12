@@ -1,7 +1,13 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.InvoiceDto;
-import com.carrentalservice.entity.*;
+import com.carrentalservice.entity.Booking;
+import com.carrentalservice.entity.BookingStatus;
+import com.carrentalservice.entity.Car;
+import com.carrentalservice.entity.CarStatus;
+import com.carrentalservice.entity.Employee;
+import com.carrentalservice.entity.Invoice;
+import com.carrentalservice.entity.Revenue;
 import com.carrentalservice.exception.CarRentalServiceException;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.InvoiceMapper;
@@ -150,9 +156,13 @@ public class InvoiceService {
         Double carAmount = existingInvoice.getCar().getAmount();
 
         boolean isReturnDatePassed = carReturnDate.isAfter(bookingDateTo);
-
         if (isReturnDatePassed) {
-            return getMoneyForLateReturn(carReturnDate, bookingDateTo, bookingDateFrom, carAmount);
+            return getMoneyForLateReturn(existingInvoice, carReturnDate, bookingDateTo, bookingDateFrom, carAmount);
+        }
+
+        boolean isBeforeReturnDate = carReturnDate.isBefore(bookingDateTo);
+        if (isBeforeReturnDate) {
+            return getMoneyForReturnBeforeTerm(existingInvoice, carReturnDate, bookingDateFrom, carAmount);
         }
 
         return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount +
@@ -163,10 +173,19 @@ public class InvoiceService {
         return Period.between(bookingDateFrom, bookingDateTo).getDays();
     }
 
-    private double getMoneyForLateReturn(LocalDate carReturnDate, LocalDate bookingDateTo, LocalDate bookingDateFrom,
-                                         Double carAmount) {
+    private Double getMoneyForReturnBeforeTerm(Invoice invoice, LocalDate carReturnDate, LocalDate bookingDateFrom,
+                                               Double carAmount) {
+        return getDaysPeriod(bookingDateFrom, carReturnDate) * carAmount + getDamageCost(invoice);
+    }
+
+    private double getMoneyForLateReturn(Invoice invoice, LocalDate carReturnDate, LocalDate bookingDateTo,
+                                         LocalDate bookingDateFrom, Double carAmount) {
         return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount +
-                getDaysPeriod(bookingDateTo, carReturnDate) * 2 * carAmount;
+                getDaysPeriod(bookingDateTo, carReturnDate) * 2 * carAmount + getDamageCost(invoice);
+    }
+
+    private double getDamageCost(Invoice existingInvoice) {
+        return ObjectUtils.isEmpty(existingInvoice.getDamageCost()) ? 0D : existingInvoice.getDamageCost();
     }
 
 }
