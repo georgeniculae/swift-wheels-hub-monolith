@@ -170,7 +170,13 @@ public class InvoiceService {
     }
 
     private int getDaysPeriod(LocalDate bookingDateFrom, LocalDate bookingDateTo) {
-        return Period.between(bookingDateFrom, bookingDateTo).getDays();
+        int days = Period.between(bookingDateFrom, bookingDateTo).getDays();
+
+        if (days == 0) {
+            return 1;
+        }
+
+        return days;
     }
 
     private Double getMoneyForReturnBeforeTerm(Invoice invoice, LocalDate carReturnDate, LocalDate bookingDateFrom,
