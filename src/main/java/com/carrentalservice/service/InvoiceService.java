@@ -34,8 +34,8 @@ public class InvoiceService {
     private final InvoiceMapper invoiceMapper;
 
     public InvoiceDto updateInvoice(InvoiceDto invoiceDto) {
-        validateInvoice(invoiceDto);
         Invoice existingInvoice = findEntityById(invoiceDto.getId());
+        validateInvoice(invoiceDto, existingInvoice.getBooking().getDateFrom());
 
         Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployee().getId());
         Car car = carService.findEntityById(existingInvoice.getCar().getId());
@@ -117,8 +117,8 @@ public class InvoiceService {
         throw new NotFoundException("Invoice with id " + id + " does not exist");
     }
 
-    private void validateInvoice(InvoiceDto invoiceDto) {
-        validateDateOfReturnOfTheCar(invoiceDto.getCarDateOfReturn());
+    private void validateInvoice(InvoiceDto invoiceDto, Date dateFrom) {
+        validateDateOfReturnOfTheCar(invoiceDto.getCarDateOfReturn(), dateFrom);
 
         if (invoiceDto.getIsVehicleDamaged() && ObjectUtils.isEmpty(invoiceDto.getDamageCost())) {
             throw new CarRentalServiceException(
@@ -128,9 +128,17 @@ public class InvoiceService {
         }
     }
 
-    private void validateDateOfReturnOfTheCar(Date dateOfReturnOfTheCar) {
+    private void validateDateOfReturnOfTheCar(Date dateOfReturnOfTheCar, Date dateFrom) {
         LocalDate dateOfReturnOfTheCarAsLocalDate = dateOfReturnOfTheCar.toLocalDate();
         LocalDate currentDate = LocalDate.now();
+
+        if (dateFrom.toLocalDate().isAfter(currentDate) &&
+                (currentDate.isBefore(dateOfReturnOfTheCarAsLocalDate) || currentDate.equals(dateOfReturnOfTheCarAsLocalDate))) {
+            throw new CarRentalServiceException(
+                    HttpStatus.BAD_REQUEST,
+                    "The booking is not started yet"
+            );
+        }
 
         if (dateOfReturnOfTheCarAsLocalDate.isBefore(currentDate)) {
             throw new CarRentalServiceException(
