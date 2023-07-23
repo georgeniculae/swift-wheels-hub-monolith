@@ -28,7 +28,7 @@ public class RestSecurityConfig {
     public SecurityFilterChain restFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/api/**");
 
-        http.csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/api/authentication/**").permitAll()
                                 .requestMatchers("/api/branch/**",
@@ -40,9 +40,8 @@ public class RestSecurityConfig {
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean
