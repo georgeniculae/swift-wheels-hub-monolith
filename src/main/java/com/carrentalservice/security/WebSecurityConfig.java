@@ -20,7 +20,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/",
                                         "/register",
@@ -37,9 +37,8 @@ public class WebSecurityConfig {
                 .logout(logoutConfig -> logoutConfig.invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login?logout").permitAll());
-
-        return http.build();
+                        .logoutSuccessUrl("/login?logout").permitAll())
+                .build();
     }
 
 }
