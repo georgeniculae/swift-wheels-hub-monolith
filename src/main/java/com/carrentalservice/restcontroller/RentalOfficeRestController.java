@@ -31,6 +31,13 @@ public class RentalOfficeRestController {
         return ResponseEntity.ok(rentalOfficeDto);
     }
 
+    @GetMapping(path = "/count")
+    public ResponseEntity<Long> countRentalOffices() {
+        Long numberOfRentalOffice = rentalOfficeService.countRentalOffices();
+
+        return ResponseEntity.ok(numberOfRentalOffice);
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<RentalOfficeDto> deleteRentalOfficeById(@PathVariable("id") Long id) {
         rentalOfficeService.deleteRentalOfficeById(id);

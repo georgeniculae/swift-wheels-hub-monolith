@@ -31,6 +31,13 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeeDto);
     }
 
+    @GetMapping(path = "/count")
+    public ResponseEntity<Long> countEmployees() {
+        Long numberOfEmployees = employeeService.countEmployees();
+
+        return ResponseEntity.ok(numberOfEmployees);
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> deleteEmployeeById(@PathVariable("id") Long id) {
         employeeService.deleteEmployeeById(id);
