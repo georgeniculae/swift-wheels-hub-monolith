@@ -1,16 +1,14 @@
 package com.carrentalservice.restcontroler;
 
 import com.carrentalservice.dto.BookingDto;
-import com.carrentalservice.entity.Booking;
-import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.restcontroller.BookingRestController;
-import com.carrentalservice.security.JwtAuthenticationFilter;
 import com.carrentalservice.service.BookingService;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -20,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,7 +28,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(BookingRestController.class)
+@SpringBootTest(classes = BookingRestController.class)
+@AutoConfigureMockMvc
+@EnableWebMvc
 class BookingRestControllerTest {
 
     public static final String PATH = "/api/booking";
@@ -39,12 +40,6 @@ class BookingRestControllerTest {
 
     @MockBean
     private BookingService bookingService;
-
-    @MockBean
-    private BookingMapper bookingMapper;
-
-    @MockBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Test
     void findBookingByIdTest_success() throws Exception {
