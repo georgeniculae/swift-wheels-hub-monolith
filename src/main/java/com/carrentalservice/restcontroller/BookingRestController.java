@@ -24,11 +24,25 @@ public class BookingRestController {
 
     private final BookingService bookingService;
 
+    @GetMapping
+    public ResponseEntity<List<BookingDto>> listAllBooking() {
+        List<BookingDto> bookingDtoList = bookingService.findAllBookings();
+
+        return ResponseEntity.ok(bookingDtoList);
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<BookingDto> findBookingById(@PathVariable("id") Long id) {
         BookingDto bookingDto = bookingService.findBookingById(id);
 
         return ResponseEntity.ok(bookingDto);
+    }
+
+    @GetMapping(path = "/count")
+    public ResponseEntity<Long> countBooking() {
+        Long numberOfBooking = bookingService.countBookings();
+
+        return ResponseEntity.ok(numberOfBooking);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -50,13 +64,6 @@ public class BookingRestController {
         BookingDto updatedBookingDto = bookingService.updateBooking(id, bookingDto);
 
         return ResponseEntity.ok(updatedBookingDto);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<BookingDto>> listAllBooking() {
-        List<BookingDto> bookingDtoList = bookingService.findAllBookings();
-
-        return ResponseEntity.ok(bookingDtoList);
     }
 
 }
