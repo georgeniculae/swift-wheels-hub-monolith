@@ -57,7 +57,7 @@ public class RentalOfficeMvcController {
             return "edit-rental-office";
         }
 
-        rentalOfficeService.updateRentalOffice(rentalOffice);
+        rentalOfficeService.updateRentalOffice(null, rentalOffice);
 
         return "redirect:/rental-offices";
     }

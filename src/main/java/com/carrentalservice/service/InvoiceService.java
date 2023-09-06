@@ -33,11 +33,13 @@ public class InvoiceService {
     private final CarService carService;
     private final InvoiceMapper invoiceMapper;
 
-    public InvoiceDto updateInvoice(InvoiceDto invoiceDto) {
-        Invoice existingInvoice = findEntityById(invoiceDto.getId());
+    public InvoiceDto updateInvoice(Long id, InvoiceDto invoiceDto) {
+        Long actualId = getId(id, invoiceDto.getId());
+
+        Invoice existingInvoice = findEntityById(actualId);
         validateInvoice(invoiceDto, existingInvoice.getBooking().getDateFrom());
 
-        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployee().getId());
+        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployeeId());
         Car car = carService.findEntityById(existingInvoice.getCar().getId());
         car.setCarStatus(invoiceDto.getIsVehicleDamaged() ? CarStatus.BROKEN : CarStatus.AVAILABLE);
 
@@ -146,6 +148,16 @@ public class InvoiceService {
                     "Date of return of the car cannot be in the past"
             );
         }
+    }
+
+    private Long getId(Long id, Long updatedInvoiceId) {
+        Long actualId = updatedInvoiceId;
+
+        if (org.apache.commons.lang3.ObjectUtils.isNotEmpty(id)) {
+            actualId = id;
+        }
+
+        return actualId;
     }
 
     private void setupRevenue(Invoice existingInvoice) {

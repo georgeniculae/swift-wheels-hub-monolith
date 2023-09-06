@@ -1,6 +1,9 @@
 package com.carrentalservice.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,9 +33,6 @@ public class Employee extends BaseEntity {
     @JoinColumn(name = "working_branch_id")
     private Branch workingBranch;
 
-    @OneToMany(mappedBy = "receptionistEmployee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Invoice> invoices;
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) {
@@ -44,8 +43,11 @@ public class Employee extends BaseEntity {
             return false;
         }
 
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ?
+                ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ?
+                ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
 
         if (thisEffectiveClass != oEffectiveClass) {
             return false;

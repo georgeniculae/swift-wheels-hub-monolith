@@ -1,6 +1,10 @@
 package com.carrentalservice.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,10 +14,6 @@ import lombok.*;
 public class SearchValueDto {
 
     private String search;
-
-    public String getSearch() {
-        return search;
-    }
 
     public void setSearch(String search) {
         this.search = search;

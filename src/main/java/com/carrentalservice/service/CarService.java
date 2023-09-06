@@ -7,6 +7,7 @@ import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.CarMapper;
 import com.carrentalservice.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class CarService {
     public CarDto saveCar(CarDto carDto) {
         Car car = carMapper.mapDtoToEntity(carDto);
 
-        car.setBranch(branchService.findEntityById(carDto.getBranch().getId()));
+        car.setBranch(branchService.findEntityById(carDto.getBranchId()));
         Car savedCar = carRepository.save(car);
 
         return carMapper.mapEntityToDto(savedCar);
@@ -52,10 +53,12 @@ public class CarService {
         throw new NotFoundException("Car with id " + id + " does not exist");
     }
 
-    public CarDto updateCar(CarDto updatedCarDto) {
-        Car existingCar = findEntityById(updatedCarDto.getId());
+    public CarDto updateCar(Long id, CarDto updatedCarDto) {
+        Long actualId = getId(id, updatedCarDto.getId());
 
-        Branch branch = branchService.findEntityById(updatedCarDto.getBranch().getId());
+        Car existingCar = findEntityById(actualId);
+
+        Branch branch = branchService.findEntityById(updatedCarDto.getBranchId());
 
         existingCar.setMake(updatedCarDto.getMake());
         existingCar.setModel(updatedCarDto.getModel());
@@ -91,8 +94,21 @@ public class CarService {
         throw new NotFoundException("Car with filter: " + searchString + " does not exist");
     }
 
-    public List<Car> findCarsByMake(String make) {
-        return carRepository.findCarsByMake(make);
+    public List<CarDto> findCarsByMake(String make) {
+        return carRepository.findCarsByMake(make)
+                .stream()
+                .map(carMapper::mapEntityToDto)
+                .toList();
+    }
+
+    private Long getId(Long id, Long updatedCarId) {
+        Long actualId = updatedCarId;
+
+        if (ObjectUtils.isNotEmpty(id)) {
+            actualId = id;
+        }
+
+        return actualId;
     }
 
 }

@@ -11,6 +11,6 @@ public class BranchDto extends BaseEntityDto {
 
     private String name;
     private String address;
-    private RentalOfficeDto rentalOffice;
+    private Long rentalOfficeId;
 
 }

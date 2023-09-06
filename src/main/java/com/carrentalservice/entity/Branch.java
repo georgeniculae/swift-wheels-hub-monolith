@@ -1,14 +1,14 @@
 package com.carrentalservice.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,20 +22,8 @@ public class Branch extends BaseEntity {
 
     private String address;
 
-    @OneToMany(mappedBy = "workingBranch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Employee> employees;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Car> cars;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private RentalOffice rentalOffice;
-
-    @OneToMany(mappedBy = "rentalBranch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Booking> rentalBookings = new ArrayList<>();
-
-    @OneToMany(mappedBy = "returnBranch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Booking> returnBookings = new ArrayList<>();
 
     @Override
     public final boolean equals(Object o) {
@@ -47,8 +35,11 @@ public class Branch extends BaseEntity {
             return false;
         }
 
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ?
+                ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ?
+                ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
 
         if (thisEffectiveClass != oEffectiveClass) {
             return false;

@@ -19,10 +19,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
@@ -95,25 +101,23 @@ class EmployeeServiceTest {
     void updateEmployeeTest_success() {
         Employee employee = TestUtils.getResourceAsJson("/data/Employee.json", Employee.class);
         EmployeeDto employeeDto = TestUtils.getResourceAsJson("/data/EmployeeDto.json", EmployeeDto.class);
+        Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
 
         when(employeeRepository.findById(anyLong())).thenReturn(Optional.of(employee));
+        when(branchService.findEntityById(anyLong())).thenReturn(branch);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
-        assertDoesNotThrow(() -> employeeService.updateEmployee(employeeDto));
-        EmployeeDto updatedEmployeeDto = employeeService.updateEmployee(employeeDto);
+        EmployeeDto updatedEmployeeDto = assertDoesNotThrow(() -> employeeService.updateEmployee(1L, employeeDto));
         AssertionUtils.assertEmployee(employee, updatedEmployeeDto);
     }
 
     @Test
     void findEmployeesByBranchIdTest_success() {
         Employee employee = TestUtils.getResourceAsJson("/data/Employee.json", Employee.class);
-        Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
-        branch.setEmployees(List.of(employee));
 
-        when(branchService.findEntityById(anyLong())).thenReturn(branch);
+        when(employeeRepository.findByBranchId(anyLong())).thenReturn(List.of(employee));
 
-        assertDoesNotThrow(() -> employeeService.findEmployeesByBranchId(1L));
-        List<EmployeeDto> employeeDtoList = employeeService.findEmployeesByBranchId(1L);
+        List<EmployeeDto> employeeDtoList = assertDoesNotThrow(() -> employeeService.findEmployeesByBranchId(1L));
         AssertionUtils.assertEmployee(employee, employeeDtoList.get(0));
     }
 

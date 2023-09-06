@@ -1,7 +1,6 @@
 package com.carrentalservice.mvccontroller;
 
 import com.carrentalservice.dto.CarDto;
-import com.carrentalservice.entity.Car;
 import com.carrentalservice.service.BranchService;
 import com.carrentalservice.service.CarService;
 import jakarta.validation.Valid;
@@ -9,7 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -30,9 +33,9 @@ public class CarMvcController {
 
     @GetMapping({"/search", "/search(make)"})
     public String searchCarByMake(Model model, @RequestParam(value = "make", required = false) String make) {
-        List<Car> carList = carService.findCarsByMake(make);
+        List<CarDto> carDtoList = carService.findCarsByMake(make);
 
-        carList.forEach(car -> model.addAttribute("carByMake", car));
+        carDtoList.forEach(carDto -> model.addAttribute("carByMake", carDto));
 
         return "/search";
     }
@@ -69,7 +72,7 @@ public class CarMvcController {
             return "edit-car";
         }
 
-        carService.updateCar(car);
+        carService.updateCar(null, car);
 
         return "redirect:/cars";
     }

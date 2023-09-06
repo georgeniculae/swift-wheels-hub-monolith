@@ -2,6 +2,7 @@ package com.carrentalservice.service;
 
 import com.carrentalservice.dto.InvoiceDto;
 import com.carrentalservice.entity.BookingStatus;
+import com.carrentalservice.entity.Car;
 import com.carrentalservice.entity.Employee;
 import com.carrentalservice.entity.Invoice;
 import com.carrentalservice.entity.Revenue;
@@ -21,10 +22,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class InvoiceServiceTest {
@@ -41,6 +48,9 @@ class InvoiceServiceTest {
     @Mock
     private InvoiceRepository invoiceRepository;
 
+    @Mock
+    private CarService carService;
+
     @Spy
     private InvoiceMapper invoiceMapper = new InvoiceMapperImpl();
 
@@ -50,13 +60,15 @@ class InvoiceServiceTest {
         InvoiceDto invoiceDto = TestUtils.getResourceAsJson("/data/InvoiceDto.json", InvoiceDto.class);
         Employee employee = TestUtils.getResourceAsJson("/data/Employee.json", Employee.class);
         Revenue revenue = TestUtils.getResourceAsJson("/data/Revenue.json", Revenue.class);
+        Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
 
         when(invoiceRepository.findById(anyLong())).thenReturn(Optional.of(invoice));
         when(employeeService.findEntityById(anyLong())).thenReturn(employee);
         when(invoiceRepository.save(any(Invoice.class))).thenReturn(invoice);
+        when(carService.findEntityById(anyLong())).thenReturn(car);
         when(revenueService.saveEntity(any(Revenue.class))).thenReturn(revenue);
 
-        assertDoesNotThrow(() -> invoiceService.updateInvoice(invoiceDto));
+        assertDoesNotThrow(() -> invoiceService.updateInvoice(1L, invoiceDto));
 
         verify(invoiceMapper, times(1)).mapEntityToDto(any(Invoice.class));
     }

@@ -1,13 +1,20 @@
 package com.carrentalservice.service;
 
 import com.carrentalservice.dto.BookingDto;
-import com.carrentalservice.entity.*;
+import com.carrentalservice.entity.Booking;
+import com.carrentalservice.entity.BookingStatus;
+import com.carrentalservice.entity.Branch;
+import com.carrentalservice.entity.Car;
+import com.carrentalservice.entity.CarStatus;
+import com.carrentalservice.entity.Customer;
+import com.carrentalservice.entity.Invoice;
 import com.carrentalservice.exception.CarRentalServiceException;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.repository.BookingRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +40,7 @@ public class BookingService {
         Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
 
         Customer customer = customerService.getLoggedInCustomer();
-        Car car = carService.findEntityById(newBookingDto.getCar().getId());
+        Car car = carService.findEntityById(newBookingDto.getCarId());
         car.setCarStatus(CarStatus.NOT_AVAILABLE);
         Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
 
@@ -46,11 +53,13 @@ public class BookingService {
     }
 
     @Transactional
-    public BookingDto updateBooking(BookingDto updatedBookingDto) {
-        validateBookingDates(updatedBookingDto);
-        Booking existingBooking = findEntityById(updatedBookingDto.getId());
+    public BookingDto updateBooking(Long id, BookingDto updatedBookingDto) {
+        Long actualId = getId(id, updatedBookingDto.getId());
 
-        Car car = carService.findEntityById(updatedBookingDto.getCar().getId());
+        validateBookingDates(updatedBookingDto);
+        Booking existingBooking = findEntityById(actualId);
+
+        Car car = carService.findEntityById(updatedBookingDto.getCarId());
 
         existingBooking.setDateOfBooking(getCurrentDate());
         existingBooking.setDateFrom(updatedBookingDto.getDateFrom());
@@ -131,6 +140,16 @@ public class BookingService {
 
     public Date getCurrentDate() {
         return Date.valueOf(LocalDate.now());
+    }
+
+    private Long getId(Long id, Long updatedBookingId) {
+        Long idSet = updatedBookingId;
+
+        if (ObjectUtils.isNotEmpty(id)) {
+            idSet = id;
+        }
+
+        return idSet;
     }
 
     private void validateBookingDates(BookingDto newBookingDto) {

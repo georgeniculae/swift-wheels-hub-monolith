@@ -7,6 +7,7 @@ import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.EmployeeMapper;
 import com.carrentalservice.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class EmployeeService {
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
         Employee newEmployee = employeeMapper.mapDtoToEntity(employeeDto);
 
-        Branch workingBranch = branchService.findEntityById(employeeDto.getWorkingBranch().getId());
+        Branch workingBranch = branchService.findEntityById(employeeDto.getWorkingBranchId());
         newEmployee.setWorkingBranch(workingBranch);
         Employee savedEmployee = employeeRepository.save(newEmployee);
 
@@ -57,10 +58,12 @@ public class EmployeeService {
         throw new NotFoundException("Employee with id " + id + " does not exist");
     }
 
-    public EmployeeDto updateEmployee(EmployeeDto updatedEmployeeDto) {
-        Employee existingEmployee = findEntityById(updatedEmployeeDto.getId());
+    public EmployeeDto updateEmployee(Long id, EmployeeDto updatedEmployeeDto) {
+        Long actualId = getId(id, updatedEmployeeDto.getId());
 
-        Branch workingBranch = branchService.findEntityById(updatedEmployeeDto.getWorkingBranch().getId());
+        Employee existingEmployee = findEntityById(actualId);
+
+        Branch workingBranch = branchService.findEntityById(updatedEmployeeDto.getWorkingBranchId());
 
         existingEmployee.setFirstName(updatedEmployeeDto.getFirstName());
         existingEmployee.setLastName(updatedEmployeeDto.getLastName());
@@ -73,9 +76,7 @@ public class EmployeeService {
     }
 
     public List<EmployeeDto> findEmployeesByBranchId(Long id) {
-        Branch branch = branchService.findEntityById(id);
-
-        return branch.getEmployees()
+        return employeeRepository.findByBranchId(id)
                 .stream()
                 .map(employeeMapper::mapEntityToDto)
                 .toList();
@@ -93,6 +94,16 @@ public class EmployeeService {
         }
 
         throw new NotFoundException("Employee with filter: " + searchString + " does not exist");
+    }
+
+    private Long getId(Long id, Long updatedEmployeeId) {
+        Long actualId = updatedEmployeeId;
+
+        if (ObjectUtils.isNotEmpty(id)) {
+            actualId = id;
+        }
+
+        return actualId;
     }
 
 }

@@ -11,10 +11,10 @@ import java.sql.Date;
 @EqualsAndHashCode(callSuper = true)
 public class InvoiceDto extends BaseEntityDto {
 
-    private CustomerDto customer;
-    private CarDto car;
-    private EmployeeDto receptionistEmployee;
-    private BookingDto booking;
+    private Long customerId;
+    private Long carId;
+    private Long receptionistEmployeeId;
+    private Long bookingId;
     private Date carDateOfReturn;
     private Boolean isVehicleDamaged;
     private Double damageCost;

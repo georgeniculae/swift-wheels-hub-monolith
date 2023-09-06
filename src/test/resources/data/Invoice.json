@@ -52,7 +52,7 @@
   },
   "booking": {
     "id": 1,
-    "dateOfBooking": "2050-02-20",
+    "dateOfBooking": "2023-02-20",
     "status": "IN_PROGRESS",
     "customer": {
       "id": 1,
@@ -81,7 +81,7 @@
         }
       }
     },
-    "dateFrom": "2050-02-21",
+    "dateFrom": "2023-02-21",
     "dateTo": "2050-02-22",
     "amount": 500,
     "rentalBranch": {

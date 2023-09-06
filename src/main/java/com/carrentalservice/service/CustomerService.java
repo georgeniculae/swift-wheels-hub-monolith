@@ -6,6 +6,7 @@ import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.CustomerMapper;
 import com.carrentalservice.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -53,8 +54,10 @@ public class CustomerService {
         throw new NotFoundException("Customer with id " + id + " does not exist");
     }
 
-    public CustomerDto updateCustomer(CustomerDto updatedCustomerDto) {
-        Customer existingCustomer = findEntityById(updatedCustomerDto.getId());
+    public CustomerDto updateCustomer(Long id, CustomerDto updatedCustomerDto) {
+        Long actualId = getId(id, updatedCustomerDto.getId());
+
+        Customer existingCustomer = findEntityById(actualId);
 
         existingCustomer.setFirstName(updatedCustomerDto.getFirstName());
         existingCustomer.setLastName(updatedCustomerDto.getLastName());
@@ -96,6 +99,16 @@ public class CustomerService {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return findEntityByUsername(name);
+    }
+
+    private Long getId(Long id, Long updatedCustomerId) {
+        Long actualId = updatedCustomerId;
+
+        if (ObjectUtils.isNotEmpty(id)) {
+            actualId = id;
+        }
+
+        return actualId;
     }
 
     private Customer findEntityByUsername(String username) {

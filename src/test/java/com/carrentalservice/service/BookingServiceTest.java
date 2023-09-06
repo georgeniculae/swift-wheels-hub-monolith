@@ -102,8 +102,7 @@ class BookingServiceTest {
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
         when(carService.findEntityById(anyLong())).thenReturn(car);
 
-        assertDoesNotThrow(() -> bookingService.updateBooking(bookingDto));
-        BookingDto updatedBookingDto = bookingService.updateBooking(bookingDto);
+        BookingDto updatedBookingDto = assertDoesNotThrow(() -> bookingService.updateBooking(1L, bookingDto));
 
         assertNotNull(updatedBookingDto);
     }

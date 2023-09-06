@@ -4,7 +4,15 @@ import com.carrentalservice.dto.EmployeeDto;
 import com.carrentalservice.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -37,9 +45,9 @@ public class EmployeeRestController {
         return ResponseEntity.ok(savedEmployeeDto);
     }
 
-    @PutMapping
-    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
-        EmployeeDto updatedEmployeeDto = employeeService.updateEmployee(employeeDto);
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("id") Long id, @RequestBody EmployeeDto employeeDto) {
+        EmployeeDto updatedEmployeeDto = employeeService.updateEmployee(id, employeeDto);
 
         return ResponseEntity.ok(updatedEmployeeDto);
     }

@@ -28,7 +28,8 @@ public class WebSecurityConfig {
                                         "/css/**",
                                         "/images/**").permitAll()
                                 .requestMatchers("/branch/**",
-                                        "/car/**", "/customer/**",
+                                        "/car/**",
+                                        "/customer/**",
                                         "/employee/**",
                                         "/rental-office/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()

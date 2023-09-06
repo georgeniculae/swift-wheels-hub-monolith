@@ -20,10 +20,16 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BranchServiceTest {
@@ -67,12 +73,13 @@ class BranchServiceTest {
     void updateBranchTest_success() {
         Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
         BranchDto branchDto = TestUtils.getResourceAsJson("/data/BranchDto.json", BranchDto.class);
+        RentalOffice rentalOffice = TestUtils.getResourceAsJson("/data/RentalOffice.json", RentalOffice.class);
 
+        when(rentalOfficeService.findEntityById(anyLong())).thenReturn(rentalOffice);
         when(branchRepository.findById(anyLong())).thenReturn(Optional.of(branch));
         when(branchRepository.save(branch)).thenReturn(branch);
 
-        assertDoesNotThrow(() -> branchService.updateBranch(branchDto));
-        BranchDto updatedBranchDto = branchService.updateBranch(branchDto);
+        BranchDto updatedBranchDto = assertDoesNotThrow(() -> branchService.updateBranch(1L, branchDto));
 
         assertNotNull(updatedBranchDto);
     }

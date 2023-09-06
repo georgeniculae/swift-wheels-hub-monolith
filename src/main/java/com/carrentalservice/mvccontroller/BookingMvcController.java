@@ -80,7 +80,7 @@ public class BookingMvcController {
             return "edit-booking";
         }
 
-        bookingService.updateBooking(booking);
+        bookingService.updateBooking(null, booking);
 
         return "redirect:/bookings";
     }
@@ -111,7 +111,7 @@ public class BookingMvcController {
             return "order-edit";
         }
 
-        bookingService.updateBooking(booking);
+        bookingService.updateBooking(null, booking);
 
         return "redirect:/account/orders";
     }

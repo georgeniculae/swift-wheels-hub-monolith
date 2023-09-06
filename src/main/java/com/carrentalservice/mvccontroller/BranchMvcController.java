@@ -111,7 +111,7 @@ public class BranchMvcController {
             return "edit-branch";
         }
 
-        branchService.updateBranch(branch);
+        branchService.updateBranch(null, branch);
 
         return "redirect:/branches";
     }

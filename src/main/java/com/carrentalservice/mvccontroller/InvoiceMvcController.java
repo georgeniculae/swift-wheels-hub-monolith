@@ -49,7 +49,7 @@ public class InvoiceMvcController {
             return "edit-invoice";
         }
 
-        invoiceService.updateInvoice(invoice);
+        invoiceService.updateInvoice(null, invoice);
 
         return "redirect:/invoices";
     }

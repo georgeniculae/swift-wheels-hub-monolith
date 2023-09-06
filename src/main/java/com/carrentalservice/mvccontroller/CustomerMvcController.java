@@ -86,7 +86,7 @@ public class CustomerMvcController {
             return "edit-customer";
         }
 
-        customerService.updateCustomer(customer);
+        customerService.updateCustomer(null, customer);
 
         return "redirect:/customers";
     }

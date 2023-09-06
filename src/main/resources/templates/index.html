@@ -438,7 +438,7 @@
                         <option selected th:value="null">Choose car</option>
                         <option th:each="car : ${allCars}" th:value="${car.id}"
                                 th:if="${car.carStatus.displayName} == 'Available'"
-                                th:text="${car.make} + ' ' + ${car.model}+ ' ' + ${car.color}+ ' ' + ${car.bodyType.displayName}+ ' ' + ${car.carStatus.displayName}+ ' in ' + ${car.branch.name}+ ' for $' + ${car.amount}">
+                                th:text="${car.make} + ' ' + ${car.model}+ ' ' + ${car.color}+ ' ' + ${car.bodyType.displayName} + ' ' + ${car.carStatus.displayName} + ' in ' + ${car.branch.name} + ' for $' + ${car.amount}">
                         </option>
                     </select>
                 </div>

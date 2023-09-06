@@ -52,8 +52,10 @@ public class RentalOfficeService {
         throw new NotFoundException("Rental office with id " + id + " does not exist");
     }
 
-    public RentalOfficeDto updateRentalOffice(RentalOfficeDto updatedRentalOfficeDto) {
-        RentalOffice existingRentalOffice = findEntityById(updatedRentalOfficeDto.getId());
+    public RentalOfficeDto updateRentalOffice(Long id, RentalOfficeDto updatedRentalOfficeDto) {
+        Long actualId = getId(id, updatedRentalOfficeDto.getId());
+
+        RentalOffice existingRentalOffice = findEntityById(actualId);
 
         existingRentalOffice.setName(updatedRentalOfficeDto.getName());
         existingRentalOffice.setContactAddress(updatedRentalOfficeDto.getContactAddress());
@@ -76,6 +78,16 @@ public class RentalOfficeService {
         }
 
         throw new NotFoundException("Rental office with name: " + searchString + " does not exist");
+    }
+
+    private Long getId(Long id, Long updatedRentalOfficeId) {
+        Long actualId = updatedRentalOfficeId;
+
+        if (org.apache.commons.lang3.ObjectUtils.isNotEmpty(id)) {
+            actualId = id;
+        }
+
+        return actualId;
     }
 
 }

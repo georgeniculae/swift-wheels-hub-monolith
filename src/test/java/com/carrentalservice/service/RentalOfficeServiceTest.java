@@ -10,15 +10,26 @@ import com.carrentalservice.util.AssertionUtils;
 import com.carrentalservice.util.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RentalOfficeServiceTest {
@@ -94,8 +105,8 @@ class RentalOfficeServiceTest {
         when(rentalOfficeRepository.findById(anyLong())).thenReturn(Optional.of(rentalOffice));
         when(rentalOfficeRepository.save(any(RentalOffice.class))).thenReturn(rentalOffice);
 
-        assertDoesNotThrow(() -> rentalOfficeService.updateRentalOffice(rentalOfficeDto));
-        RentalOfficeDto updatedRentalOfficeDto = rentalOfficeService.updateRentalOffice(rentalOfficeDto);
+        RentalOfficeDto updatedRentalOfficeDto =
+                assertDoesNotThrow(() -> rentalOfficeService.updateRentalOffice(1L, rentalOfficeDto));
 
         AssertionUtils.assertRentalOffice(rentalOffice, updatedRentalOfficeDto);
     }

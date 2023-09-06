@@ -8,6 +8,7 @@ import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.repository.BranchRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class BranchService {
     public BranchDto saveBranch(BranchDto branchDto) {
         Branch newBranch = branchMapper.mapDtoToEntity(branchDto);
 
-        newBranch.setRentalOffice(rentalOfficeService.findEntityById(branchDto.getRentalOffice().getId()));
+        newBranch.setRentalOffice(rentalOfficeService.findEntityById(branchDto.getRentalOfficeId()));
         Branch savedBranch = branchRepository.save(newBranch);
 
         return branchMapper.mapEntityToDto(savedBranch);
@@ -58,10 +59,12 @@ public class BranchService {
         return branchRepository.save(branch);
     }
 
-    public BranchDto updateBranch(BranchDto updatedBranchDto) {
-        RentalOffice rentalOffice = rentalOfficeService.findEntityById(updatedBranchDto.getRentalOffice().getId());
+    public BranchDto updateBranch(Long id, BranchDto updatedBranchDto) {
+        Long actualId = getId(id, updatedBranchDto.getId());
 
-        Branch exitingBranch = findEntityById(updatedBranchDto.getId());
+        RentalOffice rentalOffice = rentalOfficeService.findEntityById(updatedBranchDto.getRentalOfficeId());
+
+        Branch exitingBranch = findEntityById(actualId);
         exitingBranch.setName(updatedBranchDto.getName());
         exitingBranch.setAddress(updatedBranchDto.getAddress());
         exitingBranch.setRentalOffice(rentalOffice);
@@ -87,6 +90,16 @@ public class BranchService {
         }
 
         throw new NotFoundException("Branch with filter: " + searchString + " does not exist");
+    }
+
+    private Long getId(Long id, Long updatedBookingId) {
+        Long actualId = updatedBookingId;
+
+        if (ObjectUtils.isNotEmpty(id)) {
+            actualId = id;
+        }
+
+        return actualId;
     }
 
 }
