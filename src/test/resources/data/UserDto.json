@@ -1,9 +1,3 @@
 {
-  "id": 1,
-  "username": "user",
-  "password": "user",
-  "role": "ROLE_ADMIN",
-  "firstName": "User",
-  "lastName": "User",
-  "email": "user@email.com"
+
 }

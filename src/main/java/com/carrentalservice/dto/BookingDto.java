@@ -1,7 +1,11 @@
 package com.carrentalservice.dto;
 
 import com.carrentalservice.entity.BookingStatus;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Date;
 
@@ -14,12 +18,12 @@ public class BookingDto extends BaseEntityDto {
 
     private Date dateOfBooking;
     private BookingStatus status;
-    private Long customerId;
-    private Long carId;
+    private CustomerDto customer;
+    private CarDto car;
     private Date dateFrom;
     private Date dateTo;
     private Double amount;
-    private Long rentalBranchId;
-    private Long returnBranchId;
+    private BranchDto rentalBranch;
+    private BranchDto returnBranch;
 
 }

@@ -19,6 +19,6 @@ public class EmployeeDto extends BaseEntityDto {
     @NotEmpty(message = "Job position cannot be empty")
     private String jobPosition;
 
-    private Long workingBranchId;
+    private BranchDto workingBranch;
 
 }

@@ -40,7 +40,7 @@ public class BookingService {
         Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
 
         Customer customer = customerService.getLoggedInCustomer();
-        Car car = carService.findEntityById(newBookingDto.getCarId());
+        Car car = carService.findEntityById(newBookingDto.getCar().getId());
         car.setCarStatus(CarStatus.NOT_AVAILABLE);
         Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
 
@@ -59,7 +59,7 @@ public class BookingService {
         validateBookingDates(updatedBookingDto);
         Booking existingBooking = findEntityById(actualId);
 
-        Car car = carService.findEntityById(updatedBookingDto.getCarId());
+        Car car = carService.findEntityById(updatedBookingDto.getCar().getId());
 
         existingBooking.setDateOfBooking(getCurrentDate());
         existingBooking.setDateFrom(updatedBookingDto.getDateFrom());

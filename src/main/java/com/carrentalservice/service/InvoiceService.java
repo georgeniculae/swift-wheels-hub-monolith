@@ -39,7 +39,7 @@ public class InvoiceService {
         Invoice existingInvoice = findEntityById(actualId);
         validateInvoice(invoiceDto, existingInvoice.getBooking().getDateFrom());
 
-        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployeeId());
+        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployee().getId());
         Car car = carService.findEntityById(existingInvoice.getCar().getId());
         car.setCarStatus(invoiceDto.getIsVehicleDamaged() ? CarStatus.BROKEN : CarStatus.AVAILABLE);
 

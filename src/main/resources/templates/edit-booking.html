@@ -375,7 +375,7 @@
                             th:field="${booking.car.id}">
 
                         <option selected th:value="${booking.car.id}"
-                                th:text="${booking.car.make} + ' ' + ${booking.car.model} + ' ' + ${booking.car.color} + ' ' + ${booking.car.carStatus.displayName}+ ' in ' + ${booking.car.branch.name} + ' for $' + ${booking.car.amount}"></option>
+                                th:text="${booking.car.make} + ' ' + ${booking.car.model} + ' ' + ${booking.car.color} + ' in ' + ${booking.car.branch.name} + ' for $' + ${booking.car.amount}"></option>
                         <option th:each="car : ${cars}" th:value="${car.id}"
                                 th:if="${car.carStatus.displayName} == 'Available'"
                                 th:text="${car.make} + ' ' + ${car.model} + ' ' + ${car.color} + ' ' + ${car.bodyType.displayName} + ' ' + ${car.carStatus.displayName}+ ' in ' + ${car.branch.name} + ' for $' + ${car.amount}">

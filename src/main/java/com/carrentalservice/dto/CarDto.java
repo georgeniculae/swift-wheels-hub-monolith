@@ -19,7 +19,7 @@ public class CarDto extends BaseEntityDto {
     private int mileage;
     private CarStatus carStatus;
     private Double amount;
-    private Long branchId;
+    private BranchDto branch;
     private String urlOfImage;
 
 }

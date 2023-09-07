@@ -1,23 +1,7 @@
 package com.carrentalservice.util;
 
-import com.carrentalservice.dto.BookingDto;
-import com.carrentalservice.dto.BranchDto;
-import com.carrentalservice.dto.CarDto;
-import com.carrentalservice.dto.CustomerDto;
-import com.carrentalservice.dto.EmployeeDto;
-import com.carrentalservice.dto.InvoiceDto;
-import com.carrentalservice.dto.RentalOfficeDto;
-import com.carrentalservice.dto.RevenueDto;
-import com.carrentalservice.dto.UserDto;
-import com.carrentalservice.entity.Booking;
-import com.carrentalservice.entity.Branch;
-import com.carrentalservice.entity.Car;
-import com.carrentalservice.entity.Customer;
-import com.carrentalservice.entity.Employee;
-import com.carrentalservice.entity.Invoice;
-import com.carrentalservice.entity.RentalOffice;
-import com.carrentalservice.entity.Revenue;
-import com.carrentalservice.entity.User;
+import com.carrentalservice.dto.*;
+import com.carrentalservice.entity.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,10 +12,10 @@ public class AssertionUtils {
         assertEquals(booking.getDateFrom(), bookingDto.getDateFrom());
         assertEquals(booking.getDateTo(), bookingDto.getDateTo());
         assertEquals(booking.getAmount(), bookingDto.getAmount());
-        assertEquals(booking.getCustomer().getId(), bookingDto.getCustomerId());
-        assertEquals(booking.getCar().getId(), bookingDto.getCarId());
-        assertEquals(booking.getRentalBranch().getId(), bookingDto.getRentalBranchId());
-        assertEquals(booking.getReturnBranch().getId(), bookingDto.getReturnBranchId());
+        assertCustomer(booking.getCustomer(), bookingDto.getCustomer());
+        assertCar(booking.getCar(), bookingDto.getCar());
+        assertRentalBranch(booking.getRentalBranch(), bookingDto.getRentalBranch());
+        assertReturnBranch(booking.getReturnBranch(), bookingDto.getReturnBranch());
     }
 
     public static void assertCustomer(Customer customer, CustomerDto customerDto) {
@@ -49,12 +33,26 @@ public class AssertionUtils {
         assertEquals(car.getMileage(), carDto.getMileage());
         assertEquals(car.getCarStatus(), carDto.getCarStatus());
         assertEquals(car.getAmount(), carDto.getAmount());
+        assertBranch(car.getBranch(), carDto.getBranch());
         assertEquals(car.getUrlOfImage(), carDto.getUrlOfImage());
+    }
+
+    private static void assertRentalBranch(Branch rentalBranch, BranchDto rentalBranchDto) {
+        assertEquals(rentalBranch.getName(), rentalBranchDto.getName());
+        assertEquals(rentalBranch.getAddress(), rentalBranchDto.getAddress());
+        assertRentalOffice(rentalBranch.getRentalOffice(), rentalBranchDto.getRentalOffice());
+    }
+
+    private static void assertReturnBranch(Branch returnBranch, BranchDto returnBranchDto) {
+        assertEquals(returnBranch.getName(), returnBranchDto.getName());
+        assertEquals(returnBranch.getAddress(), returnBranchDto.getAddress());
+        assertRentalOffice(returnBranch.getRentalOffice(), returnBranchDto.getRentalOffice());
     }
 
     public static void assertBranch(Branch branch, BranchDto branchDto) {
         assertEquals(branch.getName(), branchDto.getName());
         assertEquals(branch.getAddress(), branchDto.getAddress());
+        assertRentalOffice(branch.getRentalOffice(), branchDto.getRentalOffice());
     }
 
     public static void assertRentalOffice(RentalOffice rentalOffice, RentalOfficeDto rentalOfficeDto) {
@@ -71,6 +69,10 @@ public class AssertionUtils {
     }
 
     public static void assertInvoice(Invoice invoice, InvoiceDto invoiceDto) {
+        assertCustomer(invoice.getCustomer(), invoiceDto.getCustomer());
+        assertCar(invoice.getCar(), invoiceDto.getCar());
+        assertEmployee(invoice.getReceptionistEmployee(), invoiceDto.getReceptionistEmployee());
+        assertBooking(invoice.getBooking(), invoiceDto.getBooking());
         assertEquals(invoice.getCarDateOfReturn(), invoiceDto.getCarDateOfReturn());
         assertEquals(invoice.getIsVehicleDamaged(), invoiceDto.getIsVehicleDamaged());
         assertEquals(invoice.getDamageCost(), invoiceDto.getDamageCost());

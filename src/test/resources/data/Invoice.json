@@ -52,7 +52,7 @@
   },
   "booking": {
     "id": 1,
-    "dateOfBooking": "2023-02-20",
+    "dateOfBooking": "2050-02-20",
     "status": "IN_PROGRESS",
     "customer": {
       "id": 1,

@@ -24,7 +24,7 @@ public class EmployeeService {
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
         Employee newEmployee = employeeMapper.mapDtoToEntity(employeeDto);
 
-        Branch workingBranch = branchService.findEntityById(employeeDto.getWorkingBranchId());
+        Branch workingBranch = branchService.findEntityById(employeeDto.getWorkingBranch().getId());
         newEmployee.setWorkingBranch(workingBranch);
         Employee savedEmployee = employeeRepository.save(newEmployee);
 
@@ -63,7 +63,7 @@ public class EmployeeService {
 
         Employee existingEmployee = findEntityById(actualId);
 
-        Branch workingBranch = branchService.findEntityById(updatedEmployeeDto.getWorkingBranchId());
+        Branch workingBranch = branchService.findEntityById(updatedEmployeeDto.getWorkingBranch().getId());
 
         existingEmployee.setFirstName(updatedEmployeeDto.getFirstName());
         existingEmployee.setLastName(updatedEmployeeDto.getLastName());

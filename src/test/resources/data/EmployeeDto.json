@@ -3,5 +3,15 @@
   "firstName": "Ion",
   "lastName": "Popescu",
   "jobPosition": "manager",
-  "workingBranchId": 1
+  "workingBranch": {
+    "id": 1,
+    "name": "Test Branch",
+    "address": "Ploiesti",
+    "rentalOffice": {
+      "id": 1,
+      "name": "Test Rental Office",
+      "contactAddress": "Ploiesti",
+      "logoType": ""
+    }
+  }
 }
