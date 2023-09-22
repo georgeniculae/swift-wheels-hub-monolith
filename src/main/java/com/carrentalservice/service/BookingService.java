@@ -73,7 +73,6 @@ public class BookingService {
         return bookingMapper.mapEntityToDto(savedBooking);
     }
 
-    @Transactional
     public BookingDto findBookingById(Long id) {
         Booking booking = findEntityById(id);
 
