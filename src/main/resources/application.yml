@@ -9,6 +9,7 @@ server:
 spring:
   application:
     name: car-rental-service
+  thread-executor: virtual
   datasource:
     url: jdbc:mysql://localhost:3306/car_rental_service?serverTimezone=Europe/Bucharest
     username: ${MYSQL_USERNAME}
