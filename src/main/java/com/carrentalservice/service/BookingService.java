@@ -12,7 +12,6 @@ import com.carrentalservice.exception.CarRentalServiceException;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BookingMapper;
 import com.carrentalservice.repository.BookingRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
@@ -34,7 +33,6 @@ public class BookingService {
     private final BranchService branchService;
     private final BookingMapper bookingMapper;
 
-    @Transactional
     public BookingDto saveBooking(BookingDto newBookingDto) {
         validateBookingDates(newBookingDto);
         Booking newBooking = bookingMapper.mapDtoToEntity(newBookingDto);
@@ -52,7 +50,6 @@ public class BookingService {
         return bookingMapper.mapEntityToDto(savedBooking);
     }
 
-    @Transactional
     public BookingDto updateBooking(Long id, BookingDto updatedBookingDto) {
         Long actualId = getId(id, updatedBookingDto.getId());
 
@@ -184,7 +181,6 @@ public class BookingService {
 
         throw new NotFoundException("Booking with id " + id + " does not exist");
     }
-
 
     private Invoice setupInvoice(Booking newBooking, Customer customer, Car car) {
         Invoice invoice = new Invoice();

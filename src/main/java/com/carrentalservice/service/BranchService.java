@@ -6,7 +6,6 @@ import com.carrentalservice.entity.RentalOffice;
 import com.carrentalservice.exception.NotFoundException;
 import com.carrentalservice.mapper.BranchMapper;
 import com.carrentalservice.repository.BranchRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ public class BranchService {
     private final RentalOfficeService rentalOfficeService;
     private final BranchMapper branchMapper;
 
-    @Transactional
     public BranchDto saveBranch(BranchDto branchDto) {
         Branch newBranch = branchMapper.mapDtoToEntity(branchDto);
 
