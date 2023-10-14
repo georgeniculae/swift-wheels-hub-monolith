@@ -43,9 +43,9 @@ public class BookingService {
         Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
 
         Invoice invoice = setupInvoice(newBooking, customer, car);
-        setupNewBooking(newBooking, customer, car, rentalBranch, invoice);
+        Booking setupBooking = setupNewBooking(newBooking, customer, car, rentalBranch, invoice);
 
-        Booking savedBooking = bookingRepository.save(newBooking);
+        Booking savedBooking = bookingRepository.save(setupBooking);
 
         return bookingMapper.mapEntityToDto(savedBooking);
     }
@@ -194,7 +194,7 @@ public class BookingService {
         return invoice;
     }
 
-    private void setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch, Invoice invoice) {
+    private Booking setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch, Invoice invoice) {
         newBooking.setCustomer(customer);
         newBooking.setCar(car);
         newBooking.setDateOfBooking(Date.valueOf(LocalDate.now()));
@@ -202,6 +202,8 @@ public class BookingService {
         newBooking.setStatus(BookingStatus.IN_PROGRESS);
         newBooking.setAmount(getAmount(newBooking.getDateFrom(), newBooking.getDateTo(), car.getAmount()));
         newBooking.setInvoice(invoice);
+
+        return newBooking;
     }
 
 }

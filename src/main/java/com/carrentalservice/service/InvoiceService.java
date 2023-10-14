@@ -15,6 +15,7 @@ import com.carrentalservice.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.sql.Date;
@@ -33,6 +34,7 @@ public class InvoiceService {
     private final CarService carService;
     private final InvoiceMapper invoiceMapper;
 
+    @Transactional
     public InvoiceDto updateInvoice(Long id, InvoiceDto invoiceDto) {
         Long actualId = getId(id, invoiceDto.getId());
 

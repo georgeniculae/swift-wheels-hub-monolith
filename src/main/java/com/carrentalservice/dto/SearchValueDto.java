@@ -15,8 +15,4 @@ public class SearchValueDto {
 
     private String search;
 
-    public void setSearch(String search) {
-        this.search = search;
-    }
-
 }

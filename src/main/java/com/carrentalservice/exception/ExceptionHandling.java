@@ -16,12 +16,12 @@ public class ExceptionHandling extends DefaultErrorAttributes {
     private static final String MESSAGE = "message";
     private static final String STATUS = "status";
     private static final String ERROR = "error";
+    private static final String RESOURCE_NOT_FOUND = "Resource not found";
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleNotFoundException(NotFoundException e, WebRequest request) {
         HttpStatus notFound = HttpStatus.NOT_FOUND;
-        String cause = "Resource not found";
-        Map<String, Object> errorAttributes = getErrorAttributesMap(request, e.getMessage(), cause, notFound);
+        Map<String, Object> errorAttributes = getErrorAttributesMap(request, e.getMessage(), RESOURCE_NOT_FOUND, notFound);
 
         return ResponseEntity.status(notFound).body(errorAttributes);
     }
@@ -37,15 +37,16 @@ public class ExceptionHandling extends DefaultErrorAttributes {
 
     private Map<String, Object> getErrorAttributesMap(WebRequest webRequest, String errorMessage, String cause, HttpStatus httpStatus) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
-        addErrorAttributes(errorAttributes, errorMessage, cause, httpStatus);
 
-        return errorAttributes;
+        return addErrorAttributes(errorAttributes, errorMessage, cause, httpStatus);
     }
 
-    private void addErrorAttributes(Map<String, Object> errorAttributes, String errorMessage, String cause, HttpStatus httpStatus) {
+    private Map<String, Object> addErrorAttributes(Map<String, Object> errorAttributes, String errorMessage, String cause, HttpStatus httpStatus) {
         errorAttributes.put(MESSAGE, errorMessage);
         errorAttributes.put(STATUS, httpStatus.value());
         errorAttributes.put(ERROR, cause);
+
+        return errorAttributes;
     }
 
 }
