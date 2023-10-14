@@ -1,4 +1,4 @@
-package com.carrentalservice.virtualthread;
+package com.carrentalservice.config.virtualthread;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
