@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com</groupId>
-    <artifactId>car-rental-service</artifactId>
+    <artifactId>car-rental-service-monolith</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Car Rental Service</name>
     <description>Car Rental Service Project</description>
@@ -159,5 +159,25 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/georgeniculae/*</url>
+        </repository>
+    </repositories>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/georgeniculae/car-rental-service-monolith</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>car-rental-service-monolith</name>
+            <url>https://maven.pkg.github.com/georgeniculae/car-rental-service-monolith</url>
+        </repository>
+    </distributionManagement>
 
 </project>
