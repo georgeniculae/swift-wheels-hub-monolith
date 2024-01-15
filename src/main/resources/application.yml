@@ -49,3 +49,4 @@ logging:
 token:
   signing:
     key: ${TOKEN_SIGNING_KEY}
+    expiration: 30
