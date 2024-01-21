@@ -47,6 +47,6 @@ logging:
               BasicBinder: TRACE
 
 token:
+  expiration: 30
   signing:
     key: ${TOKEN_SIGNING_KEY}
-    expiration: 30
