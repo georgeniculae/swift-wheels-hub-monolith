@@ -8,10 +8,10 @@ server:
 
 spring:
   application:
-    name: car-rental-service
+    name: swift-wheels-hub
   thread-executor: virtual
   datasource:
-    url: jdbc:mysql://localhost:3306/car_rental_service?serverTimezone=Europe/Bucharest
+    url: jdbc:mysql://localhost:3306/swift_wheels_hub?serverTimezone=Europe/Bucharest
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
   jpa:

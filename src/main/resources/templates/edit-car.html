@@ -23,7 +23,7 @@
 </nav>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/"><b>Car Rental Service</b></a>
+    <a class="navbar-brand" href="/"><b>Swift Wheels Hub</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -359,7 +359,7 @@
                     <span class="input-group-text" id="bodyType-span">Body Type</span>
                 </div>
                 <select id="inputGroupSelect1" class="custom-select" th:field="${car.bodyType}">
-                    <option th:each="bodyType : ${T(com.carrentalservice.entity.BodyType).values()}"
+                    <option th:each="bodyType : ${T(com.swiftwheelshub.entity.BodyType).values()}"
                             th:value="${bodyType}"
                             th:text="${bodyType.displayName}">
                     </option>
@@ -403,7 +403,7 @@
                     <span class="input-group-text" id="status-span">Status</span>
                 </div>
                 <select id="inputGroupSelect" class="custom-select" th:field="${car.carStatus}">
-                    <option th:each="carStatus : ${T(com.carrentalservice.entity.CarStatus).values()}"
+                    <option th:each="carStatus : ${T(com.swiftwheelshub.entity.CarStatus).values()}"
                             th:value="${carStatus}"
                             th:text="${carStatus.displayName}">
                     </option>

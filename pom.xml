@@ -9,11 +9,11 @@
         <version>3.2.1</version>
     </parent>
 
-    <groupId>com</groupId>
-    <artifactId>car-rental-service-monolith</artifactId>
+    <groupId>com.swiftwheelshub</groupId>
+    <artifactId>swift-wheels-hub-monolith</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Car Rental Service</name>
-    <description>Car Rental Service Project</description>
+    <name>Swift Wheels Hub</name>
+    <description>Swift Wheels Hub Project</description>
 
     <properties>
         <java.version>21</java.version>
@@ -166,15 +166,15 @@
     </repositories>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/georgeniculae/car-rental-service-monolith</developerConnection>
+        <developerConnection>scm:git:https://github.com/georgeniculae/swift-wheels-hub-monolith</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>car-rental-service-monolith</name>
-            <url>https://maven.pkg.github.com/georgeniculae/car-rental-service-monolith</url>
+            <name>swift-wheels-hub-monolith</name>
+            <url>https://maven.pkg.github.com/georgeniculae/swift-wheels-hub-monolith</url>
         </repository>
     </distributionManagement>
 

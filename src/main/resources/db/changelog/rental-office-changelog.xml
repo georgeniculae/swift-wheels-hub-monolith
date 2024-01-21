@@ -7,8 +7,7 @@
     <changeSet id="create-table-rental-office" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="car-rental-service" catalogName="car-rental-service"
-                             tableName="rental-office"/>
+                <tableExists schemaName="swift-wheels-hub" catalogName="swift-wheels-hub" tableName="rental-office"/>
             </not>
         </preConditions>
 
