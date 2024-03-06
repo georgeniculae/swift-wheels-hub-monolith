@@ -345,20 +345,18 @@
            style="margin-top: 2rem; background: linear-gradient(45deg, white, transparent)">
         <thead>
         <th>Id</th>
-        <th>Logo type</th>
         <th>Name</th>
-        <th>Internet domain</th>
         <th>Contact address</th>
+        <th>Phone number</th>
         <th>Edit</th>
         <th>Delete</th>
         </thead>
         <tbody>
         <tr th:each="rentalOffice : ${rentalOffices}">
             <td th:text="${rentalOffice.id} + '. '"></td>
-            <td><img style="width: 40px; height: 40px" th:src="${rentalOffice.logoType}" alt=""></td>
             <td th:text="${rentalOffice.name}"></td>
-            <td th:text="${rentalOffice.internetDomain}"></td>
             <td th:text="${rentalOffice.contactAddress}"></td>
+            <td th:text="${rentalOffice.phoneNumber}"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a th:href="@{/rental-office/edit/{id}(id = ${rentalOffice.id})}">
                     <i>

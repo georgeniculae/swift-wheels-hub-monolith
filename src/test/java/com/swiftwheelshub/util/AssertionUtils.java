@@ -58,7 +58,7 @@ public class AssertionUtils {
     public static void assertRentalOffice(RentalOffice rentalOffice, RentalOfficeDto rentalOfficeDto) {
         assertEquals(rentalOffice.getName(), rentalOfficeDto.getName());
         assertEquals(rentalOffice.getContactAddress(), rentalOfficeDto.getContactAddress());
-        assertEquals(rentalOffice.getLogoType(), rentalOfficeDto.getLogoType());
+        assertEquals(rentalOffice.getPhoneNumber(), rentalOfficeDto.getPhoneNumber());
     }
 
     public static void assertEmployee(Employee employee, EmployeeDto employeeDto) {

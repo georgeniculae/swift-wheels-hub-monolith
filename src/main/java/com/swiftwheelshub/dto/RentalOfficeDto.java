@@ -20,6 +20,6 @@ public class RentalOfficeDto extends BaseEntityDto {
     @NotEmpty(message = "Contact address cannot be empty")
     private String contactAddress;
 
-    private String logoType;
+    private String phoneNumber;
 
 }

@@ -21,7 +21,7 @@
             <column name="contact_address" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="logo_type" type="varchar(255)">
+            <column name="phone_number" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -38,7 +38,7 @@
         <insert tableName="rental_office">
             <column name="name" value="Test Office"/>
             <column name="contact_address" value="abc"/>
-            <column name="logo_type" value="logo"/>
+            <column name="phone_number" value="0722222222"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

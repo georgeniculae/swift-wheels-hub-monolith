@@ -346,16 +346,6 @@
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="internetDomain-span">Internet domain</span>
-                    </div>
-                    <input type="text" id="internetDomain" th:field="${rentalOffice.internetDomain}"
-                           class="form-control"
-                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <span th:if="${#fields.hasErrors('internetDomain')}"
-                          th:errors="${rentalOffice.internetDomain}"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
                         <span class="input-group-text" id="contactAddress-span">Contact address</span>
                     </div>
                     <input type="text" id="contactAddress" th:field="${rentalOffice.contactAddress}"
@@ -366,14 +356,14 @@
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="logoType-span">Logo type</span>
+                        <span class="input-group-text" id="phoneNumber-span">Phone number</span>
                     </div>
-                    <input type="text" id="logoType" th:field="${rentalOffice.logoType}"
+                    <input type="text" id="phoneNumber" th:field="${rentalOffice.phoneNumber}"
                            class="form-control"
                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                            placeholder="Insert image URL">
-                    <span th:if="${#fields.hasErrors('logoType')}"
-                          th:errors="${rentalOffice.logoType}"></span>
+                    <span th:if="${#fields.hasErrors('phoneNumber')}"
+                          th:errors="${rentalOffice.phoneNumber}"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor"

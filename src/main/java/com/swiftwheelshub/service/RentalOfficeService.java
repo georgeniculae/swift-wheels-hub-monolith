@@ -59,7 +59,7 @@ public class RentalOfficeService {
 
         existingRentalOffice.setName(updatedRentalOfficeDto.getName());
         existingRentalOffice.setContactAddress(updatedRentalOfficeDto.getContactAddress());
-        existingRentalOffice.setLogoType(updatedRentalOfficeDto.getLogoType());
+        existingRentalOffice.setPhoneNumber(updatedRentalOfficeDto.getPhoneNumber());
 
         RentalOffice savedRentalOffice = rentalOfficeRepository.save(existingRentalOffice);
 
