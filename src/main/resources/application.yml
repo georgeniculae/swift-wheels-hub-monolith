@@ -9,7 +9,9 @@ server:
 spring:
   application:
     name: swift-wheels-hub
-  thread-executor: virtual
+  threads:
+    virtual:
+      enabled: true
   datasource:
     url: jdbc:mysql://localhost:3306/swift_wheels_hub?serverTimezone=Europe/Bucharest
     username: ${MYSQL_USERNAME}
