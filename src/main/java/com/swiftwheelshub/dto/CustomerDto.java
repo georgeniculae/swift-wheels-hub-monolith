@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +15,7 @@ import java.sql.Date;
 @EqualsAndHashCode(callSuper = true)
 public class CustomerDto extends UserDto {
 
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String address;
 
 }

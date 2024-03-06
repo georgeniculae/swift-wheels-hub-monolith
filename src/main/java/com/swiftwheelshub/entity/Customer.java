@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -17,8 +17,7 @@ import java.util.Objects;
 @Setter
 public class Customer extends User {
 
-    private Date dateOfBirth;
-
+    private LocalDate dateOfBirth;
     private String address;
 
     public Customer(String username, String password, Role role, String firstName, String lastName, String email) {

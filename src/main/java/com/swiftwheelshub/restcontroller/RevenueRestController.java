@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,14 +26,14 @@ public class RevenueRestController {
     }
 
     @GetMapping(path = "/total")
-    public ResponseEntity<Double> getTotalAmount() {
-        Double totalAmount = revenueService.getTotalAmount();
+    public ResponseEntity<BigDecimal> getTotalAmount() {
+        BigDecimal totalAmount = revenueService.getTotalAmount();
 
         return ResponseEntity.ok(totalAmount);
     }
 
     @GetMapping(path = "/{date}")
-    public ResponseEntity<RevenueDto> findRevenueByDate(@RequestParam("date") Date dateOfRevenue) {
+    public ResponseEntity<RevenueDto> findRevenueByDate(@RequestParam("date") LocalDate dateOfRevenue) {
         RevenueDto revenue = revenueService.findRevenueByDate(dateOfRevenue);
 
         return ResponseEntity.ok(revenue);

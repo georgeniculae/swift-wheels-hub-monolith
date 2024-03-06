@@ -18,7 +18,7 @@
             <column name="date_of_revenue" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="amount_from_booking" type="double">
+            <column name="amount_from_booking" type="decimal">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,11 +19,11 @@ public class InvoiceDto {
     private CarDto car;
     private EmployeeDto receptionistEmployee;
     private BookingDto booking;
-    private Date carDateOfReturn;
+    private LocalDate carDateOfReturn;
     private Boolean isVehicleDamaged;
-    private Double damageCost;
-    private Double additionalPayment;
-    private Double totalAmount;
+    private BigDecimal damageCost;
+    private BigDecimal additionalPayment;
+    private BigDecimal totalAmount;
     private String comments;
 
 }

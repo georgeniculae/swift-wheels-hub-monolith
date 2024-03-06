@@ -8,7 +8,8 @@ import com.swiftwheelshub.repository.RevenueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ public class RevenueService {
         return revenueRepository.save(revenue);
     }
 
-    public Double getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return revenueRepository.getTotalAmount();
     }
 
@@ -34,7 +35,7 @@ public class RevenueService {
                 .toList();
     }
 
-    public RevenueDto findRevenueByDate(Date dateOfRevenue) {
+    public RevenueDto findRevenueByDate(LocalDate dateOfRevenue) {
         Optional<Revenue> optionalRevenue = revenueRepository.findByDateOfRevenue(dateOfRevenue);
 
         if (optionalRevenue.isPresent()) {

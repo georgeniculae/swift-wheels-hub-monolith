@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -17,8 +18,8 @@ import java.util.Objects;
 @Setter
 public class Revenue extends BaseEntity {
 
-    private Date dateOfRevenue;
-    private Double amountFromBooking;
+    private LocalDate dateOfRevenue;
+    private BigDecimal amountFromBooking;
 
     @Override
     public final boolean equals(Object o) {

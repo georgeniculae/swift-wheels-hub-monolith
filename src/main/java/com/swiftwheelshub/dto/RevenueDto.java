@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import java.sql.Date;
 public class RevenueDto {
 
     private Long id;
-    private Date dateOfRevenue;
-    private Double amountFromBooking;
+    private LocalDate dateOfRevenue;
+    private BigDecimal amountFromBooking;
 
 }

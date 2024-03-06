@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -21,7 +23,7 @@ public class CarDto {
     private String color;
     private int mileage;
     private CarStatus carStatus;
-    private Double amount;
+    private BigDecimal amount;
     private BranchDto branch;
     private String urlOfImage;
 

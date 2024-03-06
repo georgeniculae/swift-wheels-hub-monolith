@@ -17,7 +17,8 @@ import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -30,7 +31,7 @@ public class Booking extends BaseEntity {
     @NotNull(message = "Date of booking cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date dateOfBooking;
+    private LocalDate dateOfBooking;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
@@ -46,14 +47,14 @@ public class Booking extends BaseEntity {
     @NotNull(message = "Date from cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date dateFrom;
+    private LocalDate dateFrom;
 
     @NotNull(message = "Date to cannot be blank")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date dateTo;
+    private LocalDate dateTo;
 
-    private Double amount;
+    private BigDecimal amount;
 
     @ManyToOne
     @JoinColumn(name = "rental_branch_id")

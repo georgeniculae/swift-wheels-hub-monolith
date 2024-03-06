@@ -8,8 +8,8 @@ import com.swiftwheelshub.entity.CarStatus;
 import com.swiftwheelshub.entity.Employee;
 import com.swiftwheelshub.entity.Invoice;
 import com.swiftwheelshub.entity.Revenue;
-import com.swiftwheelshub.exception.SwiftWheelsHubException;
 import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubException;
 import com.swiftwheelshub.mapper.InvoiceMapper;
 import com.swiftwheelshub.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -121,7 +121,7 @@ public class InvoiceService {
         throw new NotFoundException("Invoice with id " + id + " does not exist");
     }
 
-    private void validateInvoice(InvoiceDto invoiceDto, Date dateFrom) {
+    private void validateInvoice(InvoiceDto invoiceDto, LocalDate dateFrom) {
         validateDateOfReturnOfTheCar(invoiceDto.getCarDateOfReturn(), dateFrom);
 
         if (invoiceDto.getIsVehicleDamaged() && ObjectUtils.isEmpty(invoiceDto.getDamageCost())) {
@@ -132,19 +132,18 @@ public class InvoiceService {
         }
     }
 
-    private void validateDateOfReturnOfTheCar(Date dateOfReturnOfTheCar, Date dateFrom) {
-        LocalDate dateOfReturnOfTheCarAsLocalDate = dateOfReturnOfTheCar.toLocalDate();
+    private void validateDateOfReturnOfTheCar(LocalDate dateOfReturnOfTheCar, LocalDate dateFrom) {
         LocalDate currentDate = LocalDate.now();
 
-        if (dateFrom.toLocalDate().isAfter(currentDate) &&
-                (currentDate.isBefore(dateOfReturnOfTheCarAsLocalDate) || currentDate.equals(dateOfReturnOfTheCarAsLocalDate))) {
+        if (dateFrom.isAfter(currentDate) &&
+                (currentDate.isBefore(dateOfReturnOfTheCar) || currentDate.equals(dateOfReturnOfTheCar))) {
             throw new SwiftWheelsHubException(
                     HttpStatus.BAD_REQUEST,
                     "The booking is not started yet"
             );
         }
 
-        if (dateOfReturnOfTheCarAsLocalDate.isBefore(currentDate)) {
+        if (dateOfReturnOfTheCar.isBefore(currentDate)) {
             throw new SwiftWheelsHubException(
                     HttpStatus.BAD_REQUEST,
                     "Date of return of the car cannot be in the past"
@@ -171,11 +170,11 @@ public class InvoiceService {
         revenueService.saveEntity(revenue);
     }
 
-    private Double getTotalAmount(Invoice existingInvoice, Booking booking) {
-        LocalDate carReturnDate = existingInvoice.getCarDateOfReturn().toLocalDate();
-        LocalDate bookingDateTo = booking.getDateTo().toLocalDate();
-        LocalDate bookingDateFrom = booking.getDateFrom().toLocalDate();
-        Double carAmount = existingInvoice.getCar().getAmount();
+    private BigDecimal getTotalAmount(Invoice existingInvoice, Booking booking) {
+        LocalDate carReturnDate = existingInvoice.getCarDateOfReturn();
+        LocalDate bookingDateTo = booking.getDateTo();
+        LocalDate bookingDateFrom = booking.getDateFrom();
+        BigDecimal carAmount = existingInvoice.getCar().getAmount();
 
         boolean isReturnDatePassed = carReturnDate.isAfter(bookingDateTo);
         if (isReturnDatePassed) {
@@ -187,8 +186,8 @@ public class InvoiceService {
             return getMoneyForReturnBeforeTerm(existingInvoice, carReturnDate, bookingDateFrom, carAmount);
         }
 
-        return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount +
-                (ObjectUtils.isEmpty(existingInvoice.getDamageCost()) ? 0D : existingInvoice.getDamageCost());
+        return carAmount.multiply(BigDecimal.valueOf(getDaysPeriod(bookingDateFrom, bookingDateTo)))
+                .add(ObjectUtils.isEmpty(existingInvoice.getDamageCost()) ? BigDecimal.ZERO : existingInvoice.getDamageCost());
     }
 
     private int getDaysPeriod(LocalDate bookingDateFrom, LocalDate bookingDateTo) {
@@ -201,19 +200,21 @@ public class InvoiceService {
         return days;
     }
 
-    private Double getMoneyForReturnBeforeTerm(Invoice invoice, LocalDate carReturnDate, LocalDate bookingDateFrom,
-                                               Double carAmount) {
-        return getDaysPeriod(bookingDateFrom, carReturnDate) * carAmount + getDamageCost(invoice);
+    private BigDecimal getMoneyForReturnBeforeTerm(Invoice invoice, LocalDate carReturnDate, LocalDate bookingDateFrom,
+                                                   BigDecimal carAmount) {
+        return carAmount.multiply(BigDecimal.valueOf(getDaysPeriod(bookingDateFrom, carReturnDate)))
+                .add(getDamageCost(invoice));
     }
 
-    private double getMoneyForLateReturn(Invoice invoice, LocalDate carReturnDate, LocalDate bookingDateTo,
-                                         LocalDate bookingDateFrom, Double carAmount) {
-        return getDaysPeriod(bookingDateFrom, bookingDateTo) * carAmount +
-                getDaysPeriod(bookingDateTo, carReturnDate) * 2 * carAmount + getDamageCost(invoice);
+    private BigDecimal getMoneyForLateReturn(Invoice invoice, LocalDate carReturnDate, LocalDate bookingDateTo,
+                                             LocalDate bookingDateFrom, BigDecimal carAmount) {
+        return carAmount.multiply(BigDecimal.valueOf(getDaysPeriod(bookingDateFrom, bookingDateTo)))
+                .add(carAmount.multiply(BigDecimal.valueOf(2)).multiply(BigDecimal.valueOf(getDaysPeriod(bookingDateTo, carReturnDate))))
+                .add(getDamageCost(invoice));
     }
 
-    private double getDamageCost(Invoice existingInvoice) {
-        return ObjectUtils.isEmpty(existingInvoice.getDamageCost()) ? 0D : existingInvoice.getDamageCost();
+    private BigDecimal getDamageCost(Invoice existingInvoice) {
+        return ObjectUtils.isEmpty(existingInvoice.getDamageCost()) ? BigDecimal.ZERO : existingInvoice.getDamageCost();
     }
 
 }

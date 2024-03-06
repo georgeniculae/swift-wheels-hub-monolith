@@ -15,13 +15,18 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RevenueServiceTest {
@@ -53,10 +58,10 @@ class RevenueServiceTest {
     void findRevenueByDateTest_success() {
         Revenue revenue = TestUtils.getResourceAsJson("/data/Revenue.json", Revenue.class);
 
-        when(revenueRepository.findByDateOfRevenue(any(Date.class))).thenReturn(Optional.of(revenue));
+        when(revenueRepository.findByDateOfRevenue(any(LocalDate.class))).thenReturn(Optional.of(revenue));
 
-        assertDoesNotThrow(() -> revenueService.findRevenueByDate(Date.valueOf("2050-02-20")));
-        RevenueDto revenueDto = revenueService.findRevenueByDate(Date.valueOf("2050-02-20"));
+        assertDoesNotThrow(() -> revenueService.findRevenueByDate(LocalDate.parse("2050-02-20")));
+        RevenueDto revenueDto = revenueService.findRevenueByDate(LocalDate.parse("2050-02-20"));
 
         AssertionUtils.assertRevenue(revenue, revenueDto);
 
@@ -65,10 +70,10 @@ class RevenueServiceTest {
 
     @Test
     void findRevenueByDateTest_errorOnFindingByDateOfRevenue() {
-        when(revenueRepository.findByDateOfRevenue(any(Date.class))).thenReturn(Optional.empty());
+        when(revenueRepository.findByDateOfRevenue(any(LocalDate.class))).thenReturn(Optional.empty());
 
         NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> revenueService.findRevenueByDate(Date.valueOf("2050-02-20")));
+                assertThrows(NotFoundException.class, () -> revenueService.findRevenueByDate(LocalDate.parse("2050-02-20")));
 
         assertNotNull(notFoundException);
         assertEquals("Revenue from date: 2050-02-20 does not exist", notFoundException.getMessage());

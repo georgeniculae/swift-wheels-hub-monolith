@@ -15,7 +15,8 @@ import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -43,15 +44,15 @@ public class Invoice extends BaseEntity {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    private Date carDateOfReturn;
+    private LocalDate carDateOfReturn;
 
     private Boolean isVehicleDamaged;
 
-    private Double damageCost;
+    private BigDecimal damageCost;
 
-    private Double additionalPayment;
+    private BigDecimal additionalPayment;
 
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
     private String comments;
 

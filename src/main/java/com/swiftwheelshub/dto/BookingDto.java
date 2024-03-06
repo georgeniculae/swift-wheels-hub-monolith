@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,13 +16,13 @@ import java.sql.Date;
 public class BookingDto {
 
     private Long id;
-    private Date dateOfBooking;
+    private LocalDate dateOfBooking;
     private BookingStatus status;
     private CustomerDto customer;
     private CarDto car;
-    private Date dateFrom;
-    private Date dateTo;
-    private Double amount;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
+    private BigDecimal amount;
     private BranchDto rentalBranch;
     private BranchDto returnBranch;
 

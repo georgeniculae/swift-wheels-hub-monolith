@@ -8,8 +8,8 @@ import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.CarStatus;
 import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.entity.Invoice;
-import com.swiftwheelshub.exception.SwiftWheelsHubException;
 import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubException;
 import com.swiftwheelshub.mapper.BookingMapper;
 import com.swiftwheelshub.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -99,14 +99,14 @@ public class BookingService {
                 .count();
     }
 
-    public BookingDto findBookingByDateOfBooking(String searchString) {
-        Optional<Booking> optionalBooking = bookingRepository.findByDateOfBooking(Date.valueOf(searchString));
+    public BookingDto findBookingByDateOfBooking(String filter) {
+        Optional<Booking> optionalBooking = bookingRepository.findByDateOfBooking(LocalDate.parse(filter));
 
         if (optionalBooking.isPresent()) {
             return bookingMapper.mapEntityToDto(optionalBooking.get());
         }
 
-        throw new NotFoundException("Booking from date: " + searchString + " does not exist");
+        throw new NotFoundException("Booking from date: " + filter + " does not exist");
     }
 
     public Long countByLoggedInCustomer() {
@@ -120,22 +120,22 @@ public class BookingService {
                 .toList();
     }
 
-    public Double getAmountSpentByLoggedInUser() {
+    public BigDecimal getAmountSpentByLoggedInUser() {
         return findBookingsByLoggedInCustomer()
                 .stream()
                 .map(BookingDto::getAmount)
-                .reduce(0D, Double::sum);
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Double getSumOfAllBookingAmount() {
+    public BigDecimal getSumOfAllBookingAmount() {
         return findAllBookings()
                 .stream()
                 .map(BookingDto::getAmount)
-                .reduce(0D, Double::sum);
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Date getCurrentDate() {
-        return Date.valueOf(LocalDate.now());
+    public LocalDate getCurrentDate() {
+        return LocalDate.now();
     }
 
     private Long getId(Long id, Long updatedBookingId) {
@@ -149,8 +149,8 @@ public class BookingService {
     }
 
     private void validateBookingDates(BookingDto newBookingDto) {
-        LocalDate dateFrom = newBookingDto.getDateFrom().toLocalDate();
-        LocalDate dateTo = newBookingDto.getDateTo().toLocalDate();
+        LocalDate dateFrom = newBookingDto.getDateFrom();
+        LocalDate dateTo = newBookingDto.getDateTo();
         LocalDate currentDate = LocalDate.now();
 
         if (dateFrom.isBefore(currentDate) || dateTo.isBefore(currentDate)) {
@@ -162,14 +162,14 @@ public class BookingService {
         }
     }
 
-    private Double getAmount(Date dateFrom, Date dateTo, Double amount) {
-        int bookingDays = Period.between(dateFrom.toLocalDate(), dateTo.toLocalDate()).getDays();
+    private BigDecimal getAmount(LocalDate dateFrom, LocalDate dateTo, BigDecimal amount) {
+        int bookingDays = Period.between(dateFrom, dateTo).getDays();
 
         if (bookingDays == 0) {
             return amount;
         }
 
-        return bookingDays * amount;
+        return amount.multiply(BigDecimal.valueOf(bookingDays));
     }
 
     private Booking findEntityById(Long id) {
@@ -197,7 +197,7 @@ public class BookingService {
     private Booking setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch, Invoice invoice) {
         newBooking.setCustomer(customer);
         newBooking.setCar(car);
-        newBooking.setDateOfBooking(Date.valueOf(LocalDate.now()));
+        newBooking.setDateOfBooking(LocalDate.now());
         newBooking.setRentalBranch(rentalBranch);
         newBooking.setStatus(BookingStatus.IN_PROGRESS);
         newBooking.setAmount(getAmount(newBooking.getDateFrom(), newBooking.getDateTo(), car.getAmount()));

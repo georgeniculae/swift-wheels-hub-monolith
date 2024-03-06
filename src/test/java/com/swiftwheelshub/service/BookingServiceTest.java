@@ -17,17 +17,22 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Date;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceTest {
@@ -115,8 +120,8 @@ class BookingServiceTest {
         when(customerService.getLoggedInCustomer()).thenReturn(customer);
         when(bookingRepository.findBookingsByCustomer(any(Customer.class))).thenReturn(List.of(booking));
 
-        Double amount = bookingService.getAmountSpentByLoggedInUser();
-        assertEquals(500, amount);
+        BigDecimal amount = bookingService.getAmountSpentByLoggedInUser();
+        assertEquals(BigDecimal.valueOf(500), amount);
     }
 
     @Test
@@ -126,9 +131,9 @@ class BookingServiceTest {
         when(bookingRepository.findAll()).thenReturn(List.of(booking));
 
         assertDoesNotThrow(() -> bookingService.getSumOfAllBookingAmount());
-        Double sumOfAllBookingAmount = bookingService.getSumOfAllBookingAmount();
+        BigDecimal sumOfAllBookingAmount = bookingService.getSumOfAllBookingAmount();
 
-        assertEquals(500, sumOfAllBookingAmount);
+        assertEquals(BigDecimal.valueOf(500), sumOfAllBookingAmount);
     }
 
     @Test
@@ -145,7 +150,7 @@ class BookingServiceTest {
     void findBookingByDateOfBookingTest_success() {
         Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
 
-        when(bookingRepository.findByDateOfBooking(Date.valueOf(LocalDate.of(2050, Month.FEBRUARY, 20))))
+        when(bookingRepository.findByDateOfBooking(LocalDate.of(2050, Month.FEBRUARY, 20)))
                 .thenReturn(Optional.of(booking));
 
         assertDoesNotThrow(() -> bookingService.findBookingByDateOfBooking("2050-02-20"));
@@ -156,7 +161,7 @@ class BookingServiceTest {
 
     @Test
     void findBookingByDateOfBookingTest_errorOnFindingByDateOfBooking() {
-        when(bookingRepository.findByDateOfBooking(Date.valueOf(LocalDate.of(2050, Month.FEBRUARY, 20))))
+        when(bookingRepository.findByDateOfBooking(LocalDate.of(2050, Month.FEBRUARY, 20)))
                 .thenReturn(Optional.empty());
 
         NotFoundException notFoundException =
