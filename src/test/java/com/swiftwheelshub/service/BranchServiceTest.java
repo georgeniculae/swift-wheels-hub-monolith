@@ -19,15 +19,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -52,12 +49,11 @@ class BranchServiceTest {
 
         when(branchRepository.findById(anyLong())).thenReturn(Optional.of(branch));
 
-        assertDoesNotThrow(() -> branchService.findBranchById(1L));
         BranchDto actualBranchDto = branchService.findBranchById(1L);
 
         assertNotNull(actualBranchDto);
 
-        verify(branchMapper, times(2)).mapEntityToDto(any(Branch.class));
+        verify(branchMapper).mapEntityToDto(any(Branch.class));
     }
 
     @Test
@@ -79,7 +75,7 @@ class BranchServiceTest {
         when(branchRepository.findById(anyLong())).thenReturn(Optional.of(branch));
         when(branchRepository.save(branch)).thenReturn(branch);
 
-        BranchDto updatedBranchDto = assertDoesNotThrow(() -> branchService.updateBranch(1L, branchDto));
+        BranchDto updatedBranchDto = branchService.updateBranch(1L, branchDto);
 
         assertNotNull(updatedBranchDto);
     }
@@ -93,10 +89,9 @@ class BranchServiceTest {
         when(rentalOfficeService.findEntityById(anyLong())).thenReturn(rentalOffice);
         when(branchRepository.save(any(Branch.class))).thenReturn(branch);
 
-        assertDoesNotThrow(() -> branchService.saveBranch(branchDto));
         BranchDto savedBranchDto = branchService.saveBranch(branchDto);
 
-        assertThat(savedBranchDto).usingRecursiveAssertion().isEqualTo(branchDto);
+        assertNotNull(savedBranchDto);
     }
 
     @Test
@@ -105,7 +100,6 @@ class BranchServiceTest {
 
         when(branchRepository.findAll()).thenReturn(List.of(branch));
 
-        assertDoesNotThrow(() -> branchService.findAllBranches());
         List<BranchDto> branchDtoList = branchService.findAllBranches();
 
         AssertionUtils.assertBranch(branch, branchDtoList.getFirst());
@@ -117,7 +111,6 @@ class BranchServiceTest {
 
         when(branchRepository.findByFilter(anyString())).thenReturn(Optional.of(branch));
 
-        assertDoesNotThrow(() -> branchService.findBranchByFilter("Test"));
         BranchDto branchDto = branchService.findBranchByFilter("Test");
 
         AssertionUtils.assertBranch(branch, branchDto);

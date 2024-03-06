@@ -2,7 +2,6 @@ package com.swiftwheelshub.dto;
 
 import com.swiftwheelshub.entity.BookingStatus;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,9 +12,9 @@ import java.sql.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-public class BookingDto extends BaseEntityDto {
+public class BookingDto {
 
+    private Long id;
     private Date dateOfBooking;
     private BookingStatus status;
     private CustomerDto customer;

@@ -3,7 +3,6 @@ package com.swiftwheelshub.dto;
 import com.swiftwheelshub.entity.BodyType;
 import com.swiftwheelshub.entity.CarStatus;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-public class CarDto extends BaseEntityDto {
+public class CarDto {
 
+    private Long id;
     private String make;
     private String model;
     private BodyType bodyType;

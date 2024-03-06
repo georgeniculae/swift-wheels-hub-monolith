@@ -1,7 +1,6 @@
 package com.swiftwheelshub.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +11,9 @@ import java.sql.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-public class InvoiceDto extends BaseEntityDto {
+public class InvoiceDto {
 
+    private Long id;
     private CustomerDto customer;
     private CarDto car;
     private EmployeeDto receptionistEmployee;

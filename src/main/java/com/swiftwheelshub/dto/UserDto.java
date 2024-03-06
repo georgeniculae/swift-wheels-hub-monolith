@@ -3,7 +3,6 @@ package com.swiftwheelshub.dto;
 import com.swiftwheelshub.entity.Role;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-public class UserDto extends BaseEntityDto {
+public class UserDto {
+
+    private Long id;
 
     @NotEmpty(message = "Username cannot be empty")
     private String username;

@@ -2,7 +2,6 @@ package com.swiftwheelshub.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-public class EmployeeDto extends BaseEntityDto {
+public class EmployeeDto {
+
+    private Long id;
 
     @NotEmpty(message = "First name cannot be empty")
     private String firstName;
