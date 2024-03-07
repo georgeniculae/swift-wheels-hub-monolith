@@ -9,6 +9,7 @@ import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.Customer;
+import org.apache.commons.lang3.ObjectUtils;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -24,7 +25,7 @@ public interface BookingMapper {
     @Mapping(target = "customerDetails", expression = "java(mapToCustomerDetails(booking.getCustomer()))")
     @Mapping(target = "carDetails", expression = "java(mapToCarDetails(booking.getCar()))")
     @Mapping(target = "rentalBranchId", expression = "java(booking.getRentalBranch().getId())")
-    @Mapping(target = "returnBranchId", expression = "java(booking.getReturnBranch().getId())")
+    @Mapping(target = "returnBranchId", expression = "java(getReturnBranchId(booking))")
     BookingResponse mapEntityToDto(Booking booking);
 
     Booking mapDtoToEntity(BookingRequest bookingRequest);
@@ -35,5 +36,9 @@ public interface BookingMapper {
     CarDetails mapToCarDetails(Car car);
 
     BranchDetails mapToBranchDetails(Branch branch);
+
+    default Long getReturnBranchId(Booking booking) {
+        return ObjectUtils.isEmpty(booking.getReturnBranch()) ? null : booking.getReturnBranch().getId();
+    }
 
 }
