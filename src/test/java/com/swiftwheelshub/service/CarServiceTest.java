@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.CarDto;
+import com.swiftwheelshub.dto.CarRequest;
+import com.swiftwheelshub.dto.CarResponse;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
@@ -52,9 +53,9 @@ class CarServiceTest {
         when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
 
         assertDoesNotThrow(() -> carService.findCarById(1L));
-        CarDto actualCarDto = carService.findCarById(1L);
+        CarResponse actualCarResponse = carService.findCarById(1L);
 
-        assertNotNull(actualCarDto);
+        assertNotNull(actualCarResponse);
         verify(carMapper, times(2)).mapEntityToDto(any(Car.class));
     }
 
@@ -70,30 +71,29 @@ class CarServiceTest {
     @Test
     void updateCarTest_success() {
         Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
-        CarDto carDto = TestUtils.getResourceAsJson("/data/CarDto.json", CarDto.class);
+        CarRequest carRequest = TestUtils.getResourceAsJson("/data/CarRequest.json", CarRequest.class);
         Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
 
         when(branchService.findEntityById(anyLong())).thenReturn(branch);
         when(carRepository.findById(anyLong())).thenReturn(Optional.of(car));
         when(carRepository.save(any(Car.class))).thenReturn(car);
 
-        CarDto updatedCarDto = assertDoesNotThrow(() -> carService.updateCar(1L, carDto));
+        CarResponse updatedCarResponse = carService.updateCar(1L, carRequest);
 
-        assertNotNull(updatedCarDto);
+        assertNotNull(updatedCarResponse);
     }
 
     @Test
     void saveCarTest_success() {
         Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
         Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
-        CarDto carDto = TestUtils.getResourceAsJson("/data/CarDto.json", CarDto.class);
+        CarRequest carRequest = TestUtils.getResourceAsJson("/data/CarRequest.json", CarRequest.class);
 
         when(branchService.findEntityById(anyLong())).thenReturn(branch);
         when(carRepository.save(any(Car.class))).thenReturn(car);
 
-        assertDoesNotThrow(() -> carService.saveCar(carDto));
-        CarDto savedCarDto = carService.saveCar(carDto);
-        AssertionUtils.assertCar(car, savedCarDto);
+        CarResponse savedCarResponse = carService.saveCar(carRequest);
+        AssertionUtils.assertCarResponse(car, savedCarResponse);
     }
 
     @Test
@@ -102,9 +102,8 @@ class CarServiceTest {
 
         when(carRepository.findAll()).thenReturn(List.of(car));
 
-        assertDoesNotThrow(() -> carService.findAllCars());
-        List<CarDto> carDtoList = carService.findAllCars();
-        AssertionUtils.assertCar(car, carDtoList.getFirst());
+        List<CarResponse> carResponses = carService.findAllCars();
+        AssertionUtils.assertCarResponse(car, carResponses.getFirst());
     }
 
     @Test
@@ -113,10 +112,9 @@ class CarServiceTest {
 
         when(carRepository.findByFilter(anyString())).thenReturn(Optional.of(car));
 
-        assertDoesNotThrow(() -> carService.findCarByFilter("Test"));
-        CarDto carDto = carService.findCarByFilter("Test");
+        CarResponse carResponse = carService.findCarByFilter("Test");
 
-        AssertionUtils.assertCar(car, carDto);
+        AssertionUtils.assertCarResponse(car, carResponse);
     }
 
     @Test

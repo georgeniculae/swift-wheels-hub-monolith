@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.CarDto;
+import com.swiftwheelshub.dto.CarRequest;
+import com.swiftwheelshub.dto.CarResponse;
 import com.swiftwheelshub.service.BranchService;
 import com.swiftwheelshub.service.CarService;
 import jakarta.validation.Valid;
@@ -33,23 +34,23 @@ public class CarMvcController {
 
     @GetMapping({"/search", "/search(make)"})
     public String searchCarByMake(Model model, @RequestParam(value = "make", required = false) String make) {
-        List<CarDto> carDtoList = carService.findCarsByMake(make);
+        List<CarResponse> carResponses = carService.findCarsByMake(make);
 
-        carDtoList.forEach(carDto -> model.addAttribute("carByMake", carDto));
+        carResponses.forEach(carDto -> model.addAttribute("carByMake", carDto));
 
         return "/search";
     }
 
     @GetMapping(path = "/car/registration")
     public String showRegistration(Model model) {
-        model.addAttribute("car", new CarDto());
+        model.addAttribute("car", new CarRequest());
         model.addAttribute("allBranches", branchService.findAllBranches());
 
         return "add-car";
     }
 
     @PostMapping(path = "/car/add")
-    public String addCar(@ModelAttribute("car") @Valid CarDto car, BindingResult bindingResult) {
+    public String addCar(@ModelAttribute("car") @Valid CarRequest car, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-car";
         }
@@ -67,7 +68,7 @@ public class CarMvcController {
     }
 
     @PostMapping(path = "/car/update")
-    public String editCar(@ModelAttribute("car") @Valid CarDto car, BindingResult bindingResult) {
+    public String editCar(@ModelAttribute("car") @Valid CarRequest car, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-car";
         }

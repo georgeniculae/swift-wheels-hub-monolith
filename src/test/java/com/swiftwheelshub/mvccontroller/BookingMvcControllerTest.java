@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.BookingDto;
+import com.swiftwheelshub.dto.BookingRequest;
+import com.swiftwheelshub.dto.BookingResponse;
 import com.swiftwheelshub.security.JwtAuthenticationFilter;
 import com.swiftwheelshub.service.BookingService;
 import com.swiftwheelshub.service.BranchService;
@@ -94,10 +95,12 @@ class BookingMvcControllerTest {
 
     @Test
     void addBookingFromIndexTest_success() throws Exception {
-        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
-        String valueAsString = TestUtils.writeValueAsString(bookingDto);
+        BookingResponse bookingResponse =
+                TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
 
-        when(bookingService.saveBooking(any(BookingDto.class))).thenReturn(bookingDto);
+        String valueAsString = TestUtils.writeValueAsString(bookingResponse);
+
+        when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/")
                         .with(csrf())
@@ -116,10 +119,12 @@ class BookingMvcControllerTest {
 
     @Test
     void addBookingFromIndexTest_unauthorized() throws Exception {
-        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
-        String valueAsString = TestUtils.writeValueAsString(bookingDto);
+        BookingResponse bookingResponse =
+                TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
 
-        when(bookingService.saveBooking(any(BookingDto.class))).thenReturn(bookingDto);
+        String valueAsString = TestUtils.writeValueAsString(bookingResponse);
+
+        when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/")
                         .with(csrf().useInvalidToken())
@@ -138,10 +143,12 @@ class BookingMvcControllerTest {
 
     @Test
     void addBookingTest_success() throws Exception {
-        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
-        String valueAsString = TestUtils.writeValueAsString(bookingDto);
+        BookingResponse bookingResponse =
+                TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
 
-        when(bookingService.saveBooking(any(BookingDto.class))).thenReturn(bookingDto);
+        String valueAsString = TestUtils.writeValueAsString(bookingResponse);
+
+        when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/booking/add")
                         .with(csrf())

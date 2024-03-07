@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.RevenueDto;
+import com.swiftwheelshub.dto.RevenueRequest;
+import com.swiftwheelshub.dto.RevenueResponse;
 import com.swiftwheelshub.entity.Revenue;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.RevenueMapper;
@@ -27,14 +28,14 @@ public class RevenueService {
         return revenueRepository.getTotalAmount();
     }
 
-    public List<RevenueDto> findAllRevenues() {
+    public List<RevenueResponse> findAllRevenues() {
         return revenueRepository.findAll()
                 .stream()
                 .map(revenueMapper::mapEntityToDto)
                 .toList();
     }
 
-    public RevenueDto findRevenueByDate(LocalDate dateOfRevenue) {
+    public RevenueResponse findRevenueByDate(LocalDate dateOfRevenue) {
         return revenueRepository.findByDateOfRevenue(dateOfRevenue)
                 .map(revenueMapper::mapEntityToDto)
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Revenue from date: " + dateOfRevenue + " does not exist"));

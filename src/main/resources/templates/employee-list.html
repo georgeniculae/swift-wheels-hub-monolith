@@ -361,7 +361,7 @@
                 <td th:text="${employee.firstName}"></td>
                 <td th:text="${employee.lastName}"></td>
                 <td th:text="${employee.jobPosition}"></td>
-                <td th:text="${employee.workingBranchDetails == null} ? 'N/A' : ${employee.workingBranch.name}"></td>
+                <td th:text="${employee.workingBranchDetails == null} ? 'N/A' : ${employee.workingBranchDetails.name}"></td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/employee/edit/{id}(id = ${employee.id})}">
                         <i>

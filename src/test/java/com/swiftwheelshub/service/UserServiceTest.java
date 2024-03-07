@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
 import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.entity.User;
 import com.swiftwheelshub.mapper.CustomerMapper;
@@ -39,18 +40,18 @@ class UserServiceTest {
     @Test
     void registerCustomerTest_success() {
         Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
-        CustomerDto customerDto = TestUtils.getResourceAsJson("/data/CustomerDto.json", CustomerDto.class);
+        CustomerRequest customerRequest = TestUtils.getResourceAsJson("/data/CustomerRequest.json", CustomerRequest.class);
 
         when(userRepository.save(any(User.class))).thenReturn(customer);
 
-        assertDoesNotThrow(() -> userService.registerCustomer(customerDto));
-        CustomerDto registerCustomerDto = userService.registerCustomer(customerDto);
+        assertDoesNotThrow(() -> userService.registerCustomer(customerRequest));
+        CustomerResponse registerCustomerResponse = userService.registerCustomer(customerRequest);
 
         verify(userRepository, times(2)).save(argumentCaptor.capture());
         verify(customerMapper, times(2)).mapEntityToDto(any(Customer.class));
         verify(bCryptPasswordEncoder, times(2)).encode(any());
 
-        AssertionUtils.assertCustomer(argumentCaptor.getValue(), registerCustomerDto);
+        AssertionUtils.assertCustomerResponse(argumentCaptor.getValue(), registerCustomerResponse);
     }
 
 }

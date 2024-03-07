@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.RevenueDto;
+import com.swiftwheelshub.dto.RevenueRequest;
+import com.swiftwheelshub.dto.RevenueResponse;
 import com.swiftwheelshub.entity.Revenue;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -13,8 +14,8 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface RevenueMapper {
 
-    RevenueDto mapEntityToDto(Revenue revenue);
+    RevenueResponse mapEntityToDto(Revenue revenue);
 
-    Revenue mapDtoToEntity(RevenueDto revenueDto);
+    Revenue mapDtoToEntity(RevenueRequest revenueRequest);
 
 }

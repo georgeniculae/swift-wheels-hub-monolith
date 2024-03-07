@@ -350,50 +350,50 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="customer.id-span">Customer id</span>
                 </div>
-                <input type="text" id="customer.id" th:field="${booking.customer.id}"
+                <input type="text" id="customerDetails.id" th:field="${booking.customerDetails.id}"
                        class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('customer.id')}"
-                      th:errors="${booking.customer.id}"></span>
+                <span th:if="${#fields.hasErrors('customerDetails.id')}"
+                      th:errors="${booking.customerDetails.id}"></span>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="customer.firstName-span">Customer's first name</span>
                 </div>
-                <input type="text" id="customer.firstName" th:field="${booking.customer.firstName}"
+                <input type="text" id="customerDetails.firstName" th:field="${booking.customerDetails.firstName}"
                        class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('customer.firstName')}"
-                      th:errors="${booking.customer.firstName}"></span>
+                <span th:if="${#fields.hasErrors('customerDetails.firstName')}"
+                      th:errors="${booking.customerDetails.firstName}"></span>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="customer.lastName-span">Customer's first name</span>
+                    <span class="input-group-text" id="customerDetails.lastName-span">Customer's first name</span>
                 </div>
-                <input type="text" id="customer.lastName" th:field="${booking.customer.lastName}"
+                <input type="text" id="customerDetails.lastName" th:field="${booking.customerDetails.lastName}"
                        class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('customer.lastName')}"
-                      th:errors="${booking.customer.lastName}"></span>
+                <span th:if="${#fields.hasErrors('customerDetails.lastName')}"
+                      th:errors="${booking.customerDetails.lastName}"></span>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="customer.email-span">Customer's email</span>
+                    <span class="input-group-text" id="customerDetails.email-span">Customer's email</span>
                 </div>
-                <input type="text" id="customer.email" th:field="${booking.customer.email}" class="form-control"
+                <input type="text" id="customerDetails.email" th:field="${booking.customerDetails.email}" class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('customer.email')}"
-                      th:errors="${booking.customer.email}"></span>
+                <span th:if="${#fields.hasErrors('customerDetails.email')}"
+                      th:errors="${booking.customerDetails.email}"></span>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="customer.address-span">Customer's address</span>
+                    <span class="input-group-text" id="customerDetails.address-span">Customer's address</span>
                 </div>
-                <input type="text" id="customer.address" th:field="${booking.customer.address}"
+                <input type="text" id="customerDetails.address" th:field="${booking.customerDetails.address}"
                        class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <span th:if="${#fields.hasErrors('customer.address')}"
-                      th:errors="${booking.customer.address}"></span>
+                <span th:if="${#fields.hasErrors('customerDetails.address')}"
+                      th:errors="${booking.customerDetails.address}"></span>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -417,15 +417,15 @@
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="workingBranch-span">Car</span>
+                    <span class="input-group-text" id="carDetails-span">Car</span>
                 </div>
                 <select id="inputGroupSelect2" class="custom-select"
-                        th:field="${booking.car.id}">
+                        th:field="${booking.carDetails.id}">
 
                     <option selected th:value="null">Choose car</option>
                     <option th:each="car : ${cars}" th:value="${car.id}"
                             th:if="${car.carStatus.displayName} == 'Available'"
-                            th:text="${car.make} + ' ' + ${car.model}+ ' ' + ${car.color}+ ' ' + ${car.bodyType.displayName}+ ' ' + ${car.carStatus.displayName}+ ' in ' + ${car.branch.name}+ ' for $' + ${car.amount}">
+                            th:text="${car.make} + ' ' + ${car.model} + ' ' + ${car.color} + ' ' + ${car.bodyType.displayName} + ' ' + ${car.carStatus.displayName} + ' in ' + ${car.branchDetails.name} + ' for $' + ${car.amount}">
                     </option>
                 </select>
             </div>

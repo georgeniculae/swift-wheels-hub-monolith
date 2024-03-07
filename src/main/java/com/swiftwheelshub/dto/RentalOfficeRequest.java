@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RentalOfficeDto {
+public class RentalOfficeRequest {
 
     private Long id;
 

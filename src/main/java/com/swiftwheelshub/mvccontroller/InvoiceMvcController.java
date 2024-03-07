@@ -1,6 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.InvoiceDto;
+import com.swiftwheelshub.dto.InvoiceRequest;
 import com.swiftwheelshub.service.EmployeeService;
 import com.swiftwheelshub.service.InvoiceService;
 import jakarta.validation.Valid;
@@ -44,7 +44,7 @@ public class InvoiceMvcController {
     }
 
     @PostMapping(path = "/invoice/update")
-    public String editInvoice(@ModelAttribute("invoice") @Valid InvoiceDto invoice, BindingResult bindingResult) {
+    public String editInvoice(@ModelAttribute("invoice") @Valid InvoiceRequest invoice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-invoice";
         }

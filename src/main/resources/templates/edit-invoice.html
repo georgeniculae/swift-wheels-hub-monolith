@@ -353,12 +353,12 @@
                     <span class="input-group-text" id="receptionist-employee-span">Receptionist employee</span>
                 </div>
                 <select id="inputGroupSelect2" class="custom-select"
-                        th:field="${invoice.receptionistEmployee.id}">
+                        th:field="${invoice.receptionistEmployeeDetails.id}">
 
                     <option selected th:value="null">Employees</option>
                     <option th:each="employee : ${employees}"
                             th:value="${employee.id}"
-                            th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' from working branch ' + ${employee.workingBranch.name}">
+                            th:text="${employee.firstName} + ' ' + ${employee.lastName} + ' from working branch ' + ${employee.workingBranchDetails.name}">
                     </option>
                 </select>
             </div>

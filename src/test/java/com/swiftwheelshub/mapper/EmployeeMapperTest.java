@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.EmployeeDto;
+import com.swiftwheelshub.dto.EmployeeRequest;
+import com.swiftwheelshub.dto.EmployeeResponse;
 import com.swiftwheelshub.entity.Employee;
 import com.swiftwheelshub.util.AssertionUtils;
 import com.swiftwheelshub.util.TestUtils;
@@ -19,20 +20,20 @@ class EmployeeMapperTest {
     void mapEntityToDtoTest_success() {
         Employee employee = TestUtils.getResourceAsJson("/data/Employee.json", Employee.class);
 
-        EmployeeDto employeeDto = employeeMapper.mapEntityToDto(employee);
+        EmployeeResponse employeeResponse = employeeMapper.mapEntityToDto(employee);
 
-        assertNotNull(employeeDto);
-        AssertionUtils.assertEmployee(employee, employeeDto);
+        assertNotNull(employeeResponse);
+        AssertionUtils.assertEmployeeResponse(employee, employeeResponse);
     }
 
     @Test
     void mapDtoToEntityTest_success() {
-        EmployeeDto employeeDto = TestUtils.getResourceAsJson("/data/EmployeeDto.json", EmployeeDto.class);
+        EmployeeRequest employeeRequest = TestUtils.getResourceAsJson("/data/EmployeeRequest.json", EmployeeRequest.class);
 
-        Employee employee = employeeMapper.mapDtoToEntity(employeeDto);
+        Employee employee = employeeMapper.mapDtoToEntity(employeeRequest);
 
-        assertNotNull(employeeDto);
-        AssertionUtils.assertEmployee(employee, employeeDto);
+        assertNotNull(employeeRequest);
+        AssertionUtils.assertEmployeeRequest(employee, employeeRequest);
     }
 
 }

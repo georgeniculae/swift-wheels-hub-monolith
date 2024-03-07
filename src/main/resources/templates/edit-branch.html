@@ -364,7 +364,7 @@
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Rental Office</label>
                 </div>
-                <select id="inputGroupSelect01" class="custom-select" th:field="${branch.rentalOffice.id}">
+                <select id="inputGroupSelect01" class="custom-select" th:field="${branch.rentalOfficeDetails.id}">
                     <option selected th:value="null">Choose</option>
                     <option th:each="rentalOffice : ${allRentalOffices}" th:value="${rentalOffice.id}"
                             th:text="${rentalOffice.name}"></option>

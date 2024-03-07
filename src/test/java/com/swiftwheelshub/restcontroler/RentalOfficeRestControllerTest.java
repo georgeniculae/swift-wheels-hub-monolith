@@ -1,18 +1,17 @@
 package com.swiftwheelshub.restcontroler;
 
-import com.swiftwheelshub.dto.RentalOfficeDto;
+import com.swiftwheelshub.dto.RentalOfficeRequest;
+import com.swiftwheelshub.dto.RentalOfficeResponse;
 import com.swiftwheelshub.restcontroller.RentalOfficeRestController;
 import com.swiftwheelshub.service.RentalOfficeService;
 import com.swiftwheelshub.util.TestUtils;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -30,13 +29,12 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = RentalOfficeRestController.class)
 @AutoConfigureMockMvc
 @EnableWebMvc
 class RentalOfficeRestControllerTest {
 
-    private static final String PATH = "/api/rental-office";
+    private static final String PATH = "/rental-offices";
 
     @Autowired
     private MockMvc mockMvc;
@@ -46,10 +44,10 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void findAllRentalOfficesTest_success() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeResponse =
+                TestUtils.getResourceAsJson("/data/RentalOfficeResponse.json", RentalOfficeResponse.class);
 
-        when(rentalOfficeService.findAllRentalOffices()).thenReturn(List.of(rentalOfficeDto));
+        when(rentalOfficeService.findAllRentalOffices()).thenReturn(List.of(rentalOfficeResponse));
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH)
                         .with(user("admin").password("admin").roles("ADMIN"))
@@ -79,10 +77,10 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void findRentalOfficeByIdTest_success() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeRequest =
+                TestUtils.getResourceAsJson("/data/RentalOfficeResponse.json", RentalOfficeResponse.class);
 
-        when(rentalOfficeService.findRentalOfficeById(anyLong())).thenReturn(rentalOfficeDto);
+        when(rentalOfficeService.findRentalOfficeById(anyLong())).thenReturn(rentalOfficeRequest);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN"))
@@ -144,12 +142,12 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void addRentalOfficeTest_success() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeResponse =
+                TestUtils.getResourceAsJson("/data/RentalOfficeResponse.json", RentalOfficeResponse.class);
 
-        String valueAsString = TestUtils.writeValueAsString(rentalOfficeDto);
+        String valueAsString = TestUtils.writeValueAsString(rentalOfficeResponse);
 
-        when(rentalOfficeService.saveRentalOffice(any(RentalOfficeDto.class))).thenReturn(rentalOfficeDto);
+        when(rentalOfficeService.saveRentalOffice(any(RentalOfficeRequest.class))).thenReturn(rentalOfficeResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
                         .with(csrf())
@@ -167,10 +165,10 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void addRentalOfficeTest_unauthorized() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeResponse =
+                TestUtils.getResourceAsJson("/data/RentalOfficeRequest.json", RentalOfficeResponse.class);
 
-        String valueAsString = TestUtils.writeValueAsString(rentalOfficeDto);
+        String valueAsString = TestUtils.writeValueAsString(rentalOfficeResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
                         .with(csrf())
@@ -188,10 +186,10 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void addRentalOfficeTest_forbidden() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeResponse =
+                TestUtils.getResourceAsJson("/data/RentalOfficeResponse.json", RentalOfficeResponse.class);
 
-        String valueAsString = TestUtils.writeValueAsString(rentalOfficeDto);
+        String valueAsString = TestUtils.writeValueAsString(rentalOfficeResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -208,12 +206,12 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void updateRentalOfficeTest_success() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeResponse =
+                TestUtils.getResourceAsJson("/data/RentalOfficeResponse.json", RentalOfficeResponse.class);
 
-        String valueAsString = TestUtils.writeValueAsString(rentalOfficeDto);
+        String valueAsString = TestUtils.writeValueAsString(rentalOfficeResponse);
 
-        when(rentalOfficeService.saveRentalOffice(any(RentalOfficeDto.class))).thenReturn(rentalOfficeDto);
+        when(rentalOfficeService.saveRentalOffice(any(RentalOfficeRequest.class))).thenReturn(rentalOfficeResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L)
                         .with(csrf())
@@ -231,10 +229,10 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void updateRentalOfficeTest_unauthorized() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeRequest =
+                TestUtils.getResourceAsJson("/data/RentalOfficeResponse.json", RentalOfficeResponse.class);
 
-        String valueAsString = TestUtils.writeValueAsString(rentalOfficeDto);
+        String valueAsString = TestUtils.writeValueAsString(rentalOfficeRequest);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L)
                         .with(csrf())
@@ -252,10 +250,10 @@ class RentalOfficeRestControllerTest {
 
     @Test
     void updateRentalOfficeTest_forbidden() throws Exception {
-        RentalOfficeDto rentalOfficeDto =
-                TestUtils.getResourceAsJson("/data/RentalOfficeDto.json", RentalOfficeDto.class);
+        RentalOfficeResponse rentalOfficeResponse =
+                TestUtils.getResourceAsJson("/data/RentalOfficeResponse.json", RentalOfficeResponse.class);
 
-        String valueAsString = TestUtils.writeValueAsString(rentalOfficeDto);
+        String valueAsString = TestUtils.writeValueAsString(rentalOfficeResponse);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)

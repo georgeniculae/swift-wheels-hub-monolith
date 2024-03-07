@@ -1,7 +1,8 @@
 package com.swiftwheelshub.mapper;
 
 import com.swiftwheelshub.dto.BranchDetails;
-import com.swiftwheelshub.dto.CarDto;
+import com.swiftwheelshub.dto.CarRequest;
+import com.swiftwheelshub.dto.CarResponse;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
 import org.mapstruct.InjectionStrategy;
@@ -17,9 +18,9 @@ import org.mapstruct.ReportingPolicy;
 public interface CarMapper {
 
     @Mapping(target = "branchDetails", expression = "java(mapToBranchDetails(car.getBranch()))")
-    CarDto mapEntityToDto(Car car);
+    CarResponse mapEntityToDto(Car car);
 
-    Car mapDtoToEntity(CarDto carDto);
+    Car mapDtoToEntity(CarRequest carRequest);
 
     BranchDetails mapToBranchDetails(Branch branch);
 

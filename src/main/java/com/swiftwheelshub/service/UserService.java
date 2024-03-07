@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
 import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.entity.Role;
 import com.swiftwheelshub.entity.User;
@@ -24,15 +25,15 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
-    public CustomerDto registerCustomer(CustomerDto customerDto) {
+    public CustomerResponse registerCustomer(CustomerRequest customerRequest) {
         Customer customer = new Customer();
 
-        customer.setUsername(customerDto.getUsername());
-        customer.setPassword(encoder.encode(customerDto.getPassword()));
-        customer.setFirstName(customerDto.getFirstName());
-        customer.setLastName(customerDto.getLastName());
-        customer.setEmail(customerDto.getEmail());
-        customer.setAddress(customerDto.getAddress());
+        customer.setUsername(customerRequest.getUsername());
+        customer.setPassword(encoder.encode(customerRequest.getPassword()));
+        customer.setFirstName(customerRequest.getFirstName());
+        customer.setLastName(customerRequest.getLastName());
+        customer.setEmail(customerRequest.getEmail());
+        customer.setAddress(customerRequest.getAddress());
         customer.setRole(Role.ROLE_CUSTOMER);
 
         Customer savedCustomer = userRepository.save(customer);

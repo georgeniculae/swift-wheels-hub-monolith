@@ -1,7 +1,7 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.BookingDto;
-import com.swiftwheelshub.dto.CarDto;
+import com.swiftwheelshub.dto.BookingRequest;
+import com.swiftwheelshub.dto.CarRequest;
 import com.swiftwheelshub.dto.SearchValue;
 import com.swiftwheelshub.service.*;
 import lombok.RequiredArgsConstructor;
@@ -45,11 +45,11 @@ public class SearchMvcController {
     @GetMapping(path = "/")
     public String showSearch(Model model) {
         model.addAttribute("search", new SearchValue());
-        model.addAttribute("booking", new BookingDto());
+        model.addAttribute("booking", new BookingRequest());
         model.addAttribute("allBookings", bookingService.findAllBookings());
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("allCars", carService.findAllCars());
-        model.addAttribute("car", new CarDto());
+        model.addAttribute("car", new CarRequest());
         model.addAttribute("allCustomers", customerService.findAllCustomers());
         model.addAttribute("allEmployees", employeeService.findAllEmployees());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());

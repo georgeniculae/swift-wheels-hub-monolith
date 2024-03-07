@@ -369,7 +369,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="working-branch-span">Working branch</span>
                 </div>
-                <select id="inputGroupSelect2" class="custom-select" th:field="${employee.workingBranch.id}">
+                <select id="inputGroupSelect2" class="custom-select" th:field="${employee.workingBranchDetails.id}">
                     <option selected th:value="null">Choose</option>
                     <option th:each="branch : ${allBranches}" th:value="${branch.id}" th:text="${branch.name}"></option>
                 </select>

@@ -1,13 +1,20 @@
 package com.swiftwheelshub.util;
 
-import com.swiftwheelshub.dto.BookingDto;
-import com.swiftwheelshub.dto.BranchDto;
-import com.swiftwheelshub.dto.CarDto;
-import com.swiftwheelshub.dto.CustomerDto;
-import com.swiftwheelshub.dto.EmployeeDto;
-import com.swiftwheelshub.dto.InvoiceDto;
-import com.swiftwheelshub.dto.RentalOfficeDto;
-import com.swiftwheelshub.dto.RevenueDto;
+import com.swiftwheelshub.dto.BookingResponse;
+import com.swiftwheelshub.dto.BranchRequest;
+import com.swiftwheelshub.dto.BranchResponse;
+import com.swiftwheelshub.dto.CarRequest;
+import com.swiftwheelshub.dto.CarResponse;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
+import com.swiftwheelshub.dto.EmployeeRequest;
+import com.swiftwheelshub.dto.EmployeeResponse;
+import com.swiftwheelshub.dto.InvoiceRequest;
+import com.swiftwheelshub.dto.InvoiceResponse;
+import com.swiftwheelshub.dto.RentalOfficeRequest;
+import com.swiftwheelshub.dto.RentalOfficeResponse;
+import com.swiftwheelshub.dto.RevenueRequest;
+import com.swiftwheelshub.dto.RevenueResponse;
 import com.swiftwheelshub.dto.UserDto;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.Branch;
@@ -23,77 +30,136 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AssertionUtils {
 
-    public static void assertBooking(Booking booking, BookingDto bookingDto) {
-        assertEquals(booking.getDateOfBooking(), bookingDto.getDateOfBooking());
-        assertEquals(booking.getDateFrom(), bookingDto.getDateFrom());
-        assertEquals(booking.getDateTo(), bookingDto.getDateTo());
-        assertEquals(booking.getAmount(), bookingDto.getAmount());
-        assertEquals(booking.getCustomer().getFirstName(), bookingDto.getCustomerDetails().getFirstName());
-        assertEquals(booking.getCustomer().getLastName(), bookingDto.getCustomerDetails().getLastName());
-        assertEquals(booking.getCustomer().getEmail(), bookingDto.getCustomerDetails().getEmail());
-        assertEquals(booking.getCustomer().getAddress(), bookingDto.getCustomerDetails().getAddress());
-        assertEquals(booking.getCar().getId(), bookingDto.getCarDetails().getId());
-        assertEquals(booking.getRentalBranch().getId(), bookingDto.getRentalBranchId());
-        assertEquals(booking.getReturnBranch().getId(), bookingDto.getReturnBranchId());
+    public static void assertBookingResponse(Booking booking, BookingResponse bookingResponse) {
+        assertEquals(booking.getDateOfBooking(), bookingResponse.getDateOfBooking());
+        assertEquals(booking.getDateFrom(), bookingResponse.getDateFrom());
+        assertEquals(booking.getDateTo(), bookingResponse.getDateTo());
+        assertEquals(booking.getAmount(), bookingResponse.getAmount());
+        assertEquals(booking.getCustomer().getFirstName(), bookingResponse.getCustomerDetails().getFirstName());
+        assertEquals(booking.getCustomer().getLastName(), bookingResponse.getCustomerDetails().getLastName());
+        assertEquals(booking.getCustomer().getEmail(), bookingResponse.getCustomerDetails().getEmail());
+        assertEquals(booking.getCustomer().getAddress(), bookingResponse.getCustomerDetails().getAddress());
+        assertEquals(booking.getCar().getId(), bookingResponse.getCarDetails().getId());
+        assertEquals(booking.getRentalBranch().getId(), bookingResponse.getRentalBranchId());
+        assertEquals(booking.getReturnBranch().getId(), bookingResponse.getReturnBranchId());
     }
 
-    public static void assertCustomer(Customer customer, CustomerDto customerDto) {
-        assertEquals(customer.getFirstName(), customerDto.getFirstName());
-        assertEquals(customer.getLastName(), customerDto.getLastName());
-        assertEquals(customer.getEmail(), customerDto.getEmail());
+    public static void assertCustomerRequest(Customer customer, CustomerRequest customerRequest) {
+        assertEquals(customer.getFirstName(), customerRequest.getFirstName());
+        assertEquals(customer.getLastName(), customerRequest.getLastName());
+        assertEquals(customer.getEmail(), customerRequest.getEmail());
     }
 
-    public static void assertCar(Car car, CarDto carDto) {
-        assertEquals(car.getMake(), carDto.getMake());
-        assertEquals(car.getModel(), carDto.getModel());
-        assertEquals(car.getBodyType(), carDto.getBodyType());
-        assertEquals(car.getYearOfProduction(), carDto.getYearOfProduction());
-        assertEquals(car.getColor(), carDto.getColor());
-        assertEquals(car.getMileage(), carDto.getMileage());
-        assertEquals(car.getCarStatus(), carDto.getCarStatus());
-        assertEquals(car.getAmount(), carDto.getAmount());
-        assertEquals(car.getBranch().getId(), carDto.getBranchDetails().getId());
-        assertEquals(car.getUrlOfImage(), carDto.getUrlOfImage());
+    public static void assertCustomerResponse(Customer customer, CustomerResponse customerResponse) {
+        assertEquals(customer.getFirstName(), customerResponse.getFirstName());
+        assertEquals(customer.getLastName(), customerResponse.getLastName());
+        assertEquals(customer.getEmail(), customerResponse.getEmail());
     }
 
-    public static void assertBranch(Branch branch, BranchDto branchDto) {
-        assertEquals(branch.getName(), branchDto.getName());
-        assertEquals(branch.getAddress(), branchDto.getAddress());
-        assertEquals(branch.getRentalOffice().getId(), branchDto.getRentalOfficeDetails().getId());
+    public static void assertCarRequest(Car car, CarRequest carRequest) {
+        assertEquals(car.getMake(), carRequest.getMake());
+        assertEquals(car.getModel(), carRequest.getModel());
+        assertEquals(car.getBodyType(), carRequest.getBodyType());
+        assertEquals(car.getYearOfProduction(), carRequest.getYearOfProduction());
+        assertEquals(car.getColor(), carRequest.getColor());
+        assertEquals(car.getMileage(), carRequest.getMileage());
+        assertEquals(car.getCarStatus(), carRequest.getCarStatus());
+        assertEquals(car.getAmount(), carRequest.getAmount());
+        assertEquals(car.getBranch().getId(), carRequest.getBranchDetails().getId());
+        assertEquals(car.getUrlOfImage(), carRequest.getUrlOfImage());
     }
 
-    public static void assertRentalOffice(RentalOffice rentalOffice, RentalOfficeDto rentalOfficeDto) {
-        assertEquals(rentalOffice.getName(), rentalOfficeDto.getName());
-        assertEquals(rentalOffice.getContactAddress(), rentalOfficeDto.getContactAddress());
-        assertEquals(rentalOffice.getPhoneNumber(), rentalOfficeDto.getPhoneNumber());
+    public static void assertCarResponse(Car car, CarResponse carResponse) {
+        assertEquals(car.getMake(), carResponse.getMake());
+        assertEquals(car.getModel(), carResponse.getModel());
+        assertEquals(car.getBodyType(), carResponse.getBodyType());
+        assertEquals(car.getYearOfProduction(), carResponse.getYearOfProduction());
+        assertEquals(car.getColor(), carResponse.getColor());
+        assertEquals(car.getMileage(), carResponse.getMileage());
+        assertEquals(car.getCarStatus(), carResponse.getCarStatus());
+        assertEquals(car.getAmount(), carResponse.getAmount());
+        assertEquals(car.getBranch().getId(), carResponse.getBranchDetails().getId());
+        assertEquals(car.getUrlOfImage(), carResponse.getUrlOfImage());
     }
 
-    public static void assertEmployee(Employee employee, EmployeeDto employeeDto) {
-        assertEquals(employee.getFirstName(), employeeDto.getFirstName());
-        assertEquals(employee.getLastName(), employeeDto.getLastName());
-        assertEquals(employee.getJobPosition(), employeeDto.getJobPosition());
-        assertEquals(employee.getFirstName(), employeeDto.getFirstName());
+    public static void assertBranchRequest(Branch branch, BranchRequest branchRequest) {
+        assertEquals(branch.getName(), branchRequest.getName());
+        assertEquals(branch.getAddress(), branchRequest.getAddress());
+        assertEquals(branch.getRentalOffice().getId(), branchRequest.getRentalOfficeDetails().getId());
     }
 
-    public static void assertInvoice(Invoice invoice, InvoiceDto invoiceDto) {
-        assertEquals(invoice.getCustomer().getFirstName(), invoiceDto.getCustomerDetails().getFirstName());
-        assertEquals(invoice.getCustomer().getLastName(), invoiceDto.getCustomerDetails().getLastName());
-        assertEquals(invoice.getCustomer().getEmail(), invoiceDto.getCustomerDetails().getEmail());
-        assertEquals(invoice.getCustomer().getAddress(), invoiceDto.getCustomerDetails().getAddress());
-        assertEquals(invoice.getCar().getId(), invoiceDto.getCarDetails().getId());
-        assertEquals(invoice.getReceptionistEmployee().getId(), invoiceDto.getReceptionistEmployeeDetails().getId());
-        assertEquals(invoice.getBooking().getId(), invoiceDto.getBookingDetails().getId());
-        assertEquals(invoice.getCarDateOfReturn(), invoiceDto.getCarDateOfReturn());
-        assertEquals(invoice.getIsVehicleDamaged(), invoiceDto.getIsVehicleDamaged());
-        assertEquals(invoice.getDamageCost(), invoiceDto.getDamageCost());
-        assertEquals(invoice.getAdditionalPayment(), invoiceDto.getAdditionalPayment());
-        assertEquals(invoice.getTotalAmount(), invoiceDto.getTotalAmount());
-        assertEquals(invoice.getComments(), invoiceDto.getComments());
+    public static void assertBranchResponse(Branch branch, BranchResponse branchResponse) {
+        assertEquals(branch.getName(), branchResponse.getName());
+        assertEquals(branch.getAddress(), branchResponse.getAddress());
+        assertEquals(branch.getRentalOffice().getId(), branchResponse.getRentalOfficeDetails().getId());
     }
 
-    public static void assertRevenue(Revenue revenue, RevenueDto revenueDto) {
-        assertEquals(revenue.getDateOfRevenue(), revenueDto.getDateOfRevenue());
-        assertEquals(revenue.getAmountFromBooking(), revenueDto.getAmountFromBooking());
+    public static void assertRentalOfficeRequest(RentalOffice rentalOffice, RentalOfficeRequest rentalOfficeRequest) {
+        assertEquals(rentalOffice.getName(), rentalOfficeRequest.getName());
+        assertEquals(rentalOffice.getContactAddress(), rentalOfficeRequest.getContactAddress());
+        assertEquals(rentalOffice.getPhoneNumber(), rentalOfficeRequest.getPhoneNumber());
+    }
+
+    public static void assertRentalOfficeResponse(RentalOffice rentalOffice, RentalOfficeResponse rentalOfficeResponse) {
+        assertEquals(rentalOffice.getName(), rentalOfficeResponse.getName());
+        assertEquals(rentalOffice.getContactAddress(), rentalOfficeResponse.getContactAddress());
+        assertEquals(rentalOffice.getPhoneNumber(), rentalOfficeResponse.getPhoneNumber());
+    }
+
+    public static void assertEmployeeRequest(Employee employee, EmployeeRequest employeeRequest) {
+        assertEquals(employee.getFirstName(), employeeRequest.getFirstName());
+        assertEquals(employee.getLastName(), employeeRequest.getLastName());
+        assertEquals(employee.getJobPosition(), employeeRequest.getJobPosition());
+        assertEquals(employee.getFirstName(), employeeRequest.getFirstName());
+    }
+
+    public static void assertEmployeeResponse(Employee employee, EmployeeResponse employeeResponse) {
+        assertEquals(employee.getFirstName(), employeeResponse.getFirstName());
+        assertEquals(employee.getLastName(), employeeResponse.getLastName());
+        assertEquals(employee.getJobPosition(), employeeResponse.getJobPosition());
+        assertEquals(employee.getFirstName(), employeeResponse.getFirstName());
+    }
+
+    public static void assertInvoiceRequest(Invoice invoice, InvoiceRequest invoiceRequest) {
+        assertEquals(invoice.getCustomer().getFirstName(), invoiceRequest.getCustomerDetails().getFirstName());
+        assertEquals(invoice.getCustomer().getLastName(), invoiceRequest.getCustomerDetails().getLastName());
+        assertEquals(invoice.getCustomer().getEmail(), invoiceRequest.getCustomerDetails().getEmail());
+        assertEquals(invoice.getCustomer().getAddress(), invoiceRequest.getCustomerDetails().getAddress());
+        assertEquals(invoice.getCar().getId(), invoiceRequest.getCarDetails().getId());
+        assertEquals(invoice.getReceptionistEmployee().getId(), invoiceRequest.getReceptionistEmployeeDetails().getId());
+        assertEquals(invoice.getBooking().getId(), invoiceRequest.getBookingDetails().getId());
+        assertEquals(invoice.getCarDateOfReturn(), invoiceRequest.getCarDateOfReturn());
+        assertEquals(invoice.getIsVehicleDamaged(), invoiceRequest.getIsVehicleDamaged());
+        assertEquals(invoice.getDamageCost(), invoiceRequest.getDamageCost());
+        assertEquals(invoice.getAdditionalPayment(), invoiceRequest.getAdditionalPayment());
+        assertEquals(invoice.getTotalAmount(), invoiceRequest.getTotalAmount());
+        assertEquals(invoice.getComments(), invoiceRequest.getComments());
+    }
+
+    public static void assertInvoiceResponse(Invoice invoice, InvoiceResponse invoiceResponse) {
+        assertEquals(invoice.getCustomer().getFirstName(), invoiceResponse.getCustomerDetails().getFirstName());
+        assertEquals(invoice.getCustomer().getLastName(), invoiceResponse.getCustomerDetails().getLastName());
+        assertEquals(invoice.getCustomer().getEmail(), invoiceResponse.getCustomerDetails().getEmail());
+        assertEquals(invoice.getCustomer().getAddress(), invoiceResponse.getCustomerDetails().getAddress());
+        assertEquals(invoice.getCar().getId(), invoiceResponse.getCarDetails().getId());
+        assertEquals(invoice.getReceptionistEmployee().getId(), invoiceResponse.getReceptionistEmployeeDetails().getId());
+        assertEquals(invoice.getBooking().getId(), invoiceResponse.getBookingDetails().getId());
+        assertEquals(invoice.getCarDateOfReturn(), invoiceResponse.getCarDateOfReturn());
+        assertEquals(invoice.getIsVehicleDamaged(), invoiceResponse.getIsVehicleDamaged());
+        assertEquals(invoice.getDamageCost(), invoiceResponse.getDamageCost());
+        assertEquals(invoice.getAdditionalPayment(), invoiceResponse.getAdditionalPayment());
+        assertEquals(invoice.getTotalAmount(), invoiceResponse.getTotalAmount());
+        assertEquals(invoice.getComments(), invoiceResponse.getComments());
+    }
+
+    public static void assertRevenueRequest(Revenue revenue, RevenueRequest revenueRequest) {
+        assertEquals(revenue.getDateOfRevenue(), revenueRequest.getDateOfRevenue());
+        assertEquals(revenue.getAmountFromBooking(), revenueRequest.getAmountFromBooking());
+    }
+
+    public static void assertRevenueResponse(Revenue revenue, RevenueResponse revenueResponse) {
+        assertEquals(revenue.getDateOfRevenue(), revenueResponse.getDateOfRevenue());
+        assertEquals(revenue.getAmountFromBooking(), revenueResponse.getAmountFromBooking());
     }
 
     public static void assertUser(User user, UserDto userDto) {

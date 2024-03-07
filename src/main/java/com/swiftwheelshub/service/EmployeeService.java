@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.EmployeeDto;
+import com.swiftwheelshub.dto.EmployeeRequest;
+import com.swiftwheelshub.dto.EmployeeResponse;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Employee;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
@@ -20,17 +21,17 @@ public class EmployeeService {
     private final BranchService branchService;
     private final EmployeeMapper employeeMapper;
 
-    public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
-        Employee newEmployee = employeeMapper.mapDtoToEntity(employeeDto);
+    public EmployeeResponse saveEmployee(EmployeeRequest employeeRequest) {
+        Employee newEmployee = employeeMapper.mapDtoToEntity(employeeRequest);
 
-        Branch workingBranch = branchService.findEntityById(employeeDto.getWorkingBranchDetails().getId());
+        Branch workingBranch = branchService.findEntityById(employeeRequest.getWorkingBranchDetails().getId());
         newEmployee.setWorkingBranch(workingBranch);
         Employee savedEmployee = employeeRepository.save(newEmployee);
 
         return employeeMapper.mapEntityToDto(savedEmployee);
     }
 
-    public List<EmployeeDto> findAllEmployees() {
+    public List<EmployeeResponse> findAllEmployees() {
         return employeeRepository.findAll()
                 .stream()
                 .map(employeeMapper::mapEntityToDto)
@@ -41,7 +42,7 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    public EmployeeDto findEmployeeById(Long id) {
+    public EmployeeResponse findEmployeeById(Long id) {
         Employee employee = findEntityById(id);
 
         return employeeMapper.mapEntityToDto(employee);
@@ -52,16 +53,16 @@ public class EmployeeService {
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Employee with id " + id + " does not exist"));
     }
 
-    public EmployeeDto updateEmployee(Long id, EmployeeDto updatedEmployeeDto) {
-        Long actualId = getId(id, updatedEmployeeDto.getId());
+    public EmployeeResponse updateEmployee(Long id, EmployeeRequest updatedEmployeeRequest) {
+        Long actualId = getId(id, updatedEmployeeRequest.getId());
 
         Employee existingEmployee = findEntityById(actualId);
 
-        Branch workingBranch = branchService.findEntityById(updatedEmployeeDto.getWorkingBranchDetails().getId());
+        Branch workingBranch = branchService.findEntityById(updatedEmployeeRequest.getWorkingBranchDetails().getId());
 
-        existingEmployee.setFirstName(updatedEmployeeDto.getFirstName());
-        existingEmployee.setLastName(updatedEmployeeDto.getLastName());
-        existingEmployee.setJobPosition(updatedEmployeeDto.getJobPosition());
+        existingEmployee.setFirstName(updatedEmployeeRequest.getFirstName());
+        existingEmployee.setLastName(updatedEmployeeRequest.getLastName());
+        existingEmployee.setJobPosition(updatedEmployeeRequest.getJobPosition());
         existingEmployee.setWorkingBranch(workingBranch);
 
         Employee savedEmployee = employeeRepository.save(existingEmployee);
@@ -69,7 +70,7 @@ public class EmployeeService {
         return employeeMapper.mapEntityToDto(savedEmployee);
     }
 
-    public List<EmployeeDto> findEmployeesByBranchId(Long id) {
+    public List<EmployeeResponse> findEmployeesByBranchId(Long id) {
         return employeeRepository.findByBranchId(id)
                 .stream()
                 .map(employeeMapper::mapEntityToDto)
@@ -80,7 +81,7 @@ public class EmployeeService {
         return employeeRepository.count();
     }
 
-    public EmployeeDto findEmployeeByFilter(String searchString) {
+    public EmployeeResponse findEmployeeByFilter(String searchString) {
         return employeeRepository.findByFilter(searchString)
                 .map(employeeMapper::mapEntityToDto)
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Employee with filter: " + searchString + " does not exist"));

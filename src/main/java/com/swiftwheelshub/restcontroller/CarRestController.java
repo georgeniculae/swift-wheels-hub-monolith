@@ -1,10 +1,10 @@
 package com.swiftwheelshub.restcontroller;
 
-import com.swiftwheelshub.dto.CarDto;
+import com.swiftwheelshub.dto.CarRequest;
+import com.swiftwheelshub.dto.CarResponse;
 import com.swiftwheelshub.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,30 +19,29 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/car")
-@CrossOrigin(origins = "*")
 public class CarRestController {
 
     private final CarService carService;
 
     @PostMapping
-    public ResponseEntity<CarDto> createCar(@RequestBody CarDto carDto) {
-        CarDto savedCarDto = carService.saveCar(carDto);
+    public ResponseEntity<CarResponse> createCar(@RequestBody CarRequest carRequest) {
+        CarResponse savedCarResponse = carService.saveCar(carRequest);
 
-        return ResponseEntity.ok(savedCarDto);
+        return ResponseEntity.ok(savedCarResponse);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<CarDto> findCarById(@PathVariable("id") Long id) {
-        CarDto carDto = carService.findCarById(id);
+    public ResponseEntity<CarResponse> findCarById(@PathVariable("id") Long id) {
+        CarResponse carResponse = carService.findCarById(id);
 
-        return ResponseEntity.ok(carDto);
+        return ResponseEntity.ok(carResponse);
     }
 
     @GetMapping(path = "/make/{make}")
-    public ResponseEntity<List<CarDto>> findCarsByMake(@PathVariable("make") String make) {
-        List<CarDto> carDtoList = carService.findCarsByMake(make);
+    public ResponseEntity<List<CarResponse>> findCarsByMake(@PathVariable("make") String make) {
+        List<CarResponse> carResponses = carService.findCarsByMake(make);
 
-        return ResponseEntity.ok(carDtoList);
+        return ResponseEntity.ok(carResponses);
     }
 
     @GetMapping(path = "/count")
@@ -53,10 +52,10 @@ public class CarRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<CarDto> updateCar(@PathVariable("id") Long id, @RequestBody CarDto carDto) {
-        CarDto updatedCarDto = carService.updateCar(id, carDto);
+    public ResponseEntity<CarResponse> updateCar(@PathVariable("id") Long id, @RequestBody CarRequest carRequest) {
+        CarResponse updatedCarResponse = carService.updateCar(id, carRequest);
 
-        return ResponseEntity.ok(updatedCarDto);
+        return ResponseEntity.ok(updatedCarResponse);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -67,10 +66,10 @@ public class CarRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CarDto>> listAllCars() {
-        List<CarDto> carDtoList = carService.findAllCars();
+    public ResponseEntity<List<CarResponse>> listAllCars() {
+        List<CarResponse> carResponses = carService.findAllCars();
 
-        return ResponseEntity.ok(carDtoList);
+        return ResponseEntity.ok(carResponses);
     }
 
 }

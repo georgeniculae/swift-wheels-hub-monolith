@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
 import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.util.AssertionUtils;
 import com.swiftwheelshub.util.TestUtils;
@@ -19,20 +20,20 @@ class CustomerMapperTest {
     void mapEntityToDtoTest_success() {
         Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
 
-        CustomerDto customerDto = customerMapper.mapEntityToDto(customer);
+        CustomerResponse customerResponse = customerMapper.mapEntityToDto(customer);
 
-        assertNotNull(customerDto);
-        AssertionUtils.assertCustomer(customer, customerDto);
+        assertNotNull(customerResponse);
+        AssertionUtils.assertCustomerResponse(customer, customerResponse);
     }
 
     @Test
     void mapDtoToEntityTest_success() {
-        CustomerDto customerDto = TestUtils.getResourceAsJson("/data/CustomerDto.json", CustomerDto.class);
+        CustomerRequest customerRequest = TestUtils.getResourceAsJson("/data/CustomerRequest.json", CustomerRequest.class);
 
-        Customer customer = customerMapper.mapDtoToEntity(customerDto);
+        Customer customer = customerMapper.mapDtoToEntity(customerRequest);
 
-        assertNotNull(customerDto);
-        AssertionUtils.assertCustomer(customer, customerDto);
+        assertNotNull(customerRequest);
+        AssertionUtils.assertCustomerRequest(customer, customerRequest);
     }
 
 }

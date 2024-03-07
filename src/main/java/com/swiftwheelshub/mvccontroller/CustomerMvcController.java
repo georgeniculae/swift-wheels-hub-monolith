@@ -1,6 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
 import com.swiftwheelshub.service.BookingService;
 import com.swiftwheelshub.service.CustomerService;
 import jakarta.validation.Valid;
@@ -37,7 +37,7 @@ public class CustomerMvcController {
     }
 
     @PostMapping(path = "/settings/customer/update")
-    public String editCurrentCustomer(@ModelAttribute("customer") @Valid CustomerDto customer, BindingResult bindingResult) {
+    public String editCurrentCustomer(@ModelAttribute("customer") @Valid CustomerRequest customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "settings";
         }
@@ -57,13 +57,13 @@ public class CustomerMvcController {
 
     @GetMapping(path = "/customer/registration")
     public String showAddCustomer(Model model) {
-        model.addAttribute("customer", new CustomerDto());
+        model.addAttribute("customer", new CustomerRequest());
 
         return "add-customer";
     }
 
     @PostMapping(path = "/customer/add")
-    public String addCustomer(@ModelAttribute("customer") @Valid CustomerDto customer, BindingResult bindingResult) {
+    public String addCustomer(@ModelAttribute("customer") @Valid CustomerRequest customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-customer";
         }
@@ -81,7 +81,7 @@ public class CustomerMvcController {
     }
 
     @PostMapping(path = "/customer/update")
-    public String editCustomer(@ModelAttribute("customer") @Valid CustomerDto customer, BindingResult bindingResult) {
+    public String editCustomer(@ModelAttribute("customer") @Valid CustomerRequest customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-customer";
         }

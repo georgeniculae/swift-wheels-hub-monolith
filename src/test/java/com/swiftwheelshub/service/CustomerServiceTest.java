@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
 import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.CustomerMapper;
@@ -52,10 +53,9 @@ class CustomerServiceTest {
 
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
 
-        assertDoesNotThrow(() -> customerService.findCustomerById(1L));
-        CustomerDto actualCustomerDto = customerService.findCustomerById(1L);
+        CustomerResponse actualCustomerResponse = customerService.findCustomerById(1L);
 
-        assertNotNull(actualCustomerDto);
+        assertNotNull(actualCustomerResponse);
 
         verify(customerMapper, times(2)).mapEntityToDto(any(Customer.class));
     }
@@ -74,27 +74,25 @@ class CustomerServiceTest {
     @Test
     void updateCustomerTest_success() {
         Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
-        CustomerDto customerDto = TestUtils.getResourceAsJson("/data/CustomerDto.json", CustomerDto.class);
+        CustomerRequest customerRequest = TestUtils.getResourceAsJson("/data/CustomerRequest.json", CustomerRequest.class);
 
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        assertDoesNotThrow(() -> customerService.updateCustomer(1L, customerDto));
-        CustomerDto updatedCustomerDto = customerService.updateCustomer(1L, customerDto);
+        CustomerResponse updatedCustomerResponse = customerService.updateCustomer(1L, customerRequest);
 
-        AssertionUtils.assertCustomer(customer, updatedCustomerDto);
+        AssertionUtils.assertCustomerResponse(customer, updatedCustomerResponse);
     }
 
     @Test
     void saveCustomerTest_success() {
         Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
-        CustomerDto customerDto = TestUtils.getResourceAsJson("/data/CustomerDto.json", CustomerDto.class);
+        CustomerRequest customerRequest = TestUtils.getResourceAsJson("/data/CustomerRequest.json", CustomerRequest.class);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
-        assertDoesNotThrow(() -> customerService.saveCustomer(customerDto));
-        CustomerDto savedCustomerDto = customerService.saveCustomer(customerDto);
-        AssertionUtils.assertCustomer(customer, savedCustomerDto);
+        CustomerResponse savedCustomerResponse = customerService.saveCustomer(customerRequest);
+        AssertionUtils.assertCustomerResponse(customer, savedCustomerResponse);
     }
 
     @Test
@@ -133,6 +131,7 @@ class CustomerServiceTest {
 
         SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
                 assertThrows(SwiftWheelsHubNotFoundException.class, () -> customerService.findLoggedInCustomer());
+
         assertNotNull(swiftWheelsHubNotFoundException);
         assertEquals("Customer with username null does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
@@ -143,10 +142,9 @@ class CustomerServiceTest {
 
         when(customerRepository.findByFilter(anyString())).thenReturn(Optional.of(customer));
 
-        assertDoesNotThrow(() -> customerService.findCustomerByFilter("Test"));
-        CustomerDto customerDto = customerService.findCustomerByFilter("Test");
+        CustomerResponse customerResponse = customerService.findCustomerByFilter("Test");
 
-        AssertionUtils.assertCustomer(customer, customerDto);
+        AssertionUtils.assertCustomerResponse(customer, customerResponse);
     }
 
     @Test

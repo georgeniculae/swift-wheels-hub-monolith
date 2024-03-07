@@ -4,7 +4,8 @@ import com.swiftwheelshub.dto.BookingDetails;
 import com.swiftwheelshub.dto.CarDetails;
 import com.swiftwheelshub.dto.CustomerDetails;
 import com.swiftwheelshub.dto.EmployeeDetails;
-import com.swiftwheelshub.dto.InvoiceDto;
+import com.swiftwheelshub.dto.InvoiceRequest;
+import com.swiftwheelshub.dto.InvoiceResponse;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.Customer;
@@ -26,9 +27,9 @@ public interface InvoiceMapper {
     @Mapping(target = "carDetails", expression = "java(mapToCarDetails(invoice.getCar()))")
     @Mapping(target = "receptionistEmployeeDetails", expression = "java(mapToEmployeeDetails(invoice.getReceptionistEmployee()))")
     @Mapping(target = "bookingDetails", expression = "java(mapToBookingDetails(invoice.getBooking()))")
-    InvoiceDto mapEntityToDto(Invoice invoice);
+    InvoiceResponse mapEntityToDto(Invoice invoice);
 
-    Invoice mapDtoToEntity(InvoiceDto invoiceDto);
+    Invoice mapDtoToEntity(InvoiceRequest invoiceRequest);
 
     CustomerDetails mapToCustomerDetails(Customer customer);
 

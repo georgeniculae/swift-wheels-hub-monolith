@@ -1,6 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.BranchDto;
+import com.swiftwheelshub.dto.BranchRequest;
 import com.swiftwheelshub.dto.SearchValue;
 import com.swiftwheelshub.service.BranchService;
 import com.swiftwheelshub.service.CarService;
@@ -73,7 +73,7 @@ public class BranchMvcController {
     public String showSelectedBranch(Model model) {
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("employees", employeeService.findAllEmployees());
-        model.addAttribute("selectedBranch", new BranchDto());
+        model.addAttribute("selectedBranch", new BranchRequest());
         model.addAttribute("cars", carService.findAllCars());
 
         return "/branch-id-list";
@@ -87,7 +87,7 @@ public class BranchMvcController {
     }
 
     @PostMapping(path = "/branch/add")
-    public String addBranch(@ModelAttribute("branch") @Valid BranchDto branch, BindingResult bindingResult) {
+    public String addBranch(@ModelAttribute("branch") @Valid BranchRequest branch, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-branch";
         }
@@ -99,14 +99,14 @@ public class BranchMvcController {
 
     @GetMapping(path = "/branch/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("branch", new BranchDto());
+        model.addAttribute("branch", new BranchRequest());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
 
         return "add-branch";
     }
 
     @PostMapping(path = "/branch/update")
-    public String editBranch(@ModelAttribute("branch") @Valid BranchDto branch, BindingResult bindingResult) {
+    public String editBranch(@ModelAttribute("branch") @Valid BranchRequest branch, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-branch";
         }

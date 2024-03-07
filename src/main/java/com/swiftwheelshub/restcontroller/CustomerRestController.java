@@ -1,11 +1,10 @@
 package com.swiftwheelshub.restcontroller;
 
-import com.swiftwheelshub.dto.CustomerDto;
-import com.swiftwheelshub.mapper.CustomerMapper;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
 import com.swiftwheelshub.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,45 +20,43 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/customer")
-@CrossOrigin(origins = "*")
 public class CustomerRestController {
 
     private final CustomerService customerService;
-    private final CustomerMapper customerMapper;
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<CustomerDto> findCustomerById(@PathVariable("id") Long id) {
-        CustomerDto customerDto = customerService.findCustomerById(id);
+    public ResponseEntity<CustomerResponse> findCustomerById(@PathVariable("id") Long id) {
+        CustomerResponse customerResponse = customerService.findCustomerById(id);
 
-        return ResponseEntity.ok(customerDto);
+        return ResponseEntity.ok(customerResponse);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<CustomerDto> deleteCustomerById(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteCustomerById(@PathVariable("id") Long id) {
         customerService.deleteCustomerById(id);
 
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
-        CustomerDto savedCustomerDto = customerService.saveCustomer(customerDto);
+    public ResponseEntity<CustomerResponse> saveCustomer(@RequestBody CustomerRequest customerRequest) {
+        CustomerResponse savedCustomerResponse = customerService.saveCustomer(customerRequest);
 
-        return ResponseEntity.ok(savedCustomerDto);
+        return ResponseEntity.ok(savedCustomerResponse);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerDto customerDto) {
-        CustomerDto updatedCustomerDto = customerService.updateCustomer(id, customerDto);
+    public ResponseEntity<CustomerResponse> updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerRequest customerRequest) {
+        CustomerResponse updatedCustomerResponse = customerService.updateCustomer(id, customerRequest);
 
-        return ResponseEntity.ok(updatedCustomerDto);
+        return ResponseEntity.ok(updatedCustomerResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerDto>> listAllCustomer() {
-        List<CustomerDto> customerDtoList = customerService.findAllCustomers();
+    public ResponseEntity<List<CustomerResponse>> listAllCustomer() {
+        List<CustomerResponse> customerResponses = customerService.findAllCustomers();
 
-        return ResponseEntity.ok(customerDtoList);
+        return ResponseEntity.ok(customerResponses);
     }
 
     @GetMapping(path = "/username")

@@ -1,10 +1,13 @@
 package com.swiftwheelshub.restcontroller;
 
-import com.swiftwheelshub.dto.RevenueDto;
+import com.swiftwheelshub.dto.RevenueResponse;
 import com.swiftwheelshub.service.RevenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,16 +16,15 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/revenue")
-@CrossOrigin(origins = "*")
 public class RevenueRestController {
 
     private final RevenueService revenueService;
 
     @GetMapping
-    public ResponseEntity<List<RevenueDto>> listAllRevenues() {
-        List<RevenueDto> revenueDtoList = revenueService.findAllRevenues();
+    public ResponseEntity<List<RevenueResponse>> listAllRevenues() {
+        List<RevenueResponse> revenueResponses = revenueService.findAllRevenues();
 
-        return ResponseEntity.ok(revenueDtoList);
+        return ResponseEntity.ok(revenueResponses);
     }
 
     @GetMapping(path = "/total")
@@ -33,10 +35,10 @@ public class RevenueRestController {
     }
 
     @GetMapping(path = "/{date}")
-    public ResponseEntity<RevenueDto> findRevenueByDate(@RequestParam("date") LocalDate dateOfRevenue) {
-        RevenueDto revenue = revenueService.findRevenueByDate(dateOfRevenue);
+    public ResponseEntity<RevenueResponse> findRevenueByDate(@RequestParam("date") LocalDate dateOfRevenue) {
+        RevenueResponse revenueResponse = revenueService.findRevenueByDate(dateOfRevenue);
 
-        return ResponseEntity.ok(revenue);
+        return ResponseEntity.ok(revenueResponse);
     }
 
 }

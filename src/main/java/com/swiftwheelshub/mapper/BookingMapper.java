@@ -1,9 +1,12 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.BookingDto;
+import com.swiftwheelshub.dto.BookingRequest;
+import com.swiftwheelshub.dto.BookingResponse;
+import com.swiftwheelshub.dto.BranchDetails;
 import com.swiftwheelshub.dto.CarDetails;
 import com.swiftwheelshub.dto.CustomerDetails;
 import com.swiftwheelshub.entity.Booking;
+import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.Customer;
 import org.mapstruct.InjectionStrategy;
@@ -20,12 +23,15 @@ public interface BookingMapper {
 
     @Mapping(target = "customerDetails", expression = "java(mapToCustomerDetails(booking.getCustomer()))")
     @Mapping(target = "carDetails", expression = "java(mapToCarDetails(booking.getCar()))")
-    BookingDto mapEntityToDto(Booking booking);
+    BookingResponse mapEntityToDto(Booking booking);
 
-    Booking mapDtoToEntity(BookingDto bookingDto);
+    Booking mapDtoToEntity(BookingRequest bookingRequest);
 
     CustomerDetails mapToCustomerDetails(Customer customer);
 
+    @Mapping(target = "branchDetails", expression = "java(mapToBranchDetails(car.getBranch()))")
     CarDetails mapToCarDetails(Car car);
+
+    BranchDetails mapToBranchDetails(Branch branch);
 
 }

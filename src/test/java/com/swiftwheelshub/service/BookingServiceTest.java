@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.BookingDto;
+import com.swiftwheelshub.dto.BookingRequest;
+import com.swiftwheelshub.dto.BookingResponse;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.Customer;
@@ -30,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -58,7 +58,7 @@ class BookingServiceTest {
     @Test
     void saveBookingUpdatedWithCustomerAndCarTest_success() {
         Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
-        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        BookingRequest bookingRequest = TestUtils.getResourceAsJson("/data/BookingRequest.json", BookingRequest.class);
         Customer customer = TestUtils.getResourceAsJson("/data/Customer.json", Customer.class);
         Car car = booking.getCar();
 
@@ -67,12 +67,11 @@ class BookingServiceTest {
         when(customerService.getLoggedInCustomer()).thenReturn(customer);
         when(branchService.findEntityById(anyLong())).thenReturn(car.getBranch());
 
-        assertDoesNotThrow(() -> bookingService.saveBooking(bookingDto));
-        BookingDto actualBookingDto = bookingService.saveBooking(bookingDto);
+        BookingResponse actualBookingResponse = bookingService.saveBooking(bookingRequest);
 
-        assertNotNull(actualBookingDto);
+        assertNotNull(actualBookingResponse);
 
-        verify(bookingMapper, times(2)).mapEntityToDto(any(Booking.class));
+        verify(bookingMapper).mapEntityToDto(any(Booking.class));
     }
 
     @Test
@@ -81,10 +80,9 @@ class BookingServiceTest {
 
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
 
-        assertDoesNotThrow(() -> bookingService.findBookingById(1L));
-        BookingDto actualBookingDto = bookingService.findBookingById(1L);
+        BookingResponse actualBookingResponse = bookingService.findBookingById(1L);
 
-        assertNotNull(actualBookingDto);
+        assertNotNull(actualBookingResponse);
     }
 
     @Test
@@ -100,16 +98,16 @@ class BookingServiceTest {
     @Test
     void updateBookingTest_success() {
         Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
-        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        BookingRequest bookingRequest = TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingRequest.class);
         Car car = booking.getCar();
 
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.of(booking));
         when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
         when(carService.findEntityById(anyLong())).thenReturn(car);
 
-        BookingDto updatedBookingDto = assertDoesNotThrow(() -> bookingService.updateBooking(1L, bookingDto));
+        BookingResponse updatedBookingResponse = bookingService.updateBooking(1L, bookingRequest);
 
-        assertNotNull(updatedBookingDto);
+        assertNotNull(updatedBookingResponse);
     }
 
     @Test
@@ -153,10 +151,9 @@ class BookingServiceTest {
         when(bookingRepository.findByDateOfBooking(LocalDate.of(2050, Month.FEBRUARY, 20)))
                 .thenReturn(Optional.of(booking));
 
-        assertDoesNotThrow(() -> bookingService.findBookingByDateOfBooking("2050-02-20"));
-        BookingDto bookingDto = bookingService.findBookingByDateOfBooking("2050-02-20");
+        BookingResponse bookingResponse = bookingService.findBookingByDateOfBooking("2050-02-20");
 
-        AssertionUtils.assertBooking(booking, bookingDto);
+        AssertionUtils.assertBookingResponse(booking, bookingResponse);
     }
 
     @Test

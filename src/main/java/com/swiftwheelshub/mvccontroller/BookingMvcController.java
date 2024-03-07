@@ -1,6 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.BookingDto;
+import com.swiftwheelshub.dto.BookingRequest;
 import com.swiftwheelshub.service.BookingService;
 import com.swiftwheelshub.service.BranchService;
 import com.swiftwheelshub.service.CarService;
@@ -35,7 +35,7 @@ public class BookingMvcController {
 
     @GetMapping(path = "/booking/registration")
     public String showRegistration(Model model) {
-        model.addAttribute("booking", new BookingDto());
+        model.addAttribute("booking", new BookingRequest());
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("allCars", carService.findAllCars());
         model.addAttribute("employees", employeeService.findAllEmployees());
@@ -45,7 +45,7 @@ public class BookingMvcController {
     }
 
     @PostMapping(path = "/")
-    public String addBookingFromIndex(@ModelAttribute("booking") @Valid BookingDto booking, BindingResult bindingResult) {
+    public String addBookingFromIndex(@ModelAttribute("booking") @Valid BookingRequest booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "index";
         }
@@ -56,7 +56,7 @@ public class BookingMvcController {
     }
 
     @PostMapping(path = "/booking/add")
-    public String addBooking(@ModelAttribute("booking") @Valid BookingDto booking, BindingResult bindingResult) {
+    public String addBooking(@ModelAttribute("booking") @Valid BookingRequest booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-booking";
         }
@@ -75,7 +75,7 @@ public class BookingMvcController {
     }
 
     @PostMapping(path = "/booking/update")
-    public String editBooking(@ModelAttribute("booking") @Valid BookingDto booking, BindingResult bindingResult) {
+    public String editBooking(@ModelAttribute("booking") @Valid BookingRequest booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-booking";
         }
@@ -106,7 +106,7 @@ public class BookingMvcController {
     }
 
     @PostMapping(path = "/order/booking/update")
-    public String editOrder(@ModelAttribute("booking") @Valid BookingDto booking, BindingResult bindingResult) {
+    public String editOrder(@ModelAttribute("booking") @Valid BookingRequest booking, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "order-edit";
         }

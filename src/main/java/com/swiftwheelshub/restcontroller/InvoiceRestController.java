@@ -1,10 +1,10 @@
 package com.swiftwheelshub.restcontroller;
 
-import com.swiftwheelshub.dto.InvoiceDto;
+import com.swiftwheelshub.dto.InvoiceRequest;
+import com.swiftwheelshub.dto.InvoiceResponse;
 import com.swiftwheelshub.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,48 +19,47 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/invoice")
-@CrossOrigin(origins = "*")
 public class InvoiceRestController {
 
     private final InvoiceService invoiceService;
 
     @GetMapping
-    public ResponseEntity<List<InvoiceDto>> findAllInvoices() {
-        List<InvoiceDto> allInvoices = invoiceService.findAllInvoices();
+    public ResponseEntity<List<InvoiceResponse>> findAllInvoices() {
+        List<InvoiceResponse> invoiceResponses = invoiceService.findAllInvoices();
 
-        return ResponseEntity.ok(allInvoices);
+        return ResponseEntity.ok(invoiceResponses);
     }
 
     @GetMapping(path = "/active")
-    public ResponseEntity<List<InvoiceDto>> findAllActiveInvoices() {
-        List<InvoiceDto> allInvoices = invoiceService.findAllActiveInvoices();
+    public ResponseEntity<List<InvoiceResponse>> findAllActiveInvoices() {
+        List<InvoiceResponse> activeInvoiceResponses = invoiceService.findAllActiveInvoices();
 
-        return ResponseEntity.ok(allInvoices);
+        return ResponseEntity.ok(activeInvoiceResponses);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<InvoiceDto> findInvoiceById(@RequestParam("id") Long id) {
-        InvoiceDto invoice = invoiceService.findInvoiceById(id);
+    public ResponseEntity<InvoiceResponse> findInvoiceById(@RequestParam("id") Long id) {
+        InvoiceResponse invoiceResponse = invoiceService.findInvoiceById(id);
 
-        return ResponseEntity.ok(invoice);
+        return ResponseEntity.ok(invoiceResponse);
     }
 
     @GetMapping(path = "/by-customer/{customerId}")
-    public ResponseEntity<List<InvoiceDto>> findAllInvoicesByCustomerId(@RequestParam("customerId") Long customerId) {
-        List<InvoiceDto> allInvoices = invoiceService.findAllInvoicesByCustomerId(customerId);
+    public ResponseEntity<List<InvoiceResponse>> findAllInvoicesByCustomerId(@RequestParam("customerId") Long customerId) {
+        List<InvoiceResponse> invoiceResponses = invoiceService.findAllInvoicesByCustomerId(customerId);
 
-        return ResponseEntity.ok(allInvoices);
+        return ResponseEntity.ok(invoiceResponses);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<InvoiceDto> updateInvoice(@PathVariable("id") Long id, @RequestBody InvoiceDto invoiceDto) {
-        InvoiceDto undatedinvoiceDto = invoiceService.updateInvoice(id, invoiceDto);
+    public ResponseEntity<InvoiceResponse> updateInvoice(@PathVariable("id") Long id, @RequestBody InvoiceRequest invoiceRequest) {
+        InvoiceResponse undatedInvoiceResponse = invoiceService.updateInvoice(id, invoiceRequest);
 
-        return ResponseEntity.ok(undatedinvoiceDto);
+        return ResponseEntity.ok(undatedInvoiceResponse);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<InvoiceDto> deleteInvoiceById(@RequestParam("id") Long id) {
+    public ResponseEntity<Void> deleteInvoiceById(@RequestParam("id") Long id) {
         invoiceService.deleteInvoiceById(id);
 
         return ResponseEntity.noContent().build();

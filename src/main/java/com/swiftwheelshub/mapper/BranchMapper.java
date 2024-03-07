@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.BranchDto;
+import com.swiftwheelshub.dto.BranchRequest;
+import com.swiftwheelshub.dto.BranchResponse;
 import com.swiftwheelshub.dto.RentalOfficeDetails;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.RentalOffice;
@@ -17,9 +18,9 @@ import org.mapstruct.ReportingPolicy;
 public interface BranchMapper {
 
     @Mapping(target = "rentalOfficeDetails", expression = "java(mapToRentalOfficeDetails(branch.getRentalOffice()))")
-    BranchDto mapEntityToDto(Branch branch);
+    BranchResponse mapEntityToDto(Branch branch);
 
-    Branch mapDtoToEntity(BranchDto branchDto);
+    Branch mapDtoToEntity(BranchRequest branchRequest);
 
     RentalOfficeDetails mapToRentalOfficeDetails(RentalOffice rentalOffice);
 

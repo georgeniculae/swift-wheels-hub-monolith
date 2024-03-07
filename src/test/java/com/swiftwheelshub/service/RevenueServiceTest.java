@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.RevenueDto;
+import com.swiftwheelshub.dto.RevenueRequest;
+import com.swiftwheelshub.dto.RevenueResponse;
 import com.swiftwheelshub.entity.Revenue;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.RevenueMapper;
@@ -46,12 +47,11 @@ class RevenueServiceTest {
 
         when(revenueRepository.findAll()).thenReturn(List.of(revenue));
 
-        assertDoesNotThrow(() -> revenueService.findAllRevenues());
-        List<RevenueDto> revenueDtoList = revenueService.findAllRevenues();
+        List<RevenueResponse> revenueResponses = revenueService.findAllRevenues();
 
-        AssertionUtils.assertRevenue(revenue, revenueDtoList.getFirst());
+        AssertionUtils.assertRevenueResponse(revenue, revenueResponses.getFirst());
 
-        verify(revenueMapper, times(2)).mapEntityToDto(any(Revenue.class));
+        verify(revenueMapper).mapEntityToDto(any(Revenue.class));
     }
 
     @Test
@@ -61,9 +61,9 @@ class RevenueServiceTest {
         when(revenueRepository.findByDateOfRevenue(any(LocalDate.class))).thenReturn(Optional.of(revenue));
 
         assertDoesNotThrow(() -> revenueService.findRevenueByDate(LocalDate.parse("2050-02-20")));
-        RevenueDto revenueDto = revenueService.findRevenueByDate(LocalDate.parse("2050-02-20"));
+        RevenueResponse revenueResponse = revenueService.findRevenueByDate(LocalDate.parse("2050-02-20"));
 
-        AssertionUtils.assertRevenue(revenue, revenueDto);
+        AssertionUtils.assertRevenueResponse(revenue, revenueResponse);
 
         verify(revenueMapper, times(2)).mapEntityToDto(any(Revenue.class));
     }

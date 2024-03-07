@@ -1,6 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
 import com.swiftwheelshub.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,20 +24,20 @@ public class UserMvcController {
 
     @GetMapping(path = "/register")
     public String showRegisterForm(Model model) {
-        model.addAttribute("customer", new CustomerDto());
+        model.addAttribute("customer", new CustomerRequest());
 
         return "register";
     }
 
     @PostMapping(path = "/user/register")
-    public String registerUser(@ModelAttribute("customer") @Valid CustomerDto customerDto, BindingResult bindingResult) {
-        boolean userPresent = userService.existsUserByUsername(customerDto.getUsername());
+    public String registerUser(@ModelAttribute("customer") @Valid CustomerRequest customerRequest, BindingResult bindingResult) {
+        boolean userPresent = userService.existsUserByUsername(customerRequest.getUsername());
 
         if (userPresent) {
             bindingResult.rejectValue("username", "404", "Username/password incorrect");
         }
 
-        if (!customerDto.getPassword().equals(customerDto.getConfirmPassword())) {
+        if (!customerRequest.getPassword().equals(customerRequest.getConfirmPassword())) {
             bindingResult.rejectValue("password", "404", "Username/password incorrect");
         }
 
@@ -45,7 +45,7 @@ public class UserMvcController {
             return "register";
         }
 
-        userService.registerCustomer(customerDto);
+        userService.registerCustomer(customerRequest);
 
         return "login";
     }

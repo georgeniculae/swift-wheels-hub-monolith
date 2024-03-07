@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
 import com.swiftwheelshub.entity.Customer;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -13,8 +14,8 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface CustomerMapper {
 
-    CustomerDto mapEntityToDto(Customer customer);
+    CustomerResponse mapEntityToDto(Customer customer);
 
-    Customer mapDtoToEntity(CustomerDto customerDto);
+    Customer mapDtoToEntity(CustomerRequest customerRequest);
 
 }

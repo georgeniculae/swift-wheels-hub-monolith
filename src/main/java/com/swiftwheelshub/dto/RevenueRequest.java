@@ -1,21 +1,21 @@
 package com.swiftwheelshub.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
-public class CustomerDto extends UserDto {
+public class RevenueRequest {
 
-    private LocalDate dateOfBirth;
-    private String address;
+    private Long id;
+    private LocalDate dateOfRevenue;
+    private BigDecimal amountFromBooking;
 
 }

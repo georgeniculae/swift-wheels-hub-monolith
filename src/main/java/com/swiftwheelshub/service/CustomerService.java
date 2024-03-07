@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.CustomerDto;
+import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.CustomerResponse;
 import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.CustomerMapper;
@@ -23,21 +24,21 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
-    public CustomerDto saveCustomer(CustomerDto customerDto) {
-        Customer customer = customerMapper.mapDtoToEntity(customerDto);
+    public CustomerResponse saveCustomer(CustomerRequest customerRequest) {
+        Customer customer = customerMapper.mapDtoToEntity(customerRequest);
         Customer savedCustomer = customerRepository.save(customer);
 
         return customerMapper.mapEntityToDto(savedCustomer);
     }
 
-    public List<CustomerDto> findAllCustomers() {
+    public List<CustomerResponse> findAllCustomers() {
         return customerRepository.findCustomersWithoutBaseUsers(ADMIN, USER, CUSTOMER, SUPPORT)
                 .stream()
                 .map(customerMapper::mapEntityToDto)
                 .toList();
     }
 
-    public CustomerDto findCustomerById(Long id) {
+    public CustomerResponse findCustomerById(Long id) {
         Customer customer = findEntityById(id);
 
         return customerMapper.mapEntityToDto(customer);
@@ -48,15 +49,15 @@ public class CustomerService {
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Customer with id " + id + " does not exist"));
     }
 
-    public CustomerDto updateCustomer(Long id, CustomerDto updatedCustomerDto) {
-        Long actualId = getId(id, updatedCustomerDto.getId());
+    public CustomerResponse updateCustomer(Long id, CustomerRequest updatedCustomerRequest) {
+        Long actualId = getId(id, updatedCustomerRequest.getId());
 
         Customer existingCustomer = findEntityById(actualId);
 
-        existingCustomer.setFirstName(updatedCustomerDto.getFirstName());
-        existingCustomer.setLastName(updatedCustomerDto.getLastName());
-        existingCustomer.setEmail(updatedCustomerDto.getEmail());
-        existingCustomer.setAddress(updatedCustomerDto.getAddress());
+        existingCustomer.setFirstName(updatedCustomerRequest.getFirstName());
+        existingCustomer.setLastName(updatedCustomerRequest.getLastName());
+        existingCustomer.setEmail(updatedCustomerRequest.getEmail());
+        existingCustomer.setAddress(updatedCustomerRequest.getAddress());
 
         Customer savedCustomer = customerRepository.save(existingCustomer);
 
@@ -71,7 +72,7 @@ public class CustomerService {
         return customerRepository.countCustomersWithoutBaseUsers(ADMIN, USER, SUPPORT);
     }
 
-    public CustomerDto findCustomerByFilter(String filter) {
+    public CustomerResponse findCustomerByFilter(String filter) {
         return customerRepository.findByFilter(filter)
                 .map(customerMapper::mapEntityToDto)
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Customer with filter: " + filter + " does not exist"));
@@ -81,7 +82,7 @@ public class CustomerService {
         return customerRepository.existsByUsername(username);
     }
 
-    public CustomerDto findLoggedInCustomer() {
+    public CustomerResponse findLoggedInCustomer() {
         return customerMapper.mapEntityToDto(getLoggedInCustomer());
     }
 

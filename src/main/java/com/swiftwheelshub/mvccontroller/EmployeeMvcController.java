@@ -1,6 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.EmployeeDto;
+import com.swiftwheelshub.dto.EmployeeRequest;
 import com.swiftwheelshub.service.BranchService;
 import com.swiftwheelshub.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -45,14 +45,14 @@ public class EmployeeMvcController {
 
     @GetMapping(path = "/employee/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("employee", new EmployeeDto());
+        model.addAttribute("employee", new EmployeeRequest());
         model.addAttribute("allBranches", branchService.findAllBranches());
 
         return "add-employee";
     }
 
     @PostMapping(path = "/employee/add")
-    public String addEmployee(@ModelAttribute("employee") @Valid EmployeeDto employee, BindingResult bindingResult) {
+    public String addEmployee(@ModelAttribute("employee") @Valid EmployeeRequest employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-employee";
         }
@@ -72,7 +72,7 @@ public class EmployeeMvcController {
     }
 
     @PostMapping(path = "/employee/update")
-    public String editEmployee(@ModelAttribute("employee") @Valid EmployeeDto employee, BindingResult bindingResult) {
+    public String editEmployee(@ModelAttribute("employee") @Valid EmployeeRequest employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-employee";
         }

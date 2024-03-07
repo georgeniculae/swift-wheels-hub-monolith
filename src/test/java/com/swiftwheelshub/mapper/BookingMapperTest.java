@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.BookingDto;
+import com.swiftwheelshub.dto.BookingRequest;
+import com.swiftwheelshub.dto.BookingResponse;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.util.AssertionUtils;
 import com.swiftwheelshub.util.TestUtils;
@@ -19,17 +20,17 @@ class BookingMapperTest {
     void mapEntityToDtoTest_success() {
         Booking booking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
 
-        BookingDto bookingDto = bookingMapper.mapEntityToDto(booking);
+        BookingResponse bookingRequest = bookingMapper.mapEntityToDto(booking);
 
-        AssertionUtils.assertBooking(booking, bookingDto);
+        AssertionUtils.assertBookingResponse(booking, bookingRequest);
     }
 
     @Test
     void mapDtoToEntityTest_success() {
         Booking expectedBooking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
-        BookingDto bookingDto = TestUtils.getResourceAsJson("/data/BookingDto.json", BookingDto.class);
+        BookingRequest bookingRequest = TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingRequest.class);
 
-        Booking actualBooking = bookingMapper.mapDtoToEntity(bookingDto);
+        Booking actualBooking = bookingMapper.mapDtoToEntity(bookingRequest);
 
         assertThat(expectedBooking).usingRecursiveAssertion().isEqualTo(actualBooking);
     }

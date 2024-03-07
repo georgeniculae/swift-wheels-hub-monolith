@@ -1,6 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.RentalOfficeDto;
+import com.swiftwheelshub.dto.RentalOfficeRequest;
 import com.swiftwheelshub.service.RentalOfficeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class RentalOfficeMvcController {
     }
 
     @PostMapping(path = "/rental-office/add")
-    public String addRentalOffice(@ModelAttribute("rentalOffice") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
+    public String addRentalOffice(@ModelAttribute("rentalOffice") @Valid RentalOfficeRequest rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-rental-office";
         }
@@ -46,13 +46,13 @@ public class RentalOfficeMvcController {
 
     @GetMapping(path = "/rental-office/registration")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("rentalOffice", new RentalOfficeDto());
+        model.addAttribute("rentalOffice", new RentalOfficeRequest());
 
         return "add-rental-office";
     }
 
     @PostMapping(path = "/rental-office/update")
-    public String editRentalOffice(@ModelAttribute("rentalOffice") @Valid RentalOfficeDto rentalOffice, BindingResult bindingResult) {
+    public String editRentalOffice(@ModelAttribute("rentalOffice") @Valid RentalOfficeRequest rentalOffice, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-rental-office";
         }

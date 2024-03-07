@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.CarDto;
+import com.swiftwheelshub.dto.CarRequest;
+import com.swiftwheelshub.dto.CarResponse;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
@@ -20,23 +21,23 @@ public class CarService {
     private final BranchService branchService;
     private final CarMapper carMapper;
 
-    public CarDto saveCar(CarDto carDto) {
-        Car car = carMapper.mapDtoToEntity(carDto);
+    public CarResponse saveCar(CarRequest carRequest) {
+        Car car = carMapper.mapDtoToEntity(carRequest);
 
-        car.setBranch(branchService.findEntityById(carDto.getBranchDetails().getId()));
+        car.setBranch(branchService.findEntityById(carRequest.getBranchDetails().getId()));
         Car savedCar = carRepository.save(car);
 
         return carMapper.mapEntityToDto(savedCar);
     }
 
-    public List<CarDto> findAllCars() {
+    public List<CarResponse> findAllCars() {
         return carRepository.findAll()
                 .stream()
                 .map(carMapper::mapEntityToDto)
                 .toList();
     }
 
-    public CarDto findCarById(Long id) {
+    public CarResponse findCarById(Long id) {
         Car car = findEntityById(id);
 
         return carMapper.mapEntityToDto(car);
@@ -47,23 +48,23 @@ public class CarService {
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Car with id " + id + " does not exist"));
     }
 
-    public CarDto updateCar(Long id, CarDto updatedCarDto) {
-        Long actualId = getId(id, updatedCarDto.getId());
+    public CarResponse updateCar(Long id, CarRequest updatedCarRequest) {
+        Long actualId = getId(id, updatedCarRequest.getId());
 
         Car existingCar = findEntityById(actualId);
 
-        Branch branch = branchService.findEntityById(updatedCarDto.getBranchDetails().getId());
+        Branch branch = branchService.findEntityById(updatedCarRequest.getBranchDetails().getId());
 
-        existingCar.setMake(updatedCarDto.getMake());
-        existingCar.setModel(updatedCarDto.getModel());
-        existingCar.setBodyType(updatedCarDto.getBodyType());
-        existingCar.setYearOfProduction(updatedCarDto.getYearOfProduction());
-        existingCar.setColor(updatedCarDto.getColor());
-        existingCar.setMileage(updatedCarDto.getMileage());
-        existingCar.setAmount(updatedCarDto.getAmount());
-        existingCar.setCarStatus(updatedCarDto.getCarStatus());
+        existingCar.setMake(updatedCarRequest.getMake());
+        existingCar.setModel(updatedCarRequest.getModel());
+        existingCar.setBodyType(updatedCarRequest.getBodyType());
+        existingCar.setYearOfProduction(updatedCarRequest.getYearOfProduction());
+        existingCar.setColor(updatedCarRequest.getColor());
+        existingCar.setMileage(updatedCarRequest.getMileage());
+        existingCar.setAmount(updatedCarRequest.getAmount());
+        existingCar.setCarStatus(updatedCarRequest.getCarStatus());
         existingCar.setBranch(branch);
-        existingCar.setUrlOfImage(updatedCarDto.getUrlOfImage());
+        existingCar.setUrlOfImage(updatedCarRequest.getUrlOfImage());
 
         Car savedCar = carRepository.save(existingCar);
 
@@ -78,13 +79,13 @@ public class CarService {
         return carRepository.count();
     }
 
-    public CarDto findCarByFilter(String searchString) {
+    public CarResponse findCarByFilter(String searchString) {
         return carRepository.findByFilter(searchString)
                 .map(carMapper::mapEntityToDto)
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Car with filter: " + searchString + " does not exist"));
     }
 
-    public List<CarDto> findCarsByMake(String make) {
+    public List<CarResponse> findCarsByMake(String make) {
         return carRepository.findCarsByMake(make)
                 .stream()
                 .map(carMapper::mapEntityToDto)

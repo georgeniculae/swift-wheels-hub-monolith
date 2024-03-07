@@ -1,6 +1,7 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.InvoiceDto;
+import com.swiftwheelshub.dto.InvoiceRequest;
+import com.swiftwheelshub.dto.InvoiceResponse;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.BookingStatus;
 import com.swiftwheelshub.entity.Car;
@@ -34,13 +35,13 @@ public class InvoiceService {
     private final InvoiceMapper invoiceMapper;
 
     @Transactional
-    public InvoiceDto updateInvoice(Long id, InvoiceDto invoiceDto) {
-        Long actualId = getId(id, invoiceDto.getId());
+    public InvoiceResponse updateInvoice(Long id, InvoiceRequest invoiceRequest) {
+        Long actualId = getId(id, invoiceRequest.getId());
 
         Invoice existingInvoice = findEntityById(actualId);
-        validateInvoice(invoiceDto, existingInvoice.getBooking().getDateFrom());
+        validateInvoice(invoiceRequest, existingInvoice.getBooking().getDateFrom());
 
-        Invoice updatedExistingInvoice = updateExistingInvoice(invoiceDto, existingInvoice);
+        Invoice updatedExistingInvoice = updateExistingInvoice(invoiceRequest, existingInvoice);
         registerRevenue(updatedExistingInvoice);
 
         Invoice savedInvoice = invoiceRepository.save(updatedExistingInvoice);
@@ -48,28 +49,28 @@ public class InvoiceService {
         return invoiceMapper.mapEntityToDto(savedInvoice);
     }
 
-    public List<InvoiceDto> findAllInvoices() {
+    public List<InvoiceResponse> findAllInvoices() {
         return invoiceRepository.findAll()
                 .stream()
                 .map(invoiceMapper::mapEntityToDto)
                 .toList();
     }
 
-    public List<InvoiceDto> findAllActiveInvoices() {
+    public List<InvoiceResponse> findAllActiveInvoices() {
         return invoiceRepository.findAllActiveInvoices()
                 .stream()
                 .map(invoiceMapper::mapEntityToDto)
                 .toList();
     }
 
-    public List<InvoiceDto> findAllInvoicesByCustomerId(Long customerId) {
+    public List<InvoiceResponse> findAllInvoicesByCustomerId(Long customerId) {
         return invoiceRepository.findByCustomerId(customerId)
                 .stream()
                 .map(invoiceMapper::mapEntityToDto)
                 .toList();
     }
 
-    public InvoiceDto findInvoiceById(Long id) {
+    public InvoiceResponse findInvoiceById(Long id) {
         Invoice invoice = findEntityById(id);
 
         return invoiceMapper.mapEntityToDto(invoice);
@@ -79,7 +80,7 @@ public class InvoiceService {
         invoiceRepository.deleteById(id);
     }
 
-    public InvoiceDto findInvoiceByComments(String searchString) {
+    public InvoiceResponse findInvoiceByComments(String searchString) {
         return invoiceRepository.findInvoiceByComments(searchString)
                 .map(invoiceMapper::mapEntityToDto)
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Invoice with comment: " + searchString + " does not exist"));
@@ -98,10 +99,10 @@ public class InvoiceService {
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Invoice with id " + id + " does not exist"));
     }
 
-    private void validateInvoice(InvoiceDto invoiceDto, LocalDate dateFrom) {
-        validateDateOfReturnOfTheCar(invoiceDto.getCarDateOfReturn(), dateFrom);
+    private void validateInvoice(InvoiceRequest invoiceRequest, LocalDate dateFrom) {
+        validateDateOfReturnOfTheCar(invoiceRequest.getCarDateOfReturn(), dateFrom);
 
-        if (invoiceDto.getIsVehicleDamaged() && ObjectUtils.isEmpty(invoiceDto.getDamageCost())) {
+        if (invoiceRequest.getIsVehicleDamaged() && ObjectUtils.isEmpty(invoiceRequest.getDamageCost())) {
             throw new SwiftWheelsHubResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "If the vehicle is damaged, the damage cost cannot be null/empty"
@@ -109,18 +110,18 @@ public class InvoiceService {
         }
     }
 
-    private Invoice updateExistingInvoice(InvoiceDto invoiceDto, Invoice existingInvoice) {
-        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployeeDetails().getId());
+    private Invoice updateExistingInvoice(InvoiceRequest invoiceRequest, Invoice existingInvoice) {
+        Employee receptionistEmployee = employeeService.findEntityById(invoiceRequest.getReceptionistEmployeeDetails().getId());
 
         Car car = carService.findEntityById(existingInvoice.getCar().getId());
-        car.setCarStatus(invoiceDto.getIsVehicleDamaged() ? CarStatus.BROKEN : CarStatus.AVAILABLE);
+        car.setCarStatus(invoiceRequest.getIsVehicleDamaged() ? CarStatus.BROKEN : CarStatus.AVAILABLE);
 
-        existingInvoice.setCarDateOfReturn(invoiceDto.getCarDateOfReturn());
+        existingInvoice.setCarDateOfReturn(invoiceRequest.getCarDateOfReturn());
         existingInvoice.setReceptionistEmployee(receptionistEmployee);
-        existingInvoice.setIsVehicleDamaged(invoiceDto.getIsVehicleDamaged());
-        existingInvoice.setDamageCost(invoiceDto.getDamageCost());
-        existingInvoice.setAdditionalPayment(invoiceDto.getAdditionalPayment());
-        existingInvoice.setComments(invoiceDto.getComments());
+        existingInvoice.setIsVehicleDamaged(invoiceRequest.getIsVehicleDamaged());
+        existingInvoice.setDamageCost(invoiceRequest.getDamageCost());
+        existingInvoice.setAdditionalPayment(invoiceRequest.getAdditionalPayment());
+        existingInvoice.setComments(invoiceRequest.getComments());
         Booking booking = existingInvoice.getBooking();
         booking.setStatus(BookingStatus.CLOSED);
         existingInvoice.setTotalAmount(getTotalAmount(existingInvoice, booking));

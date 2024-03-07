@@ -1,10 +1,10 @@
 package com.swiftwheelshub.restcontroller;
 
-import com.swiftwheelshub.dto.BookingDto;
+import com.swiftwheelshub.dto.BookingRequest;
+import com.swiftwheelshub.dto.BookingResponse;
 import com.swiftwheelshub.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,23 +19,22 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/booking")
-@CrossOrigin(origins = "*")
 public class BookingRestController {
 
     private final BookingService bookingService;
 
     @GetMapping
-    public ResponseEntity<List<BookingDto>> listAllBooking() {
-        List<BookingDto> bookingDtoList = bookingService.findAllBookings();
+    public ResponseEntity<List<BookingResponse>> listAllBooking() {
+        List<BookingResponse> bookingResponses = bookingService.findAllBookings();
 
-        return ResponseEntity.ok(bookingDtoList);
+        return ResponseEntity.ok(bookingResponses);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<BookingDto> findBookingById(@PathVariable("id") Long id) {
-        BookingDto bookingDto = bookingService.findBookingById(id);
+    public ResponseEntity<BookingResponse> findBookingById(@PathVariable("id") Long id) {
+        BookingResponse bookingResponse = bookingService.findBookingById(id);
 
-        return ResponseEntity.ok(bookingDto);
+        return ResponseEntity.ok(bookingResponse);
     }
 
     @GetMapping(path = "/count")
@@ -46,24 +45,24 @@ public class BookingRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<BookingDto> deleteBookingById(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteBookingById(@PathVariable("id") Long id) {
         bookingService.deleteBookingById(id);
 
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
-        BookingDto saveBookingDto = bookingService.saveBooking(bookingDto);
+    public ResponseEntity<BookingResponse> saveBooking(@RequestBody BookingRequest bookingRequest) {
+        BookingResponse saveBookingResponse = bookingService.saveBooking(bookingRequest);
 
-        return ResponseEntity.ok(saveBookingDto);
+        return ResponseEntity.ok(saveBookingResponse);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<BookingDto> updateBooking(@PathVariable("id") Long id, @RequestBody BookingDto bookingDto) {
-        BookingDto updatedBookingDto = bookingService.updateBooking(id, bookingDto);
+    public ResponseEntity<BookingResponse> updateBooking(@PathVariable("id") Long id, @RequestBody BookingRequest bookingRequest) {
+        BookingResponse updatedBookingResponse = bookingService.updateBooking(id, bookingRequest);
 
-        return ResponseEntity.ok(updatedBookingDto);
+        return ResponseEntity.ok(updatedBookingResponse);
     }
 
 }

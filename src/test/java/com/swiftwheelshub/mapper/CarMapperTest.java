@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.CarDto;
+import com.swiftwheelshub.dto.CarRequest;
+import com.swiftwheelshub.dto.CarResponse;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.util.AssertionUtils;
 import com.swiftwheelshub.util.TestUtils;
@@ -19,20 +20,20 @@ class CarMapperTest {
     void mapEntityToDtoTest_success() {
         Car car = TestUtils.getResourceAsJson("/data/Car.json", Car.class);
 
-        CarDto carDto = carMapper.mapEntityToDto(car);
+        CarResponse carResponse = carMapper.mapEntityToDto(car);
 
-        assertNotNull(carDto);
-        AssertionUtils.assertCar(car, carDto);
+        assertNotNull(carResponse);
+        AssertionUtils.assertCarResponse(car, carResponse);
     }
 
     @Test
     void mapDtoToEntityTest_success() {
-        CarDto carDto = TestUtils.getResourceAsJson("/data/CarDto.json", CarDto.class);
+        CarRequest carRequest = TestUtils.getResourceAsJson("/data/CarRequest.json", CarRequest.class);
 
-        Car car = carMapper.mapDtoToEntity(carDto);
+        Car car = carMapper.mapDtoToEntity(carRequest);
 
-        assertNotNull(carDto);
-        AssertionUtils.assertCar(car, carDto);
+        assertNotNull(carRequest);
+        AssertionUtils.assertCarRequest(car, carRequest);
     }
 
 }

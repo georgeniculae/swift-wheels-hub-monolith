@@ -1,10 +1,10 @@
 package com.swiftwheelshub.restcontroller;
 
-import com.swiftwheelshub.dto.RentalOfficeDto;
+import com.swiftwheelshub.dto.RentalOfficeRequest;
+import com.swiftwheelshub.dto.RentalOfficeResponse;
 import com.swiftwheelshub.service.RentalOfficeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,16 +19,15 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/rental-office")
-@CrossOrigin(origins = "*")
 public class RentalOfficeRestController {
 
     private final RentalOfficeService rentalOfficeService;
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<RentalOfficeDto> findRentalOfficeById(@PathVariable("id") Long id) {
-        RentalOfficeDto rentalOfficeDto = rentalOfficeService.findRentalOfficeById(id);
+    public ResponseEntity<RentalOfficeResponse> findRentalOfficeById(@PathVariable("id") Long id) {
+        RentalOfficeResponse rentalOfficeResponse = rentalOfficeService.findRentalOfficeById(id);
 
-        return ResponseEntity.ok(rentalOfficeDto);
+        return ResponseEntity.ok(rentalOfficeResponse);
     }
 
     @GetMapping(path = "/count")
@@ -39,32 +38,32 @@ public class RentalOfficeRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<RentalOfficeDto> deleteRentalOfficeById(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteRentalOfficeById(@PathVariable("id") Long id) {
         rentalOfficeService.deleteRentalOfficeById(id);
 
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    public ResponseEntity<RentalOfficeDto> createRentalOffice(@RequestBody RentalOfficeDto rentalOfficeDto) {
-        RentalOfficeDto savedRentalOfficeDto = rentalOfficeService.saveRentalOffice(rentalOfficeDto);
+    public ResponseEntity<RentalOfficeResponse> createRentalOffice(@RequestBody RentalOfficeRequest rentalOfficeRequest) {
+        RentalOfficeResponse savedRentalOfficeResponse = rentalOfficeService.saveRentalOffice(rentalOfficeRequest);
 
-        return ResponseEntity.ok(savedRentalOfficeDto);
+        return ResponseEntity.ok(savedRentalOfficeResponse);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<RentalOfficeDto> updateRentalOffice(@PathVariable("id") Long id,
-                                                              @RequestBody RentalOfficeDto rentalOfficeDto) {
-        RentalOfficeDto updatedRentalOfficeDto = rentalOfficeService.updateRentalOffice(id, rentalOfficeDto);
+    public ResponseEntity<RentalOfficeResponse> updateRentalOffice(@PathVariable("id") Long id,
+                                                                   @RequestBody RentalOfficeRequest rentalOfficeRequest) {
+        RentalOfficeResponse updatedRentalOfficeResponse = rentalOfficeService.updateRentalOffice(id, rentalOfficeRequest);
 
-        return ResponseEntity.ok(updatedRentalOfficeDto);
+        return ResponseEntity.ok(updatedRentalOfficeResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<RentalOfficeDto>> listAllRentalOffices() {
-        List<RentalOfficeDto> rentalOfficeDtoList = rentalOfficeService.findAllRentalOffices();
+    public ResponseEntity<List<RentalOfficeResponse>> listAllRentalOffices() {
+        List<RentalOfficeResponse> rentalOfficeResponses = rentalOfficeService.findAllRentalOffices();
 
-        return ResponseEntity.ok(rentalOfficeDtoList);
+        return ResponseEntity.ok(rentalOfficeResponses);
     }
 
 }

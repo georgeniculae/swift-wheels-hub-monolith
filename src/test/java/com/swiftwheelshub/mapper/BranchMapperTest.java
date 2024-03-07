@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mapper;
 
-import com.swiftwheelshub.dto.BranchDto;
+import com.swiftwheelshub.dto.BranchRequest;
+import com.swiftwheelshub.dto.BranchResponse;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.util.AssertionUtils;
 import com.swiftwheelshub.util.TestUtils;
@@ -19,20 +20,20 @@ class BranchMapperTest {
     void mapEntityToDtoTest_success() {
         Branch branch = TestUtils.getResourceAsJson("/data/Branch.json", Branch.class);
 
-        BranchDto branchDto = branchMapper.mapEntityToDto(branch);
+        BranchResponse branchResponse = branchMapper.mapEntityToDto(branch);
 
-        assertNotNull(branchDto);
-        AssertionUtils.assertBranch(branch, branchDto);
+        assertNotNull(branchResponse);
+        AssertionUtils.assertBranchResponse(branch, branchResponse);
     }
 
     @Test
     void mapDtoToEntityTest_success() {
-        BranchDto branchDto = TestUtils.getResourceAsJson("/data/BranchDto.json", BranchDto.class);
+        BranchRequest branchRequest = TestUtils.getResourceAsJson("/data/BranchRequest.json", BranchRequest.class);
 
-        Branch branch = branchMapper.mapDtoToEntity(branchDto);
+        Branch branch = branchMapper.mapDtoToEntity(branchRequest);
 
         assertNotNull(branch);
-        AssertionUtils.assertBranch(branch, branchDto);
+        AssertionUtils.assertBranchRequest(branch, branchRequest);
     }
 
 }
