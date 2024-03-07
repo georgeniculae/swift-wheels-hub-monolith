@@ -57,7 +57,7 @@ class CustomerServiceTest {
 
         assertNotNull(actualCustomerResponse);
 
-        verify(customerMapper, times(2)).mapEntityToDto(any(Customer.class));
+        verify(customerMapper).mapEntityToDto(any(Customer.class));
     }
 
     @Test
