@@ -8,8 +8,8 @@ import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.CarStatus;
 import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.entity.Invoice;
-import com.swiftwheelshub.exception.NotFoundException;
-import com.swiftwheelshub.exception.SwiftWheelsHubException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubResponseStatusException;
 import com.swiftwheelshub.mapper.BookingMapper;
 import com.swiftwheelshub.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
@@ -101,7 +101,7 @@ public class BookingService {
     public BookingDto findBookingByDateOfBooking(String filter) {
         return bookingRepository.findByDateOfBooking(LocalDate.parse(filter))
                 .map(bookingMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Booking from date: " + filter + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Booking from date: " + filter + " does not exist"));
     }
 
     public Long countByLoggedInCustomer() {
@@ -149,11 +149,11 @@ public class BookingService {
         LocalDate currentDate = LocalDate.now();
 
         if (dateFrom.isBefore(currentDate) || dateTo.isBefore(currentDate)) {
-            throw new SwiftWheelsHubException(HttpStatus.BAD_REQUEST, "A date of booking cannot be in the past");
+            throw new SwiftWheelsHubResponseStatusException(HttpStatus.BAD_REQUEST, "A date of booking cannot be in the past");
         }
 
         if (dateFrom.isAfter(dateTo)) {
-            throw new SwiftWheelsHubException(HttpStatus.BAD_REQUEST, "Date from is after date to");
+            throw new SwiftWheelsHubResponseStatusException(HttpStatus.BAD_REQUEST, "Date from is after date to");
         }
     }
 
@@ -169,7 +169,7 @@ public class BookingService {
 
     private Booking findEntityById(Long id) {
         return bookingRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Booking with id " + id + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Booking with id " + id + " does not exist"));
     }
 
     private Invoice setupInvoice(Booking newBooking, Customer customer, Car car) {

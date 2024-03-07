@@ -2,7 +2,7 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.RevenueDto;
 import com.swiftwheelshub.entity.Revenue;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.RevenueMapper;
 import com.swiftwheelshub.mapper.RevenueMapperImpl;
 import com.swiftwheelshub.repository.RevenueRepository;
@@ -72,11 +72,11 @@ class RevenueServiceTest {
     void findRevenueByDateTest_errorOnFindingByDateOfRevenue() {
         when(revenueRepository.findByDateOfRevenue(any(LocalDate.class))).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> revenueService.findRevenueByDate(LocalDate.parse("2050-02-20")));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> revenueService.findRevenueByDate(LocalDate.parse("2050-02-20")));
 
-        assertNotNull(notFoundException);
-        assertEquals("Revenue from date: 2050-02-20 does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Revenue from date: 2050-02-20 does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

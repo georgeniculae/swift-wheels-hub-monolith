@@ -3,7 +3,7 @@ package com.swiftwheelshub.service;
 import com.swiftwheelshub.dto.EmployeeDto;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Employee;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.EmployeeMapper;
 import com.swiftwheelshub.mapper.EmployeeMapperImpl;
 import com.swiftwheelshub.repository.EmployeeRepository;
@@ -90,11 +90,11 @@ class EmployeeServiceTest {
     void findEmployeeByIdTest_errorOnFindingById() {
         when(employeeRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> employeeService.findEmployeeById(1L));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> employeeService.findEmployeeById(1L));
 
-        assertNotNull(notFoundException);
-        assertEquals("Employee with id 1 does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Employee with id 1 does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
     @Test
@@ -137,11 +137,11 @@ class EmployeeServiceTest {
     void findEmployeeByFilterTest_errorOnFindingByFilter() {
         when(employeeRepository.findByFilter(anyString())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> employeeService.findEmployeeByFilter("Test"));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> employeeService.findEmployeeByFilter("Test"));
 
-        assertNotNull(notFoundException);
-        assertEquals("Employee with filter: Test does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Employee with filter: Test does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

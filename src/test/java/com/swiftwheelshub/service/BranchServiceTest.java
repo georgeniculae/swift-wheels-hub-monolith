@@ -3,7 +3,7 @@ package com.swiftwheelshub.service;
 import com.swiftwheelshub.dto.BranchDto;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.RentalOffice;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.BranchMapper;
 import com.swiftwheelshub.mapper.BranchMapperImpl;
 import com.swiftwheelshub.repository.BranchRepository;
@@ -60,9 +60,9 @@ class BranchServiceTest {
     void findBranchByIdTest_errorOnFindingById() {
         when(branchRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> branchService.findBranchById(1L));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException = assertThrows(SwiftWheelsHubNotFoundException.class, () -> branchService.findBranchById(1L));
 
-        assertNotNull(notFoundException);
+        assertNotNull(swiftWheelsHubNotFoundException);
     }
 
     @Test
@@ -120,11 +120,11 @@ class BranchServiceTest {
     void findBranchByFilterTest_errorOnFindingByFilter() {
         when(branchRepository.findByFilter(anyString())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> branchService.findBranchByFilter("Test"));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> branchService.findBranchByFilter("Test"));
 
-        assertNotNull(notFoundException);
-        assertEquals("Branch with filter: Test does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Branch with filter: Test does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

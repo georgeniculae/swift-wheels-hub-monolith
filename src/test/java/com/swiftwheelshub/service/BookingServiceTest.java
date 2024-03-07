@@ -4,7 +4,7 @@ import com.swiftwheelshub.dto.BookingDto;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.Customer;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.BookingMapper;
 import com.swiftwheelshub.mapper.BookingMapperImpl;
 import com.swiftwheelshub.repository.BookingRepository;
@@ -91,10 +91,10 @@ class BookingServiceTest {
     void findBookingByIdTest_errorOnFindingById() {
         when(bookingRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> bookingService.findBookingById(1L));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException = assertThrows(SwiftWheelsHubNotFoundException.class, () -> bookingService.findBookingById(1L));
 
-        assertNotNull(notFoundException);
-        assertThat(notFoundException.getMessage()).contains("Booking with id 1 does not exist");
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertThat(swiftWheelsHubNotFoundException.getMessage()).contains("Booking with id 1 does not exist");
     }
 
     @Test
@@ -164,11 +164,11 @@ class BookingServiceTest {
         when(bookingRepository.findByDateOfBooking(LocalDate.of(2050, Month.FEBRUARY, 20)))
                 .thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> bookingService.findBookingByDateOfBooking("2050-02-20"));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> bookingService.findBookingByDateOfBooking("2050-02-20"));
 
-        assertNotNull(notFoundException);
-        assertEquals("Booking from date: 2050-02-20 does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Booking from date: 2050-02-20 does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

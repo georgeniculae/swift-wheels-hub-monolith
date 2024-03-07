@@ -2,7 +2,7 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.RevenueDto;
 import com.swiftwheelshub.entity.Revenue;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.RevenueMapper;
 import com.swiftwheelshub.repository.RevenueRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class RevenueService {
     public RevenueDto findRevenueByDate(LocalDate dateOfRevenue) {
         return revenueRepository.findByDateOfRevenue(dateOfRevenue)
                 .map(revenueMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Revenue from date: " + dateOfRevenue + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Revenue from date: " + dateOfRevenue + " does not exist"));
     }
 
 }

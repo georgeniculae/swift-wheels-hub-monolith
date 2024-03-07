@@ -6,7 +6,7 @@ import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.Employee;
 import com.swiftwheelshub.entity.Invoice;
 import com.swiftwheelshub.entity.Revenue;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.InvoiceMapper;
 import com.swiftwheelshub.mapper.InvoiceMapperImpl;
 import com.swiftwheelshub.repository.InvoiceRepository;
@@ -128,11 +128,11 @@ class InvoiceServiceTest {
     void findInvoiceByIdTest_errorOnFindingById() {
         when(invoiceRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> invoiceService.findInvoiceById(1L));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> invoiceService.findInvoiceById(1L));
 
-        assertNotNull(notFoundException);
-        assertEquals("Invoice with id 1 does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Invoice with id 1 does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
     @Test
@@ -152,11 +152,11 @@ class InvoiceServiceTest {
     void findInvoiceByFilterTest_errorOnFindingByComments() {
         when(invoiceRepository.findInvoiceByComments(anyString())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> invoiceService.findInvoiceByComments("comment"));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> invoiceService.findInvoiceByComments("comment"));
 
-        assertNotNull(notFoundException);
-        assertEquals("Invoice with comment: comment does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Invoice with comment: comment does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

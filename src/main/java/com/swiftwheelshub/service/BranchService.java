@@ -3,7 +3,7 @@ package com.swiftwheelshub.service;
 import com.swiftwheelshub.dto.BranchDto;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.RentalOffice;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.BranchMapper;
 import com.swiftwheelshub.repository.BranchRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class BranchService {
 
     public Branch findEntityById(Long id) {
         return branchRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Branch with id " + id + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Branch with id " + id + " does not exist"));
     }
 
     public Branch saveEntity(Branch branch) {
@@ -77,7 +77,7 @@ public class BranchService {
     public BranchDto findBranchByFilter(String searchString) {
         return branchRepository.findByFilter(searchString)
                 .map(branchMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Branch with filter: " + searchString + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Branch with filter: " + searchString + " does not exist"));
     }
 
     private Long getId(Long id, Long updatedBookingId) {

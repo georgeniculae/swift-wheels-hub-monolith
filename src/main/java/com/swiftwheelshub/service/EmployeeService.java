@@ -3,7 +3,7 @@ package com.swiftwheelshub.service;
 import com.swiftwheelshub.dto.EmployeeDto;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Employee;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.EmployeeMapper;
 import com.swiftwheelshub.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +49,7 @@ public class EmployeeService {
 
     public Employee findEntityById(Long id) {
         return employeeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Employee with id " + id + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Employee with id " + id + " does not exist"));
     }
 
     public EmployeeDto updateEmployee(Long id, EmployeeDto updatedEmployeeDto) {
@@ -83,7 +83,7 @@ public class EmployeeService {
     public EmployeeDto findEmployeeByFilter(String searchString) {
         return employeeRepository.findByFilter(searchString)
                 .map(employeeMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Employee with filter: " + searchString + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Employee with filter: " + searchString + " does not exist"));
     }
 
     private Long getId(Long id, Long updatedEmployeeId) {

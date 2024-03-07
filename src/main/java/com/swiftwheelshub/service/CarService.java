@@ -3,7 +3,7 @@ package com.swiftwheelshub.service;
 import com.swiftwheelshub.dto.CarDto;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.CarMapper;
 import com.swiftwheelshub.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class CarService {
 
     public Car findEntityById(Long id) {
         return carRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Car with id " + id + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Car with id " + id + " does not exist"));
     }
 
     public CarDto updateCar(Long id, CarDto updatedCarDto) {
@@ -81,7 +81,7 @@ public class CarService {
     public CarDto findCarByFilter(String searchString) {
         return carRepository.findByFilter(searchString)
                 .map(carMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Car with filter: " + searchString + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Car with filter: " + searchString + " does not exist"));
     }
 
     public List<CarDto> findCarsByMake(String make) {

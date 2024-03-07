@@ -2,7 +2,7 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.CustomerDto;
 import com.swiftwheelshub.entity.Customer;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.CustomerMapper;
 import com.swiftwheelshub.mapper.CustomerMapperImpl;
 import com.swiftwheelshub.repository.CustomerRepository;
@@ -64,11 +64,11 @@ class CustomerServiceTest {
     void findCustomerByIdTest_errorOnFindingById() {
         when(customerRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> customerService.findCustomerById(1L));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> customerService.findCustomerById(1L));
 
-        assertNotNull(notFoundException);
-        assertEquals("Customer with id 1 does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Customer with id 1 does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
     @Test
@@ -131,10 +131,10 @@ class CustomerServiceTest {
 
         when(customerRepository.findByUsername(null)).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> customerService.findLoggedInCustomer());
-        assertNotNull(notFoundException);
-        assertEquals("Customer with username null does not exist", notFoundException.getMessage());
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> customerService.findLoggedInCustomer());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Customer with username null does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
     @Test
@@ -153,11 +153,11 @@ class CustomerServiceTest {
     void findCarByFilterTest_errorOnFindingByFilter() {
         when(customerRepository.findByFilter(anyString())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> customerService.findCustomerByFilter("Test"));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> customerService.findCustomerByFilter("Test"));
 
-        assertNotNull(notFoundException);
-        assertEquals("Customer with filter: Test does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Customer with filter: Test does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

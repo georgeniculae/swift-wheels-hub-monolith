@@ -3,7 +3,7 @@ package com.swiftwheelshub.service;
 import com.swiftwheelshub.dto.CarDto;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.CarMapper;
 import com.swiftwheelshub.mapper.CarMapperImpl;
 import com.swiftwheelshub.repository.CarRepository;
@@ -62,9 +62,9 @@ class CarServiceTest {
     void findCarByIdTest_errorOnFindingById() {
         when(carRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> carService.findCarById(1L));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException = assertThrows(SwiftWheelsHubNotFoundException.class, () -> carService.findCarById(1L));
 
-        assertNotNull(notFoundException);
+        assertNotNull(swiftWheelsHubNotFoundException);
     }
 
     @Test
@@ -123,11 +123,11 @@ class CarServiceTest {
     void findCarByFilterTest_errorOnFindingByFilter() {
         when(carRepository.findByFilter(anyString())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> carService.findCarByFilter("Test"));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> carService.findCarByFilter("Test"));
 
-        assertNotNull(notFoundException);
-        assertEquals("Car with filter: Test does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Car with filter: Test does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

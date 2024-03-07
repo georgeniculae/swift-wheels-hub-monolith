@@ -2,7 +2,7 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.CustomerDto;
 import com.swiftwheelshub.entity.Customer;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.CustomerMapper;
 import com.swiftwheelshub.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +45,7 @@ public class CustomerService {
 
     public Customer findEntityById(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Customer with id " + id + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Customer with id " + id + " does not exist"));
     }
 
     public CustomerDto updateCustomer(Long id, CustomerDto updatedCustomerDto) {
@@ -74,7 +74,7 @@ public class CustomerService {
     public CustomerDto findCustomerByFilter(String filter) {
         return customerRepository.findByFilter(filter)
                 .map(customerMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Customer with filter: " + filter + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Customer with filter: " + filter + " does not exist"));
     }
 
     public boolean existsByUsername(String username) {
@@ -103,7 +103,7 @@ public class CustomerService {
 
     private Customer findEntityByUsername(String username) {
         return customerRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException("Customer with username " + username + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Customer with username " + username + " does not exist"));
     }
 
 }

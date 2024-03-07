@@ -2,7 +2,7 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.RentalOfficeDto;
 import com.swiftwheelshub.entity.RentalOffice;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.RentalOfficeMapper;
 import com.swiftwheelshub.repository.RentalOfficeRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class RentalOfficeService {
 
     public RentalOffice findEntityById(Long id) {
         return rentalOfficeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Rental office with id " + id + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Rental office with id " + id + " does not exist"));
     }
 
     public RentalOfficeDto updateRentalOffice(Long id, RentalOfficeDto updatedRentalOfficeDto) {
@@ -67,7 +67,7 @@ public class RentalOfficeService {
     public RentalOfficeDto findRentalOfficeByName(String searchString) {
         return rentalOfficeRepository.findRentalOfficeByName(searchString)
                 .map(rentalOfficeMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Rental office with name: " + searchString + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Rental office with name: " + searchString + " does not exist"));
     }
 
     private Long getId(Long id, Long updatedRentalOfficeId) {

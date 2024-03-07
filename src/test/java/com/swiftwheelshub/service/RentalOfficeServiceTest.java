@@ -2,7 +2,7 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.RentalOfficeDto;
 import com.swiftwheelshub.entity.RentalOffice;
-import com.swiftwheelshub.exception.NotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.RentalOfficeMapper;
 import com.swiftwheelshub.mapper.RentalOfficeMapperImpl;
 import com.swiftwheelshub.repository.RentalOfficeRepository;
@@ -90,11 +90,11 @@ class RentalOfficeServiceTest {
     void findRentalOfficeByIdTest_errorOnFindingById() {
         when(rentalOfficeRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> rentalOfficeService.findRentalOfficeById(1L));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> rentalOfficeService.findRentalOfficeById(1L));
 
-        assertNotNull(notFoundException);
-        assertEquals("Rental office with id 1 does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Rental office with id 1 does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
     @Test
@@ -127,11 +127,11 @@ class RentalOfficeServiceTest {
     void findRentalOfficeByNameTest_errorOnFindingByName() {
         when(rentalOfficeRepository.findRentalOfficeByName(anyString())).thenReturn(Optional.empty());
 
-        NotFoundException notFoundException =
-                assertThrows(NotFoundException.class, () -> rentalOfficeService.findRentalOfficeByName("Test Rental Office"));
+        SwiftWheelsHubNotFoundException swiftWheelsHubNotFoundException =
+                assertThrows(SwiftWheelsHubNotFoundException.class, () -> rentalOfficeService.findRentalOfficeByName("Test Rental Office"));
 
-        assertNotNull(notFoundException);
-        assertEquals("Rental office with name: Test Rental Office does not exist", notFoundException.getMessage());
+        assertNotNull(swiftWheelsHubNotFoundException);
+        assertEquals("Rental office with name: Test Rental Office does not exist", swiftWheelsHubNotFoundException.getMessage());
     }
 
 }

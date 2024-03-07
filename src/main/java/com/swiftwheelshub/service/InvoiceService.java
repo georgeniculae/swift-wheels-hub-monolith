@@ -8,8 +8,8 @@ import com.swiftwheelshub.entity.CarStatus;
 import com.swiftwheelshub.entity.Employee;
 import com.swiftwheelshub.entity.Invoice;
 import com.swiftwheelshub.entity.Revenue;
-import com.swiftwheelshub.exception.NotFoundException;
-import com.swiftwheelshub.exception.SwiftWheelsHubException;
+import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
+import com.swiftwheelshub.exception.SwiftWheelsHubResponseStatusException;
 import com.swiftwheelshub.mapper.InvoiceMapper;
 import com.swiftwheelshub.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
@@ -82,7 +82,7 @@ public class InvoiceService {
     public InvoiceDto findInvoiceByComments(String searchString) {
         return invoiceRepository.findInvoiceByComments(searchString)
                 .map(invoiceMapper::mapEntityToDto)
-                .orElseThrow(() -> new NotFoundException("Invoice with comment: " + searchString + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Invoice with comment: " + searchString + " does not exist"));
     }
 
     public Long countInvoices() {
@@ -95,14 +95,14 @@ public class InvoiceService {
 
     public Invoice findEntityById(Long id) {
         return invoiceRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Invoice with id " + id + " does not exist"));
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Invoice with id " + id + " does not exist"));
     }
 
     private void validateInvoice(InvoiceDto invoiceDto, LocalDate dateFrom) {
         validateDateOfReturnOfTheCar(invoiceDto.getCarDateOfReturn(), dateFrom);
 
         if (invoiceDto.getIsVehicleDamaged() && ObjectUtils.isEmpty(invoiceDto.getDamageCost())) {
-            throw new SwiftWheelsHubException(
+            throw new SwiftWheelsHubResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "If the vehicle is damaged, the damage cost cannot be null/empty"
             );
@@ -133,14 +133,14 @@ public class InvoiceService {
 
         if (dateFrom.isAfter(currentDate) &&
                 (currentDate.isBefore(dateOfReturnOfTheCar) || currentDate.equals(dateOfReturnOfTheCar))) {
-            throw new SwiftWheelsHubException(
+            throw new SwiftWheelsHubResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "The booking is not started yet"
             );
         }
 
         if (dateOfReturnOfTheCar.isBefore(currentDate)) {
-            throw new SwiftWheelsHubException(
+            throw new SwiftWheelsHubResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Date of return of the car cannot be in the past"
             );
