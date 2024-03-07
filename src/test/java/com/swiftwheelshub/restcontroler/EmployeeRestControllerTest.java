@@ -27,6 +27,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = EmployeeRestController.class)
@@ -49,7 +50,7 @@ class EmployeeRestControllerTest {
 
         when(employeeService.findAllEmployees()).thenReturn(List.of(employeeResponse));
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -63,7 +64,7 @@ class EmployeeRestControllerTest {
 
     @Test
     void findAllEmployeesTest_forbidden() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -82,7 +83,7 @@ class EmployeeRestControllerTest {
 
         when(employeeService.findEmployeeById(anyLong())).thenReturn(employeeResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -96,7 +97,7 @@ class EmployeeRestControllerTest {
 
     @Test
     void findEmployeeByIdTest_unauthorized() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -115,7 +116,7 @@ class EmployeeRestControllerTest {
 
         when(employeeService.findEmployeesByBranchId(anyLong())).thenReturn(List.of(employeeResponse));
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/branch/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/branch/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -129,7 +130,7 @@ class EmployeeRestControllerTest {
 
     @Test
     void findEmployeesByBranchIdTest_unauthorized() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/branch/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/branch/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -145,7 +146,7 @@ class EmployeeRestControllerTest {
     void countEmployeesTest_success() throws Exception {
         when(employeeService.countEmployees()).thenReturn(1L);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count")
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/count")
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -161,7 +162,7 @@ class EmployeeRestControllerTest {
     void countEmployeesTest_unauthorized() throws Exception {
         when(employeeService.countEmployees()).thenReturn(1L);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count")
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/count")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -182,7 +183,7 @@ class EmployeeRestControllerTest {
 
         when(employeeService.saveEmployee(any(EmployeeRequest.class))).thenReturn(employeeResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
+        MvcResult mvcResult = mockMvc.perform(post(PATH)
                         .with(csrf())
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -201,7 +202,7 @@ class EmployeeRestControllerTest {
         EmployeeRequest employeeRequest = TestUtils.getResourceAsJson("/data/EmployeeRequest.json", EmployeeRequest.class);
         String valueAsString = TestUtils.writeValueAsString(employeeRequest);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
+        MvcResult mvcResult = mockMvc.perform(post(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -220,7 +221,7 @@ class EmployeeRestControllerTest {
         EmployeeRequest employeeRequest = TestUtils.getResourceAsJson("/data/EmployeeRequest.json", EmployeeRequest.class);
         String valueAsString = TestUtils.writeValueAsString(employeeRequest);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
+        MvcResult mvcResult = mockMvc.perform(post(PATH)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -243,7 +244,7 @@ class EmployeeRestControllerTest {
 
         when(employeeService.updateEmployee(anyLong(), any(EmployeeRequest.class))).thenReturn(employeeResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(put(PATH + "/{id}", 1L)
                         .with(csrf())
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -264,7 +265,7 @@ class EmployeeRestControllerTest {
 
         String valueAsString = TestUtils.writeValueAsString(employeeResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(put(PATH + "/{id}", 1L)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -285,7 +286,7 @@ class EmployeeRestControllerTest {
 
         String valueAsString = TestUtils.writeValueAsString(employeeResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(put(PATH + "/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(valueAsString))
@@ -302,7 +303,7 @@ class EmployeeRestControllerTest {
     void deleteEmployeeByIdTest_success() throws Exception {
         doNothing().when(employeeService).deleteEmployeeById(anyLong());
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(delete(PATH + "/{id}", 1L)
                         .with(csrf())
                         .with(user("admin").password("admin").roles("ADMIN")))
                 .andExpect(status().isNoContent())
@@ -317,7 +318,7 @@ class EmployeeRestControllerTest {
     void deleteEmployeeByIdTest_forbidden() throws Exception {
         doNothing().when(employeeService).deleteEmployeeById(anyLong());
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{id}", 1L)
+        MvcResult mvcResult = mockMvc.perform(delete(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN")))
                 .andExpect(status().isForbidden())
                 .andReturn();

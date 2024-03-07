@@ -8,15 +8,9 @@
   "mileage": 270000,
   "carStatus": "AVAILABLE",
   "amount": 500,
-  "branch": {
+  "branchDetails": {
     "id": 1,
-    "name": "Test Branch",
-    "address": "Ploiesti",
-    "rentalOffice": {
-      "id": 1,
-      "name": "Test Rental Office",
-      "contactAddress": "Ploiesti",
-      "phoneNumber": ""
-    }
-  }
+    "name": "Test Branch"
+  },
+  "urlOfImage": ""
 }
