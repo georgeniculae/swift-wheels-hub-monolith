@@ -41,23 +41,10 @@ public class InvoiceService {
         Invoice existingInvoice = findEntityById(actualId);
         validateInvoice(invoiceDto, existingInvoice.getBooking().getDateFrom());
 
-        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployeeDetails().getId());
-        Car car = carService.findEntityById(existingInvoice.getCar().getId());
-        car.setCarStatus(invoiceDto.getIsVehicleDamaged() ? CarStatus.BROKEN : CarStatus.AVAILABLE);
+        Invoice updatedExistingInvoice = updateExistingInvoice(invoiceDto, existingInvoice);
+        registerRevenue(updatedExistingInvoice);
 
-        existingInvoice.setCarDateOfReturn(invoiceDto.getCarDateOfReturn());
-        existingInvoice.setReceptionistEmployee(receptionistEmployee);
-        existingInvoice.setIsVehicleDamaged(invoiceDto.getIsVehicleDamaged());
-        existingInvoice.setDamageCost(invoiceDto.getDamageCost());
-        existingInvoice.setAdditionalPayment(invoiceDto.getAdditionalPayment());
-        existingInvoice.setComments(invoiceDto.getComments());
-        Booking booking = existingInvoice.getBooking();
-        booking.setStatus(BookingStatus.CLOSED);
-        existingInvoice.setTotalAmount(getTotalAmount(existingInvoice, booking));
-
-        registerRevenue(existingInvoice);
-
-        Invoice savedInvoice = invoiceRepository.save(existingInvoice);
+        Invoice savedInvoice = invoiceRepository.save(updatedExistingInvoice);
 
         return invoiceMapper.mapEntityToDto(savedInvoice);
     }
@@ -130,6 +117,25 @@ public class InvoiceService {
                     "If the vehicle is damaged, the damage cost cannot be null/empty"
             );
         }
+    }
+
+    private Invoice updateExistingInvoice(InvoiceDto invoiceDto, Invoice existingInvoice) {
+        Employee receptionistEmployee = employeeService.findEntityById(invoiceDto.getReceptionistEmployeeDetails().getId());
+
+        Car car = carService.findEntityById(existingInvoice.getCar().getId());
+        car.setCarStatus(invoiceDto.getIsVehicleDamaged() ? CarStatus.BROKEN : CarStatus.AVAILABLE);
+
+        existingInvoice.setCarDateOfReturn(invoiceDto.getCarDateOfReturn());
+        existingInvoice.setReceptionistEmployee(receptionistEmployee);
+        existingInvoice.setIsVehicleDamaged(invoiceDto.getIsVehicleDamaged());
+        existingInvoice.setDamageCost(invoiceDto.getDamageCost());
+        existingInvoice.setAdditionalPayment(invoiceDto.getAdditionalPayment());
+        existingInvoice.setComments(invoiceDto.getComments());
+        Booking booking = existingInvoice.getBooking();
+        booking.setStatus(BookingStatus.CLOSED);
+        existingInvoice.setTotalAmount(getTotalAmount(existingInvoice, booking));
+
+        return existingInvoice;
     }
 
     private void validateDateOfReturnOfTheCar(LocalDate dateOfReturnOfTheCar, LocalDate dateFrom) {
