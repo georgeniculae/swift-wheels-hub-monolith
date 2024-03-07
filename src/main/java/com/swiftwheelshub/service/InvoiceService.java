@@ -55,7 +55,7 @@ public class InvoiceService {
         booking.setStatus(BookingStatus.CLOSED);
         existingInvoice.setTotalAmount(getTotalAmount(existingInvoice, booking));
 
-        setupRevenue(existingInvoice);
+        registerRevenue(existingInvoice);
 
         Invoice savedInvoice = invoiceRepository.save(existingInvoice);
 
@@ -161,7 +161,7 @@ public class InvoiceService {
         return actualId;
     }
 
-    private void setupRevenue(Invoice existingInvoice) {
+    private void registerRevenue(Invoice existingInvoice) {
         Revenue revenue = new Revenue();
 
         revenue.setDateOfRevenue(existingInvoice.getCarDateOfReturn());
