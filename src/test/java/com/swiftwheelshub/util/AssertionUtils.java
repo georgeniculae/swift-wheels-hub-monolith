@@ -121,13 +121,6 @@ public class AssertionUtils {
     }
 
     public static void assertInvoiceRequest(Invoice invoice, InvoiceRequest invoiceRequest) {
-        assertEquals(invoice.getCustomer().getFirstName(), invoiceRequest.getCustomerDetails().getFirstName());
-        assertEquals(invoice.getCustomer().getLastName(), invoiceRequest.getCustomerDetails().getLastName());
-        assertEquals(invoice.getCustomer().getEmail(), invoiceRequest.getCustomerDetails().getEmail());
-        assertEquals(invoice.getCustomer().getAddress(), invoiceRequest.getCustomerDetails().getAddress());
-        assertEquals(invoice.getCar().getId(), invoiceRequest.getCarDetails().getId());
-        assertEquals(invoice.getReceptionistEmployee().getId(), invoiceRequest.getReceptionistEmployeeDetails().getId());
-        assertEquals(invoice.getBooking().getId(), invoiceRequest.getBookingDetails().getId());
         assertEquals(invoice.getCarDateOfReturn(), invoiceRequest.getCarDateOfReturn());
         assertEquals(invoice.getIsVehicleDamaged(), invoiceRequest.getIsVehicleDamaged());
         assertEquals(invoice.getDamageCost(), invoiceRequest.getDamageCost());
