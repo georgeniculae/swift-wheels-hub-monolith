@@ -356,7 +356,7 @@
             <td th:text="${branch.id}"></td>
             <td><a th:href="@{/branches/branch-id-list}" th:text="${branch.name}"></a></td>
             <td th:text="${branch.address}"></td>
-            <td th:text="${branch.rentalOffice != null}? ${branch.rentalOffice.name}: 'N/A'"></td>
+            <td th:text="${branch.rentalOfficeDetails == null} ? 'N/A' : ${branch.rentalOfficeDetails.name}"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a th:href="@{/branch/edit/{id}(id = ${branch.id})}">
                     <i>

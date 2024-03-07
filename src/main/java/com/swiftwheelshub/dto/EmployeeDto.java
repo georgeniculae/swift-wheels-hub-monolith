@@ -23,6 +23,6 @@ public class EmployeeDto {
     @NotEmpty(message = "Job position cannot be empty")
     private String jobPosition;
 
-    private BranchDto workingBranch;
+    private BranchDetails workingBranchDetails;
 
 }

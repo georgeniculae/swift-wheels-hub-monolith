@@ -1,5 +1,6 @@
 package com.swiftwheelshub.dto;
 
+import com.swiftwheelshub.entity.BookingStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,11 +12,9 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class BranchDto {
+public class BookingDetails {
 
     private Long id;
-    private String name;
-    private String address;
-    private RentalOfficeDetails rentalOfficeDetails;
+    private BookingStatus status;
 
 }

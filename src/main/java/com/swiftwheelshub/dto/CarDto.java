@@ -24,7 +24,7 @@ public class CarDto {
     private int mileage;
     private CarStatus carStatus;
     private BigDecimal amount;
-    private BranchDto branch;
+    private BranchDetails branchDetails;
     private String urlOfImage;
 
 }

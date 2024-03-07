@@ -15,10 +15,10 @@ import java.time.LocalDate;
 public class InvoiceDto {
 
     private Long id;
-    private CustomerDto customer;
-    private CarDto car;
-    private EmployeeDto receptionistEmployee;
-    private BookingDto booking;
+    private CustomerDetails customerDetails;
+    private CarDetails carDetails;
+    private EmployeeDetails receptionistEmployeeDetails;
+    private BookingDetails bookingDetails;
     private LocalDate carDateOfReturn;
     private Boolean isVehicleDamaged;
     private BigDecimal damageCost;

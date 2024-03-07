@@ -361,16 +361,15 @@
 
         <tbody>
         <tr th:each="booking : ${orders}">
-
             <td th:text="${booking.id} + '. '"></td>
             <td th:text="${booking.dateOfBooking}"></td>
-            <td th:text="${booking.customer.firstName}"></td>
-            <td th:text="${booking.customer.lastName}"></td>
-            <td th:text="${booking.customer.email}"></td>
-            <td th:text="${booking.customer.address}"></td>
+            <td th:text="${booking.customerDetails.firstName}"></td>
+            <td th:text="${booking.customerDetails.lastName}"></td>
+            <td th:text="${booking.customerDetails.email}"></td>
+            <td th:text="${booking.customerDetails.address}"></td>
             <td th:text="${booking.dateFrom}"></td>
             <td th:text="${booking.dateTo}"></td>
-            <td th:text="${booking.car.make}"></td>
+            <td th:text="${booking.carDetails.make}"></td>
             <td th:text="${booking.amount} + '$'"></td>
             <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')">
                 <a th:href="@{/order/booking/edit/{id}(id = ${booking.id})}">

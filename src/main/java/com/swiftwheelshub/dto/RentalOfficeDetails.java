@@ -11,11 +11,9 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class BranchDto {
+public class RentalOfficeDetails {
 
     private Long id;
     private String name;
-    private String address;
-    private RentalOfficeDetails rentalOfficeDetails;
 
 }

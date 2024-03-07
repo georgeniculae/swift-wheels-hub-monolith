@@ -367,13 +367,13 @@
         <tr th:each="booking : ${bookings}">
             <td th:text="${booking.id} + '. '"></td>
             <td th:text="${booking.dateOfBooking}"></td>
-            <td th:text="${booking.customer.firstName}"></td>
-            <td th:text="${booking.customer.lastName}"></td>
-            <td th:text="${booking.customer.email}"></td>
-            <td th:text="${booking.customer.address}"></td>
+            <td th:text="${booking.customerDetails.firstName}"></td>
+            <td th:text="${booking.customerDetails.lastName}"></td>
+            <td th:text="${booking.customerDetails.email}"></td>
+            <td th:text="${booking.customerDetails.address}"></td>
             <td th:text="${booking.dateFrom}"></td>
             <td th:text="${booking.dateTo}"></td>
-            <td th:text="${booking.car.make} + ' ' + ${booking.car.model}"></td>
+            <td th:text="${booking.carDetails.make} + ' ' + ${booking.carDetails.model}"></td>
             <td th:text="${booking.amount} + '$'"></td>
             <td th:text="${booking.status.displayName}"></td>
             <td sec:authorize="hasRole('ROLE_ADMIN')" th:if="${booking.status.displayName == 'In progress'}">

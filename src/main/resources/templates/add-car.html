@@ -420,7 +420,7 @@
                 <label class="input-group-text" for="inputGroupSelect2">Branch</label>
             </div>
             <select id="inputGroupSelect2" class="custom-select"
-                    th:field="${car.branch.id}">
+                    th:field="${car.branchDetails.id}">
                 <option selected th:value="null">Choose</option>
                 <option th:each="branch : ${allBranches}" th:value="${branch.id}"
                         th:text="${branch.name}"></option>

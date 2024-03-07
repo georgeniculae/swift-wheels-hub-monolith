@@ -359,10 +359,10 @@
         <tbody>
         <tr th:each="invoice : ${invoices}">
             <td th:text="${invoice.id}"></td>
-            <td th:text="${invoice.customer.firstName} + ' ' + ${invoice.customer.lastName}"></td>
-            <td th:text="${invoice.car.make} + ' ' + ${invoice.car.model}"></td>
-            <td th:text="${invoice.booking.id}"></td>
-            <td th:text="${invoice.receptionistEmployee} != null ? ${invoice.receptionistEmployee.firstName} + ' ' + ${invoice.receptionistEmployee.lastName} : ''"></td>
+            <td th:text="${invoice.customerDetails.firstName} + ' ' + ${invoice.customerDetails.lastName}"></td>
+            <td th:text="${invoice.carDetails.make} + ' ' + ${invoice.carDetails.model}"></td>
+            <td th:text="${invoice.bookingDetails.id}"></td>
+            <td th:text="${invoice.receptionistEmployeeDetails} == null ? '' : ${invoice.receptionistEmployeeDetails.firstName} + ' ' + ${invoice.receptionistEmployeeDetails.lastName}"></td>
             <td th:text="${invoice.carDateOfReturn}"></td>
             <td th:text="${invoice.isVehicleDamaged}"></td>
             <td th:text="${invoice.damageCost}"></td>

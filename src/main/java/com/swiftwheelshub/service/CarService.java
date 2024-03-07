@@ -24,7 +24,7 @@ public class CarService {
     public CarDto saveCar(CarDto carDto) {
         Car car = carMapper.mapDtoToEntity(carDto);
 
-        car.setBranch(branchService.findEntityById(carDto.getBranch().getId()));
+        car.setBranch(branchService.findEntityById(carDto.getBranchDetails().getId()));
         Car savedCar = carRepository.save(car);
 
         return carMapper.mapEntityToDto(savedCar);
@@ -58,7 +58,7 @@ public class CarService {
 
         Car existingCar = findEntityById(actualId);
 
-        Branch branch = branchService.findEntityById(updatedCarDto.getBranch().getId());
+        Branch branch = branchService.findEntityById(updatedCarDto.getBranchDetails().getId());
 
         existingCar.setMake(updatedCarDto.getMake());
         existingCar.setModel(updatedCarDto.getModel());
