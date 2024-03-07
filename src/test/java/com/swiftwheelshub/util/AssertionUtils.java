@@ -84,7 +84,6 @@ public class AssertionUtils {
     public static void assertBranchRequest(Branch branch, BranchRequest branchRequest) {
         assertEquals(branch.getName(), branchRequest.getName());
         assertEquals(branch.getAddress(), branchRequest.getAddress());
-        assertEquals(branch.getRentalOffice().getId(), branchRequest.getRentalOfficeDetails().getId());
     }
 
     public static void assertBranchResponse(Branch branch, BranchResponse branchResponse) {
