@@ -23,6 +23,8 @@ public interface BookingMapper {
 
     @Mapping(target = "customerDetails", expression = "java(mapToCustomerDetails(booking.getCustomer()))")
     @Mapping(target = "carDetails", expression = "java(mapToCarDetails(booking.getCar()))")
+    @Mapping(target = "rentalBranchId", expression = "java(booking.getRentalBranch().getId())")
+    @Mapping(target = "returnBranchId", expression = "java(booking.getReturnBranch().getId())")
     BookingResponse mapEntityToDto(Booking booking);
 
     Booking mapDtoToEntity(BookingRequest bookingRequest);
