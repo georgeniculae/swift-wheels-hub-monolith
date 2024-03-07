@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,13 +35,9 @@ public class RevenueService {
     }
 
     public RevenueDto findRevenueByDate(LocalDate dateOfRevenue) {
-        Optional<Revenue> optionalRevenue = revenueRepository.findByDateOfRevenue(dateOfRevenue);
-
-        if (optionalRevenue.isPresent()) {
-            return revenueMapper.mapEntityToDto(optionalRevenue.get());
-        }
-
-        throw new NotFoundException("Revenue from date: " + dateOfRevenue + " does not exist");
+        return revenueRepository.findByDateOfRevenue(dateOfRevenue)
+                .map(revenueMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Revenue from date: " + dateOfRevenue + " does not exist"));
     }
 
 }

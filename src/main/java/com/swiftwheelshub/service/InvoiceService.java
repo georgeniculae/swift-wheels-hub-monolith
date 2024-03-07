@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -81,13 +80,9 @@ public class InvoiceService {
     }
 
     public InvoiceDto findInvoiceByComments(String searchString) {
-        Optional<Invoice> optionalInvoice = invoiceRepository.findInvoiceByComments(searchString);
-
-        if (optionalInvoice.isPresent()) {
-            return invoiceMapper.mapEntityToDto(optionalInvoice.get());
-        }
-
-        throw new NotFoundException("Invoice with comment: " + searchString + " does not exist");
+        return invoiceRepository.findInvoiceByComments(searchString)
+                .map(invoiceMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Invoice with comment: " + searchString + " does not exist"));
     }
 
     public Long countInvoices() {
@@ -99,13 +94,8 @@ public class InvoiceService {
     }
 
     public Invoice findEntityById(Long id) {
-        Optional<Invoice> optionalInvoice = invoiceRepository.findById(id);
-
-        if (optionalInvoice.isPresent()) {
-            return optionalInvoice.get();
-        }
-
-        throw new NotFoundException("Invoice with id " + id + " does not exist");
+        return invoiceRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Invoice with id " + id + " does not exist"));
     }
 
     private void validateInvoice(InvoiceDto invoiceDto, LocalDate dateFrom) {

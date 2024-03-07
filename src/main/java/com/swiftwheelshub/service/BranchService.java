@@ -11,7 +11,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,13 +43,8 @@ public class BranchService {
     }
 
     public Branch findEntityById(Long id) {
-        Optional<Branch> optionalBranch = branchRepository.findById(id);
-
-        if (optionalBranch.isPresent()) {
-            return optionalBranch.get();
-        }
-
-        throw new NotFoundException("Branch with id " + id + " does not exist");
+        return branchRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Branch with id " + id + " does not exist"));
     }
 
     public Branch saveEntity(Branch branch) {
@@ -81,13 +75,9 @@ public class BranchService {
     }
 
     public BranchDto findBranchByFilter(String searchString) {
-        Optional<Branch> optionalBranch = branchRepository.findByFilter(searchString);
-
-        if (optionalBranch.isPresent()) {
-            return branchMapper.mapEntityToDto(optionalBranch.get());
-        }
-
-        throw new NotFoundException("Branch with filter: " + searchString + " does not exist");
+        return branchRepository.findByFilter(searchString)
+                .map(branchMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Branch with filter: " + searchString + " does not exist"));
     }
 
     private Long getId(Long id, Long updatedBookingId) {

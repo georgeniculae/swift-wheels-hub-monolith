@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,13 +42,8 @@ public class RentalOfficeService {
     }
 
     public RentalOffice findEntityById(Long id) {
-        Optional<RentalOffice> optionalRentalOffice = rentalOfficeRepository.findById(id);
-
-        if (optionalRentalOffice.isPresent()) {
-            return optionalRentalOffice.get();
-        }
-
-        throw new NotFoundException("Rental office with id " + id + " does not exist");
+        return rentalOfficeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Rental office with id " + id + " does not exist"));
     }
 
     public RentalOfficeDto updateRentalOffice(Long id, RentalOfficeDto updatedRentalOfficeDto) {
@@ -71,13 +65,9 @@ public class RentalOfficeService {
     }
 
     public RentalOfficeDto findRentalOfficeByName(String searchString) {
-        Optional<RentalOffice> optionalRentalOffice = rentalOfficeRepository.findRentalOfficeByName(searchString);
-
-        if (optionalRentalOffice.isPresent()) {
-            return rentalOfficeMapper.mapEntityToDto(optionalRentalOffice.get());
-        }
-
-        throw new NotFoundException("Rental office with name: " + searchString + " does not exist");
+        return rentalOfficeRepository.findRentalOfficeByName(searchString)
+                .map(rentalOfficeMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Rental office with name: " + searchString + " does not exist"));
     }
 
     private Long getId(Long id, Long updatedRentalOfficeId) {

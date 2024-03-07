@@ -11,7 +11,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,13 +43,8 @@ public class CarService {
     }
 
     public Car findEntityById(Long id) {
-        Optional<Car> optionalCar = carRepository.findById(id);
-
-        if (optionalCar.isPresent()) {
-            return optionalCar.get();
-        }
-
-        throw new NotFoundException("Car with id " + id + " does not exist");
+        return carRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Car with id " + id + " does not exist"));
     }
 
     public CarDto updateCar(Long id, CarDto updatedCarDto) {
@@ -85,13 +79,9 @@ public class CarService {
     }
 
     public CarDto findCarByFilter(String searchString) {
-        Optional<Car> optionalCar = carRepository.findByFilter(searchString);
-
-        if (optionalCar.isPresent()) {
-            return carMapper.mapEntityToDto(optionalCar.get());
-        }
-
-        throw new NotFoundException("Car with filter: " + searchString + " does not exist");
+        return carRepository.findByFilter(searchString)
+                .map(carMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Car with filter: " + searchString + " does not exist"));
     }
 
     public List<CarDto> findCarsByMake(String make) {

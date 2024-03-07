@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,13 +44,8 @@ public class CustomerService {
     }
 
     public Customer findEntityById(Long id) {
-        Optional<Customer> optionalCustomer = customerRepository.findById(id);
-
-        if (optionalCustomer.isPresent()) {
-            return optionalCustomer.get();
-        }
-
-        throw new NotFoundException("Customer with id " + id + " does not exist");
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Customer with id " + id + " does not exist"));
     }
 
     public CustomerDto updateCustomer(Long id, CustomerDto updatedCustomerDto) {
@@ -77,14 +71,10 @@ public class CustomerService {
         return customerRepository.countCustomersWithoutBaseUsers(ADMIN, USER, SUPPORT);
     }
 
-    public CustomerDto findCustomerByFilter(String searchString) {
-        Optional<Customer> optionalCustomer = customerRepository.findByFilter(searchString);
-
-        if (optionalCustomer.isPresent()) {
-            return customerMapper.mapEntityToDto(optionalCustomer.get());
-        }
-
-        throw new NotFoundException("Customer with filter: " + searchString + " does not exist");
+    public CustomerDto findCustomerByFilter(String filter) {
+        return customerRepository.findByFilter(filter)
+                .map(customerMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Customer with filter: " + filter + " does not exist"));
     }
 
     public boolean existsByUsername(String username) {
@@ -112,13 +102,8 @@ public class CustomerService {
     }
 
     private Customer findEntityByUsername(String username) {
-        Optional<Customer> optionalCustomer = customerRepository.findByUsername(username);
-
-        if (optionalCustomer.isPresent()) {
-            return optionalCustomer.get();
-        }
-
-        throw new NotFoundException("Customer with username " + username + " does not exist");
+        return customerRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("Customer with username " + username + " does not exist"));
     }
 
 }

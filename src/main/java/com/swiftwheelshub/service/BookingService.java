@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -100,13 +99,9 @@ public class BookingService {
     }
 
     public BookingDto findBookingByDateOfBooking(String filter) {
-        Optional<Booking> optionalBooking = bookingRepository.findByDateOfBooking(LocalDate.parse(filter));
-
-        if (optionalBooking.isPresent()) {
-            return bookingMapper.mapEntityToDto(optionalBooking.get());
-        }
-
-        throw new NotFoundException("Booking from date: " + filter + " does not exist");
+        return bookingRepository.findByDateOfBooking(LocalDate.parse(filter))
+                .map(bookingMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Booking from date: " + filter + " does not exist"));
     }
 
     public Long countByLoggedInCustomer() {
@@ -173,13 +168,8 @@ public class BookingService {
     }
 
     private Booking findEntityById(Long id) {
-        Optional<Booking> optionalBooking = bookingRepository.findById(id);
-
-        if (optionalBooking.isPresent()) {
-            return optionalBooking.get();
-        }
-
-        throw new NotFoundException("Booking with id " + id + " does not exist");
+        return bookingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Booking with id " + id + " does not exist"));
     }
 
     private Invoice setupInvoice(Booking newBooking, Customer customer, Car car) {

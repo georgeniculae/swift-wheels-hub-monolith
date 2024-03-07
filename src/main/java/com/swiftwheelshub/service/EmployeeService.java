@@ -11,7 +11,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,13 +48,8 @@ public class EmployeeService {
     }
 
     public Employee findEntityById(Long id) {
-        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
-
-        if (optionalEmployee.isPresent()) {
-            return optionalEmployee.get();
-        }
-
-        throw new NotFoundException("Employee with id " + id + " does not exist");
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Employee with id " + id + " does not exist"));
     }
 
     public EmployeeDto updateEmployee(Long id, EmployeeDto updatedEmployeeDto) {
@@ -87,13 +81,9 @@ public class EmployeeService {
     }
 
     public EmployeeDto findEmployeeByFilter(String searchString) {
-        Optional<Employee> optionalEmployee = employeeRepository.findByFilter(searchString);
-
-        if (optionalEmployee.isPresent()) {
-            return employeeMapper.mapEntityToDto(optionalEmployee.get());
-        }
-
-        throw new NotFoundException("Employee with filter: " + searchString + " does not exist");
+        return employeeRepository.findByFilter(searchString)
+                .map(employeeMapper::mapEntityToDto)
+                .orElseThrow(() -> new NotFoundException("Employee with filter: " + searchString + " does not exist"));
     }
 
     private Long getId(Long id, Long updatedEmployeeId) {
