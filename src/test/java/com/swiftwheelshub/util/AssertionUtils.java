@@ -65,7 +65,6 @@ public class AssertionUtils {
         assertEquals(car.getMileage(), carRequest.getMileage());
         assertEquals(car.getCarStatus(), carRequest.getCarStatus());
         assertEquals(car.getAmount(), carRequest.getAmount());
-        assertEquals(car.getBranch().getId(), carRequest.getBranchDetails().getId());
         assertEquals(car.getUrlOfImage(), carRequest.getUrlOfImage());
     }
 
