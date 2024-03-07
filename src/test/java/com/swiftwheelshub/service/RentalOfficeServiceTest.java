@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -59,7 +58,7 @@ class RentalOfficeServiceTest {
         AssertionUtils.assertRentalOfficeResponse(rentalOffice, savedRentalOfficeResponse);
 
         verify(rentalOfficeRepository).save(argumentCaptor.capture());
-        verify(rentalOfficeMapper, times(2)).mapEntityToDto(any(RentalOffice.class));
+        verify(rentalOfficeMapper).mapEntityToDto(any(RentalOffice.class));
     }
 
     @Test

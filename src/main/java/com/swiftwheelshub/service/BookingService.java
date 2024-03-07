@@ -106,7 +106,9 @@ public class BookingService {
     }
 
     public Long countByLoggedInCustomer() {
-        return bookingRepository.countByCustomer(customerService.getLoggedInCustomer());
+        Customer loggedInCustomer = customerService.getLoggedInCustomer();
+
+        return bookingRepository.countByCustomer(loggedInCustomer);
     }
 
     public List<BookingResponse> findBookingsByLoggedInCustomer() {

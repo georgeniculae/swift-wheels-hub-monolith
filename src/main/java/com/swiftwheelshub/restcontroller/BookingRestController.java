@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class BookingRestController {
     private final BookingService bookingService;
 
     @GetMapping
-    public ResponseEntity<List<BookingResponse>> listAllBooking() {
+    public ResponseEntity<List<BookingResponse>> findAllBooking() {
         List<BookingResponse> bookingResponses = bookingService.findAllBookings();
 
         return ResponseEntity.ok(bookingResponses);
@@ -44,11 +45,18 @@ public class BookingRestController {
         return ResponseEntity.ok(numberOfBooking);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deleteBookingById(@PathVariable("id") Long id) {
-        bookingService.deleteBookingById(id);
+    @GetMapping(path = "/count-by-current-user")
+    public ResponseEntity<Long> countByLoggedInUser() {
+        Long numberOfBooking = bookingService.countByLoggedInCustomer();
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(numberOfBooking);
+    }
+
+    @GetMapping(path = "/current-date")
+    public ResponseEntity<LocalDate> getCurrentDate() {
+        LocalDate currentDate = bookingService.getCurrentDate();
+
+        return ResponseEntity.ok(currentDate);
     }
 
     @PostMapping
@@ -63,6 +71,13 @@ public class BookingRestController {
         BookingResponse updatedBookingResponse = bookingService.updateBooking(id, bookingRequest);
 
         return ResponseEntity.ok(updatedBookingResponse);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteBookingById(@PathVariable("id") Long id) {
+        bookingService.deleteBookingById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

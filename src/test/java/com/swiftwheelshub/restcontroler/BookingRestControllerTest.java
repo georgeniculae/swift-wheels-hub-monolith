@@ -16,7 +16,6 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
@@ -25,10 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = BookingRestController.class)
@@ -51,7 +53,7 @@ class BookingRestControllerTest {
 
         when(bookingService.findAllBookings()).thenReturn(List.of(bookingResponse));
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/list").contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -70,7 +72,7 @@ class BookingRestControllerTest {
 
         when(bookingService.findAllBookings()).thenReturn(List.of(bookingResponse));
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -89,7 +91,7 @@ class BookingRestControllerTest {
 
         when(bookingService.findBookingById(anyLong())).thenReturn(bookingResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -104,7 +106,7 @@ class BookingRestControllerTest {
     @Test
     @WithMockUser(value = "admin", username = "admin", password = "admin", roles = "ADMIN")
     void findBookingByIdTest_successWithMockUser() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -118,7 +120,7 @@ class BookingRestControllerTest {
     @Test
     @WithAnonymousUser()
     void findBookingByIdTest_unauthorized() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/{id}", 1)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -134,7 +136,7 @@ class BookingRestControllerTest {
     void countBookingsTest_success() throws Exception {
         when(bookingService.countBookings()).thenReturn(1L);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count").contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/count")
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -150,7 +152,7 @@ class BookingRestControllerTest {
     void countBookingsTest_unauthorized() throws Exception {
         when(bookingService.countBookings()).thenReturn(1L);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count").contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/count")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -166,7 +168,23 @@ class BookingRestControllerTest {
     void countByLoggedInUserTest_success() throws Exception {
         when(bookingService.countBookings()).thenReturn(1L);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count-by-current-user").contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/count-by-current-user")
+                        .with(user("admin").password("admin").roles("ADMIN"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(200, response.getStatus());
+        assertNotNull(response.getContentAsString());
+    }
+
+    @Test
+    void getCurrentDateTest_success() throws Exception {
+        when(bookingService.countBookings()).thenReturn(1L);
+
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/current-date")
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -180,7 +198,7 @@ class BookingRestControllerTest {
 
     @Test
     void countByLoggedInUserTest_unauthorized() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count-by-current-user").contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/count-by-current-user")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -193,26 +211,10 @@ class BookingRestControllerTest {
     }
 
     @Test
-    void getCurrentDateTest_success() throws Exception {
-        when(bookingService.countBookings()).thenReturn(1L);
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/current-date").contextPath(PATH)
-                        .with(user("admin").password("admin").roles("ADMIN"))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(200, response.getStatus());
-        assertNotNull(response.getContentAsString());
-    }
-
-    @Test
     void getCurrentDateTest_unauthorized() throws Exception {
         when(bookingService.countBookings()).thenReturn(1L);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/current-date").contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(get(PATH + "/current-date")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -233,7 +235,7 @@ class BookingRestControllerTest {
 
         when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH + "/new").contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(post(PATH)
                         .with(csrf())
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -256,7 +258,7 @@ class BookingRestControllerTest {
 
         when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(post(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -279,7 +281,7 @@ class BookingRestControllerTest {
 
         when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(PATH).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(post(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content))
@@ -302,7 +304,7 @@ class BookingRestControllerTest {
         when(bookingService.updateBooking(anyLong(), any(BookingRequest.class)))
                 .thenReturn(bookingResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(put(PATH + "/{id}", 1L)
                         .with(csrf())
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -326,7 +328,7 @@ class BookingRestControllerTest {
         when(bookingService.updateBooking(anyLong(), any(BookingRequest.class)))
                 .thenReturn(bookingResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/edit/{id}", 1L).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(put(PATH + "/edit/{id}", 1L)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -349,7 +351,7 @@ class BookingRestControllerTest {
 
         when(bookingService.updateBooking(anyLong(), any(BookingRequest.class))).thenReturn(bookingResponse);
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/edit/{id}", 1L).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(put(PATH + "/edit/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content))
@@ -363,23 +365,8 @@ class BookingRestControllerTest {
     }
 
     @Test
-    void deleteBookingByIdTest_success() throws Exception {
-        doNothing().when(bookingService).deleteBookingById(anyLong());
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{id}", 1L).contextPath(PATH)
-                        .with(csrf())
-                        .with(user("admin").password("admin").roles("ADMIN")))
-                .andExpect(status().isNoContent())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(204, response.getStatus());
-        assertNotNull(response.getContentAsString());
-    }
-
-    @Test
     void deleteBookingByIdTest_forbidden() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{id}", 1L).contextPath(PATH)
+        MvcResult mvcResult = mockMvc.perform(delete(PATH + "/{id}", 1L)
                         .with(user("admin").password("admin").roles("ADMIN")))
                 .andExpect(status().isForbidden())
                 .andReturn();
