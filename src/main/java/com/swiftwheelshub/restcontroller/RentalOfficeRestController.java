@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/rental-office")
+@RequestMapping(path = "/api/rental-offices")
 public class RentalOfficeRestController {
 
     private final RentalOfficeService rentalOfficeService;

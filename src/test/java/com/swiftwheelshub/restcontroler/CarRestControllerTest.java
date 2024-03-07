@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableWebMvc
 class CarRestControllerTest {
 
-    private static final String PATH = "/cars";
+    private static final String PATH = "/api/cars";
 
     @Autowired
     private MockMvc mockMvc;

@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableWebMvc
 public class InvoiceRestControllerTest {
 
-    private static final String PATH = "/invoices";
+    private static final String PATH = "/api/invoices";
 
     @Autowired
     private MockMvc mockMvc;
@@ -153,7 +153,7 @@ public class InvoiceRestControllerTest {
 
         when(invoiceService.findAllInvoicesByCustomerId(anyLong())).thenReturn(List.of(invoiceResponse));
 
-        MockHttpServletResponse response = mockMvc.perform(get(PATH + "/by-customer/{customerUsername}", "user")
+        MockHttpServletResponse response = mockMvc.perform(get(PATH + "/by-customer/{customerId}", 1L)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

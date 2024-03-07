@@ -5,8 +5,8 @@ import com.swiftwheelshub.service.RevenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/revenue")
+@RequestMapping(path = "/api/revenues")
 public class RevenueRestController {
 
     private final RevenueService revenueService;
@@ -35,7 +35,7 @@ public class RevenueRestController {
     }
 
     @GetMapping(path = "/{date}")
-    public ResponseEntity<RevenueResponse> findRevenueByDate(@RequestParam("date") LocalDate dateOfRevenue) {
+    public ResponseEntity<RevenueResponse> findRevenueByDate(@PathVariable("date") LocalDate dateOfRevenue) {
         RevenueResponse revenueResponse = revenueService.findRevenueByDate(dateOfRevenue);
 
         return ResponseEntity.ok(revenueResponse);

@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableWebMvc
 public class RevenueRestControllerTest {
 
-    private static final String PATH = "/revenues";
+    private static final String PATH = "/api/revenues";
 
     @Autowired
     private MockMvc mockMvc;

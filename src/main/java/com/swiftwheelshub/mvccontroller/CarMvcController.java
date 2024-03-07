@@ -33,7 +33,7 @@ public class CarMvcController {
     }
 
     @GetMapping({"/search", "/search(make)"})
-    public String searchCarByMake(Model model, @RequestParam(value = "make", required = false) String make) {
+    public String searchCarByMake(Model model, @PathVariable(value = "make", required = false) String make) {
         List<CarResponse> carResponses = carService.findCarsByMake(make);
 
         carResponses.forEach(carDto -> model.addAttribute("carByMake", carDto));

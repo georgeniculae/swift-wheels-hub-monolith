@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/customer")
+@RequestMapping(path = "/api/customers")
 public class CustomerRestController {
 
     private final CustomerService customerService;
@@ -60,7 +60,7 @@ public class CustomerRestController {
     }
 
     @GetMapping(path = "/username")
-    public ResponseEntity<Boolean> existsUserByUsername(@RequestParam("username") String username) {
+    public ResponseEntity<Boolean> existsUserByUsername(@PathVariable("username") String username) {
         boolean existsUser = customerService.existsByUsername(username);
 
         return ResponseEntity.ok(existsUser);

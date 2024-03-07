@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableWebMvc
 class BranchRestControllerTest {
 
-    private static final String PATH = "/branches";
+    private static final String PATH = "/api/branches";
 
     @Autowired
     private MockMvc mockMvc;

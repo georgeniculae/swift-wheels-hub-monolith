@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableWebMvc
 class EmployeeRestControllerTest {
 
-    private static final String PATH = "/employees";
+    private static final String PATH = "/api/employees";
 
     @Autowired
     private MockMvc mockMvc;

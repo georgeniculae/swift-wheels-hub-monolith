@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/invoice")
+@RequestMapping(path = "/api/invoices")
 public class InvoiceRestController {
 
     private final InvoiceService invoiceService;
@@ -38,14 +37,14 @@ public class InvoiceRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<InvoiceResponse> findInvoiceById(@RequestParam("id") Long id) {
+    public ResponseEntity<InvoiceResponse> findInvoiceById(@PathVariable("id") Long id) {
         InvoiceResponse invoiceResponse = invoiceService.findInvoiceById(id);
 
         return ResponseEntity.ok(invoiceResponse);
     }
 
     @GetMapping(path = "/by-customer/{customerId}")
-    public ResponseEntity<List<InvoiceResponse>> findAllInvoicesByCustomerId(@RequestParam("customerId") Long customerId) {
+    public ResponseEntity<List<InvoiceResponse>> findAllInvoicesByCustomerId(@PathVariable("customerId") Long customerId) {
         List<InvoiceResponse> invoiceResponses = invoiceService.findAllInvoicesByCustomerId(customerId);
 
         return ResponseEntity.ok(invoiceResponses);
@@ -59,7 +58,7 @@ public class InvoiceRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deleteInvoiceById(@RequestParam("id") Long id) {
+    public ResponseEntity<Void> deleteInvoiceById(@PathVariable("id") Long id) {
         invoiceService.deleteInvoiceById(id);
 
         return ResponseEntity.noContent().build();

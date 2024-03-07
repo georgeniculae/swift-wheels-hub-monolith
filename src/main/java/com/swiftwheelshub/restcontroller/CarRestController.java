@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/car")
+@RequestMapping(path = "/api/cars")
 public class CarRestController {
 
     private final CarService carService;

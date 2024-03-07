@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableWebMvc
 class UserRestControllerTest {
 
-    private static final String PATH = "/customers";
+    private static final String PATH = "/api/customers";
 
     @Autowired
     private MockMvc mockMvc;
