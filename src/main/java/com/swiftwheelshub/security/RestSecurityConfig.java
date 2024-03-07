@@ -30,12 +30,14 @@ public class RestSecurityConfig {
 
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/api/authentication/**").permitAll()
-                                .requestMatchers("/api/branch/**",
-                                        "/api/car/**",
-                                        "/api/customer/**",
-                                        "/api/employee/**",
-                                        "/api/rental-office/**").hasRole("ADMIN")
+                        request.requestMatchers("/api/authentication/**",
+                                        "/css/**",
+                                        "/images/**").permitAll()
+                                .requestMatchers("/api/branches/**",
+                                        "/api/cars/**",
+                                        "/api/customers/**",
+                                        "/api/employees/**",
+                                        "/api/rental-offices/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

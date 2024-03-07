@@ -31,7 +31,7 @@ public class WebSecurityConfig {
                                         "/car/**",
                                         "/customer/**",
                                         "/employee/**",
-                                        "/rental-office/**").hasRole("ADMIN")
+                                        "/rental-office/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(loginConfig -> loginConfig.loginPage("/login").permitAll())
