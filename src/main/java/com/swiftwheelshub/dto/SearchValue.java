@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class SearchValueDto {
+public class SearchValue {
 
     private String search;
 

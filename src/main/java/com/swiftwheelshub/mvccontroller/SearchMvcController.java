@@ -2,7 +2,7 @@ package com.swiftwheelshub.mvccontroller;
 
 import com.swiftwheelshub.dto.BookingDto;
 import com.swiftwheelshub.dto.CarDto;
-import com.swiftwheelshub.dto.SearchValueDto;
+import com.swiftwheelshub.dto.SearchValue;
 import com.swiftwheelshub.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class SearchMvcController {
 
     @PostMapping(path = "/search")
     public String search(@ModelAttribute("search") String search, Model model, BindingResult bindingResult) {
-        model.addAttribute("search", new SearchValueDto());
+        model.addAttribute("search", new SearchValue());
         model.addAttribute("booking", bookingService.findBookingByDateOfBooking(search));
         model.addAttribute("branch", branchService.findBranchByFilter(search));
         model.addAttribute("car", carService.findCarByFilter(search));
@@ -44,7 +44,7 @@ public class SearchMvcController {
 
     @GetMapping(path = "/")
     public String showSearch(Model model) {
-        model.addAttribute("search", new SearchValueDto());
+        model.addAttribute("search", new SearchValue());
         model.addAttribute("booking", new BookingDto());
         model.addAttribute("allBookings", bookingService.findAllBookings());
         model.addAttribute("allBranches", branchService.findAllBranches());

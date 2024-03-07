@@ -1,7 +1,7 @@
 package com.swiftwheelshub.mvccontroller;
 
 import com.swiftwheelshub.dto.BranchDto;
-import com.swiftwheelshub.dto.SearchValueDto;
+import com.swiftwheelshub.dto.SearchValue;
 import com.swiftwheelshub.service.BranchService;
 import com.swiftwheelshub.service.CarService;
 import com.swiftwheelshub.service.EmployeeService;
@@ -53,7 +53,7 @@ public class BranchMvcController {
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("employees", employeeService.findAllEmployees());
         model.addAttribute("selectedBranch", "");
-        model.addAttribute("search", new SearchValueDto());
+        model.addAttribute("search", new SearchValue());
         model.addAttribute("cars", carService.findAllCars());
 
         return "/branch-id-list";
