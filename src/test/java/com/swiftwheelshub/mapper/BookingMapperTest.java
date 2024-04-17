@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @ExtendWith(MockitoExtension.class)
 class BookingMapperTest {
 
@@ -27,12 +25,11 @@ class BookingMapperTest {
 
     @Test
     void mapDtoToEntityTest_success() {
-        Booking expectedBooking = TestUtils.getResourceAsJson("/data/Booking.json", Booking.class);
-        BookingRequest bookingRequest = TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingRequest.class);
+        BookingRequest bookingRequest = TestUtils.getResourceAsJson("/data/BookingRequest.json", BookingRequest.class);
 
         Booking actualBooking = bookingMapper.mapDtoToEntity(bookingRequest);
 
-        assertThat(expectedBooking).usingRecursiveAssertion().isEqualTo(actualBooking);
+        AssertionUtils.assertBookingRequest(actualBooking, bookingRequest);
     }
 
 }

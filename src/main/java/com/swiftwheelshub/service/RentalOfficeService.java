@@ -48,9 +48,7 @@ public class RentalOfficeService {
     }
 
     public RentalOfficeResponse updateRentalOffice(Long id, RentalOfficeRequest updatedRentalOfficeRequest) {
-        Long actualId = getId(id, updatedRentalOfficeRequest.getId());
-
-        RentalOffice existingRentalOffice = findEntityById(actualId);
+        RentalOffice existingRentalOffice = findEntityById(id);
 
         existingRentalOffice.setName(updatedRentalOfficeRequest.getName());
         existingRentalOffice.setContactAddress(updatedRentalOfficeRequest.getContactAddress());

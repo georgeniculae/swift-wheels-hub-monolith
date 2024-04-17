@@ -1,5 +1,4 @@
 {
-  "id": 1,
   "make": "Volkswagen",
   "model": "Golf",
   "bodyType": "HATCHBACK",
@@ -11,6 +10,5 @@
   "branchDetails": {
     "id": 1,
     "name": "Test Branch"
-  },
-  "urlOfImage": ""
+  }
 }

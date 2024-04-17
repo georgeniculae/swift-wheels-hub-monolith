@@ -17,7 +17,8 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface CarMapper {
 
-    @Mapping(target = "branchDetails", expression = "java(mapToBranchDetails(car.getBranch()))")
+    @Mapping(target = "originalBranchDetails", expression = "java(mapToBranchDetails(car.getOriginalBranch()))")
+    @Mapping(target = "actualBranchDetails", expression = "java(mapToBranchDetails(car.getActualBranch()))")
     CarResponse mapEntityToDto(Car car);
 
     Car mapDtoToEntity(CarRequest carRequest);

@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Setter
 public class RevenueRequest {
 
-    private Long id;
     private LocalDate dateOfRevenue;
     private BigDecimal amountFromBooking;
 

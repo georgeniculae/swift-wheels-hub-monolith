@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
@@ -31,28 +30,15 @@ public abstract class BaseEntity {
             return true;
         }
 
-        if (o == null) {
+        if (!(o instanceof BaseEntity that)) {
             return false;
         }
 
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ?
-                ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ?
-                ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-
-        if (thisEffectiveClass != oEffectiveClass) {
-            return false;
-        }
-
-        BaseEntity that = (BaseEntity) o;
-
-        return getId() != null && Objects.equals(getId(), that.getId());
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hashCode(id);
     }
-
 }

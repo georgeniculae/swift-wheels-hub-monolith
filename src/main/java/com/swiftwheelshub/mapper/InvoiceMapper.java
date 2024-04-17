@@ -2,13 +2,11 @@ package com.swiftwheelshub.mapper;
 
 import com.swiftwheelshub.dto.BookingDetails;
 import com.swiftwheelshub.dto.CarDetails;
-import com.swiftwheelshub.dto.CustomerDetails;
 import com.swiftwheelshub.dto.EmployeeDetails;
 import com.swiftwheelshub.dto.InvoiceRequest;
 import com.swiftwheelshub.dto.InvoiceResponse;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.Car;
-import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.entity.Employee;
 import com.swiftwheelshub.entity.Invoice;
 import org.mapstruct.InjectionStrategy;
@@ -23,15 +21,12 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface InvoiceMapper {
 
-    @Mapping(target = "customerDetails", expression = "java(mapToCustomerDetails(invoice.getCustomer()))")
     @Mapping(target = "carDetails", expression = "java(mapToCarDetails(invoice.getCar()))")
     @Mapping(target = "receptionistEmployeeDetails", expression = "java(mapToEmployeeDetails(invoice.getReceptionistEmployee()))")
     @Mapping(target = "bookingDetails", expression = "java(mapToBookingDetails(invoice.getBooking()))")
     InvoiceResponse mapEntityToDto(Invoice invoice);
 
     Invoice mapDtoToEntity(InvoiceRequest invoiceRequest);
-
-    CustomerDetails mapToCustomerDetails(Customer customer);
 
     CarDetails mapToCarDetails(Car car);
 

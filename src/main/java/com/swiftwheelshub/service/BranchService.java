@@ -53,11 +53,9 @@ public class BranchService {
     }
 
     public BranchResponse updateBranch(Long id, BranchRequest updatedBranchRequest) {
-        Long actualId = getId(id, updatedBranchRequest.getId());
-
         RentalOffice rentalOffice = rentalOfficeService.findEntityById(updatedBranchRequest.getRentalOfficeDetails().getId());
 
-        Branch exitingBranch = findEntityById(actualId);
+        Branch exitingBranch = findEntityById(id);
         exitingBranch.setName(updatedBranchRequest.getName());
         exitingBranch.setAddress(updatedBranchRequest.getAddress());
         exitingBranch.setRentalOffice(rentalOffice);

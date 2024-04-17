@@ -43,9 +43,9 @@ public class InvoiceRestController {
         return ResponseEntity.ok(invoiceResponse);
     }
 
-    @GetMapping(path = "/by-customer/{customerId}")
-    public ResponseEntity<List<InvoiceResponse>> findAllInvoicesByCustomerId(@PathVariable("customerId") Long customerId) {
-        List<InvoiceResponse> invoiceResponses = invoiceService.findAllInvoicesByCustomerId(customerId);
+    @GetMapping(path = "/by-customer/{customerUsername}")
+    public ResponseEntity<List<InvoiceResponse>> findAllActiveInvoicesByCustomerUsername(@PathVariable("customerUsername") String customerUsername) {
+        List<InvoiceResponse> invoiceResponses = invoiceService.findAllActiveInvoicesByCustomerUsername(customerUsername);
 
         return ResponseEntity.ok(invoiceResponses);
     }

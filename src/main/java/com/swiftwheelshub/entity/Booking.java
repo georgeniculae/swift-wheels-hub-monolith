@@ -9,17 +9,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.proxy.HibernateProxy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -36,9 +35,8 @@ public class Booking extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @NotEmpty(message = "Username cannot be empty")
+    private String customerUsername;
 
     @ManyToOne
     @JoinColumn(name = "car_id")
@@ -66,35 +64,5 @@ public class Booking extends BaseEntity {
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.PERSIST)
     private Invoice invoice;
-
-    @Override
-    public final boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null) {
-            return false;
-        }
-
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ?
-                ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ?
-                ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-
-        if (thisEffectiveClass != oEffectiveClass) {
-            return false;
-        }
-
-        Booking booking = (Booking) o;
-
-        return getId() != null && Objects.equals(getId(), booking.getId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return getClass().hashCode();
-    }
 
 }

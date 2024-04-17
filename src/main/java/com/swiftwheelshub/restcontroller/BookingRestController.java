@@ -73,9 +73,9 @@ public class BookingRestController {
         return ResponseEntity.ok(updatedBookingResponse);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deleteBookingById(@PathVariable("id") Long id) {
-        bookingService.deleteBookingById(id);
+    @DeleteMapping(path = "/{username}")
+    public ResponseEntity<Void> deleteBookingByUsername(@PathVariable("username") String username) {
+        bookingService.deleteBookingByCustomerUsername(username);
 
         return ResponseEntity.noContent().build();
     }

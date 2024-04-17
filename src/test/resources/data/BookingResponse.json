@@ -2,20 +2,18 @@
   "id": 1,
   "dateOfBooking": "2050-02-20",
   "status": "IN_PROGRESS",
-  "customerDetails": {
-    "id": 1,
-    "firstName": "Ion",
-    "lastName": "Popescu",
-    "email": "ion.popescu@email.com",
-    "address": "Ploiesti"
-  },
+  "customerUsername": "user",
   "carDetails": {
     "id": 1,
     "make": "Volkswagen",
     "model": "Golf",
     "color": "black",
     "amount": 500,
-    "branchDetails": {
+    "originalBranchDetails": {
+      "id": 1,
+      "name": "Test Branch"
+    },
+    "actualBranchDetails": {
       "id": 1,
       "name": "Test Branch"
     }

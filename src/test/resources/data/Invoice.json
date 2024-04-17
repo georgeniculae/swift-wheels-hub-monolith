@@ -1,16 +1,6 @@
 {
   "id": 1,
-  "customer": {
-    "id": 1,
-    "username": "user",
-    "password": "user",
-    "role": "ROLE_ADMIN",
-    "firstName": "User",
-    "lastName": "User",
-    "email": "user@email.com",
-    "dateOfBirth": "1989-01-26",
-    "address": "Ploiesti"
-  },
+  "customerUsername": "user",
   "car": {
     "id": 1,
     "make": "Volkswagen",
@@ -21,7 +11,18 @@
     "mileage": 270000,
     "carStatus": "AVAILABLE",
     "amount": 500,
-    "branch": {
+    "originalBranch": {
+      "id": 1,
+      "name": "Test Branch",
+      "address": "Ploiesti",
+      "rentalOffice": {
+        "id": 1,
+        "name": "Test Rental Office",
+        "contactAddress": "Ploiesti",
+        "phoneNumber": ""
+      }
+    },
+    "actualBranch": {
       "id": 1,
       "name": "Test Branch",
       "address": "Ploiesti",
@@ -54,11 +55,7 @@
     "id": 1,
     "dateOfBooking": "2050-02-20",
     "status": "IN_PROGRESS",
-    "customer": {
-      "id": 1,
-      "dateOfBirth": "1980-01-25",
-      "address": "Ploiesti"
-    },
+    "customerUsername": "user",
     "car": {
       "id": 1,
       "make": "Volkswagen",
@@ -69,7 +66,18 @@
       "mileage": 270000,
       "carStatus": "AVAILABLE",
       "amount": 500,
-      "branch": {
+      "originalBranch": {
+        "id": 1,
+        "name": "Test Branch",
+        "address": "Ploiesti",
+        "rentalOffice": {
+          "id": 1,
+          "name": "Test Rental Office",
+          "contactAddress": "Ploiesti",
+          "phoneNumber": ""
+        }
+      },
+      "actualBranch": {
         "id": 1,
         "name": "Test Branch",
         "address": "Ploiesti",

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class InvoiceResponse {
 
     private Long id;
-    private CustomerDetails customerDetails;
+    private String customerUsername;
     private CarDetails carDetails;
     private EmployeeDetails receptionistEmployeeDetails;
     private BookingDetails bookingDetails;

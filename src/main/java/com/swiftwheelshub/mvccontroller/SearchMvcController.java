@@ -31,7 +31,6 @@ public class SearchMvcController {
         model.addAttribute("booking", bookingService.findBookingByDateOfBooking(search));
         model.addAttribute("branch", branchService.findBranchByFilter(search));
         model.addAttribute("car", carService.findCarByFilter(search));
-        model.addAttribute("customer", customerService.findCustomerByFilter(search));
         model.addAttribute("employee", employeeService.findEmployeeByFilter(search));
         model.addAttribute("rentalOffice", rentalOfficeService.findRentalOfficeByName(search));
         model.addAttribute("invoice", invoiceService.findInvoiceByComments(search));
@@ -50,12 +49,12 @@ public class SearchMvcController {
         model.addAttribute("allBranches", branchService.findAllBranches());
         model.addAttribute("allCars", carService.findAllCars());
         model.addAttribute("car", new CarRequest());
-        model.addAttribute("allCustomers", customerService.findAllCustomers());
+        model.addAttribute("allCustomers", customerService.findAllUsers());
         model.addAttribute("allEmployees", employeeService.findAllEmployees());
         model.addAttribute("allRentalOffices", rentalOfficeService.findAllRentalOffices());
         model.addAttribute("allInvoicesCars", invoiceService.findAllInvoices());
         model.addAttribute("numberOfCars", carService.countCars());
-        model.addAttribute("numberOfCustomers", customerService.countCustomersWithoutBaseUsers());
+        model.addAttribute("numberOfCustomers", customerService.countUsers());
         model.addAttribute("customersWithBookings", bookingService.countCustomersWithBookings());
         model.addAttribute("currentDate", bookingService.getCurrentDate());
 

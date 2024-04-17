@@ -13,7 +13,6 @@ import lombok.Setter;
 @Setter
 public class BranchRequest {
 
-    private Long id;
     private String name;
     private String address;
     private RentalOfficeDetails rentalOfficeDetails;

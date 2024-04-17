@@ -92,7 +92,7 @@ public class RevenueRestControllerTest {
     @Test
     @WithAnonymousUser
     void findAllInvoicesTest_unauthorized() throws Exception {
-        when(revenueService.getTotalAmount()).thenReturn(BigDecimal.valueOf(550));
+        when(revenueService.getTotalAmount()).thenReturn(BigDecimal.valueOf(550.0));
 
         mockMvc.perform(get(PATH + "/total")
                         .with(csrf())
@@ -101,5 +101,41 @@ public class RevenueRestControllerTest {
                 .andExpect(status().isUnauthorized())
                 .andReturn();
     }
+
+//    @Test
+//    @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
+//    void findRevenuesByDateTest_success() throws Exception {
+//        RevenueResponse revenueResponse =
+//                TestUtils.getResourceAsJson("/data/RevenueResponse.json", RevenueResponse.class);
+//
+//        when(revenueService.findRevenuesByDate(any(LocalDate.class))).thenReturn(List.of(revenueResponse));
+//
+//        MockHttpServletResponse response = mockMvc.perform(get(PATH + "/{date}", "2050-02-20")
+//                        .with(csrf())
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andReturn()
+//                .getResponse();
+//
+//        assertNotNull(response);
+//    }
+//
+//    @Test
+//    @WithAnonymousUser
+//    void findRevenuesByDateTest_unauthorized() throws Exception {
+//        RevenueResponse revenueResponse =
+//                TestUtils.getResourceAsJson("/data/RevenueResponse.json", RevenueResponse.class);
+//
+//        when(revenueService.findRevenuesByDate(any(LocalDate.class))).thenReturn(List.of(revenueResponse));
+//
+//        mockMvc.perform(get(PATH + "/{date}", "2050-02-20")
+//                        .with(csrf())
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isUnauthorized())
+//                .andReturn()
+//                .getResponse();
+//    }
 
 }

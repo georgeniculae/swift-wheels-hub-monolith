@@ -12,8 +12,6 @@ import lombok.Setter;
 @Setter
 public class RentalOfficeRequest {
 
-    private Long id;
-
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 

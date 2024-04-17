@@ -1,12 +1,6 @@
 {
   "id": 1,
-  "customerDetails": {
-    "id": 1,
-    "firstName": "User",
-    "lastName": "User",
-    "email": "user@email.com",
-    "address": "Ploiesti"
-  },
+  "customerUsername": "user",
   "carDetails": {
     "id": 1,
     "make": "Volkswagen",

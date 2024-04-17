@@ -1,11 +1,12 @@
 package com.swiftwheelshub.repository;
 
 import com.swiftwheelshub.entity.Booking;
-import com.swiftwheelshub.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,8 +20,23 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             where booking.dateOfBooking = :dateOfBooking""")
     Optional<Booking> findByDateOfBooking(@Param("dateOfBooking") LocalDate dateOfBooking);
 
-    List<Booking> findBookingsByCustomer(Customer customer);
+    @Query("""
+            select b
+            from Booking b
+            where b.customerUsername = ?1""")
+    List<Booking> findByCustomerUsername(String username);
 
-    Long countByCustomer(Customer customer);
+    @Query("""
+            select count(b)
+            from Booking b
+            where b.customerUsername = ?1""")
+    long countByCustomerUsername(String username);
+
+    @Transactional
+    @Modifying
+    @Query("""
+            delete from Booking b
+            where b.customerUsername = ?1""")
+    void deleteByCustomerUsername(String customerUsername);
 
 }

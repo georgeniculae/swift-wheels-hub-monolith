@@ -20,5 +20,6 @@ public class RegisterRequest {
     private String password;
     private String address;
     private LocalDate dateOfBirth;
+    boolean needsEmailVerification;
 
 }

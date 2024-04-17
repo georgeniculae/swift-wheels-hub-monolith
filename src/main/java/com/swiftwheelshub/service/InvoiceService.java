@@ -36,9 +36,7 @@ public class InvoiceService {
 
     @Transactional
     public InvoiceResponse updateInvoice(Long id, InvoiceRequest invoiceRequest) {
-        Long actualId = getId(id, invoiceRequest.getId());
-
-        Invoice existingInvoice = findEntityById(actualId);
+        Invoice existingInvoice = findEntityById(id);
         validateInvoice(invoiceRequest, existingInvoice.getBooking().getDateFrom());
 
         Invoice updatedExistingInvoice = updateExistingInvoice(invoiceRequest, existingInvoice);
@@ -63,8 +61,8 @@ public class InvoiceService {
                 .toList();
     }
 
-    public List<InvoiceResponse> findAllInvoicesByCustomerId(Long customerId) {
-        return invoiceRepository.findByCustomerId(customerId)
+    public List<InvoiceResponse> findAllActiveInvoicesByCustomerUsername(String customerUsername) {
+        return invoiceRepository.findByActiveCustomerUsername(customerUsername)
                 .stream()
                 .map(invoiceMapper::mapEntityToDto)
                 .toList();

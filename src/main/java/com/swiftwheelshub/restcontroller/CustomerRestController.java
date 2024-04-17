@@ -1,10 +1,15 @@
 package com.swiftwheelshub.restcontroller;
 
-import com.swiftwheelshub.dto.CustomerRequest;
-import com.swiftwheelshub.dto.CustomerResponse;
+import com.swiftwheelshub.aspect.LogActivity;
+import com.swiftwheelshub.dto.RegisterRequest;
+import com.swiftwheelshub.dto.RegistrationResponse;
+import com.swiftwheelshub.dto.UserInfo;
+import com.swiftwheelshub.dto.UserUpdateRequest;
 import com.swiftwheelshub.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,46 +26,73 @@ public class CustomerRestController {
 
     private final CustomerService customerService;
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<CustomerResponse> findCustomerById(@PathVariable("id") Long id) {
-        CustomerResponse customerResponse = customerService.findCustomerById(id);
-
-        return ResponseEntity.ok(customerResponse);
+    @GetMapping(path = "/current")
+    @Secured("user")
+    public ResponseEntity<UserInfo> getCurrentUser() {
+        return ResponseEntity.ok(customerService.getCurrentUser());
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deleteCustomerById(@PathVariable("id") Long id) {
-        customerService.deleteCustomerById(id);
+    @GetMapping(path = "/{username}")
+    @Secured("admin")
+    public ResponseEntity<UserInfo> findUserByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok(customerService.findUserByUsername(username));
+    }
+
+    @PostMapping("/register")
+    @LogActivity(
+            sentParameters = "registerRequest",
+            activityDescription = "User registration"
+    )
+    public ResponseEntity<RegistrationResponse> registerUser(@RequestBody @Validated RegisterRequest registerRequest) {
+        return ResponseEntity.ok(customerService.registerCustomer(registerRequest));
+    }
+
+    @PutMapping(path = "/{id}")
+    @Secured("admin")
+    @LogActivity(
+            sentParameters = "id",
+            activityDescription = "User update"
+    )
+    public ResponseEntity<UserInfo> updateUser(@PathVariable("id") String id,
+                                               @RequestBody @Validated UserUpdateRequest userUpdateRequest) {
+        return ResponseEntity.ok(customerService.updateUser(id, userUpdateRequest));
+    }
+
+    @GetMapping(path = "/count")
+    @Secured("admin")
+    public ResponseEntity<Integer> countUsers() {
+        return ResponseEntity.ok(customerService.countUsers());
+    }
+
+    @DeleteMapping(path = "/{username}")
+    @Secured("admin")
+    @LogActivity(
+            sentParameters = "username",
+            activityDescription = "User deletion"
+    )
+    public ResponseEntity<Void> deleteUserByUsername(@PathVariable("username") String username) {
+        customerService.deleteUserByUsername(username);
 
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping
-    public ResponseEntity<CustomerResponse> saveCustomer(@RequestBody CustomerRequest customerRequest) {
-        CustomerResponse savedCustomerResponse = customerService.saveCustomer(customerRequest);
+    @DeleteMapping(path = "/current")
+    @Secured("admin")
+    @LogActivity(
+            activityDescription = "Current user deletion"
+    )
+    public ResponseEntity<Void> deleteCurrentUser() {
+        customerService.deleteCurrentUser();
 
-        return ResponseEntity.ok(savedCustomerResponse);
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<CustomerResponse> updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerRequest customerRequest) {
-        CustomerResponse updatedCustomerResponse = customerService.updateCustomer(id, customerRequest);
+    @GetMapping(path = "/sign-out")
+    @Secured("user")
+    public ResponseEntity<Void> signOut() {
+        customerService.signOut();
 
-        return ResponseEntity.ok(updatedCustomerResponse);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<CustomerResponse>> listAllCustomer() {
-        List<CustomerResponse> customerResponses = customerService.findAllCustomers();
-
-        return ResponseEntity.ok(customerResponses);
-    }
-
-    @GetMapping(path = "/username")
-    public ResponseEntity<Boolean> existsUserByUsername(@PathVariable("username") String username) {
-        boolean existsUser = customerService.existsByUsername(username);
-
-        return ResponseEntity.ok(existsUser);
+        return ResponseEntity.noContent().build();
     }
 
 }

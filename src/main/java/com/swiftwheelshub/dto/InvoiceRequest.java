@@ -14,8 +14,7 @@ import java.time.LocalDate;
 @Setter
 public class InvoiceRequest {
 
-    private Long id;
-    private CustomerDetails customerDetails;
+    private String customerUsername;
     private CarDetails carDetails;
     private EmployeeDetails receptionistEmployeeDetails;
     private BookingDetails bookingDetails;

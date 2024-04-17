@@ -54,9 +54,7 @@ public class EmployeeService {
     }
 
     public EmployeeResponse updateEmployee(Long id, EmployeeRequest updatedEmployeeRequest) {
-        Long actualId = getId(id, updatedEmployeeRequest.getId());
-
-        Employee existingEmployee = findEntityById(actualId);
+        Employee existingEmployee = findEntityById(id);
 
         Branch workingBranch = branchService.findEntityById(updatedEmployeeRequest.getWorkingBranchDetails().getId());
 

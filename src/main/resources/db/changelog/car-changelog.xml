@@ -41,17 +41,26 @@
             <column name="amount" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="branch_id" type="bigint">
+            <column name="original_branch_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="url_of_image" type="varchar(50)">
+            <column name="actual_branch_id" type="bigint">
                 <constraints nullable="false"/>
+            </column>
+            <column name="image" type="blob">
+                <constraints nullable="true"/>
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseColumnNames="branch_id"
+        <addForeignKeyConstraint baseColumnNames="original_branch_id"
                                  baseTableName="car"
-                                 constraintName="fk_car_branch_id"
+                                 constraintName="fk_car_original_branch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="branch"/>
+
+        <addForeignKeyConstraint baseColumnNames="actual_branch_id"
+                                 baseTableName="car"
+                                 constraintName="fk_car_actual_branch_id"
                                  referencedColumnNames="id"
                                  referencedTableName="branch"/>
     </changeSet>
@@ -73,8 +82,8 @@
             <column name="mileage" value="250000"/>
             <column name="car_status" value="AVAILABLE"/>
             <column name="amount" value="500"/>
-            <column name="branch_id" value="1"/>
-            <column name="url_of_image" value="url"/>
+            <column name="original_branch_id" value="1"/>
+            <column name="actual_branch_id" value="1"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

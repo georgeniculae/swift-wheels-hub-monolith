@@ -12,6 +12,12 @@ spring:
   threads:
     virtual:
       enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/swift-wheels-hub
+          jwk-set-uri: http://localhost:8080/realms/swift-wheels-hub/protocol/openid-connect/certs
   datasource:
     url: jdbc:mysql://localhost:3306/swift_wheels_hub?serverTimezone=Europe/Bucharest
     username: ${MYSQL_USERNAME}
@@ -48,7 +54,8 @@ logging:
             sql:
               BasicBinder: TRACE
 
-token:
-  expiration: 30
-  signing:
-    key: ${TOKEN_SIGNING_KEY}
+keycloak:
+  serverUrl: http://localhost:8080
+  realm: ${KEYCLOAK_REALM}
+  clientId: ${KEYCLOAK_CLIENT_ID}
+  clientSecret: ${KEYCLOAK_CLIENT_SECRET}

@@ -2,19 +2,19 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.BookingRequest;
 import com.swiftwheelshub.dto.BookingResponse;
+import com.swiftwheelshub.dto.UpdateCarRequest;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.BookingStatus;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.CarStatus;
-import com.swiftwheelshub.entity.Customer;
 import com.swiftwheelshub.entity.Invoice;
+import com.swiftwheelshub.exception.SwiftWheelsHubException;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.exception.SwiftWheelsHubResponseStatusException;
 import com.swiftwheelshub.mapper.BookingMapper;
 import com.swiftwheelshub.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -29,21 +29,20 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final CarService carService;
-    private final CustomerService customerService;
     private final BranchService branchService;
+    private final AuthenticationInfoExtractorService authenticationInfoExtractorService;
     private final BookingMapper bookingMapper;
 
     public BookingResponse saveBooking(BookingRequest newBookingRequest) {
         validateBookingDates(newBookingRequest);
         Booking newBooking = bookingMapper.mapDtoToEntity(newBookingRequest);
 
-        Customer customer = customerService.getLoggedInCustomer();
         Car car = carService.findEntityById(newBookingRequest.getCarDetails().getId());
         car.setCarStatus(CarStatus.NOT_AVAILABLE);
-        Branch rentalBranch = branchService.findEntityById(car.getBranch().getId());
+        Branch rentalBranch = branchService.findEntityById(car.getActualBranch().getId());
 
-        Invoice invoice = setupInvoice(newBooking, customer, car);
-        Booking setupBooking = setupNewBooking(newBooking, customer, car, rentalBranch, invoice);
+        Invoice invoice = setupInvoice(newBooking, car);
+        Booking setupBooking = setupNewBooking(newBooking, car, rentalBranch, invoice);
 
         Booking savedBooking = bookingRepository.save(setupBooking);
 
@@ -51,10 +50,8 @@ public class BookingService {
     }
 
     public BookingResponse updateBooking(Long id, BookingRequest updatedBookingRequest) {
-        Long actualId = getId(id, updatedBookingRequest.getId());
-
         validateBookingDates(updatedBookingRequest);
-        Booking existingBooking = findEntityById(actualId);
+        Booking existingBooking = findEntityById(id);
 
         Car car = carService.findEntityById(updatedBookingRequest.getCarDetails().getId());
 
@@ -62,7 +59,7 @@ public class BookingService {
         existingBooking.setDateFrom(updatedBookingRequest.getDateFrom());
         existingBooking.setDateTo(updatedBookingRequest.getDateTo());
         existingBooking.setCar(car);
-        existingBooking.setRentalBranch(car.getBranch());
+        existingBooking.setRentalBranch(car.getActualBranch());
         existingBooking.setAmount(getAmount(updatedBookingRequest.getDateFrom(), updatedBookingRequest.getDateTo(), car.getAmount()));
 
         Booking savedBooking = bookingRepository.save(existingBooking);
@@ -83,8 +80,16 @@ public class BookingService {
                 .toList();
     }
 
-    public void deleteBookingById(Long id) {
-        bookingRepository.deleteById(id);
+    public void deleteBookingByCustomerUsername(String username) {
+        List<Booking> existingBookings = bookingRepository.findByCustomerUsername(username);
+
+        try {
+            bookingRepository.deleteByCustomerUsername(username);
+        } catch (Exception e) {
+            throw new SwiftWheelsHubException(e.getMessage());
+        }
+
+        carService.updateCarsStatus(getUpdateCarRequests(existingBookings));
     }
 
     public Long countBookings() {
@@ -94,7 +99,7 @@ public class BookingService {
     public Long countCustomersWithBookings() {
         return bookingRepository.findAll()
                 .stream()
-                .map(Booking::getCustomer)
+                .map(Booking::getCustomerUsername)
                 .distinct()
                 .count();
     }
@@ -106,13 +111,15 @@ public class BookingService {
     }
 
     public Long countByLoggedInCustomer() {
-        Customer loggedInCustomer = customerService.getLoggedInCustomer();
+        String username = authenticationInfoExtractorService.getUsername();
 
-        return bookingRepository.countByCustomer(loggedInCustomer);
+        return bookingRepository.countByCustomerUsername(username);
     }
 
     public List<BookingResponse> findBookingsByLoggedInCustomer() {
-        return bookingRepository.findBookingsByCustomer(customerService.getLoggedInCustomer())
+        String username = authenticationInfoExtractorService.getUsername();
+
+        return bookingRepository.findByCustomerUsername(username)
                 .stream()
                 .map(bookingMapper::mapEntityToDto)
                 .toList();
@@ -134,16 +141,6 @@ public class BookingService {
 
     public LocalDate getCurrentDate() {
         return LocalDate.now();
-    }
-
-    private Long getId(Long id, Long updatedBookingId) {
-        Long idSet = updatedBookingId;
-
-        if (ObjectUtils.isNotEmpty(id)) {
-            idSet = id;
-        }
-
-        return idSet;
     }
 
     private void validateBookingDates(BookingRequest newBookingRequest) {
@@ -175,20 +172,20 @@ public class BookingService {
                 .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Booking with id " + id + " does not exist"));
     }
 
-    private Invoice setupInvoice(Booking newBooking, Customer customer, Car car) {
+    private Invoice setupInvoice(Booking newBooking, Car car) {
         Invoice invoice = new Invoice();
 
         newBooking.setInvoice(invoice);
 
-        invoice.setCustomer(customer);
+        invoice.setCustomerUsername(authenticationInfoExtractorService.getUsername());
         invoice.setCar(car);
         invoice.setBooking(newBooking);
 
         return invoice;
     }
 
-    private Booking setupNewBooking(Booking newBooking, Customer customer, Car car, Branch rentalBranch, Invoice invoice) {
-        newBooking.setCustomer(customer);
+    private Booking setupNewBooking(Booking newBooking, Car car, Branch rentalBranch, Invoice invoice) {
+        newBooking.setCustomerUsername(authenticationInfoExtractorService.getUsername());
         newBooking.setCar(car);
         newBooking.setDateOfBooking(LocalDate.now());
         newBooking.setRentalBranch(rentalBranch);
@@ -197,6 +194,15 @@ public class BookingService {
         newBooking.setInvoice(invoice);
 
         return newBooking;
+    }
+
+    private List<UpdateCarRequest> getUpdateCarRequests(List<Booking> existingBookings) {
+        return existingBookings.stream()
+                .map(booking -> UpdateCarRequest.builder()
+                        .carId(booking.getCar().getId())
+                        .carState(CarStatus.AVAILABLE)
+                        .build())
+                .toList();
     }
 
 }

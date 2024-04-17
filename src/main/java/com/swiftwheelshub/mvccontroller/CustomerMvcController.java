@@ -1,6 +1,7 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.CustomerRequest;
+import com.swiftwheelshub.dto.RegisterRequest;
+import com.swiftwheelshub.dto.UserUpdateRequest;
 import com.swiftwheelshub.service.BookingService;
 import com.swiftwheelshub.service.CustomerService;
 import jakarta.validation.Valid;
@@ -20,6 +21,30 @@ public class CustomerMvcController {
     private final CustomerService customerService;
     private final BookingService bookingService;
 
+    @GetMapping(path = "/login")
+    public String showLogin() {
+        return "login";
+    }
+
+    @GetMapping(path = "/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("customer", new RegisterRequest());
+
+        return "register";
+    }
+
+    @PostMapping(path = "/user/register")
+    public String registerUser(@ModelAttribute("customer") @Valid RegisterRequest registerRequest,
+                               BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
+        customerService.registerCustomer(registerRequest);
+
+        return "login";
+    }
+
     @GetMapping(path = "/account/orders")
     public String showCurrentUserOrders(Model model) {
         model.addAttribute("orders", bookingService.findBookingsByLoggedInCustomer());
@@ -31,69 +56,69 @@ public class CustomerMvcController {
 
     @GetMapping(path = "/settings")
     public String showSettingPage(Model model) {
-        model.addAttribute("customer", customerService.findLoggedInCustomer());
+        model.addAttribute("customer", customerService.getCurrentUser());
 
         return "settings";
     }
 
     @PostMapping(path = "/settings/customer/update")
-    public String editCurrentCustomer(@ModelAttribute("customer") @Valid CustomerRequest customer, BindingResult bindingResult) {
+    public String editCurrentCustomer(@ModelAttribute("customer") @Valid RegisterRequest customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "settings";
         }
 
-        customerService.saveCustomer(customer);
+        customerService.registerCustomer(customer);
 
         return "redirect:/";
     }
 
     @GetMapping(path = "/customers")
     public String showCustomers(Model model) {
-        model.addAttribute("customers", customerService.findAllCustomers());
-        model.addAttribute("customersNumber", customerService.countCustomersWithoutBaseUsers());
+        model.addAttribute("customers", customerService.findAllUsers());
+        model.addAttribute("customersNumber", customerService.countUsers());
 
         return "customer-list";
     }
 
     @GetMapping(path = "/customer/registration")
     public String showAddCustomer(Model model) {
-        model.addAttribute("customer", new CustomerRequest());
+        model.addAttribute("customer", new RegisterRequest());
 
         return "add-customer";
     }
 
     @PostMapping(path = "/customer/add")
-    public String addCustomer(@ModelAttribute("customer") @Valid CustomerRequest customer, BindingResult bindingResult) {
+    public String addCustomer(@ModelAttribute("customer") @Valid RegisterRequest customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "add-customer";
         }
 
-        customerService.saveCustomer(customer);
+        customerService.registerCustomer(customer);
 
         return "redirect:/customers";
     }
 
-    @GetMapping(path = "/customer/delete/{id}")
-    public String deleteCustomerById(@PathVariable("id") Long id) {
-        customerService.deleteCustomerById(id);
+    @GetMapping(path = "/customer/delete/{username}")
+    public String deleteCustomerById(@PathVariable("username") String username) {
+        customerService.deleteUserByUsername(username);
 
         return "redirect:/customers";
     }
 
     @PostMapping(path = "/customer/update")
-    public String editCustomer(@ModelAttribute("customer") @Valid CustomerRequest customer, BindingResult bindingResult) {
+    public String editCustomer(@ModelAttribute("customer") @Valid UserUpdateRequest customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit-customer";
         }
 
-        customerService.updateCustomer(null, customer);
+        customerService.updateUser(null, customer);
 
         return "redirect:/customers";
     }
 
-    @GetMapping(path = "/customer/edit/{id}")
-    public String showEditPageCustomer(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("customer", customerService.findCustomerById(id));
+    @GetMapping(path = "/customer/edit/{username}")
+    public String showEditPageCustomer(@PathVariable("username") String username, Model model) {
+        model.addAttribute("customer", customerService.findUserByUsername(username));
 
         return "edit-customer";
     }

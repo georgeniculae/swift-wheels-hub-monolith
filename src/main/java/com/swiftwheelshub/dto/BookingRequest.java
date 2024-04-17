@@ -17,10 +17,9 @@ import java.time.LocalDate;
 @Setter
 public class BookingRequest {
 
-    private Long id;
+    private String customerUsername;
     private LocalDate dateOfBooking;
     private BookingStatus status;
-    private CustomerDetails customerDetails;
     private CarDetails carDetails;
     private LocalDate dateFrom;
     private LocalDate dateTo;

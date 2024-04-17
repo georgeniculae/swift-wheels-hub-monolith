@@ -1,6 +1,5 @@
 package com.swiftwheelshub.service;
 
-import com.swiftwheelshub.dto.RevenueRequest;
 import com.swiftwheelshub.dto.RevenueResponse;
 import com.swiftwheelshub.entity.Revenue;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;

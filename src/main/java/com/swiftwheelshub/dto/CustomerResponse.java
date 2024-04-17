@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class CustomerResponse extends UserDto {
+public class CustomerResponse extends UserInfo {
 
     private LocalDate dateOfBirth;
     private String address;

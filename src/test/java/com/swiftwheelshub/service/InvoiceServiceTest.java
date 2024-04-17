@@ -100,14 +100,14 @@ class InvoiceServiceTest {
     }
 
     @Test
-    void findAllInvoicesByCustomerIdTest_success() {
+    void findAllActiveInvoicesByCustomerUsernameTest_success() {
         Invoice invoice = TestUtils.getResourceAsJson("/data/Invoice.json", Invoice.class);
         invoice.getBooking().setStatus(BookingStatus.IN_PROGRESS);
 
-        when(invoiceRepository.findByCustomerId(anyLong())).thenReturn(List.of(invoice));
+        when(invoiceRepository.findByActiveCustomerUsername(anyString())).thenReturn(List.of(invoice));
 
-        assertDoesNotThrow(() -> invoiceService.findAllInvoicesByCustomerId(1L));
-        List<InvoiceResponse> invoiceResponses = invoiceService.findAllInvoicesByCustomerId(1L);
+        assertDoesNotThrow(() -> invoiceService.findAllActiveInvoicesByCustomerUsername("user"));
+        List<InvoiceResponse> invoiceResponses = invoiceService.findAllActiveInvoicesByCustomerUsername("user");
 
         AssertionUtils.assertInvoiceResponse(invoice, invoiceResponses.getFirst());
     }

@@ -20,6 +20,7 @@ public class CarDetails {
     private String model;
     private String color;
     private BigDecimal amount;
-    private BranchDetails branchDetails;
+    private BranchDetails originalBranchDetails;
+    private BranchDetails actualBranchDetails;
 
 }

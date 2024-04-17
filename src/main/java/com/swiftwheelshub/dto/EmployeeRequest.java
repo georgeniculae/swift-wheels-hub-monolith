@@ -12,8 +12,6 @@ import lombok.Setter;
 @Setter
 public class EmployeeRequest {
 
-    private Long id;
-
     @NotEmpty(message = "First name cannot be empty")
     private String firstName;
 

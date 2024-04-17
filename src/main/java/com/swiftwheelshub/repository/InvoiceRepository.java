@@ -19,11 +19,10 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
     @Query("""
             From Invoice i
-            join i.customer c
             join i.booking b
-            where c.id = :customerId and
+            where i.customerUsername = :customerUsername and
             b.status = 'IN_PROGRESS'""")
-    List<Invoice> findByCustomerId(@Param("customerId") Long customerId);
+    List<Invoice> findByActiveCustomerUsername(@Param("customerUsername") String customerUsername);
 
     @Query("""
             From Invoice i

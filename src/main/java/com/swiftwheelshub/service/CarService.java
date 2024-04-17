@@ -2,8 +2,10 @@ package com.swiftwheelshub.service;
 
 import com.swiftwheelshub.dto.CarRequest;
 import com.swiftwheelshub.dto.CarResponse;
+import com.swiftwheelshub.dto.UpdateCarRequest;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
+import com.swiftwheelshub.entity.CarStatus;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.mapper.CarMapper;
 import com.swiftwheelshub.repository.CarRepository;
@@ -24,7 +26,8 @@ public class CarService {
     public CarResponse saveCar(CarRequest carRequest) {
         Car car = carMapper.mapDtoToEntity(carRequest);
 
-        car.setBranch(branchService.findEntityById(carRequest.getBranchDetails().getId()));
+        car.setOriginalBranch(branchService.findEntityById(carRequest.getBranchDetails().getId()));
+        car.setActualBranch(branchService.findEntityById(carRequest.getBranchDetails().getId()));
         Car savedCar = carRepository.save(car);
 
         return carMapper.mapEntityToDto(savedCar);
@@ -49,9 +52,7 @@ public class CarService {
     }
 
     public CarResponse updateCar(Long id, CarRequest updatedCarRequest) {
-        Long actualId = getId(id, updatedCarRequest.getId());
-
-        Car existingCar = findEntityById(actualId);
+        Car existingCar = findEntityById(id);
 
         Branch branch = branchService.findEntityById(updatedCarRequest.getBranchDetails().getId());
 
@@ -63,8 +64,7 @@ public class CarService {
         existingCar.setMileage(updatedCarRequest.getMileage());
         existingCar.setAmount(updatedCarRequest.getAmount());
         existingCar.setCarStatus(updatedCarRequest.getCarStatus());
-        existingCar.setBranch(branch);
-        existingCar.setUrlOfImage(updatedCarRequest.getUrlOfImage());
+        existingCar.setActualBranch(branch);
 
         Car savedCar = carRepository.save(existingCar);
 
@@ -90,6 +90,32 @@ public class CarService {
                 .stream()
                 .map(carMapper::mapEntityToDto)
                 .toList();
+    }
+
+    private List<Long> getIds(List<UpdateCarRequest> carsForUpdate) {
+        return carsForUpdate.stream()
+                .map(UpdateCarRequest::getCarId)
+                .toList();
+    }
+
+    public List<CarResponse> updateCarsStatus(List<UpdateCarRequest> updateCarRequests) {
+        List<Car> updatableCars = carRepository.findAllById(getIds(updateCarRequests));
+
+        updatableCars.forEach(car -> car.setCarStatus(getUpdatedCarStatus(updateCarRequests, car)));
+
+        return carRepository.saveAllAndFlush(updatableCars)
+                .stream()
+                .map(carMapper::mapEntityToDto)
+                .toList();
+    }
+
+    private CarStatus getUpdatedCarStatus(List<UpdateCarRequest> updateCarRequests, Car car) {
+        UpdateCarRequest matchingUpdateCarRequest = updateCarRequests.stream()
+                .filter(updateCarRequest -> car.getId().equals(updateCarRequest.getCarId()))
+                .findAny()
+                .orElseThrow(() -> new SwiftWheelsHubNotFoundException("Car details not found"));
+
+        return matchingUpdateCarRequest.getCarState();
     }
 
     private Long getId(Long id, Long updatedCarId) {

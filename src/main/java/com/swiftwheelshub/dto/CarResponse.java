@@ -19,12 +19,13 @@ public class CarResponse {
     private String make;
     private String model;
     private BodyType bodyType;
-    private int yearOfProduction;
+    private Integer yearOfProduction;
     private String color;
-    private int mileage;
+    private Integer mileage;
     private CarStatus carStatus;
     private BigDecimal amount;
-    private BranchDetails branchDetails;
+    private BranchDetails originalBranchDetails;
+    private BranchDetails actualBranchDetails;
     private String urlOfImage;
 
 }

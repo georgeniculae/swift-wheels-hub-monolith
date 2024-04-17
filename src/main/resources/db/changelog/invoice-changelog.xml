@@ -15,7 +15,7 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="customer_id" type="bigint">
+            <column name="customer_username" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="car_id" type="bigint">
@@ -46,18 +46,6 @@
                 <constraints nullable="true"/>
             </column>
         </createTable>
-
-        <addForeignKeyConstraint baseColumnNames="customer_id"
-                                 baseTableName="invoice"
-                                 constraintName="fk_invoice_customer_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="user"/>
-
-        <addForeignKeyConstraint baseColumnNames="car_id"
-                                 baseTableName="invoice"
-                                 constraintName="fk_invoice_car_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="car"/>
 
         <addForeignKeyConstraint baseColumnNames="receptionist_employee_id"
                                  baseTableName="invoice"

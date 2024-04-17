@@ -370,7 +370,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="yearOfProduction-span">Year Of Production</span>
                 </div>
-                <input type="number" id="yearOfProduction" min="2010" max="2021" th:field="${car.yearOfProduction}"
+                <input type="number" id="yearOfProduction" min="2010" max="2024" th:field="${car.yearOfProduction}"
                        class="form-control"
                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 <span th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="${car.yearOfProduction}"></span>
