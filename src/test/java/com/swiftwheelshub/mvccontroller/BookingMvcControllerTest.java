@@ -57,7 +57,7 @@ class BookingMvcControllerTest {
         when(bookingService.countBookings()).thenReturn(1L);
         when(bookingService.getSumOfAllBookingAmount()).thenReturn(BigDecimal.valueOf(500));
 
-        MvcResult mvcResult = this.mockMvc.perform(get("/bookings"))
+        MvcResult mvcResult = mockMvc.perform(get("/bookings"))
                 .andDo(print())
                 .andExpect(view().name("index"))
                 .andExpect(status().isOk())
