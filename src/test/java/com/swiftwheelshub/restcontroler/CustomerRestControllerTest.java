@@ -54,7 +54,7 @@ class CustomerRestControllerTest {
 
         when(customerService.findAllUsers()).thenReturn(List.of(userInfo));
 
-        MockHttpServletResponse response = mockMvc.perform(get(PATH)
+        MockHttpServletResponse response = mockMvc.perform(get(PATH + "/infos")
                         .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

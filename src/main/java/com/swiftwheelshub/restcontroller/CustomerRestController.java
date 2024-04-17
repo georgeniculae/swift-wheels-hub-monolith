@@ -19,12 +19,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/customers")
 public class CustomerRestController {
 
     private final CustomerService customerService;
+
+    @GetMapping(path = "/infos")
+    @Secured("user")
+    public ResponseEntity<List<UserInfo>> getAllUsers() {
+        return ResponseEntity.ok(customerService.findAllUsers());
+    }
 
     @GetMapping(path = "/current")
     @Secured("user")

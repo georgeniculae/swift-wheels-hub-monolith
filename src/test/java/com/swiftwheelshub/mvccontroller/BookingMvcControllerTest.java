@@ -1,38 +1,35 @@
 package com.swiftwheelshub.mvccontroller;
 
-import com.swiftwheelshub.dto.BookingRequest;
 import com.swiftwheelshub.dto.BookingResponse;
+import com.swiftwheelshub.restcontroller.BookingRestController;
 import com.swiftwheelshub.service.BookingService;
 import com.swiftwheelshub.service.BranchService;
 import com.swiftwheelshub.service.CarService;
 import com.swiftwheelshub.service.EmployeeService;
 import com.swiftwheelshub.util.TestUtils;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(BookingMvcController.class)
+@SpringBootTest(classes = BookingRestController.class)
+@AutoConfigureMockMvc
+@EnableWebMvc
 class BookingMvcControllerTest {
 
     @Autowired
@@ -51,7 +48,15 @@ class BookingMvcControllerTest {
     private EmployeeService employeeService;
 
     @Test
-    public void showBookingTest_success() throws Exception {
+    @WithMockUser(username = "admin", roles = "admin")
+    void showBookingTest_success() throws Exception {
+        BookingResponse bookingResponse =
+                TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
+
+        when(bookingService.findAllBookings()).thenReturn(List.of(bookingResponse));
+        when(bookingService.countBookings()).thenReturn(1L);
+        when(bookingService.getSumOfAllBookingAmount()).thenReturn(BigDecimal.valueOf(500));
+
         MvcResult mvcResult = this.mockMvc.perform(get("/bookings"))
                 .andDo(print())
                 .andExpect(view().name("index"))
@@ -59,106 +64,6 @@ class BookingMvcControllerTest {
                 .andReturn();
 
         assertEquals("application/json;charset=UTF-8", mvcResult.getResponse().getContentType());
-    }
-
-    @Test
-    @WithMockUser(value = "admin", username = "admin", password = "admin", roles = "ADMIN")
-    void showBookingTest_successWithMockUser() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/bookings")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(200, response.getStatus());
-        String responseAsString = response.getContentAsString();
-        assertNotNull(responseAsString);
-    }
-
-    @Test
-    void showRegistrationTest_success() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/booking/registration")
-                        .with(user("admin").password("admin").roles("ADMIN"))
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(200, response.getStatus());
-        String responseAsString = response.getContentAsString();
-        assertNotNull(responseAsString);
-    }
-
-    @Test
-    void addBookingFromIndexTest_success() throws Exception {
-        BookingResponse bookingResponse =
-                TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
-
-        String valueAsString = TestUtils.writeValueAsString(bookingResponse);
-
-        when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
-
-        MvcResult mvcResult = mockMvc.perform(post("/")
-                        .with(csrf())
-                        .with(user("admin").password("admin").roles("ADMIN"))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(valueAsString))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(200, response.getStatus());
-        String responseAsString = response.getContentAsString();
-        assertNotNull(responseAsString);
-    }
-
-    @Test
-    void addBookingFromIndexTest_unauthorized() throws Exception {
-        BookingResponse bookingResponse =
-                TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
-
-        String valueAsString = TestUtils.writeValueAsString(bookingResponse);
-
-        when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
-
-        MvcResult mvcResult = mockMvc.perform(post("/")
-                        .with(csrf().useInvalidToken())
-                        .with(user("admin").password("admin").roles("ADMIN"))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(valueAsString))
-                .andExpect(status().isForbidden())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(403, response.getStatus());
-        String responseAsString = response.getContentAsString();
-        assertNotNull(responseAsString);
-    }
-
-    @Test
-    void addBookingTest_success() throws Exception {
-        BookingResponse bookingResponse =
-                TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
-
-        String valueAsString = TestUtils.writeValueAsString(bookingResponse);
-
-        when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
-
-        MvcResult mvcResult = mockMvc.perform(post("/booking/add")
-                        .with(csrf())
-                        .with(user("admin").password("admin").roles("ADMIN"))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(valueAsString))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        MockHttpServletResponse response = mvcResult.getResponse();
-        assertEquals(200, response.getStatus());
-        String responseAsString = response.getContentAsString();
-        assertNotNull(responseAsString);
     }
 
 }

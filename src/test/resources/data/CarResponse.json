@@ -8,7 +8,11 @@
   "mileage": 270000,
   "carStatus": "AVAILABLE",
   "amount": 500,
-  "branchDetails": {
+  "originalBranchDetails": {
+    "id": 1,
+    "name": "Test Branch"
+  },
+  "actualBranchDetails": {
     "id": 1,
     "name": "Test Branch"
   },
