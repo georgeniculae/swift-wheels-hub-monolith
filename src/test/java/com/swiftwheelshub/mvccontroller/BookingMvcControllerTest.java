@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.math.BigDecimal;
@@ -48,7 +48,7 @@ class BookingMvcControllerTest {
     private EmployeeService employeeService;
 
     @Test
-    @WithMockUser(username = "admin", roles = "admin")
+    @WithMockUser
     void showBookingTest_success() throws Exception {
         BookingResponse bookingResponse =
                 TestUtils.getResourceAsJson("/data/BookingResponse.json", BookingResponse.class);
@@ -57,13 +57,14 @@ class BookingMvcControllerTest {
         when(bookingService.countBookings()).thenReturn(1L);
         when(bookingService.getSumOfAllBookingAmount()).thenReturn(BigDecimal.valueOf(500));
 
-        MvcResult mvcResult = mockMvc.perform(get("/bookings"))
+        MockHttpServletResponse response = mockMvc.perform(get("/bookings"))
                 .andDo(print())
                 .andExpect(view().name("index"))
                 .andExpect(status().isOk())
-                .andReturn();
+                .andReturn()
+                .getResponse();
 
-        assertEquals("application/json;charset=UTF-8", mvcResult.getResponse().getContentType());
+        assertEquals("application/json;charset=UTF-8", response.getContentType());
     }
 
 }
