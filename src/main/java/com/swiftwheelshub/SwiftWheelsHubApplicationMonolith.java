@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SwiftWheelsHubApplication {
+public class SwiftWheelsHubApplicationMonolith {
 
     public static void main(String[] args) {
-        SpringApplication.run(SwiftWheelsHubApplication.class, args);
+        SpringApplication.run(SwiftWheelsHubApplicationMonolith.class, args);
     }
 
 }

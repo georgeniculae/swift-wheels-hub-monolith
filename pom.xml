@@ -16,7 +16,7 @@
     <description>Swift Wheels Hub Project</description>
 
     <properties>
-        <java.version>22</java.version>
+        <java.version>21</java.version>
         <keycloak-client.version>23.0.4</keycloak-client.version>
         <resteasy-client.version>6.2.8.Final</resteasy-client.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
