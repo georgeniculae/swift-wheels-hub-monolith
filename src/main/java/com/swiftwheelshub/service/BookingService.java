@@ -1,19 +1,23 @@
 package com.swiftwheelshub.service;
 
+import com.swiftwheelshub.dto.BookingClosingDetails;
 import com.swiftwheelshub.dto.BookingRequest;
 import com.swiftwheelshub.dto.BookingResponse;
+import com.swiftwheelshub.dto.EmployeeResponse;
 import com.swiftwheelshub.dto.UpdateCarRequest;
 import com.swiftwheelshub.entity.Booking;
 import com.swiftwheelshub.entity.BookingStatus;
 import com.swiftwheelshub.entity.Branch;
 import com.swiftwheelshub.entity.Car;
 import com.swiftwheelshub.entity.CarStatus;
+import com.swiftwheelshub.entity.Employee;
 import com.swiftwheelshub.entity.Invoice;
 import com.swiftwheelshub.exception.SwiftWheelsHubException;
 import com.swiftwheelshub.exception.SwiftWheelsHubNotFoundException;
 import com.swiftwheelshub.exception.SwiftWheelsHubResponseStatusException;
 import com.swiftwheelshub.mapper.BookingMapper;
 import com.swiftwheelshub.repository.BookingRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,8 +34,26 @@ public class BookingService {
     private final BookingRepository bookingRepository;
     private final CarService carService;
     private final BranchService branchService;
+    private final EmployeeService employeeService;
     private final AuthenticationInfoExtractorService authenticationInfoExtractorService;
     private final BookingMapper bookingMapper;
+
+    public BookingResponse findBookingById(Long id) {
+        Booking booking = findEntityById(id);
+
+        return bookingMapper.mapEntityToDto(booking);
+    }
+
+    public List<BookingResponse> findAllBookings() {
+        return bookingRepository.findAll()
+                .stream()
+                .map(bookingMapper::mapEntityToDto)
+                .toList();
+    }
+
+    public Long countByLoggedInUser(HttpServletRequest request) {
+        return bookingRepository.countByCustomerUsername(authenticationInfoExtractorService.getUsername());
+    }
 
     public BookingResponse saveBooking(BookingRequest newBookingRequest) {
         validateBookingDates(newBookingRequest);
@@ -67,18 +89,28 @@ public class BookingService {
         return bookingMapper.mapEntityToDto(savedBooking);
     }
 
-    public BookingResponse findBookingById(Long id) {
-        Booking booking = findEntityById(id);
-
-        return bookingMapper.mapEntityToDto(booking);
-    }
-
-    public List<BookingResponse> findAllBookings() {
-        return bookingRepository.findAll()
-                .stream()
-                .map(bookingMapper::mapEntityToDto)
-                .toList();
-    }
+//    public BookingResponse closeBooking(HttpServletRequest request, BookingClosingDetails bookingClosingDetails) {
+//        BookingResponse bookingResponse;
+//
+//        try {
+//            Booking existingBooking = findEntityById(bookingClosingDetails.getBookingId());
+//
+//            Employee employee =
+//                    employeeService.findEntityById(bookingClosingDetails.getReceptionistEmployeeId());
+//
+//            existingBooking.setStatus(BookingStatus.CLOSED);
+//            existingBooking.setReturnBranchId(employee.getWorkingBranch().getId());
+//
+//            Booking savedBooking = bookingRepository.saveAndFlush(existingBooking);
+//            bookingResponse = bookingMapper.mapEntityToDto(savedBooking);
+//        } catch (Exception e) {
+//            throw new SwiftWheelsHubException(e.getMessage());
+//        }
+//
+//        updateCarWhenIsReturned(request, bookingResponse, bookingClosingDetails);
+//
+//        return bookingResponse;
+//    }
 
     public void deleteBookingByCustomerUsername(String username) {
         List<Booking> existingBookings = bookingRepository.findByCustomerUsername(username);

@@ -6,9 +6,10 @@ import com.swiftwheelshub.dto.RegistrationResponse;
 import com.swiftwheelshub.dto.UserInfo;
 import com.swiftwheelshub.dto.UserUpdateRequest;
 import com.swiftwheelshub.service.CustomerService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,32 +17,32 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/customers")
 public class CustomerRestController {
 
     private final CustomerService customerService;
 
     @GetMapping(path = "/infos")
-    @Secured("user")
-    public ResponseEntity<List<UserInfo>> getAllUsers() {
-        return ResponseEntity.ok(customerService.findAllUsers());
+    @PreAuthorize("hasRole('admin')")
+    public ResponseEntity<List<UserInfo>> findAllUsers() {
+        List<UserInfo> allCustomers = customerService.findAllUsers();
+
+        return ResponseEntity.ok(allCustomers);
     }
 
     @GetMapping(path = "/current")
-    @Secured("user")
+    @PreAuthorize("hasRole('user')")
     public ResponseEntity<UserInfo> getCurrentUser() {
         return ResponseEntity.ok(customerService.getCurrentUser());
     }
 
     @GetMapping(path = "/{username}")
-    @Secured("admin")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<UserInfo> findUserByUsername(@PathVariable("username") String username) {
         return ResponseEntity.ok(customerService.findUserByUsername(username));
     }
@@ -56,7 +57,7 @@ public class CustomerRestController {
     }
 
     @PutMapping(path = "/{id}")
-    @Secured("admin")
+    @PreAuthorize("hasRole('admin')")
     @LogActivity(
             sentParameters = "id",
             activityDescription = "User update"
@@ -67,13 +68,13 @@ public class CustomerRestController {
     }
 
     @GetMapping(path = "/count")
-    @Secured("admin")
+    @PreAuthorize("hasRole('admin')")
     public ResponseEntity<Integer> countUsers() {
         return ResponseEntity.ok(customerService.countUsers());
     }
 
     @DeleteMapping(path = "/{username}")
-    @Secured("admin")
+    @PreAuthorize("hasRole('admin')")
     @LogActivity(
             sentParameters = "username",
             activityDescription = "User deletion"
@@ -85,7 +86,7 @@ public class CustomerRestController {
     }
 
     @DeleteMapping(path = "/current")
-    @Secured("admin")
+    @PreAuthorize("hasRole('admin')")
     @LogActivity(
             activityDescription = "Current user deletion"
     )
@@ -96,8 +97,8 @@ public class CustomerRestController {
     }
 
     @GetMapping(path = "/sign-out")
-    @Secured("user")
-    public ResponseEntity<Void> signOut() {
+    @PreAuthorize("hasRole('user')")
+    public ResponseEntity<Void> signOut(HttpServletRequest request) {
         customerService.signOut();
 
         return ResponseEntity.noContent().build();
