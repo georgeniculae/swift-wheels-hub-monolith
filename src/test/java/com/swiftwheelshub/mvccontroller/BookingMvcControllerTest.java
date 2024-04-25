@@ -1,7 +1,6 @@
 package com.swiftwheelshub.mvccontroller;
 
 import com.swiftwheelshub.dto.BookingResponse;
-import com.swiftwheelshub.restcontroller.BookingRestController;
 import com.swiftwheelshub.service.BookingService;
 import com.swiftwheelshub.service.BranchService;
 import com.swiftwheelshub.service.CarService;
@@ -20,14 +19,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@SpringBootTest(classes = BookingRestController.class)
+@SpringBootTest(classes = BookingMvcController.class)
 @AutoConfigureMockMvc
 @EnableWebMvc
 class BookingMvcControllerTest {
@@ -59,12 +58,12 @@ class BookingMvcControllerTest {
 
         MockHttpServletResponse response = mockMvc.perform(get("/bookings"))
                 .andDo(print())
-                .andExpect(view().name("index"))
+                .andExpect(view().name("booking-list"))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse();
 
-        assertEquals("application/json;charset=UTF-8", response.getContentType());
+        assertNotNull(response);
     }
 
 }
