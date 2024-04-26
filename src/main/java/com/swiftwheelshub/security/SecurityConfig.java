@@ -45,7 +45,7 @@ public class SecurityConfig {
                                         "/rental-office/**").authenticated()
                                 .anyRequest().authenticated()
                 )
-//                .formLogin(loginConfig -> loginConfig.loginPage("/login").permitAll())
+                .formLogin(loginConfig -> loginConfig.loginPage("/login").permitAll())
                 .logout(logoutConfig -> logoutConfig.invalidateHttpSession(true)
                         .addLogoutHandler(keycloakLogoutHandler)
                         .clearAuthentication(true)
