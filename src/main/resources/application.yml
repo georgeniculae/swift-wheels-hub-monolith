@@ -8,7 +8,7 @@ server:
 
 spring:
   application:
-    name: swift-wheels-hub
+  name: swift-wheels-hub
   threads:
     virtual:
       enabled: true
@@ -18,6 +18,16 @@ spring:
         jwt:
           issuer-uri: http://localhost:8080/realms/swift-wheels-hub
           jwk-set-uri: http://localhost:8080/realms/swift-wheels-hub/protocol/openid-connect/certs
+        client:
+          provider:
+            keycloak:
+              issuer-uri: http://localhost:8080/realms/swift-wheels-hub
+              user-name-attribute: preferred_username
+          registration:
+            keycloak:
+              client-id: swift-wheels-hub
+              authorization-grant-type: authorization_code
+              scope: openid
   datasource:
     url: jdbc:mysql://localhost:3306/swift_wheels_hub?serverTimezone=Europe/Bucharest
     username: ${MYSQL_USERNAME}

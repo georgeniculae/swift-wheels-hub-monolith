@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -45,7 +46,8 @@ public class SecurityConfig {
                                         "/rental-office/**").authenticated()
                                 .anyRequest().authenticated()
                 )
-                .formLogin(loginConfig -> loginConfig.loginPage("/login").permitAll())
+//                .formLogin(loginConfig -> loginConfig.loginPage("/login").permitAll())
+                .oauth2Login(loginConfig -> loginConfig.loginPage("/login").permitAll())
                 .logout(logoutConfig -> logoutConfig.invalidateHttpSession(true)
                         .addLogoutHandler(keycloakLogoutHandler)
                         .clearAuthentication(true)
@@ -55,6 +57,7 @@ public class SecurityConfig {
                         resourceServerSpec.jwt(jwtSpec -> jwtSpec.jwkSetUri(jwkUri)
                                 .authenticationManager(authenticationManager)
                                 .jwtAuthenticationConverter(jwtAuthenticationTokenConverter)))
+                .oauth2Client(Customizer.withDefaults())
                 .build();
     }
 
