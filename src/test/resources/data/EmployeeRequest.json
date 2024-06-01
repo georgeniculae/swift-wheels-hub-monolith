@@ -1,9 +1,0 @@
-{
-  "firstName": "Ion",
-  "lastName": "Popescu",
-  "jobPosition": "manager",
-  "workingBranchDetails": {
-    "id": 1,
-    "name": "Test Branch"
-  }
-}
