@@ -1,0 +1,8 @@
+{
+  "name": "Test Branch",
+  "address": "Ploiesti",
+  "rentalOfficeDetails": {
+    "id": 1,
+    "name": "Test Rental Office"
+  }
+}

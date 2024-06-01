@@ -1,0 +1,31 @@
+{
+  "customerUsername": "user",
+  "carDetails": {
+    "id": 1,
+    "make": "Volkswagen",
+    "model": "Golf",
+    "color": "black",
+    "amount": 500,
+    "originalBranchDetails": {
+      "id": 1,
+      "name": "Test Branch"
+    },
+    "actualBranchDetails": {
+      "id": 1,
+      "name": "Test Branch"
+    }
+  },
+  "receptionistEmployeeDetails": {
+    "id": 1,
+    "firstName": "Ion",
+    "lastName": "Popescu"
+  },
+  "bookingDetails": {
+    "id": 1,
+    "status": "IN_PROGRESS"
+  },
+  "carDateOfReturn": "2050-02-22",
+  "isVehicleDamaged": true,
+  "damageCost": 50,
+  "comments": "comment"
+}

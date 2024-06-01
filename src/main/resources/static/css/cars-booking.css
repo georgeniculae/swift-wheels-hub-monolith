@@ -1,0 +1,313 @@
+.section {
+    margin-top: 100px
+}
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    zoom: 1
+}
+
+html {
+    font-size: 16px;
+    min-height: 100%
+}
+
+body {
+    font: 75%/150% "Lato", Arial, Helvetica, sans-serif;
+    background-color: #fff;
+    color: #838383;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -ms-overflow-style: scrollbar;
+    oveflow-y: scroll
+}
+
+iframe,
+img {
+    border: 0
+}
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+a:hover,
+a:focus {
+    color: #01b7f2;
+    text-decoration: none
+}
+
+a:focus {
+    outline: none
+}
+
+p {
+    font-size: 1.0833em;
+    line-height: 1.6666;
+    margin-bottom: 15px
+}
+
+dt {
+    font-weight: normal
+}
+
+span.active,
+a.active,
+h2.active,
+h3.active,
+h4.active,
+h5.active,
+h6.active {
+    color: #01b7f2
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 15px;
+    font-weight: normal;
+    color: #2d3e52
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1.25em
+}
+
+h2 {
+    font-size: 1.6667em;
+    line-height: 1.25em
+}
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.2222em
+}
+
+h4 {
+    font-size: 1.3333em;
+    line-height: 1.25em
+}
+
+h5 {
+    font-size: 1.1666em;
+    line-height: 1.1428em
+}
+
+h6 {
+    font-size: 1em
+}
+
+h1.fourty-space {
+    font-size: 1.3333em;
+    line-height: 1.25em;
+    letter-spacing: .04em
+}
+
+h2.fourty-space {
+    font-size: 1.1666em;
+    line-height: 1.1428em;
+    letter-spacing: .04em
+}
+
+h3.fourty-space {
+    font-size: 1.0833em;
+    line-height: 1.1428em;
+    letter-spacing: .04em
+}
+
+h4.fourty-space {
+    font-size: 1em;
+    line-height: 1.1em;
+    letter-spacing: .04em
+}
+
+h5.fourty-space {
+    font-size: 0.9166;
+    line-height: 1.1em;
+    letter-spacing: .04em
+}
+
+h6.fourty-space {
+    font-size: 0.8333em;
+    line-height: 1.1em;
+    letter-spacing: .04em
+}
+
+ol,
+ul {
+    list-style: none;
+    margin: 0
+}
+
+.banner .med-caption {
+    font-size: 2.5em
+}
+
+.box-title {
+    margin-bottom: 0;
+    line-height: 1em
+}
+
+.box-title small {
+    font-size: 10px;
+    color: #838383;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 4px
+}
+
+button,
+input[type="button"].button,
+a.button {
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0 15px;
+    white-space: nowrap
+}
+
+button.btn-small,
+input[type="button"].button.btn-small,
+a.button.btn-small {
+    height: 28px;
+    padding: 0 24px;
+    line-height: 28px;
+    font-size: 0.9167em
+}
+
+a.button {
+    display: inline-block;
+    background: #d9d9d9;
+    font-size: 0.8333em;
+    line-height: 1.8333em;
+    white-space: nowrap;
+    text-align: center
+}
+
+a.button:hover {
+    background: #98ce44
+}
+
+button.yellow,
+a.button.yellow,
+input[type="button"].button.yellow {
+    background: #f0715f
+}
+
+button.yellow:hover,
+a.button.yellow:hover,
+input[type="button"].button.yellow:hover {
+    background: #f0715f
+}
+
+.five-stars-container {
+    display: inline-block;
+    position: relative;
+    font-family: 'Glyphicons Halflings';
+    font-size: 14px;
+    text-align: left;
+    cursor: default;
+    white-space: nowrap;
+    line-height: 1.2em;
+    color: #dbdbdb
+}
+
+.five-stars-container .five-stars,
+.five-stars-container.editable-rating .ui-slider-range {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    padding-left: 1px
+}
+
+.five-stars-container .five-stars:before,
+.five-stars-container.editable-rating .ui-slider-range:before {
+    content: "\e006\e006\e006\e006\e006";
+    color: #ef715f
+}
+
+.five-stars-container:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 1px;
+    content: "\e006\e006\e006\e006\e006";
+    z-index: 0
+}
+
+.price {
+    color: #7db921;
+    font-size: 1.6667em;
+    text-transform: uppercase;
+    float: right;
+    text-align: right;
+    line-height: 1;
+    display: block
+}
+
+.price small {
+    display: block;
+    color: #838383;
+    font-size: 0.5em
+}
+
+.price-wrapper {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 0.8333em;
+    color: inherit;
+    line-height: 1.3333em;
+    margin: 0
+}
+
+.price-wrapper .price-per-unit {
+    color: #7db921;
+    font-size: 1.4em;
+    padding-right: 5px
+}
+
+.image-carousel.style2 .slides>li {
+    margin-right: 30px
+}
+
+.image-box .box>.details,
+.image-box.box>.details {
+    padding: 12px 15px
+}
+
+.listing-style1.hotel .feedback {
+    margin: 5px 0;
+    border-top: 1px solid #f5f5f5;
+    padding-top: 5px;
+    border-bottom: 1px solid #f5f5f5
+}
+
+.listing-style1.hotel .feedback .review {
+    display: block;
+    float: right;
+    text-transform: uppercase;
+    font-size: 0.8333em;
+    color: #9e9e9e
+}
+
+.listing-style1.hotel .action .button:last-child {
+    float: right
+}
+
+.box {
+    border: 1px solid #cccccc
+}
+
+.fa {
+    color: #f0715f
+}
