@@ -55,7 +55,6 @@ class CustomerRestControllerTest {
         when(customerService.findAllUsers()).thenReturn(List.of(userInfo));
 
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/infos")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -73,7 +72,6 @@ class CustomerRestControllerTest {
         when(customerService.findAllUsers()).thenReturn(List.of(userInfo));
 
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/infos")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -91,7 +89,6 @@ class CustomerRestControllerTest {
         when(customerService.getCurrentUser()).thenReturn(userInfo);
 
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/current")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -105,7 +102,6 @@ class CustomerRestControllerTest {
     @WithAnonymousUser
     void getCurrentUserTest_unauthorized() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/current")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -129,7 +125,6 @@ class CustomerRestControllerTest {
         when(customerService.registerCustomer(any(RegisterRequest.class))).thenReturn(registrationResponse);
 
         MockHttpServletResponse response = mockMvc.perform(post(PATH + "/register")
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -156,7 +151,6 @@ class CustomerRestControllerTest {
                 .thenReturn(registrationResponse);
 
         MockHttpServletResponse response = mockMvc.perform(post(PATH + "/register")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content))
@@ -181,7 +175,6 @@ class CustomerRestControllerTest {
         when(customerService.registerCustomer(any(RegisterRequest.class))).thenReturn(registrationResponse);
 
         MockHttpServletResponse response = mockMvc.perform(post(PATH + "/register")
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -203,7 +196,6 @@ class CustomerRestControllerTest {
         when(customerService.updateUser(anyString(), any(UserUpdateRequest.class))).thenReturn(userInfo);
 
         MockHttpServletResponse response = mockMvc.perform(put(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .with(csrf())
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -224,7 +216,6 @@ class CustomerRestControllerTest {
         String content = TestUtils.writeValueAsString(userInfo);
 
         MockHttpServletResponse response = mockMvc.perform(put(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -244,7 +235,6 @@ class CustomerRestControllerTest {
         String content = TestUtils.writeValueAsString(userInfo);
 
         MockHttpServletResponse response = mockMvc.perform(put(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -264,7 +254,6 @@ class CustomerRestControllerTest {
         when(customerService.findUserByUsername(anyString())).thenReturn(userInfo);
 
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/{username}", "admin")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -278,7 +267,6 @@ class CustomerRestControllerTest {
     @WithAnonymousUser
     void findUserByUsernameTest_unauthorized() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/{username}", "admin")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -294,7 +282,6 @@ class CustomerRestControllerTest {
         when(customerService.countUsers()).thenReturn(1);
 
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/count")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -308,7 +295,6 @@ class CustomerRestControllerTest {
     @WithAnonymousUser
     void countUsersTest_unauthorized() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/count")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -324,7 +310,6 @@ class CustomerRestControllerTest {
         doNothing().when(customerService).deleteUserByUsername(anyString());
 
         MockHttpServletResponse response = mockMvc.perform(delete(PATH + "/{username}", "user")
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -339,7 +324,6 @@ class CustomerRestControllerTest {
     @WithAnonymousUser
     void deleteUserByUsernameTest_unauthorized() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(delete(PATH + "/{username}", "user")
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -356,7 +340,6 @@ class CustomerRestControllerTest {
         doNothing().when(customerService).deleteUserByUsername(anyString());
 
         MockHttpServletResponse response = mockMvc.perform(delete(PATH + "/current")
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -371,7 +354,6 @@ class CustomerRestControllerTest {
     @WithAnonymousUser
     void deleteCurrentTest_unauthorized() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(delete(PATH + "/current")
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -388,7 +370,6 @@ class CustomerRestControllerTest {
         doNothing().when(customerService).signOut();
 
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/sign-out")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent())
@@ -404,7 +385,6 @@ class CustomerRestControllerTest {
         doNothing().when(customerService).signOut();
 
         MockHttpServletResponse response = mockMvc.perform(get(PATH + "/sign-out")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())

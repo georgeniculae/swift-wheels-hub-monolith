@@ -52,7 +52,6 @@ class BookingRestControllerTest {
         when(bookingService.findAllBookings()).thenReturn(List.of(bookingResponse));
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/list")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -71,7 +70,6 @@ class BookingRestControllerTest {
         when(bookingService.findAllBookings()).thenReturn(List.of(bookingResponse));
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH)
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -90,7 +88,6 @@ class BookingRestControllerTest {
         when(bookingService.findBookingById(anyLong())).thenReturn(bookingResponse);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -104,7 +101,6 @@ class BookingRestControllerTest {
     @WithAnonymousUser()
     void findBookingByIdTest_unauthorized() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/{id}", 1)
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -120,7 +116,6 @@ class BookingRestControllerTest {
         when(bookingService.countBookings()).thenReturn(1L);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -136,7 +131,6 @@ class BookingRestControllerTest {
         when(bookingService.countBookings()).thenReturn(1L);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -152,7 +146,6 @@ class BookingRestControllerTest {
         when(bookingService.countBookings()).thenReturn(1L);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count-by-current-user")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -166,7 +159,6 @@ class BookingRestControllerTest {
     @WithAnonymousUser
     void countByLoggedInUserTest_unauthorized() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/count-by-current-user")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -182,7 +174,6 @@ class BookingRestControllerTest {
         when(bookingService.countBookings()).thenReturn(1L);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/current-date")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -198,7 +189,6 @@ class BookingRestControllerTest {
         when(bookingService.countBookings()).thenReturn(1L);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(PATH + "/current-date")
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -219,7 +209,6 @@ class BookingRestControllerTest {
         when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(PATH + "/new")
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -243,7 +232,6 @@ class BookingRestControllerTest {
                 .thenReturn(bookingResponse);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -266,7 +254,6 @@ class BookingRestControllerTest {
         when(bookingService.saveBooking(any(BookingRequest.class))).thenReturn(bookingResponse);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(PATH)
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content))
@@ -291,7 +278,6 @@ class BookingRestControllerTest {
 //                .thenReturn(bookingResponse);
 //
 //        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(PATH + "/close-booking")
-//                        .contextPath(PATH)
 //                        .with(csrf())
 //                        .contentType(MediaType.APPLICATION_JSON)
 //                        .accept(MediaType.APPLICATION_JSON)
@@ -317,7 +303,6 @@ class BookingRestControllerTest {
 //                .thenReturn(bookingResponse);
 //
 //        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(PATH + "/close-booking")
-//                        .contextPath(PATH)
 //                        .with(csrf())
 //                        .contentType(MediaType.APPLICATION_JSON)
 //                        .accept(MediaType.APPLICATION_JSON)
@@ -343,7 +328,6 @@ class BookingRestControllerTest {
 //                .thenReturn(bookingResponse);
 //
 //        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post(PATH + "/close-booking")
-//                        .contextPath(PATH)
 //                        .contentType(MediaType.APPLICATION_JSON)
 //                        .accept(MediaType.APPLICATION_JSON)
 //                        .content(content))
@@ -366,7 +350,6 @@ class BookingRestControllerTest {
                 .thenReturn(bookingResponse);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .with(csrf())
                         .with(user("admin").password("admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -391,7 +374,6 @@ class BookingRestControllerTest {
                 .thenReturn(bookingResponse);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/edit/{id}", 1L)
-                        .contextPath(PATH)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -415,7 +397,6 @@ class BookingRestControllerTest {
                 .thenReturn(bookingResponse);
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.put(PATH + "/edit/{id}", 1L)
-                        .contextPath(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(content))
@@ -432,7 +413,6 @@ class BookingRestControllerTest {
         doNothing().when(bookingService).deleteBookingByCustomerUsername(anyString());
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .with(csrf()))
                 .andExpect(status().isNoContent())
                 .andReturn()
@@ -447,7 +427,6 @@ class BookingRestControllerTest {
         doNothing().when(bookingService).deleteBookingByCustomerUsername(anyString());
 
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .with(csrf()))
                 .andExpect(status().isUnauthorized())
                 .andReturn()
@@ -460,7 +439,6 @@ class BookingRestControllerTest {
     @WithAnonymousUser
     void deleteBookingByIdTest_forbidden() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete(PATH + "/{id}", 1L)
-                        .contextPath(PATH)
                         .with(user("admin").password("admin").roles("ADMIN")))
                 .andExpect(status().isForbidden())
                 .andReturn()
