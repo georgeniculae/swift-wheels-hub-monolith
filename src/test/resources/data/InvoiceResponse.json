@@ -1,0 +1,34 @@
+{
+  "id": 1,
+  "customerDetails": {
+    "id": 1,
+    "firstName": "User",
+    "lastName": "User",
+    "email": "user@email.com",
+    "address": "Ploiesti"
+  },
+  "carDetails": {
+    "id": 1,
+    "make": "Volkswagen",
+    "model": "Golf",
+    "color": "black",
+    "amount": 500,
+    "branchDetails": {
+      "id": 1,
+      "name": "Test Branch"
+    }
+  },
+  "receptionistEmployeeDetails": {
+    "id": 1,
+    "firstName": "Ion",
+    "lastName": "Popescu"
+  },
+  "bookingDetails": {
+    "id": 1,
+    "status": "IN_PROGRESS"
+  },
+  "carDateOfReturn": "2050-02-22",
+  "isVehicleDamaged": true,
+  "damageCost": 50,
+  "comments": "comment"
+}
