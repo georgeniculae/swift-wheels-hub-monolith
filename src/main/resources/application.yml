@@ -27,7 +27,8 @@ spring:
             keycloak:
               client-id: swift-wheels-hub
               authorization-grant-type: authorization_code
-              scope: openid
+              provider: keycloak
+              scope: openid,profile,email,offline_access
   datasource:
     url: jdbc:mysql://localhost:3306/swift_wheels_hub?serverTimezone=Europe/Bucharest
     username: ${MYSQL_USERNAME}
